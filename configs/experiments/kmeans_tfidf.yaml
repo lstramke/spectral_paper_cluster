@@ -8,7 +8,7 @@ input:
   separator: ","
 
 pipeline:
-  n_clusters: 8
+  n_clusters: 3
   max_iter: 100
   tol: 0.0001
   seed: 42
@@ -20,7 +20,7 @@ tfidf:
   max_df: 0.95
   lowercase: true
   use_lsa: true
-  lsa_components: 20
+  lsa_components: 100
 
 visualization:
   output_path: outputs/kmeans_tfidf_pca.png
