@@ -1,0 +1,11 @@
+seed: 100
+
+data:
+  n_samples: 600
+  n_features: 2
+  std: 0.8
+
+model:
+  n_clusters: 3
+  n_iters: 100
+  tol: 1.0e-4
