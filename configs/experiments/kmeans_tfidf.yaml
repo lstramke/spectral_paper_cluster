@@ -1,0 +1,30 @@
+experiment_name: kmeans_tfidf
+
+input:
+  documents_path: data/raw/data_db_raw.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ","
+
+pipeline:
+  n_clusters: 8
+  max_iter: 100
+  tol: 0.0001
+  seed: 42
+
+tfidf:
+  max_features: 5000
+  ngram_range: [1, 2]
+  min_df: 1
+  max_df: 0.95
+  lowercase: true
+  use_lsa: true
+  lsa_components: 20
+
+visualization:
+  output_path: outputs/kmeans_tfidf_pca.png
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7
