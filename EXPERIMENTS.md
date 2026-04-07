@@ -1,6 +1,40 @@
 # Experiments
 
+## Überblick
+
 Zusammenfassung und Auswertung der durchgeführten Clustering-Experimente.
+
+### Metriken
+
+Zur Bewertung der Clusterqualität werden drei etablierte Kennzahlen verwendet. Sie liefern Hinweise darauf, ob die resultierenden Gruppen intern kompakt, untereinander getrennt und damit statistisch wie inhaltlich plausibel sind.
+Die Kennzahlen werden im Experiment aus den Clusterlabels und Feature-Vektoren mit Funktionen aus `sklearn.metrics` berechnet.
+
+**Silhouette Score**
+
+$$
+s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}
+$$
+
+Dabei ist $a(i)$ der durchschnittliche Abstand eines Punkts zu den anderen Punkten im eigenen Cluster und $b(i)$ der kleinste durchschnittliche Abstand zu einem anderen Cluster. Der Wert liegt zwischen $-1$ und $1$. In der Praxis gelten Werte über etwa $0.5$ oft als brauchbar bis gut, Werte nahe $0$ als Hinweis auf überlappende Cluster und negative Werte als deutliches Warnsignal für Fehlzuordnungen. Werte nahe $1$ sprechen für eine sehr saubere Trennung.
+
+**Davies–Bouldin Index**
+
+$$
+DB = \frac{1}{k} \sum_{i=1}^{k} \max_{j \ne i} \frac{S_i + S_j}{M_{ij}}
+$$
+
+Hier beschreibt $S_i$ die Streuung innerhalb von Cluster $i$ und $M_{ij}$ den Abstand zwischen den Zentren der Cluster $i$ und $j$. Der Index ist nach unten besser: kleine Werte bedeuten kompakte Cluster mit gutem Abstand zueinander. In vielen Anwendungen sind Werte unter etwa $1$ bereits recht ordentlich, während Werte deutlich über $2$ oder $3$ häufig auf überlappende oder instabile Cluster hindeuten.
+
+**Calinski–Harabasz Index**
+
+$$
+CH = \frac{\mathrm{Tr}(B_k)/(k-1)}{\mathrm{Tr}(W_k)/(n-k)}
+$$
+
+Dabei steht $B_k$ für die Streuung zwischen den Clustern und $W_k$ für die Streuung innerhalb der Cluster. Höhere Werte sind besser, weil sie bedeuten, dass die Cluster intern kompakt und untereinander gut getrennt sind. Absolutwerte sind allerdings stark von Datenmenge, Dimensionalität und Clusteranzahl abhängig; wichtig ist daher vor allem der relative Vergleich zwischen verschiedenen Einstellungen. Größere Werte sind in der Regel besser, sehr kleine Werte deuten auf eine schwache Clusterstruktur hin.
+
+Zusammenfassend gilt: Für eine gute Clusterstruktur sollten Silhouette und Calinski–Harabasz eher hoch sein, während der Davies–Bouldin Index eher niedrig sein sollte. Praktisch spricht das für kompakte, gut getrennte Cluster; niedrige oder unklare Werte deuten dagegen auf überlappende oder schwach ausgeprägte Gruppen hin. Gemeinsam liefern die Kennzahlen so eine verständliche Einschätzung der Clusterqualität.
+
 
 ## kmeans + tfidf
 
@@ -75,7 +109,7 @@ Die Metriken werden in `outputs/kmeans_tfidf/kmeans_tfidf_summary.json` gespeich
 
 ### Evaluation
 
-Die JSON zeigt, dass das aktuelle Setup nur eine schwache Clusterstruktur liefert. Der Silhouette Score ist nahe 0, der Davies–Bouldin Index ist relativ hoch und auch der Calinski–Harabasz Index ist sehr klein. Das spricht dafür, dass die Parametrisierung noch nicht zu klar getrennten, inhaltlich starken Clustern führt.
+Die Metriken zeigen, dass das aktuelle Setup nur eine schwache Clusterstruktur liefert. Der Silhouette Score ist nahe 0, der Davies–Bouldin Index ist relativ hoch und auch der Calinski–Harabasz Index ist sehr klein. Das spricht dafür, dass die Parametrisierung noch nicht zu klar getrennten, inhaltlich starken Clustern führt.
 
 ---
 
