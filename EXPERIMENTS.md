@@ -68,8 +68,12 @@ tfidf:
   min_df: 5
   max_df: 0.5
   lowercase: true
+  stop_words: english
   use_lsa: true
   lsa_components: 100
+
+interpretation:
+  top_n_terms: 10
 
 outputs:
   output_dir: outputs/kmeans_tfidf
@@ -103,13 +107,32 @@ Die Metriken für alle Zufallswerte werden in [`outputs/kmeans_tfidf/kmeans_tfid
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.0506 | eher niedrig |
-| Davies–Bouldin Index | 2.2861 |  eher hoch, die Cluster sind nur mäßig getrennt |
-| Calinski–Harabasz Index | 1.9215 | eher niedrig, noch keine starke Clusterstruktur |
+| Silhouette Score | 0.0676 | Cluster sind nur schwach getrennt |
+| Davies–Bouldin Index | 2.0576 | mittlere Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 2.2249 | schwache Clusterstruktur |
+
+#### Cluster-Interpretation
+
+Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF-Raum und werden mit ihren Gewichten ausgegeben.
+
+| Cluster | Top-Wörter |
+| --- | --- |
+| 0 | medical, learning, hsi, algorithms, research |
+| 1 | technology, information, tissue, data, high |
+| 2 | hsi, tissue, systems, different, current |
+| 3 | multispectral, lesions, skin, multispectral imaging, level |
+| 4 | disease, disorders, field, current, clinical |
+| 5 | cancer, hsi, accuracy, skin, aided |
+| 6 | patients, small, studies, lesions, detection |
+| 7 | spectroscopy, use, biological, images, related |
 
 ### Evaluation
 
-Der beste Lauf verbessert die Trennung gegenüber den anderen Seeds etwas, bleibt aber insgesamt noch auf einem eher schwachen bis mittleren Niveau. Die Cluster sind sichtbar strukturierter, aber die Metriken zeigen weiterhin, dass die Gruppen nicht sehr scharf voneinander getrennt sind. Für eine inhaltlich überzeugende Clusterlösung wäre also weiterhin Feinjustierung sinnvoll.
+Die aktuelle Konfiguration ist der Referenzstand des Experiments. Die Aktivierung der englischen Stopwords hat die Tokenqualität verbessert, weil sehr allgemeine Wörter weniger stark in die Darstellung eingehen. Dadurch werden die Cluster-Terme inhaltlich klarer lesbar.
+
+Die Metriken bedeuten konkret: Der Silhouette Score von 0.0676 zeigt, dass die Cluster zwar vorhanden sind, aber nur schwach voneinander getrennt sind. Der Davies–Bouldin Index von 2.0576 liegt im mittleren Bereich und spricht für eine nur mäßige Trennung mit noch sichtbarer Überlappung. Der Calinski–Harabasz Index von 2.2249 ist ebenfalls eher niedrig und bestätigt, dass die Clusterstruktur nicht stark ausgeprägt ist.
+
+Inhaltlich ist das Ergebnis trotzdem brauchbar, weil die Cluster-Terme fachlich erkennbare Themen bündeln. Mehrere Gruppen sind plausibel interpretierbar, auch wenn einzelne Begriffe zwischen Clustern geteilt werden.
 
 ---
 

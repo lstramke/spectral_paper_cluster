@@ -8,6 +8,8 @@ import yaml
 
 from src.clustering.kmeans import KMeansConfig
 from src.features.tfidf import TfidfConfig
+from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
+
 
 @dataclass(slots=True)
 class InputConfig:
@@ -35,6 +37,7 @@ class ParsedExperimentConfig:
     input: InputConfig
     kmeans: KMeansConfig
     tfidf: TfidfConfig
+    interpretation: TfidfInterpreterConfig
     outputs: OutputsConfig
 
 
@@ -136,9 +139,16 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
         min_df=cast(int | float, require_value(tfidf_cfg, "min_df")),
         max_df=cast(int | float, require_value(tfidf_cfg, "max_df")),
         lowercase=bool(require_value(tfidf_cfg, "lowercase")),
+        stop_words=cast(str | list[str] | None, require_value(tfidf_cfg, "stop_words")),
         use_lsa=use_lsa,
         lsa_components=lsa_components,
     )
+
+    interpretation_cfg = require_mapping(config, "interpretation")
+    top_n_terms = int(require_value(interpretation_cfg, "top_n_terms"))
+    if top_n_terms < 1:
+        raise ValueError("interpretation.top_n_terms must be >= 1")
+    interpretation = TfidfInterpreterConfig(top_n_terms=top_n_terms)
 
     outputs_cfg = require_mapping(config, "outputs")
     output_dir = project_root / str(require_value(outputs_cfg, "output_dir"))
@@ -167,6 +177,7 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
         ),
         kmeans=kmeans,
         tfidf=tfidf,
+        interpretation=interpretation,
         outputs=OutputsConfig(
             output_dir=output_dir,
             plot_name=plot_name,

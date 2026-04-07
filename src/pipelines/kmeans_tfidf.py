@@ -7,6 +7,7 @@ import torch
 from clustering.kmeans import KMeans, KMeansConfig
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
+from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
 
 from .pipeline import ExperimentPipeline, MultiRunPipelineResult, PipelineResult, RunSummary
 
@@ -18,10 +19,12 @@ class KMeansTfidfPipeline(ExperimentPipeline):
         self,
         kmeans_config: KMeansConfig,
         tfidf_config: TfidfConfig,
+        interpretation_config: TfidfInterpreterConfig | None = None,
     ) -> None:
         self.kmeans_config = kmeans_config
         self.feature_extractor = TfidfFeatureExtractor(tfidf_config)
         self.evaluator = BasicUnsupervisedEvaluator()
+        self.interpreter = TfidfInterpreter(interpretation_config)
 
     def _make_clusterer(self, seed: int) -> KMeans:
         return KMeans(replace(self.kmeans_config, seed=seed))
@@ -48,6 +51,7 @@ class KMeansTfidfPipeline(ExperimentPipeline):
             features=features,
             clustering=clustering,
             evaluation=evaluation,
+            interpretation=None,
             metadata={"pipeline": "kmeans_tfidf", "seed": seed},
         )
         return run_summary, pipeline_result
@@ -76,8 +80,6 @@ class KMeansTfidfPipeline(ExperimentPipeline):
         run_summaries: list[RunSummary] = []
         best_result: PipelineResult | None = None
         best_seed: int | None = None
-
-
         best_score: tuple[float, float, float] | None = None
 
         for seed in seeds:
@@ -93,6 +95,7 @@ class KMeansTfidfPipeline(ExperimentPipeline):
         if best_result is None or best_seed is None:
             raise RuntimeError("No seed runs were executed")
 
+        best_result.interpretation = self.interpreter.interpret(features, best_result.clustering, labels_true=labels_true)
         best_result.metadata = {**best_result.metadata, "selected_metric": "silhouette", "best_seed": best_seed}
 
         return MultiRunPipelineResult(

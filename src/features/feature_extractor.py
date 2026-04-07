@@ -13,6 +13,8 @@ class FeatureExtractionResult:
 
     features: torch.Tensor
     feature_names: list[str] = field(default_factory=list[str])
+    original_features: torch.Tensor | None = None
+    original_feature_names: list[str] = field(default_factory=list[str])
     metadata: dict[str, Any] = field(default_factory=dict[str, Any])
 
 

@@ -90,6 +90,7 @@ def build_pipeline(parsed: ParsedExperimentConfig) -> KMeansTfidfPipeline:
     return KMeansTfidfPipeline(
         kmeans_config=parsed.kmeans,
         tfidf_config=parsed.tfidf,
+        interpretation_config=parsed.interpretation,
     )
 
 
@@ -143,6 +144,7 @@ def main() -> None:
         "objective": best_result.clustering.objective,
         "cluster_sizes": best_result.clustering.cluster_sizes,
         "selected_metric": multi_run.selected_metric,
+        "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
     }
 
     with all_runs_path.open("w", encoding="utf-8") as fp:

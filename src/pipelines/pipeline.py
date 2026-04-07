@@ -9,6 +9,7 @@ import torch
 from clustering.base import ClusteringResult
 from evaluation.evaluator import EvaluationResult
 from features.feature_extractor import FeatureExtractionResult
+from interpretation.interpreter import InterpretationResult
 
 
 @dataclass(slots=True)
@@ -18,6 +19,7 @@ class PipelineResult:
     features: FeatureExtractionResult
     clustering: ClusteringResult
     evaluation: EvaluationResult
+    interpretation: InterpretationResult | None = None
     metadata: dict[str, Any] = field(default_factory=dict[str, Any])
 
 

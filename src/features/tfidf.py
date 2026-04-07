@@ -21,6 +21,7 @@ class TfidfConfig:
     min_df: int | float
     max_df: int | float
     lowercase: bool
+    stop_words: str | list[str] | None
     use_lsa: bool
     lsa_components: int
 
@@ -36,6 +37,7 @@ class TfidfFeatureExtractor(FeatureExtractor):
             min_df=self.config.min_df,
             max_df=self.config.max_df,
             lowercase=self.config.lowercase,
+            stop_words=self.config.stop_words,
         )
         self.lsa_svd: Optional[TruncatedSVD] = None
         self.lsa_normalizer: Optional[Normalizer] = None
@@ -48,6 +50,8 @@ class TfidfFeatureExtractor(FeatureExtractor):
             raise ValueError("documents must not be empty")
 
         matrix = cast(csr_matrix, self.vectorizer.fit_transform(documents))
+        original_features = torch.from_numpy(matrix.toarray().astype(np.float32))
+        original_feature_names = list(self.vectorizer.get_feature_names_out())
 
         if self.lsa_svd is not None and self.lsa_normalizer is not None:
             reduced = self.lsa_svd.fit_transform(matrix)
@@ -55,12 +59,14 @@ class TfidfFeatureExtractor(FeatureExtractor):
             features = torch.from_numpy(np.asarray(reduced, dtype=np.float32))
             feature_names = [f"lsa_{i}" for i in range(features.size(1))]
         else:
-            features = torch.from_numpy(matrix.toarray().astype(np.float32))
-            feature_names = list(self.vectorizer.get_feature_names_out())
+            features = original_features
+            feature_names = original_feature_names
 
         return FeatureExtractionResult(
             features=features,
             feature_names=feature_names,
+            original_features=original_features,
+            original_feature_names=original_feature_names,
             metadata={
                 "extractor": "tfidf",
                 "use_lsa": self.config.use_lsa,
