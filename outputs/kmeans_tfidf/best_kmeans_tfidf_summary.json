@@ -1,0 +1,24 @@
+{
+  "experiment_name": "kmeans_tfidf",
+  "seed": 592,
+  "n_documents": 41,
+  "n_features": 41,
+  "n_clusters_found": 8,
+  "metrics": {
+    "silhouette": 0.05063954368233681,
+    "davies_bouldin": 2.286106056307534,
+    "calinski_harabasz": 1.9215391284466845
+  },
+  "objective": 23.78759002685547,
+  "cluster_sizes": {
+    "0": 8,
+    "1": 7,
+    "2": 9,
+    "3": 4,
+    "4": 2,
+    "5": 5,
+    "6": 3,
+    "7": 3
+  },
+  "selected_metric": "silhouette"
+}

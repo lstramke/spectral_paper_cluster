@@ -6,8 +6,8 @@ from typing import Any, Sequence, cast
 
 import yaml
 
-from features.tfidf import TfidfConfig
-
+from src.clustering.kmeans import KMeansConfig
+from src.features.tfidf import TfidfConfig
 
 @dataclass(slots=True)
 class InputConfig:
@@ -33,10 +33,7 @@ class OutputsConfig:
 class ParsedExperimentConfig:
     experiment_name: str
     input: InputConfig
-    pipeline_n_clusters: int
-    pipeline_max_iter: int
-    pipeline_tol: float
-    pipeline_seed: int
+    kmeans: KMeansConfig
     tfidf: TfidfConfig
     outputs: OutputsConfig
 
@@ -95,7 +92,30 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
     pipeline_n_clusters = int(require_value(pipeline_cfg, "n_clusters"))
     pipeline_max_iter = int(require_value(pipeline_cfg, "max_iter"))
     pipeline_tol = float(require_value(pipeline_cfg, "tol"))
-    pipeline_seed = int(require_value(pipeline_cfg, "seed"))
+    pipeline_seed_range: tuple[int, int] | None = None
+    if "seed_range" in pipeline_cfg:
+        seed_range_raw: Any = require_value(pipeline_cfg, "seed_range")
+        if not isinstance(seed_range_raw, (list, tuple)):
+            raise ValueError("pipeline.seed_range must be a list or tuple with two integers")
+        seed_range_values = cast(Sequence[Any], seed_range_raw)
+        if len(seed_range_values) != 2:
+            raise ValueError("pipeline.seed_range must have exactly two values")
+        seed_start = int(seed_range_values[0])
+        seed_end = int(seed_range_values[1])
+        if seed_start > seed_end:
+            raise ValueError("pipeline.seed_range start must be <= end")
+        pipeline_seed_range = (seed_start, seed_end)
+        pipeline_seed = seed_start
+    else:
+        pipeline_seed = int(require_value(pipeline_cfg, "seed"))
+
+    kmeans = KMeansConfig(
+        n_clusters=pipeline_n_clusters,
+        max_iter=pipeline_max_iter,
+        tol=pipeline_tol,
+        seed=pipeline_seed,
+        seed_range=pipeline_seed_range,
+    )
 
     tfidf_cfg = require_mapping(config, "tfidf")
     ngram_range_raw: Any = require_value(tfidf_cfg, "ngram_range")
@@ -145,10 +165,7 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
             fuse_mode=fuse_mode,
             separator=separator,
         ),
-        pipeline_n_clusters=pipeline_n_clusters,
-        pipeline_max_iter=pipeline_max_iter,
-        pipeline_tol=pipeline_tol,
-        pipeline_seed=pipeline_seed,
+        kmeans=kmeans,
         tfidf=tfidf,
         outputs=OutputsConfig(
             output_dir=output_dir,

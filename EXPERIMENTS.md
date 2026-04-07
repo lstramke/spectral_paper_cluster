@@ -58,23 +58,23 @@ input:
 
 pipeline:
   n_clusters: 8
-  max_iter: 100
+  max_iter: 1000
   tol: 0.0001
-  seed: 42
+  seed_range: [1, 1000]
 
 tfidf:
-  max_features: 2000
+  max_features: 1000
   ngram_range: [1, 2]
-  min_df: 4
-  max_df: 0.75
+  min_df: 5
+  max_df: 0.5
   lowercase: true
-  use_lsa: false
+  use_lsa: true
   lsa_components: 100
 
 outputs:
   output_dir: outputs/kmeans_tfidf
   plot_name: kmeans_tfidf_pca.png
-  summary_name: kmeans_tfidf_summary.json
+  summary_name: best_kmeans_tfidf_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10
@@ -87,7 +87,7 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py` (TF‑IDF, optional LSA)
 3. `k-means` Clustering (siehe `src/clustering/kmeans.py`)
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: PCA wird zur 2D-Visualisierung nach dem Clustering angewendet. Plot und Metrik-JSON werden zusammen in einem Unterordner unter `outputs/` abgelegt.
+5. Outputs: PCA wird zur 3D-Visualisierung nach dem Clustering angewendet. Plot und Metrik-JSON werden zusammen in einem Unterordner unter `outputs/` abgelegt.
 
 ### Ergebnisse
 
@@ -99,17 +99,17 @@ Das Ergebnisbild und die zugehörige JSON-Zusammenfassung werden im Experiment-U
 
 #### Metriken:
 
-Die Metriken werden in `outputs/kmeans_tfidf/kmeans_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken für alle Zufallswerte werden in [`outputs/kmeans_tfidf/kmeans_tfidf_all_runs.json`](outputs/kmeans_tfidf/kmeans_tfidf_all_runs.json) gespeichert. Die Details zum besten Lauf stehen zusätzlich in [`outputs/kmeans_tfidf/best_kmeans_tfidf_summary.json`](outputs/kmeans_tfidf/best_kmeans_tfidf_summary.json). Für den aktuellen besten Lauf ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.0143 | sehr niedrig, Cluster sind nur schwach getrennt |
-| Davies–Bouldin Index | 2.6667 | eher hoch, Cluster überlappen noch deutlich |
-| Calinski–Harabasz Index | 1.5056 | sehr niedrig, geringe Clusterstruktur |
+| Silhouette Score | 0.0506 | eher niedrig |
+| Davies–Bouldin Index | 2.2861 |  eher hoch, die Cluster sind nur mäßig getrennt |
+| Calinski–Harabasz Index | 1.9215 | eher niedrig, noch keine starke Clusterstruktur |
 
 ### Evaluation
 
-Die Metriken zeigen, dass das aktuelle Setup nur eine schwache Clusterstruktur liefert. Der Silhouette Score ist nahe 0, der Davies–Bouldin Index ist relativ hoch und auch der Calinski–Harabasz Index ist sehr klein. Das spricht dafür, dass die Parametrisierung noch nicht zu klar getrennten, inhaltlich starken Clustern führt.
+Der beste Lauf verbessert die Trennung gegenüber den anderen Seeds etwas, bleibt aber insgesamt noch auf einem eher schwachen bis mittleren Niveau. Die Cluster sind sichtbar strukturierter, aber die Metriken zeigen weiterhin, dass die Gruppen nicht sehr scharf voneinander getrennt sind. Für eine inhaltlich überzeugende Clusterlösung wäre also weiterhin Feinjustierung sinnvoll.
 
 ---
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Optional
 
 import torch
@@ -8,19 +9,29 @@ from torch import Tensor
 from .base import ClusteringAlgorithm, ClusteringResult
 
 
+@dataclass(slots=True)
+class KMeansConfig:
+    n_clusters: int
+    max_iter: int
+    tol: float
+    seed: int
+    seed_range: tuple[int, int] | None = None
+
+
 class KMeans(ClusteringAlgorithm):
-    def __init__(self, n_clusters: int, max_iter: int, tol: float, seed: int) -> None:
-        if n_clusters < 1:
+    def __init__(self, config: KMeansConfig) -> None:
+        if config.n_clusters < 1:
             raise ValueError("n_clusters must be >= 1")
-        if max_iter < 1:
+        if config.max_iter < 1:
             raise ValueError("max_iter must be >= 1")
-        if tol < 0:
+        if config.tol < 0:
             raise ValueError("tol must be >= 0")
 
-        self.n_clusters = n_clusters
-        self.max_iter = max_iter
-        self.tol = tol
-        self.seed = seed
+        self.config = config
+        self.n_clusters = config.n_clusters
+        self.max_iter = config.max_iter
+        self.tol = config.tol
+        self.seed = config.seed
 
         self.centroids_: Optional[Tensor] = None
         self.labels_: Optional[Tensor] = None

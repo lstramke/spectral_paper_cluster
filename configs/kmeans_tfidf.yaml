@@ -9,23 +9,23 @@ input:
 
 pipeline:
   n_clusters: 8
-  max_iter: 100
+  max_iter: 1000
   tol: 0.0001
-  seed: 42
+  seed_range: [1, 1000]
 
 tfidf:
-  max_features: 2000
+  max_features: 1000
   ngram_range: [1, 2]
-  min_df: 4
-  max_df: 0.75
+  min_df: 5
+  max_df: 0.5
   lowercase: true
-  use_lsa: false
+  use_lsa: true
   lsa_components: 100
 
 outputs:
   output_dir: outputs/kmeans_tfidf
   plot_name: kmeans_tfidf_pca.png
-  summary_name: kmeans_tfidf_summary.json
+  summary_name: best_kmeans_tfidf_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10

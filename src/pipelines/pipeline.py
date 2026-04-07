@@ -21,6 +21,28 @@ class PipelineResult:
     metadata: dict[str, Any] = field(default_factory=dict[str, Any])
 
 
+@dataclass(slots=True)
+class RunSummary:
+    """Compact summary for one seed run."""
+
+    seed: int
+    n_clusters_found: int
+    metrics: dict[str, float]
+    objective: float | None = None
+    cluster_sizes: dict[int, int] = field(default_factory=dict[int, int])
+
+
+@dataclass(slots=True)
+class MultiRunPipelineResult:
+    """Result of running a pipeline over multiple seeds."""
+
+    runs: list[RunSummary]
+    best_run: PipelineResult
+    best_seed: int
+    selected_metric: str
+    metadata: dict[str, Any] = field(default_factory=dict[str, Any])
+
+
 class ExperimentPipeline(ABC):
     """Common interface for experiment pipelines."""
 
@@ -31,3 +53,12 @@ class ExperimentPipeline(ABC):
         labels_true: torch.Tensor | None = None,
     ) -> PipelineResult:
         """Run full pipeline: feature extraction -> clustering -> evaluation."""
+
+    def run_many(
+        self,
+        documents: list[str],
+        labels_true: torch.Tensor | None = None,
+        seeds: list[int] | None = None,
+    ) -> MultiRunPipelineResult:
+        """Run the pipeline multiple times for a seed list."""
+        raise NotImplementedError("run_many() is not implemented for this pipeline")

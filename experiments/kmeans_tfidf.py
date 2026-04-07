@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import csv
 import json
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 from sklearn.decomposition import PCA
 
 # Allow imports from the src package tree when running from project root.
@@ -29,15 +31,17 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     x = result.features.features.detach().cpu().numpy()
     labels = result.clustering.labels.detach().cpu().numpy()
 
-    projection = PCA(n_components=2).fit_transform(x)
+    projection = PCA(n_components=3).fit_transform(x)
 
     plot_lib = plt
-    fig, ax = plot_lib.subplots(
+    fig = plot_lib.figure(
         figsize=(parsed.outputs.figsize_width, parsed.outputs.figsize_height)
     )
+    ax = fig.add_subplot(111, projection="3d")
     scatter = ax.scatter(
         projection[:, 0],
         projection[:, 1],
+        projection[:, 2], # type: ignore[arg-type]
         c=labels,
         cmap="tab10",
         s=parsed.outputs.point_size,
@@ -46,8 +50,9 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     ax.set_title(f"{parsed.experiment_name}")
     ax.set_xlabel("PCA component 1")
     ax.set_ylabel("PCA component 2")
+    ax.set_zlabel("PCA component 3")
     ax.grid(True, linestyle="--", linewidth=0.5, alpha=0.4)
-    fig.colorbar(scatter, ax=ax, label="Cluster")
+    fig.colorbar(scatter, ax=ax, label="Cluster", shrink=0.75, pad=0.1)
     fig.tight_layout()
 
     output_path = output_dir / parsed.outputs.plot_name
@@ -83,11 +88,8 @@ def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
 
 def build_pipeline(parsed: ParsedExperimentConfig) -> KMeansTfidfPipeline:
     return KMeansTfidfPipeline(
-        n_clusters=parsed.pipeline_n_clusters,
+        kmeans_config=parsed.kmeans,
         tfidf_config=parsed.tfidf,
-        max_iter=parsed.pipeline_max_iter,
-        tol=parsed.pipeline_tol,
-        seed=parsed.pipeline_seed,
     )
 
 
@@ -107,8 +109,9 @@ def main() -> None:
     documents = load_documents(parsed)
     pipeline = build_pipeline(parsed)
 
-    result = pipeline.run(documents)
-    plot_path = save_cluster_plot(parsed, result)
+    multi_run = pipeline.run_many(documents)
+    best_result = multi_run.best_run
+    plot_path = save_cluster_plot(parsed, best_result)
 
     try:
         plot_rel = plot_path.relative_to(PROJECT_ROOT).as_posix()
@@ -116,28 +119,41 @@ def main() -> None:
         plot_rel = str(plot_path)
 
     output_dir = Path(parsed.outputs.output_dir)
-    summary_path = output_dir / parsed.outputs.summary_name
-    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    try:
-        summary_rel = summary_path.relative_to(PROJECT_ROOT).as_posix()
-    except Exception:
-        summary_rel = str(summary_path)
+    all_runs_path = output_dir / f"{parsed.experiment_name}_all_runs.json"
+    best_summary_path = output_dir / parsed.outputs.summary_name
 
-    summary: dict[str, Any] = {
+    all_runs_summary: dict[str, Any] = {
         "experiment_name": parsed.experiment_name,
-        "n_documents": len(documents),
-        "n_features": int(result.features.features.size(1)),
-        "n_clusters_found": result.clustering.n_clusters_found,
-        "metrics": result.evaluation.metrics,
+        "seed_range": list(parsed.kmeans.seed_range) if parsed.kmeans.seed_range is not None else [parsed.kmeans.seed],
+        "n_seeds": len(multi_run.runs),
+        "selected_metric": multi_run.selected_metric,
+        "best_seed": multi_run.best_seed,
+        "runs": [asdict(run) for run in multi_run.runs],
     }
 
-    with summary_path.open("w", encoding="utf-8") as fp:
-        json.dump(summary, fp, indent=2)
+    best_summary: dict[str, Any] = {
+        "experiment_name": parsed.experiment_name,
+        "seed": multi_run.best_seed,
+        "n_documents": len(documents),
+        "n_features": int(best_result.features.features.size(1)),
+        "n_clusters_found": best_result.clustering.n_clusters_found,
+        "metrics": best_result.evaluation.metrics,
+        "objective": best_result.clustering.objective,
+        "cluster_sizes": best_result.clustering.cluster_sizes,
+        "selected_metric": multi_run.selected_metric,
+    }
 
-    print(json.dumps(summary, indent=2))
+    with all_runs_path.open("w", encoding="utf-8") as fp:
+        json.dump(all_runs_summary, fp, indent=2)
+    with best_summary_path.open("w", encoding="utf-8") as fp:
+        json.dump(best_summary, fp, indent=2)
+
+    print(json.dumps(best_summary, indent=2))
+    print(f"All runs -> {all_runs_path.relative_to(PROJECT_ROOT).as_posix()}")
     print(f"Plot -> {plot_rel}")
-    print(f"Summary -> {summary_rel}")
+    print(f"Summary -> {best_summary_path.relative_to(PROJECT_ROOT).as_posix()}")
 
 
 if __name__ == "__main__":
