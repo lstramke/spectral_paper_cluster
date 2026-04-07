@@ -19,7 +19,7 @@ class KMeansTfidfPipeline(ExperimentPipeline):
         self,
         kmeans_config: KMeansConfig,
         tfidf_config: TfidfConfig,
-        interpretation_config: TfidfInterpreterConfig | None = None,
+        interpretation_config: TfidfInterpreterConfig,
     ) -> None:
         self.kmeans_config = kmeans_config
         self.feature_extractor = TfidfFeatureExtractor(tfidf_config)
