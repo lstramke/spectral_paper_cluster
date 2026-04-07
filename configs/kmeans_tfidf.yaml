@@ -1,15 +1,15 @@
 experiment_name: kmeans_tfidf
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/newspaper_20newsgroups_train.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
   separator: ";"
 
 pipeline:
-  n_clusters: 8
-  max_iter: 1000
+  n_clusters: 20
+  max_iter: 100
   tol: 0.0001
   seed_range: [1, 1000]
 
@@ -28,7 +28,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: outputs/kmeans_tfidf
+  output_dir: outputs/kmeans_tfidf/newspaper
   plot_name: kmeans_tfidf_pca.png
   summary_name: best_kmeans_tfidf_summary.json
   point_size: 42
