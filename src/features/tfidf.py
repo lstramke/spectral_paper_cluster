@@ -7,7 +7,7 @@ import numpy as np
 
 import torch
 from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 from sklearn.preprocessing import Normalizer
 from scipy.sparse import csr_matrix
 
@@ -24,6 +24,7 @@ class TfidfConfig:
     stop_words: str | list[str] | None
     use_lsa: bool
     lsa_components: int
+    extra_stop_words: list[str] | None
 
 
 class TfidfFeatureExtractor(FeatureExtractor):
@@ -31,13 +32,24 @@ class TfidfFeatureExtractor(FeatureExtractor):
 
     def __init__(self, config: TfidfConfig) -> None:
         self.config = config
+
+        extra = set(self.config.extra_stop_words or [])
+        if self.config.stop_words == "english":
+            stop = list(set(ENGLISH_STOP_WORDS) | extra)
+        elif isinstance(self.config.stop_words, (list, set)):
+            stop = list(set(self.config.stop_words) | extra)
+        elif isinstance(self.config.stop_words, str) and self.config.stop_words.lower() == "none":
+            stop = list(extra)
+        else:
+            stop = list(extra)
+
         self.vectorizer = TfidfVectorizer(
             max_features=self.config.max_features,
             ngram_range=self.config.ngram_range,
             min_df=self.config.min_df,
             max_df=self.config.max_df,
             lowercase=self.config.lowercase,
-            stop_words=self.config.stop_words,
+            stop_words=stop,
         )
         self.lsa_svd: Optional[TruncatedSVD] = None
         self.lsa_normalizer: Optional[Normalizer] = None

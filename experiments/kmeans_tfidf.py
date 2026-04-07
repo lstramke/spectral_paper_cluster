@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any, cast
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 from sklearn.decomposition import PCA
 
 # Allow imports from the src package tree when running from project root.
@@ -68,7 +67,7 @@ def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
     else:
         documents: list[str] = []
         with parsed.input.documents_path.open("r", encoding="utf-8", newline="") as file:
-            reader = csv.DictReader(file)
+            reader = csv.DictReader(file, delimiter=parsed.input.separator)
             for row in reader:
                 values = [str(row.get(field, "")).strip() for field in parsed.input.text_fields]
                 non_empty = [value for value in values if value]

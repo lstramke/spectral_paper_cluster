@@ -133,6 +133,14 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
     if lsa_components < 2:
         raise ValueError("tfidf.lsa_components must be >= 2")
 
+    extra_stop_words: list[str] | None = None
+    if "extra_stop_words" in tfidf_cfg:
+        extra_raw: Any = require_value(tfidf_cfg, "extra_stop_words")
+        if not isinstance(extra_raw, (list, tuple)):
+            raise ValueError("tfidf.extra_stop_words must be a list of strings")
+        extra_seq = cast(Sequence[Any], extra_raw)
+        extra_stop_words = [str(x) for x in extra_seq]
+
     tfidf = TfidfConfig(
         max_features=int(require_value(tfidf_cfg, "max_features")),
         ngram_range=(int(ngram_values[0]), int(ngram_values[1])),
@@ -142,6 +150,7 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
         stop_words=cast(str | list[str] | None, require_value(tfidf_cfg, "stop_words")),
         use_lsa=use_lsa,
         lsa_components=lsa_components,
+        extra_stop_words=extra_stop_words,
     )
 
     interpretation_cfg = require_mapping(config, "interpretation")

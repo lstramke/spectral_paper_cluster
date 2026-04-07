@@ -5,11 +5,11 @@ input:
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
-  separator: ","
+  separator: ";"
 
 pipeline:
   n_clusters: 8
-  max_iter: 1000
+  max_iter: 2000
   tol: 0.0001
   seed_range: [1, 1000]
 
@@ -20,6 +20,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
+  extra_stop_words: ["multispectral", "image", "images", "hsi", "hyperspectral", "imaging"]
   use_lsa: true
   lsa_components: 100
 
