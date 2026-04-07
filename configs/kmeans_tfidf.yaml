@@ -9,7 +9,7 @@ input:
 
 pipeline:
   n_clusters: 8
-  max_iter: 2000
+  max_iter: 1000
   tol: 0.0001
   seed_range: [1, 1000]
 
@@ -20,7 +20,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
-  extra_stop_words: ["multispectral", "image", "images", "hsi", "hyperspectral", "imaging"]
+  extra_stop_words: ["hsi"]
   use_lsa: true
   lsa_components: 100
 

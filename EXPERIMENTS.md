@@ -54,7 +54,7 @@ input:
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
-  separator: ","
+  separator: ";"
 
 pipeline:
   n_clusters: 8
@@ -69,6 +69,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
+  extra_stop_words: ["hsi"]
   use_lsa: true
   lsa_components: 100
 
@@ -107,9 +108,9 @@ Die Metriken für alle Zufallswerte werden in [`outputs/kmeans_tfidf/kmeans_tfid
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.0676 | Cluster sind nur schwach getrennt |
-| Davies–Bouldin Index | 2.0576 | mittlere Überlappung zwischen den Clustern |
-| Calinski–Harabasz Index | 2.2249 | schwache Clusterstruktur |
+| Silhouette Score | 0.06905350834131241 | Cluster sind nur schwach getrennt |
+| Davies–Bouldin Index | 2.096991322463374 | mittlere Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 2.1715459094181924 | schwache Clusterstruktur |
 
 #### Cluster-Interpretation
 
