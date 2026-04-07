@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import cast
+from typing import Optional
 
 import torch
 from torch import Tensor
@@ -9,13 +9,7 @@ from .base import ClusteringAlgorithm, ClusteringResult
 
 
 class KMeans(ClusteringAlgorithm):
-    def __init__(
-        self,
-        n_clusters: int,
-        max_iter: int,
-        tol: float,
-        seed: int,
-    ) -> None:
+    def __init__(self, n_clusters: int, max_iter: int, tol: float, seed: int) -> None:
         if n_clusters < 1:
             raise ValueError("n_clusters must be >= 1")
         if max_iter < 1:
@@ -28,9 +22,9 @@ class KMeans(ClusteringAlgorithm):
         self.tol = tol
         self.seed = seed
 
-        self.centroids_: Tensor | None = None
-        self.labels_: Tensor | None = None
-        self.inertia_: float | None = None
+        self.centroids_: Optional[Tensor] = None
+        self.labels_: Optional[Tensor] = None
+        self.inertia_: Optional[float] = None
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:
         # KMeans expects a feature matrix with shape (n_samples, n_features).
@@ -42,12 +36,10 @@ class KMeans(ClusteringAlgorithm):
         generator = torch.Generator(device=x.device)
         generator.manual_seed(self.seed)
 
-        # Initialize centroids by sampling k points from the dataset.
         perm = torch.randperm(x.size(0), generator=generator, device=x.device)
         centroids = x[perm[: self.n_clusters]].clone()
 
         for _ in range(self.max_iter):
-            # Assign each sample to its nearest centroid.
             distances = torch.cdist(x, centroids)
             labels = torch.argmin(distances, dim=1)
 
@@ -63,14 +55,12 @@ class KMeans(ClusteringAlgorithm):
 
             next_centroids = torch.stack(new_centroids, dim=0)
             diff = next_centroids - centroids
-            shift = cast(float, torch.sum(diff * diff).sqrt().item())
+            shift = float(torch.linalg.norm(diff).item())
             centroids = next_centroids
 
-            # Stop if centroid movement is smaller than tolerance.
             if shift <= self.tol:
                 break
 
-        # Recompute labels and objective using final centroids.
         final_distances = torch.cdist(x, centroids)
         final_labels = torch.argmin(final_distances, dim=1)
         min_distances = torch.gather(final_distances, 1, final_labels.unsqueeze(1)).squeeze(1)
@@ -92,10 +82,9 @@ class KMeans(ClusteringAlgorithm):
         if self.labels_ is None:
             raise RuntimeError("KMeans fit failed to produce labels")
 
-        cluster_sizes: dict[int, int] = {}
-        for value in self.labels_.detach().cpu().flatten():
-            cluster_id = int(value.item())
-            cluster_sizes[cluster_id] = cluster_sizes.get(cluster_id, 0) + 1
+        # Efficiently compute cluster sizes using `bincount` on CPU
+        counts = torch.bincount(self.labels_.detach().cpu(), minlength=self.n_clusters).tolist()
+        cluster_sizes: dict[int, int] = {i: int(c) for i, c in enumerate(counts) if c > 0}
 
         return ClusteringResult(
             labels=self.labels_,

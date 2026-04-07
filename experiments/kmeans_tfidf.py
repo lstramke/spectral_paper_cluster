@@ -23,32 +23,34 @@ from pipelines.kmeans_tfidf import KMeansTfidfPipeline
 
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
-    output_path = parsed.visualization.output_path
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_dir = parsed.outputs.output_dir
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     x = result.features.features.detach().cpu().numpy()
     labels = result.clustering.labels.detach().cpu().numpy()
 
     projection = PCA(n_components=2).fit_transform(x)
 
-    plot_lib: Any = plt
+    plot_lib = plt
     fig, ax = plot_lib.subplots(
-        figsize=(parsed.visualization.figsize_width, parsed.visualization.figsize_height)
+        figsize=(parsed.outputs.figsize_width, parsed.outputs.figsize_height)
     )
     scatter = ax.scatter(
         projection[:, 0],
         projection[:, 1],
         c=labels,
         cmap="tab10",
-        s=parsed.visualization.point_size,
-        alpha=parsed.visualization.alpha,
+        s=parsed.outputs.point_size,
+        alpha=parsed.outputs.alpha,
     )
-    ax.set_title(f"{parsed.experiment_name}: TF-IDF + KMeans (PCA 2D)")
+    ax.set_title(f"{parsed.experiment_name}")
     ax.set_xlabel("PCA component 1")
     ax.set_ylabel("PCA component 2")
     ax.grid(True, linestyle="--", linewidth=0.5, alpha=0.4)
     fig.colorbar(scatter, ax=ax, label="Cluster")
     fig.tight_layout()
+
+    output_path = output_dir / parsed.outputs.plot_name
     fig.savefig(str(output_path), dpi=200)
     plt.close(fig)
     return output_path
@@ -108,15 +110,34 @@ def main() -> None:
     result = pipeline.run(documents)
     plot_path = save_cluster_plot(parsed, result)
 
+    try:
+        plot_rel = plot_path.relative_to(PROJECT_ROOT).as_posix()
+    except Exception:
+        plot_rel = str(plot_path)
+
+    output_dir = Path(parsed.outputs.output_dir)
+    summary_path = output_dir / parsed.outputs.summary_name
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        summary_rel = summary_path.relative_to(PROJECT_ROOT).as_posix()
+    except Exception:
+        summary_rel = str(summary_path)
+
     summary: dict[str, Any] = {
         "experiment_name": parsed.experiment_name,
         "n_documents": len(documents),
         "n_features": int(result.features.features.size(1)),
         "n_clusters_found": result.clustering.n_clusters_found,
         "metrics": result.evaluation.metrics,
-        "plot_path": str(plot_path),
     }
+
+    with summary_path.open("w", encoding="utf-8") as fp:
+        json.dump(summary, fp, indent=2)
+
     print(json.dumps(summary, indent=2))
+    print(f"Plot -> {plot_rel}")
+    print(f"Summary -> {summary_rel}")
 
 
 if __name__ == "__main__":

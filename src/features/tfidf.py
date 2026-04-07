@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Optional, cast
+
+import numpy as np
 
 import torch
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import Normalizer
+from scipy.sparse import csr_matrix
 
 from .feature_extractor import FeatureExtractionResult, FeatureExtractor
 
@@ -35,25 +37,25 @@ class TfidfFeatureExtractor(FeatureExtractor):
             max_df=self.config.max_df,
             lowercase=self.config.lowercase,
         )
-        self.lsa_pipeline: Any | None = None
+        self.lsa_svd: Optional[TruncatedSVD] = None
+        self.lsa_normalizer: Optional[Normalizer] = None
         if self.config.use_lsa:
-            svd = TruncatedSVD(n_components=self.config.lsa_components)
-            normalizer = Normalizer(copy=False)
-            self.lsa_pipeline = Pipeline([("svd", svd), ("norm", normalizer)])
+            self.lsa_svd = TruncatedSVD(n_components=self.config.lsa_components)
+            self.lsa_normalizer = Normalizer(copy=False)
 
     def extract_features(self, documents: list[str]) -> FeatureExtractionResult:
         if not documents:
             raise ValueError("documents must not be empty")
 
-        vectorizer_any = self.vectorizer
-        matrix = vectorizer_any.fit_transform(documents)
+        matrix = cast(csr_matrix, self.vectorizer.fit_transform(documents))
 
-        if self.lsa_pipeline is not None:
-            reduced: Any = self.lsa_pipeline.fit_transform(matrix)
-            features = torch.tensor(reduced.tolist(), dtype=torch.float32)
+        if self.lsa_svd is not None and self.lsa_normalizer is not None:
+            reduced = self.lsa_svd.fit_transform(matrix)
+            reduced = self.lsa_normalizer.fit_transform(reduced)
+            features = torch.from_numpy(np.asarray(reduced, dtype=np.float32))
             feature_names = [f"lsa_{i}" for i in range(features.size(1))]
         else:
-            features = torch.tensor(matrix.toarray().tolist(), dtype=torch.float32)
+            features = torch.from_numpy(matrix.toarray().astype(np.float32))
             feature_names = list(self.vectorizer.get_feature_names_out())
 
         return FeatureExtractionResult(

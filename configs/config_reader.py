@@ -19,8 +19,10 @@ class InputConfig:
 
 
 @dataclass(slots=True)
-class VisualizationConfig:
-    output_path: Path
+class OutputsConfig:
+    output_dir: Path
+    plot_name: str
+    summary_name: str
     point_size: int
     alpha: float
     figsize_width: float
@@ -36,7 +38,7 @@ class ParsedExperimentConfig:
     pipeline_tol: float
     pipeline_seed: int
     tfidf: TfidfConfig
-    visualization: VisualizationConfig
+    outputs: OutputsConfig
 
 
 def load_config(config_path: Path) -> dict[str, Any]:
@@ -118,19 +120,21 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
         lsa_components=lsa_components,
     )
 
-    visualization_cfg = require_mapping(config, "visualization")
-    output_path = project_root / str(require_value(visualization_cfg, "output_path"))
-    point_size = int(require_value(visualization_cfg, "point_size"))
-    alpha = float(require_value(visualization_cfg, "alpha"))
-    figsize_width = float(require_value(visualization_cfg, "figsize_width"))
-    figsize_height = float(require_value(visualization_cfg, "figsize_height"))
+    outputs_cfg = require_mapping(config, "outputs")
+    output_dir = project_root / str(require_value(outputs_cfg, "output_dir"))
+    plot_name = str(require_value(outputs_cfg, "plot_name"))
+    summary_name = str(require_value(outputs_cfg, "summary_name"))
+    point_size = int(require_value(outputs_cfg, "point_size"))
+    alpha = float(require_value(outputs_cfg, "alpha"))
+    figsize_width = float(require_value(outputs_cfg, "figsize_width"))
+    figsize_height = float(require_value(outputs_cfg, "figsize_height"))
 
     if point_size <= 0:
-        raise ValueError("visualization.point_size must be > 0")
+        raise ValueError("outputs.point_size must be > 0")
     if not (0.0 < alpha <= 1.0):
-        raise ValueError("visualization.alpha must be in (0, 1]")
+        raise ValueError("outputs.alpha must be in (0, 1]")
     if figsize_width <= 0 or figsize_height <= 0:
-        raise ValueError("visualization.figsize_width and figsize_height must be > 0")
+        raise ValueError("outputs.figsize_width and figsize_height must be > 0")
 
     return ParsedExperimentConfig(
         experiment_name=experiment_name,
@@ -146,8 +150,10 @@ def validate_and_parse_config(config: dict[str, Any], project_root: Path) -> Par
         pipeline_tol=pipeline_tol,
         pipeline_seed=pipeline_seed,
         tfidf=tfidf,
-        visualization=VisualizationConfig(
-            output_path=output_path,
+        outputs=OutputsConfig(
+            output_dir=output_dir,
+            plot_name=plot_name,
+            summary_name=summary_name,
             point_size=point_size,
             alpha=alpha,
             figsize_width=figsize_width,
