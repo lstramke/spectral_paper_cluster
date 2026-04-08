@@ -35,9 +35,9 @@ class TfidfFeatureExtractor(FeatureExtractor):
 
         extra = set(self.config.extra_stop_words or [])
         if self.config.stop_words == "english":
-            stop = list(set(ENGLISH_STOP_WORDS) | extra)
+            stop = list(set(ENGLISH_STOP_WORDS).union(extra))
         elif isinstance(self.config.stop_words, (list, set)):
-            stop = list(set(self.config.stop_words) | extra)
+            stop = list(set(self.config.stop_words).union(extra))
         elif isinstance(self.config.stop_words, str) and self.config.stop_words.lower() == "none":
             stop = list(extra)
         else:
