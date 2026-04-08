@@ -118,14 +118,14 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| 0 | medical, learning, hsi, algorithms, research |
-| 1 | technology, information, tissue, data, high |
-| 2 | hsi, tissue, systems, different, current |
-| 3 | multispectral, lesions, skin, multispectral imaging, level |
-| 4 | disease, disorders, field, current, clinical |
-| 5 | cancer, hsi, accuracy, skin, aided |
-| 6 | patients, small, studies, lesions, detection |
-| 7 | spectroscopy, use, biological, images, related |
+| 0 | clinical, perfusion, surgery, gastrointestinal, promising, results, spectral imaging, main, systems, article |
+| 1 | tissue, biological, high, different, resolution, brain, proposed, guidance, images, used |
+| 2 | patients, measurements, studies, systems, vivo, tissue, small, current, performed, lesions |
+| 3 | multispectral, lesions, vision, multispectral imaging, capabilities, skin, hyperspectral multispectral, different, technique, limitations |
+| 4 | cancer, studies, detection, accuracy, meta, meta analysis, sensitivity, skin, aided, computer aided |
+| 5 | medical, learning, algorithms, research, medical applications, images, future, study, techniques, machine |
+| 6 | disease, disorders, field, current, clinical, brain, early, approaches, diseases, significant |
+| 7 | technology, information, spectroscopy, data, provides, recent, diagnosis, disease, based, use |
 
 ### Evaluation
 
