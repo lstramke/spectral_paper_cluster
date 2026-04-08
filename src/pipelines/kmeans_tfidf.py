@@ -4,7 +4,8 @@ from dataclasses import replace
 
 import torch
 
-from clustering.kmeans import KMeans, KMeansConfig
+from clustering.kmeans import KMeansConfig
+from clustering.sklearn_kmeans import SklearnKMeansAdapter
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
@@ -26,8 +27,9 @@ class KMeansTfidfPipeline(ExperimentPipeline):
         self.evaluator = BasicUnsupervisedEvaluator()
         self.interpreter = TfidfInterpreter(interpretation_config)
 
-    def _make_clusterer(self, seed: int) -> KMeans:
-        return KMeans(replace(self.kmeans_config, seed=seed))
+    def _make_clusterer(self, seed: int):
+        # use the sklearn-based KMeans adapter by default
+        return SklearnKMeansAdapter(replace(self.kmeans_config, seed=seed))
 
     def _run_single_seed(
         self,
