@@ -48,7 +48,13 @@ def main() -> None:
     args = parser.parse_args()
 
     config_path = (PROJECT_ROOT / args.config).resolve()
-    configReader = ConfigReaderBuilder().add_input().add_tfidf().add_kmeans().add_interpretation().add_outputs().build()
+    configReader = ConfigReaderBuilder()\
+        .add_input()\
+        .add_tfidf()\
+        .add_kmeans()\
+        .add_interpretation()\
+        .add_outputs()\
+        .build()
     parsed = configReader.read(config_path)
 
     # Per-field checks so the type checker (mypy) knows values are non-None.
