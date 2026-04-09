@@ -1,17 +1,17 @@
 experiment_name: kmeans_tfidf
 
 input:
-  documents_path: data/raw/newspaper_20newsgroups_train.csv
+  documents_path: data/raw/data_db_raw.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
   separator: ";"
 
 kmeans:
-  n_clusters: 20
+  n_clusters: 10
   max_iter: 100
   tol: 0.0001
-  seed_range: [1, 1000]
+  seed_range: [1, 100]
 
 tfidf:
   max_features: 1000
@@ -20,7 +20,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
-  extra_stop_words: ["hsi"]
+  extra_stop_words: ["don", "like", "hsi"]
   use_lsa: true
   lsa_components: 100
 
@@ -28,7 +28,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: outputs/kmeans_tfidf/newspaper
+  output_dir: outputs/kmeans_tfidf
   plot_name: kmeans_tfidf_pca.png
   summary_name: best_kmeans_tfidf_summary.json
   point_size: 42
