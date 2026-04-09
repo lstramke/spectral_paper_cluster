@@ -5,7 +5,7 @@ from dataclasses import replace
 import torch
 
 from clustering.kmeans import KMeansConfig
-from clustering.sklearn_kmeans import SklearnKMeansAdapter
+from clustering.kmeans import SklearnKMeansAdapter
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
