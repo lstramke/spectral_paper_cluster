@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 import csv
 import json
 import sys
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -19,9 +19,121 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from configs.config_reader import ParsedExperimentConfig, load_config, validate_and_parse_config
+from interpretation.tfidf_interpreter import TfidfInterpreterConfig
+from features.tfidf import TfidfConfig
+from clustering.kmeans import KMeansConfig
+from configs.config_reader.input_config_reader import InputConfig
+from configs.config_reader.output_config_reader import OutputsConfig
+from configs.config_reader.config_reader_new import ConfigReaderBuilder
 from pipelines.kmeans_tfidf import KMeansTfidfPipeline
 
+@dataclass(slots=True)
+class ParsedExperimentConfig:
+    experiment_name: str
+    input: InputConfig
+    kmeans: KMeansConfig
+    tfidf: TfidfConfig
+    interpretation: TfidfInterpreterConfig
+    outputs: OutputsConfig
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Run TF-IDF + KMeans experiment")
+    parser.add_argument(
+        "--config",
+        type=str,
+        required=True,
+        help="Path to experiment YAML config",
+    )
+    args = parser.parse_args()
+
+    config_path = (PROJECT_ROOT / args.config).resolve()
+    configReader = ConfigReaderBuilder().add_input().add_tfidf().add_kmeans().add_interpretation().add_outputs().build()
+    parsed = configReader.read(config_path)
+
+    # Per-field checks so the type checker (mypy) knows values are non-None.
+    if parsed.experiment_name is None:
+        print("Missing required config: experiment_name", file=sys.stderr)
+        sys.exit(1)
+    if parsed.input is None:
+        print("Missing required config: input", file=sys.stderr)
+        sys.exit(1)
+    if parsed.kmeans is None:
+        print("Missing required config: kmeans", file=sys.stderr)
+        sys.exit(1)
+    if parsed.tfidf is None:
+        print("Missing required config: tfidf", file=sys.stderr)
+        sys.exit(1)
+    if parsed.interpretation is None:
+        print("Missing required config: interpretation", file=sys.stderr)
+        sys.exit(1)
+    if parsed.outputs is None:
+        print("Missing required config: outputs", file=sys.stderr)
+        sys.exit(1)
+
+    experimentConfig = ParsedExperimentConfig(
+        experiment_name=parsed.experiment_name or "",
+        input=parsed.input,
+        kmeans=parsed.kmeans,
+        tfidf=parsed.tfidf,
+        interpretation=parsed.interpretation,
+        outputs=parsed.outputs,
+    )
+
+    documents = load_documents(experimentConfig)
+
+    pipeline = KMeansTfidfPipeline(
+        kmeans_config=experimentConfig.kmeans,
+        tfidf_config=experimentConfig.tfidf,
+        interpretation_config=experimentConfig.interpretation,
+    )
+
+    multi_run = pipeline.run_many(documents)
+    best_result = multi_run.best_run
+    plot_path = save_cluster_plot(experimentConfig, best_result)
+
+    try:
+        plot_rel = plot_path.relative_to(PROJECT_ROOT).as_posix()
+    except Exception:
+        plot_rel = str(plot_path)
+
+    output_dir = Path(experimentConfig.outputs.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    all_runs_path = output_dir / f"{experimentConfig.experiment_name}_all_runs.json"
+    best_summary_path = output_dir / experimentConfig.outputs.summary_name
+
+    all_runs_summary: dict[str, Any] = {
+        "experiment_name": experimentConfig.experiment_name,
+        "seed_range": list(experimentConfig.kmeans.seed_range) if experimentConfig.kmeans.seed_range is not None else [experimentConfig.kmeans.seed],
+        "n_seeds": len(multi_run.runs),
+        "selected_metric": multi_run.selected_metric,
+        "best_seed": multi_run.best_seed,
+        "runs": [asdict(run) for run in multi_run.runs],
+    }
+
+    best_summary: dict[str, Any] = {
+        "experiment_name": experimentConfig.experiment_name,
+        "seed": multi_run.best_seed,
+        "n_documents": len(documents),
+        "n_features": int(best_result.features.features.size(1)),
+        "n_clusters_found": best_result.clustering.n_clusters_found,
+        "metrics": best_result.evaluation.metrics,
+        "objective": best_result.clustering.objective,
+        "cluster_sizes": best_result.clustering.cluster_sizes,
+        "selected_metric": multi_run.selected_metric,
+        "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
+    }
+
+    with all_runs_path.open("w", encoding="utf-8") as fp:
+        json.dump(all_runs_summary, fp, indent=2)
+    with best_summary_path.open("w", encoding="utf-8") as fp:
+        json.dump(best_summary, fp, indent=2)
+
+    print(json.dumps(best_summary, indent=2))
+    print(f"All runs -> {all_runs_path.relative_to(PROJECT_ROOT).as_posix()}")
+    print(f"Plot -> {plot_rel}")
+    print(f"Summary -> {best_summary_path.relative_to(PROJECT_ROOT).as_posix()}")
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     output_dir = parsed.outputs.output_dir
@@ -59,7 +171,6 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     plt.close(fig)
     return output_path
 
-
 def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
     if parsed.input.format == "line":
         with parsed.input.documents_path.open("r", encoding="utf-8") as file:
@@ -83,79 +194,6 @@ def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
     if not documents:
         raise ValueError("No documents found in input file")
     return documents
-
-
-def build_pipeline(parsed: ParsedExperimentConfig) -> KMeansTfidfPipeline:
-    return KMeansTfidfPipeline(
-        kmeans_config=parsed.kmeans,
-        tfidf_config=parsed.tfidf,
-        interpretation_config=parsed.interpretation,
-    )
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Run TF-IDF + KMeans experiment")
-    parser.add_argument(
-        "--config",
-        type=str,
-        required=True,
-        help="Path to experiment YAML config",
-    )
-    args = parser.parse_args()
-
-    config_path = (PROJECT_ROOT / args.config).resolve()
-    config = load_config(config_path)
-    parsed = validate_and_parse_config(config, PROJECT_ROOT)
-    documents = load_documents(parsed)
-    pipeline = build_pipeline(parsed)
-
-    multi_run = pipeline.run_many(documents)
-    best_result = multi_run.best_run
-    plot_path = save_cluster_plot(parsed, best_result)
-
-    try:
-        plot_rel = plot_path.relative_to(PROJECT_ROOT).as_posix()
-    except Exception:
-        plot_rel = str(plot_path)
-
-    output_dir = Path(parsed.outputs.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    all_runs_path = output_dir / f"{parsed.experiment_name}_all_runs.json"
-    best_summary_path = output_dir / parsed.outputs.summary_name
-
-    all_runs_summary: dict[str, Any] = {
-        "experiment_name": parsed.experiment_name,
-        "seed_range": list(parsed.kmeans.seed_range) if parsed.kmeans.seed_range is not None else [parsed.kmeans.seed],
-        "n_seeds": len(multi_run.runs),
-        "selected_metric": multi_run.selected_metric,
-        "best_seed": multi_run.best_seed,
-        "runs": [asdict(run) for run in multi_run.runs],
-    }
-
-    best_summary: dict[str, Any] = {
-        "experiment_name": parsed.experiment_name,
-        "seed": multi_run.best_seed,
-        "n_documents": len(documents),
-        "n_features": int(best_result.features.features.size(1)),
-        "n_clusters_found": best_result.clustering.n_clusters_found,
-        "metrics": best_result.evaluation.metrics,
-        "objective": best_result.clustering.objective,
-        "cluster_sizes": best_result.clustering.cluster_sizes,
-        "selected_metric": multi_run.selected_metric,
-        "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
-    }
-
-    with all_runs_path.open("w", encoding="utf-8") as fp:
-        json.dump(all_runs_summary, fp, indent=2)
-    with best_summary_path.open("w", encoding="utf-8") as fp:
-        json.dump(best_summary, fp, indent=2)
-
-    print(json.dumps(best_summary, indent=2))
-    print(f"All runs -> {all_runs_path.relative_to(PROJECT_ROOT).as_posix()}")
-    print(f"Plot -> {plot_rel}")
-    print(f"Summary -> {best_summary_path.relative_to(PROJECT_ROOT).as_posix()}")
-
 
 if __name__ == "__main__":
     main()

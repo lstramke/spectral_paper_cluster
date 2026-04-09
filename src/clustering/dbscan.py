@@ -13,12 +13,12 @@ from .base import ClusteringAlgorithm, ClusteringResult
 
 @dataclass(slots=True)
 class DBSCANConfig:
-    eps: float = 0.5
-    min_samples: int = 5
-    metric: str = "euclidean"
-    leaf_size: int = 30
-    p: Optional[int] = None
-    n_jobs: Optional[int] = None
+    eps: float
+    min_samples: int
+    metric: str
+    leaf_size: int
+    p: Optional[int]
+    n_jobs: Optional[int]
 
 
 class SklearnDBSCANAdapter(ClusteringAlgorithm):
