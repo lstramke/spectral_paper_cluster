@@ -69,7 +69,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
-  extra_stop_words: ["don", "like"]
+  extra_stop_words: ["don", "like", "hsi"]
   use_lsa: true
   lsa_components: 100
 
@@ -110,9 +110,9 @@ Die Metriken für alle Zufallswerte werden in [`outputs/kmeans_tfidf/kmeans_tfid
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.07025986164808273 | Cluster sind nur schwach getrennt |
-| Davies–Bouldin Index | 1.911063822888633 | mittlere Überlappung zwischen den Clustern |
-| Calinski–Harabasz Index | 2.129976708816034 | schwache Clusterstruktur |
+| Silhouette Score | 0.06892172247171402 | Cluster sind nur schwach getrennt |
+| Davies–Bouldin Index | 1.968354674659104 | mittlere Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 2.0730763807090407 | schwache Clusterstruktur |
 
 #### Cluster-Interpretation
 
@@ -120,16 +120,16 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| 0 | perfusion, hsi, measurements, literature, article, clinical, studies, noninvasive, modality, performed |
-| 1 | disease, technology, information, biological, data, tissue, high, disorders, resolution, spectral imaging |
-| 2 | medical, hsi, medical applications, research, machine, learning, study, diagnosis, field, future |
-| 3 | hsi, tissue, brain, different, capabilities, vision, systems, surgical, technologies, spatial |
-| 4 | spectroscopy, light, use, color, techniques, based, modalities, compared, skin, surgery |
-| 5 | learning, medical, images, algorithms, principles, systems, data, image, visualization, studies |
-| 6 | systems, hsi, vivo, patients, studies, current, tissue, systematic review, emerging, guidance |
-| 7 | patients, studies, detection, small, meta analysis, meta, lesions, improvement, results, literature |
-| 8 | multispectral, lesions, skin, multispectral imaging, level, advances, tissue, technique, allows, summarize |
-| 9 | cancer, hsi, accuracy, computer aided, aided, computer, detection, sensitivity, diagnostic, studies |
+| 0 | cancer, accuracy, aided, computer aided, computer, detection, diagnostic, sensitivity, studies, skin |
+| 1 | technology, spectral imaging, data, surgery, information, provides, gastrointestinal, diseases, diagnosis, tissue |
+| 2 | learning, medical, images, algorithms, techniques, image, data, various, machine, systems |
+| 3 | color, lesions, patients, skin, detection, small, light, studies, used, meta |
+| 4 | multispectral, vision, technology, capabilities, lesions, multispectral imaging, different, based, field, limitations |
+| 5 | perfusion, studies, systems, patients, clinical, vivo, measurements, literature, tissue, surgical |
+| 6 | disease, disorders, field, current, clinical, brain, early, approaches, diseases, significant |
+| 7 | biological, tissue, brain, high, resolution, information, proposed, tissues, images, different |
+| 8 | medical, medical applications, research, challenges, clinical, limitations, field, future, study, technology |
+| 9 | spectroscopy, use, based, techniques, modalities, light, surgery, monitoring, range, tissue |
 
 ### Evaluation
 

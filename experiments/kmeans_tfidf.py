@@ -11,6 +11,8 @@ from time import perf_counter
 
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
+import numpy as np
+from matplotlib import cm, colors as mcolors
 
 # Allow imports from the src package tree when running from project root.
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -191,18 +193,43 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
 
     try:
         import plotly.graph_objects as go
+        from plotly.colors import qualitative as pqual
 
         x3 = projection[:, 0]
         y3 = projection[:, 1]
         z3 = projection[:, 2]
         html_path = output_path.with_suffix(".html")
         marker_size = max(1, int(parsed.outputs.point_size * 0.15))
+
+        # Create a discrete color for each unique cluster label.
+        labels_arr = np.asarray(labels)
+        unique_labels = np.unique(labels_arr)
+        n_labels = len(unique_labels)
+
+        # Prefer Plotly qualitative palette; fall back to a matplotlib colormap if more colors needed.
+        try:
+            base_palette = list(pqual.Plotly)
+        except Exception:
+            base_palette = []
+
+        if n_labels <= len(base_palette):
+            palette = base_palette
+        else:
+            cmap = cm.get_cmap("tab20", max(n_labels, 20))
+            palette = [mcolors.to_hex(cmap(i)) for i in range(n_labels)]
+
+        color_map: dict[int, str] = {}
+        for i, lab in enumerate(unique_labels):
+            color_map[int(lab)] = palette[i % len(palette)]
+
+        marker_colors = [color_map[int(l)] for l in labels_arr]
+
         scatter3d = go.Scatter3d(
             x=x3,
             y=y3,
             z=z3,
             mode="markers",
-            marker=dict(size=marker_size, opacity=parsed.outputs.alpha, color=labels, colorscale="Viridis"),
+            marker=dict(size=marker_size, opacity=parsed.outputs.alpha, color=marker_colors),
         )
         figly = go.Figure(data=[scatter3d])
         figly.update_layout(title=parsed.experiment_name)
