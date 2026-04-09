@@ -7,6 +7,7 @@ import json
 import sys
 from pathlib import Path
 from typing import Any
+from time import perf_counter
 
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -48,6 +49,7 @@ def main() -> None:
     args = parser.parse_args()
 
     config_path = (PROJECT_ROOT / args.config).resolve()
+    start_time = perf_counter()
     configReader = ConfigReaderBuilder()\
         .add_input()\
         .add_tfidf()\
@@ -131,15 +133,27 @@ def main() -> None:
         "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
     }
 
+    elapsed_seconds = perf_counter() - start_time
+    all_runs_summary["elapsed_seconds"] = elapsed_seconds
+    best_summary["elapsed_seconds"] = elapsed_seconds
+
     with all_runs_path.open("w", encoding="utf-8") as fp:
         json.dump(all_runs_summary, fp, indent=2)
     with best_summary_path.open("w", encoding="utf-8") as fp:
         json.dump(best_summary, fp, indent=2)
 
     print(json.dumps(best_summary, indent=2))
-    print(f"All runs -> {all_runs_path.relative_to(PROJECT_ROOT).as_posix()}")
+    try:
+        all_runs_rel = all_runs_path.relative_to(PROJECT_ROOT).as_posix()
+    except Exception:
+        all_runs_rel = str(all_runs_path)
+    print(f"All runs -> {all_runs_rel}")
     print(f"Plot -> {plot_rel}")
-    print(f"Summary -> {best_summary_path.relative_to(PROJECT_ROOT).as_posix()}")
+    try:
+        summary_rel = best_summary_path.relative_to(PROJECT_ROOT).as_posix()
+    except Exception:
+        summary_rel = str(best_summary_path)
+    print(f"Summary -> {summary_rel}")
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     output_dir = parsed.outputs.output_dir
@@ -174,6 +188,28 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
 
     output_path = output_dir / parsed.outputs.plot_name
     fig.savefig(str(output_path), dpi=200)
+
+    try:
+        import plotly.graph_objects as go
+
+        x3 = projection[:, 0]
+        y3 = projection[:, 1]
+        z3 = projection[:, 2]
+        html_path = output_path.with_suffix(".html")
+        marker_size = max(1, int(parsed.outputs.point_size * 0.15))
+        scatter3d = go.Scatter3d(
+            x=x3,
+            y=y3,
+            z=z3,
+            mode="markers",
+            marker=dict(size=marker_size, opacity=parsed.outputs.alpha, color=labels, colorscale="Viridis"),
+        )
+        figly = go.Figure(data=[scatter3d])
+        figly.update_layout(title=parsed.experiment_name)
+        figly.write_html(str(html_path), include_plotlyjs="cdn")
+    except Exception as e:
+        print(f"Could not write interactive HTML plot: {e}", file=sys.stderr)
+
     plt.close(fig)
     return output_path
 
