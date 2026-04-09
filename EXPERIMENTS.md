@@ -205,7 +205,7 @@ outputs:
 
 Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/dbscan_tfidf/dbscan_tfidf_pca.html](outputs/dbscan_tfidf/dbscan_tfidf_pca.html)
 
-#### Metriken: Die in der JSON gespeicherten Kennzahlen direkt auswerten.
+#### Metriken:
 
 Die Metriken werden in `outputs/dbscan_tfidf/best_dbscan_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
