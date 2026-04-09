@@ -102,11 +102,7 @@ Das Ergebnisbild und die zugehörige JSON-Zusammenfassung werden im Experiment-U
 
 ![kmeans + tfidf PCA](outputs/kmeans_tfidf/kmeans_tfidf_pca.png)
 
-<div>
-<iframe src="outputs/kmeans_tfidf/kmeans_tfidf_pca.html" width="100%" height="600" title="kmeans_tfidf interactive plot"></iframe>
-
-Falls die Einbettung nicht funktioniert, öffne die interaktive Version hier: [outputs/kmeans_tfidf/kmeans_tfidf_pca.html](outputs/kmeans_tfidf/kmeans_tfidf_pca.html)
-</div>
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/kmeans_tfidf/kmeans_tfidf_pca.html](outputs/kmeans_tfidf/kmeans_tfidf_pca.html)
 
 #### Metriken:
 
@@ -207,12 +203,7 @@ outputs:
 
 ![dbscan + tfidf PCA](outputs/dbscan_tfidf/dbscan_tfidf_pca.png)
 
-<div>
-<iframe src="outputs/dbscan_tfidf/dbscan_tfidf_pca.html" width="100%" height="600" title="dbscan_tfidf interactive plot"></iframe>
-
-Falls die Einbettung nicht funktioniert, öffne die interaktive Version hier: [outputs/dbscan_tfidf/dbscan_tfidf_pca.html](outputs/dbscan_tfidf/dbscan_tfidf_pca.html)
-</div>
-
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/dbscan_tfidf/dbscan_tfidf_pca.html](outputs/dbscan_tfidf/dbscan_tfidf_pca.html)
 
 #### Metriken: Die in der JSON gespeicherten Kennzahlen direkt auswerten.
 
