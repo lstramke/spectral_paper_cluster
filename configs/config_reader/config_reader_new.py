@@ -6,17 +6,18 @@ from dataclasses import dataclass, fields
 
 import yaml
 
-from .config_section_reader import ConfigSectionReader
 from .tfidf_config_reader import TfidfConfigReader
 from .dbscan_config_reader import DbscanConfigReader
 from .interpretation_config_reader import InterpretationConfigReader
 from .kmeans_config_reader import KMeansConfigReader
 from .optics_config_reader import OpticsConfigReader
+from .hdbscan_config_reader import HdbscanConfigReader
 from .input_config_reader import InputConfigReader, InputConfig
 from .output_config_reader import OutputsConfigReader, OutputsConfig
 from src.clustering.dbscan import DBSCANConfig
 from src.clustering.kmeans import KMeansConfig
 from src.clustering.optics import OpticsConfig
+from src.clustering.hdbscan import HDBSCANConfig
 from src.features.tfidf import TfidfConfig
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 
@@ -27,6 +28,7 @@ class RegisteredReaders:
 	interpretation: Optional[InterpretationConfigReader] = None
 	kmeans: Optional[KMeansConfigReader] = None
 	optics: Optional[OpticsConfigReader] = None
+	hdbscan: Optional[HdbscanConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -43,6 +45,7 @@ class CombinedConfig:
 	kmeans: Optional[KMeansConfig]
 	dbscan: Optional[DBSCANConfig]
 	optics: Optional[OpticsConfig]
+	hdbscan: Optional[HDBSCANConfig]
 	tfidf: Optional[TfidfConfig]
 	interpretation: Optional[TfidfInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -57,12 +60,13 @@ class ConfigReader:
 
 	def __init__(self, builder: ConfigReaderBuilder) -> None:
 		self._readers = RegisteredReaders(
-			tfidf=builder._registered.tfidf,
+			input=builder._registered.input,
+			kmeans=builder._registered.kmeans,
 			dbscan=builder._registered.dbscan,
 			optics=builder._registered.optics,
+			hdbscan=builder._registered.hdbscan,
+			tfidf=builder._registered.tfidf,
 			interpretation=builder._registered.interpretation,
-			kmeans=builder._registered.kmeans,
-			input=builder._registered.input,
 			outputs=builder._registered.outputs,
 		)
 
@@ -90,6 +94,7 @@ class ConfigReader:
 			kmeans=results.get("kmeans"),
 			dbscan=results.get("dbscan"),
 			optics=results.get("optics"),
+			hdbscan=results.get("hdbscan"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			outputs=results.get("outputs"),
@@ -115,6 +120,10 @@ class ConfigReaderBuilder:
 
 	def add_optics(self) -> ConfigReaderBuilder:
 		self._registered.optics = OpticsConfigReader()
+		return self
+	
+	def add_hdbscan(self) -> ConfigReaderBuilder:
+		self._registered.hdbscan = HdbscanConfigReader()
 		return self
 
 	def add_interpretation(self) -> ConfigReaderBuilder:
