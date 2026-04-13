@@ -1,4 +1,4 @@
-experiment_name: kmeans_tfidf
+experiment_name: dbscan_tfidf
 
 input:
   documents_path: data/raw/data_db_raw.csv
@@ -7,11 +7,13 @@ input:
   fuse_mode: join
   separator: ";"
 
-kmeans:
-  n_clusters: 10
-  max_iter: 100
-  tol: 0.0001
-  seed_range: [1, 100]
+dbscan:
+  eps: 0.75
+  min_samples: 3
+  metric: cosine
+  leaf_size: 30
+  p: null
+  n_jobs: null
 
 tfidf:
   max_features: 1000
@@ -20,7 +22,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
-  extra_stop_words: ["don", "like", "hsi"]
+  extra_stop_words: ["hsi"]
   use_lsa: true
   lsa_components: 100
 
@@ -28,9 +30,9 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: outputs/kmeans_tfidf
-  plot_name: kmeans_tfidf_pca.png
-  summary_name: best_kmeans_tfidf_summary.json
+  output_dir: outputs/dbscan_tfidf
+  plot_name: dbscan_tfidf_pca.png
+  summary_name: best_dbscan_tfidf_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10
