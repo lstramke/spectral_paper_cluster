@@ -56,11 +56,11 @@ input:
   fuse_mode: join
   separator: ";"
 
-pipeline:
-  n_clusters: 8
-  max_iter: 1000
+kmeans:
+  n_clusters: 10
+  max_iter: 100
   tol: 0.0001
-  seed_range: [1, 1000]
+  seed_range: [1, 100]
 
 tfidf:
   max_features: 1000
@@ -69,7 +69,7 @@ tfidf:
   max_df: 0.5
   lowercase: true
   stop_words: english
-  extra_stop_words: ["hsi"]
+  extra_stop_words: ["don", "like", "hsi"]
   use_lsa: true
   lsa_components: 100
 
@@ -96,11 +96,13 @@ outputs:
 
 ### Ergebnisse
 
-Das Ergebnisbild und die zugehörige JSON-Zusammenfassung werden im Experiment-Unterordner unter `outputs/` abgelegt (z. B. `outputs/kmeans_tfidf/`).
+Das Ergebnisbild und die zugehörige JSON-Zusammenfassung werden im Experiment-Unterordner unter `outputs/kmeans_tfidf/` abgelegt.
 
 #### Plot (PCA):
 
 ![kmeans + tfidf PCA](outputs/kmeans_tfidf/kmeans_tfidf_pca.png)
+
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/kmeans_tfidf/kmeans_tfidf_pca.html](outputs/kmeans_tfidf/kmeans_tfidf_pca.html)
 
 #### Metriken:
 
@@ -108,9 +110,9 @@ Die Metriken für alle Zufallswerte werden in [`outputs/kmeans_tfidf/kmeans_tfid
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.06905350834131241 | Cluster sind nur schwach getrennt |
-| Davies–Bouldin Index | 2.096991322463374 | mittlere Überlappung zwischen den Clustern |
-| Calinski–Harabasz Index | 2.1715459094181924 | schwache Clusterstruktur |
+| Silhouette Score | 0.06892172247171402 | Cluster sind nur schwach getrennt |
+| Davies–Bouldin Index | 1.968354674659104 | mittlere Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 2.0730763807090407 | schwache Clusterstruktur |
 
 #### Cluster-Interpretation
 
@@ -118,22 +120,114 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| 0 | clinical, perfusion, surgery, gastrointestinal, promising, results, spectral imaging, main, systems, article |
-| 1 | tissue, biological, high, different, resolution, brain, proposed, guidance, images, used |
-| 2 | patients, measurements, studies, systems, vivo, tissue, small, current, performed, lesions |
-| 3 | multispectral, lesions, vision, multispectral imaging, capabilities, skin, hyperspectral multispectral, different, technique, limitations |
-| 4 | cancer, studies, detection, accuracy, meta, meta analysis, sensitivity, skin, aided, computer aided |
-| 5 | medical, learning, algorithms, research, medical applications, images, future, study, techniques, machine |
+| 0 | cancer, accuracy, aided, computer aided, computer, detection, diagnostic, sensitivity, studies, skin |
+| 1 | technology, spectral imaging, data, surgery, information, provides, gastrointestinal, diseases, diagnosis, tissue |
+| 2 | learning, medical, images, algorithms, techniques, image, data, various, machine, systems |
+| 3 | color, lesions, patients, skin, detection, small, light, studies, used, meta |
+| 4 | multispectral, vision, technology, capabilities, lesions, multispectral imaging, different, based, field, limitations |
+| 5 | perfusion, studies, systems, patients, clinical, vivo, measurements, literature, tissue, surgical |
 | 6 | disease, disorders, field, current, clinical, brain, early, approaches, diseases, significant |
-| 7 | technology, information, spectroscopy, data, provides, recent, diagnosis, disease, based, use |
+| 7 | biological, tissue, brain, high, resolution, information, proposed, tissues, images, different |
+| 8 | medical, medical applications, research, challenges, clinical, limitations, field, future, study, technology |
+| 9 | spectroscopy, use, based, techniques, modalities, light, surgery, monitoring, range, tissue |
 
 ### Evaluation
 
 Die aktuelle Konfiguration ist der Referenzstand des Experiments. Die Aktivierung der englischen Stopwords hat die Tokenqualität verbessert, weil sehr allgemeine Wörter weniger stark in die Darstellung eingehen. Dadurch werden die Cluster-Terme inhaltlich klarer lesbar.
 
-Die Metriken bedeuten konkret: Der Silhouette Score von 0.0676 zeigt, dass die Cluster zwar vorhanden sind, aber nur schwach voneinander getrennt sind. Der Davies–Bouldin Index von 2.0576 liegt im mittleren Bereich und spricht für eine nur mäßige Trennung mit noch sichtbarer Überlappung. Der Calinski–Harabasz Index von 2.2249 ist ebenfalls eher niedrig und bestätigt, dass die Clusterstruktur nicht stark ausgeprägt ist.
+---
 
-Inhaltlich ist das Ergebnis trotzdem brauchbar, weil die Cluster-Terme fachlich erkennbare Themen bündeln. Mehrere Gruppen sind plausibel interpretierbar, auch wenn einzelne Begriffe zwischen Clustern geteilt werden.
+## dbscan + tfidf
+
+### Kurzüberblick
+
+- **Kurzbeschreibung:** TF‑IDF-Feature-Extraktion gefolgt von DBSCAN-Clustering. Ziel ist, dichte, thematische Gruppen ohne feste Clusteranzahl zu identifizieren.
+
+### Konfiguration
+
+Die Experimentkonfiguration liegt in [configs/dbscan_tfidf.yaml](configs/dbscan_tfidf.yaml).
+
+```yaml
+experiment_name: dbscan_tfidf
+
+input:
+  documents_path: data/raw/data_db_raw.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+dbscan:
+  eps: 0.75
+  min_samples: 3
+  metric: cosine
+  leaf_size: 30
+  p: null
+  n_jobs: null
+
+tfidf:
+  max_features: 1000
+  ngram_range: [1, 2]
+  min_df: 5
+  max_df: 0.5
+  lowercase: true
+  stop_words: english
+  extra_stop_words: ["hsi"]
+  use_lsa: true
+  lsa_components: 100
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: outputs/dbscan_tfidf
+  plot_name: dbscan_tfidf_pca.png
+  summary_name: best_dbscan_tfidf_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7
+```
+
+### Pipeline
+
+1. Daten einlesen (`data/raw/`)
+2. Feature-Extraktion mit `src/features/tfidf.py`
+3. Clustering mit `src/clustering/dbscan.py`
+4. Evaluation mit `src/evaluation/basic_unsupervised.py`
+5. Outputs: PNG-Plot und Summary-JSON im Unterordner unter `outputs/dbscan_tfidf/` speichern
+
+### Ergebnisse
+
+#### Plot:
+
+![dbscan + tfidf PCA](outputs/dbscan_tfidf/dbscan_tfidf_pca.png)
+
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/dbscan_tfidf/dbscan_tfidf_pca.html](outputs/dbscan_tfidf/dbscan_tfidf_pca.html)
+
+#### Metriken:
+
+Die Metriken werden in `outputs/dbscan_tfidf/best_dbscan_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+
+| Metrik | Wert | Einordnung |
+| --- | ---: | --- |
+| Silhouette Score | 0.026386065408587456 | Cluster kaum getrennt |
+| Davies–Bouldin Index | 2.1547427614491355 | mittlere Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 1.1843962957162295 | schwache Clusterstruktur |
+
+#### Cluster-Interpretation
+
+Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF-Raum; die zugehörigen Gewichte stehen in der JSON-Zusammenfassung.
+
+| Cluster | Top-Wörter |
+| --- | --- |
+| -1 | light, color, high, spectra, approach, resolution, skin, using, compared, challenges |
+| 0 | medical, tissue, studies, technology, cancer, clinical, disease, multispectral, detection, systems |
+
+
+### Evaluation
+Die Kennzahlen zeigen, dass die gefundene Clusterstruktur sehr schwach ausgeprägt ist. Ebenfalls würde mit den zwei gefundenen Clustern kaum Information gewonnen. DBSCAN ist deutlich durch die geringen Anzahl an Datenpunkten und damit einer folglich geringen Dichte beeinträchtigt. Es sollte auf eine großere Datenbasis angewendet werden.
+Ebenfalls kann eine Optimierung der Hyperparameter noch hinzugefügt werden.
 
 ---
 
@@ -179,6 +273,8 @@ Die Metriken werden in `outputs/<experiment>/<experiment>_summary.json` gespeich
 | Silhouette Score | <value> | <kurze Bewertung> |
 | Davies–Bouldin Index | <value> | <kurze Bewertung> |
 | Calinski–Harabasz Index | <value> | <kurze Bewertung> |
+
+#### Cluster-Interpretation
 
 ### Evaluation
 

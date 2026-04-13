@@ -1,0 +1,112 @@
+{
+  "experiment_name": "dbscan_tfidf",
+  "n_documents": 41,
+  "n_features": 41,
+  "n_clusters_found": 1,
+  "metrics": {
+    "silhouette": 0.026386065408587456,
+    "davies_bouldin": 2.1547427614491355,
+    "calinski_harabasz": 1.1843962957162295
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 2,
+    "0": 39
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "light",
+          0.3006068170070648
+        ],
+        [
+          "color",
+          0.2630309462547302
+        ],
+        [
+          "high",
+          0.25862306356430054
+        ],
+        [
+          "spectra",
+          0.23438504338264465
+        ],
+        [
+          "approach",
+          0.1947343945503235
+        ],
+        [
+          "resolution",
+          0.139939084649086
+        ],
+        [
+          "skin",
+          0.13677307963371277
+        ],
+        [
+          "using",
+          0.12211249768733978
+        ],
+        [
+          "compared",
+          0.11272755265235901
+        ],
+        [
+          "challenges",
+          0.10574811697006226
+        ]
+      ],
+      "0": [
+        [
+          "medical",
+          0.10496513545513153
+        ],
+        [
+          "tissue",
+          0.08644760400056839
+        ],
+        [
+          "studies",
+          0.07630176097154617
+        ],
+        [
+          "technology",
+          0.06608737260103226
+        ],
+        [
+          "cancer",
+          0.06545472145080566
+        ],
+        [
+          "clinical",
+          0.06091379374265671
+        ],
+        [
+          "disease",
+          0.06007511913776398
+        ],
+        [
+          "multispectral",
+          0.059501707553863525
+        ],
+        [
+          "detection",
+          0.05934896692633629
+        ],
+        [
+          "systems",
+          0.05693361535668373
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 0.5326592000019446
+}
