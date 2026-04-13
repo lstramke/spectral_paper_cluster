@@ -15,11 +15,11 @@ class HDBSCANTfidfPipeline(ExperimentPipeline):
 
     def __init__(
         self,
-        dbscan_config: HDBSCANConfig,
+        hdbscan_config: HDBSCANConfig,
         tfidf_config: TfidfConfig,
         interpretation_config: TfidfInterpreterConfig,
     ) -> None:
-        self.dbscan_config = dbscan_config
+        self.hdbscan_config = hdbscan_config
         self.feature_extractor = TfidfFeatureExtractor(tfidf_config)
         self.evaluator = BasicUnsupervisedEvaluator()
         self.interpreter = TfidfInterpreter(interpretation_config)
@@ -31,7 +31,7 @@ class HDBSCANTfidfPipeline(ExperimentPipeline):
     ) -> PipelineResult:
         features = self.feature_extractor.extract_features(documents)
 
-        clusterer = HDBSCANAdapter(self.dbscan_config)
+        clusterer = HDBSCANAdapter(self.hdbscan_config)
         clustering = clusterer.fit_predict(features.features)
 
         evaluation = self.evaluator.evaluate(features, clustering, labels_true=labels_true)
