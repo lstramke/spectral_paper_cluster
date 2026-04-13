@@ -11,10 +11,12 @@ from .tfidf_config_reader import TfidfConfigReader
 from .dbscan_config_reader import DbscanConfigReader
 from .interpretation_config_reader import InterpretationConfigReader
 from .kmeans_config_reader import KMeansConfigReader
+from .optics_config_reader import OpticsConfigReader
 from .input_config_reader import InputConfigReader, InputConfig
 from .output_config_reader import OutputsConfigReader, OutputsConfig
 from src.clustering.dbscan import DBSCANConfig
 from src.clustering.kmeans import KMeansConfig
+from src.clustering.optics import OpticsConfig
 from src.features.tfidf import TfidfConfig
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 
@@ -24,6 +26,7 @@ class RegisteredReaders:
 	dbscan: Optional[DbscanConfigReader] = None
 	interpretation: Optional[InterpretationConfigReader] = None
 	kmeans: Optional[KMeansConfigReader] = None
+	optics: Optional[OpticsConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -39,6 +42,7 @@ class CombinedConfig:
 	input: Optional[InputConfig]
 	kmeans: Optional[KMeansConfig]
 	dbscan: Optional[DBSCANConfig]
+	optics: Optional[OpticsConfig]
 	tfidf: Optional[TfidfConfig]
 	interpretation: Optional[TfidfInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -55,6 +59,7 @@ class ConfigReader:
 		self._readers = RegisteredReaders(
 			tfidf=builder._registered.tfidf,
 			dbscan=builder._registered.dbscan,
+			optics=builder._registered.optics,
 			interpretation=builder._registered.interpretation,
 			kmeans=builder._registered.kmeans,
 			input=builder._registered.input,
@@ -84,6 +89,7 @@ class ConfigReader:
 			input=results.get("input"),
 			kmeans=results.get("kmeans"),
 			dbscan=results.get("dbscan"),
+			optics=results.get("optics"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			outputs=results.get("outputs"),
@@ -105,6 +111,10 @@ class ConfigReaderBuilder:
 
 	def add_kmeans(self) -> ConfigReaderBuilder:
 		self._registered.kmeans = KMeansConfigReader()
+		return self
+
+	def add_optics(self) -> ConfigReaderBuilder:
+		self._registered.optics = OpticsConfigReader()
 		return self
 
 	def add_interpretation(self) -> ConfigReaderBuilder:
