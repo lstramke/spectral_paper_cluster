@@ -26,3 +26,7 @@ Result plot will be written to `outputs/clusters.png`.
 
 ## Experiments
 Siehe die Experimentbeschreibungen in der Datei `EXPERIMENTS.md`.
+
+## Query for web_of_science_search.csv 
+TS=((hyperspectral imaging OR multispectral imaging) 
+AND (medical OR clinical OR biomedical OR healthcare))
