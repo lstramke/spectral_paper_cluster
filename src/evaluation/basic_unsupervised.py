@@ -24,7 +24,7 @@ class BasicUnsupervisedEvaluator(ClusterEvaluator):
 
         # Silhouette and Davies-Bouldin require at least 2 clusters.
         if len(unique_labels) >= 2:
-            metrics["silhouette"] = float(silhouette_score(x, labels))
+            metrics["silhouette"] = float(silhouette_score(x, labels, metric="cosine"))
             metrics["davies_bouldin"] = float(davies_bouldin_score(x, labels))
             metrics["calinski_harabasz"] = float(calinski_harabasz_score(x, labels))
 
