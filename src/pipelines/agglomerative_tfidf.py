@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import torch
 
-from clustering.hdbscan import HDBSCANConfig, HDBSCANAdapter
+from clustering.agglomerativeClustering import AgglomerativeConfig, SklearnAgglomerativeAdapter
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
@@ -10,16 +10,16 @@ from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterC
 from .pipeline import ExperimentPipeline, PipelineResult
 
 
-class HDBSCANTfidfPipeline(ExperimentPipeline):
-    """Pipeline: TF-IDF -> HDBSCAN -> evaluation/interpretation."""
+class AgglomerativeTfidfPipeline(ExperimentPipeline):
+    """Pipeline: TF-IDF -> Agglomerative Clustering -> evaluation/interpretation."""
 
     def __init__(
         self,
-        hdbscan_config: HDBSCANConfig,
+        agglomerative_config: AgglomerativeConfig,
         tfidf_config: TfidfConfig,
         interpretation_config: TfidfInterpreterConfig,
     ) -> None:
-        self.hdbscan_config = hdbscan_config
+        self.agglomerative_config = agglomerative_config
         self.feature_extractor = TfidfFeatureExtractor(tfidf_config)
         self.evaluator = BasicUnsupervisedEvaluator()
         self.interpreter = TfidfInterpreter(interpretation_config)
@@ -31,7 +31,7 @@ class HDBSCANTfidfPipeline(ExperimentPipeline):
     ) -> PipelineResult:
         features = self.feature_extractor.extract_features(documents)
 
-        clusterer = HDBSCANAdapter(self.hdbscan_config)
+        clusterer = SklearnAgglomerativeAdapter(self.agglomerative_config)
         clustering = clusterer.fit_predict(features.features)
 
         evaluation = self.evaluator.evaluate(features, clustering, labels_true=labels_true)
@@ -43,7 +43,7 @@ class HDBSCANTfidfPipeline(ExperimentPipeline):
             clustering=clustering,
             evaluation=evaluation,
             interpretation=interpretation,
-            metadata={"pipeline": "hdbscan_tfidf"},
+            metadata={"pipeline": "agglomerative_tfidf"},
         )
 
         return pipeline_result

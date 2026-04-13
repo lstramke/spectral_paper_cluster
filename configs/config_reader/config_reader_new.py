@@ -6,6 +6,9 @@ from dataclasses import dataclass, fields
 
 import yaml
 
+from clustering.agglomerativeClustering import AgglomerativeConfig
+from configs.config_reader.agglomerative_config_reader import AgglomerativeConfigReader
+
 from .tfidf_config_reader import TfidfConfigReader
 from .dbscan_config_reader import DbscanConfigReader
 from .interpretation_config_reader import InterpretationConfigReader
@@ -29,6 +32,7 @@ class RegisteredReaders:
 	kmeans: Optional[KMeansConfigReader] = None
 	optics: Optional[OpticsConfigReader] = None
 	hdbscan: Optional[HdbscanConfigReader] = None
+	agglomerative: Optional[AgglomerativeConfigReader] = None	
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -46,6 +50,7 @@ class CombinedConfig:
 	dbscan: Optional[DBSCANConfig]
 	optics: Optional[OpticsConfig]
 	hdbscan: Optional[HDBSCANConfig]
+	agglomerative: Optional[AgglomerativeConfig]
 	tfidf: Optional[TfidfConfig]
 	interpretation: Optional[TfidfInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -65,6 +70,7 @@ class ConfigReader:
 			dbscan=builder._registered.dbscan,
 			optics=builder._registered.optics,
 			hdbscan=builder._registered.hdbscan,
+			agglomerative=builder._registered.agglomerative,
 			tfidf=builder._registered.tfidf,
 			interpretation=builder._registered.interpretation,
 			outputs=builder._registered.outputs,
@@ -95,6 +101,7 @@ class ConfigReader:
 			dbscan=results.get("dbscan"),
 			optics=results.get("optics"),
 			hdbscan=results.get("hdbscan"),
+			agglomerative=results.get("agglomerative"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			outputs=results.get("outputs"),
@@ -124,6 +131,10 @@ class ConfigReaderBuilder:
 	
 	def add_hdbscan(self) -> ConfigReaderBuilder:
 		self._registered.hdbscan = HdbscanConfigReader()
+		return self
+
+	def add_agglomerative(self) -> ConfigReaderBuilder:
+		self._registered.agglomerative = AgglomerativeConfigReader()
 		return self
 
 	def add_interpretation(self) -> ConfigReaderBuilder:
