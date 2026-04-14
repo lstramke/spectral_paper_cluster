@@ -1,0 +1,38 @@
+experiment_name: optics_tfidf
+
+input:
+  documents_path: data/raw/data_db_raw.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+optics:
+  min_samples: 5
+  metric: cosine
+  cluster_method: xi
+  xi: 0.05
+  n_jobs: 1
+
+tfidf:
+  max_features: 1000
+  ngram_range: [1, 2]
+  min_df: 5
+  max_df: 0.5
+  lowercase: true
+  stop_words: english
+  extra_stop_words: ["hsi"]
+  use_lsa: true
+  lsa_components: 100
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: experiments/optics_tfidf/outputs
+  plot_name: optics_tfidf_pca.png
+  summary_name: best_optics_tfidf_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7

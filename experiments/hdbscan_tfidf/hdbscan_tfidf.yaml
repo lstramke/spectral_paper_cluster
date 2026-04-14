@@ -1,0 +1,37 @@
+experiment_name: hdbscan_tfidf
+
+input:
+  documents_path: data/raw/data_db_raw.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+hdbscan:
+  min_cluster_size: 3
+  min_samples: null
+  metric: euclidean
+  cluster_selection_method: eom
+
+tfidf:
+  max_features: 1000
+  ngram_range: [1, 2]
+  min_df: 5
+  max_df: 0.5
+  lowercase: true
+  stop_words: english
+  extra_stop_words: ["hsi"]
+  use_lsa: true
+  lsa_components: 100
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: experiments/hdbscan_tfidf/outputs
+  plot_name: hdbscan_tfidf_pca.png
+  summary_name: best_hdbscan_tfidf_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7
