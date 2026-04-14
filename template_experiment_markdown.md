@@ -1,14 +1,14 @@
 ## Template für weitere Experimente
 
-## <experiment_name>
+# <experiment_name>
 
-### Kurzüberblick
+## Kurzüberblick
 
 - **Kurzbeschreibung:** kurze, natürliche Beschreibung des Experiments und der Zielsetzung.
 
-### Konfiguration
+## Konfiguration
 
-Die Experimentkonfiguration liegt in [configs/<experiment>.yaml]().
+Die Experimentkonfiguration liegt in [<experiment>.yaml]().
 
 ```yaml
 experiment_name: <experiment_name>
@@ -22,21 +22,21 @@ file body
 2. Feature-Extraktion mit `src/features/<feature_extractor>.py`
 3. Clustering mit `src/clustering/<algorithm>.py`
 4. Evaluation mit `src/evaluation/<evaluator>.py`
-5. Outputs: Plot und Summary im Unterordner unter `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner `outputs/` speichern
 
-### Ergebnisse
+## Ergebnisse
 
-#### Plot:
+### Plot:
 
 ![<experiment>]()
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/<experiment>/<experiment>_pca.html]()
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/<experiment>_pca.html]()
 
-#### Metriken: 
+### Metriken: 
 
 Die in der JSON gespeicherten Kennzahlen direkt auswerten.
 
-Die Metriken werden in `outputs/<experiment>/<experiment>_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `outputs/<experiment>_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
@@ -44,8 +44,18 @@ Die Metriken werden in `outputs/<experiment>/<experiment>_summary.json` gespeich
 | Davies–Bouldin Index | <value> | <kurze Bewertung> |
 | Calinski–Harabasz Index | <value> | <kurze Bewertung> |
 
-#### Cluster-Interpretation
+### Cluster-Interpretation
 
-### Evaluation
+Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `outputs/best_<experiment>_summary.json`.
+
+| Cluster | Top-Wörter |
+| --- | --- |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+
+## Evaluation
 
 Kurze Interpretation der Ergebnisse und mögliche nächste Schritte. Hier kann auch direkt auf die Summary-JSON verwiesen werden.
