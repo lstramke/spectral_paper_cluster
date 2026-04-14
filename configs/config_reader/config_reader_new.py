@@ -10,6 +10,8 @@ from clustering.agglomerativeClustering import AgglomerativeConfig
 from configs.config_reader.agglomerative_config_reader import AgglomerativeConfigReader
 from configs.config_reader.affinityPropagation_config_reader import AffinityPropagationConfigReader
 from src.clustering.affinityPropagation import AffinityPropagationConfig
+from configs.config_reader.spectral_config_reader import SpectralConfigReader
+from src.clustering.spectralClustering import SpectralClusteringConfig
 
 from .tfidf_config_reader import TfidfConfigReader
 from .dbscan_config_reader import DbscanConfigReader
@@ -36,6 +38,7 @@ class RegisteredReaders:
 	hdbscan: Optional[HdbscanConfigReader] = None
 	agglomerative: Optional[AgglomerativeConfigReader] = None	
 	affinityPropagation: Optional[AffinityPropagationConfigReader] = None
+	spectral: Optional[SpectralConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -55,6 +58,7 @@ class CombinedConfig:
 	hdbscan: Optional[HDBSCANConfig]
 	agglomerative: Optional[AgglomerativeConfig]
 	affinityPropagation: Optional[AffinityPropagationConfig]
+	spectral: Optional[SpectralClusteringConfig]
 	tfidf: Optional[TfidfConfig]
 	interpretation: Optional[TfidfInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -76,6 +80,7 @@ class ConfigReader:
 			hdbscan=builder._registered.hdbscan,
 			agglomerative=builder._registered.agglomerative,
 			affinityPropagation=builder._registered.affinityPropagation,
+			spectral=builder._registered.spectral,
 			tfidf=builder._registered.tfidf,
 			interpretation=builder._registered.interpretation,
 			outputs=builder._registered.outputs,
@@ -108,6 +113,7 @@ class ConfigReader:
 			hdbscan=results.get("hdbscan"),
 			agglomerative=results.get("agglomerative"),
 			affinityPropagation=results.get("affinityPropagation"),
+			spectral=results.get("spectral"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			outputs=results.get("outputs"),
@@ -145,6 +151,10 @@ class ConfigReaderBuilder:
 
 	def add_affinityPropagation(self) -> ConfigReaderBuilder:
 		self._registered.affinityPropagation = AffinityPropagationConfigReader()
+		return self
+
+	def add_spectral(self) -> ConfigReaderBuilder:
+		self._registered.spectral = SpectralConfigReader()
 		return self
 
 	def add_interpretation(self) -> ConfigReaderBuilder:
