@@ -1,0 +1,155 @@
+{
+  "experiment_name": "optics_tfidf",
+  "n_documents": 41,
+  "n_features": 41,
+  "n_clusters_found": 2,
+  "metrics": {
+    "silhouette": 0.07216697186231613,
+    "davies_bouldin": 2.8434577940363983,
+    "calinski_harabasz": 2.552131362549424
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 27,
+    "0": 9,
+    "1": 5
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "tissue",
+          0.12192891538143158
+        ],
+        [
+          "multispectral",
+          0.07783907651901245
+        ],
+        [
+          "patients",
+          0.07629472762346268
+        ],
+        [
+          "studies",
+          0.07330349087715149
+        ],
+        [
+          "technology",
+          0.07011726498603821
+        ],
+        [
+          "use",
+          0.06468433886766434
+        ],
+        [
+          "brain",
+          0.05961915850639343
+        ],
+        [
+          "different",
+          0.05931646749377251
+        ],
+        [
+          "biological",
+          0.0588444247841835
+        ],
+        [
+          "information",
+          0.05829859524965286
+        ]
+      ],
+      "0": [
+        [
+          "medical",
+          0.3402359187602997
+        ],
+        [
+          "learning",
+          0.20616145431995392
+        ],
+        [
+          "diseases",
+          0.11127495765686035
+        ],
+        [
+          "data",
+          0.10016913712024689
+        ],
+        [
+          "research",
+          0.09126970171928406
+        ],
+        [
+          "disease",
+          0.08822418749332428
+        ],
+        [
+          "algorithms",
+          0.08554306626319885
+        ],
+        [
+          "disorders",
+          0.08366000652313232
+        ],
+        [
+          "diagnosis",
+          0.08118709921836853
+        ],
+        [
+          "future",
+          0.08067920804023743
+        ]
+      ],
+      "1": [
+        [
+          "cancer",
+          0.3466951251029968
+        ],
+        [
+          "accuracy",
+          0.1892331838607788
+        ],
+        [
+          "aided",
+          0.18233056366443634
+        ],
+        [
+          "computer aided",
+          0.18233056366443634
+        ],
+        [
+          "computer",
+          0.1645251214504242
+        ],
+        [
+          "detection",
+          0.1552368700504303
+        ],
+        [
+          "diagnostic",
+          0.15179769694805145
+        ],
+        [
+          "sensitivity",
+          0.15156708657741547
+        ],
+        [
+          "studies",
+          0.13269132375717163
+        ],
+        [
+          "skin",
+          0.12872061133384705
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 0.5335704000008263
+}
