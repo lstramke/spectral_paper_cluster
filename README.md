@@ -54,7 +54,7 @@ Ergebnisse werden im jeweiligen `experiments/<name>/outputs/`-Ordner gespeichert
 
 ## Hinweise
 
-- Die  Dokumentation befindet sich in `DOCUMENTATION.md`.
+- Die  Dokumentation befindet sich in [`DOCUMENTATION.md`](DOCUMENTATION.md).
 - Die folgende Recherche-Query wurde für `web_of_science_search.csv` verwendet:
 
 ```text
