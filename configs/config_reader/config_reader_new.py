@@ -8,6 +8,8 @@ import yaml
 
 from clustering.agglomerativeClustering import AgglomerativeConfig
 from configs.config_reader.agglomerative_config_reader import AgglomerativeConfigReader
+from configs.config_reader.affinityPropagation_config_reader import AffinityPropagationConfigReader
+from src.clustering.affinityPropagation import AffinityPropagationConfig
 
 from .tfidf_config_reader import TfidfConfigReader
 from .dbscan_config_reader import DbscanConfigReader
@@ -33,6 +35,7 @@ class RegisteredReaders:
 	optics: Optional[OpticsConfigReader] = None
 	hdbscan: Optional[HdbscanConfigReader] = None
 	agglomerative: Optional[AgglomerativeConfigReader] = None	
+	affinityPropagation: Optional[AffinityPropagationConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -51,6 +54,7 @@ class CombinedConfig:
 	optics: Optional[OpticsConfig]
 	hdbscan: Optional[HDBSCANConfig]
 	agglomerative: Optional[AgglomerativeConfig]
+	affinityPropagation: Optional[AffinityPropagationConfig]
 	tfidf: Optional[TfidfConfig]
 	interpretation: Optional[TfidfInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -71,6 +75,7 @@ class ConfigReader:
 			optics=builder._registered.optics,
 			hdbscan=builder._registered.hdbscan,
 			agglomerative=builder._registered.agglomerative,
+			affinityPropagation=builder._registered.affinityPropagation,
 			tfidf=builder._registered.tfidf,
 			interpretation=builder._registered.interpretation,
 			outputs=builder._registered.outputs,
@@ -102,6 +107,7 @@ class ConfigReader:
 			optics=results.get("optics"),
 			hdbscan=results.get("hdbscan"),
 			agglomerative=results.get("agglomerative"),
+			affinityPropagation=results.get("affinityPropagation"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			outputs=results.get("outputs"),
@@ -135,6 +141,10 @@ class ConfigReaderBuilder:
 
 	def add_agglomerative(self) -> ConfigReaderBuilder:
 		self._registered.agglomerative = AgglomerativeConfigReader()
+		return self
+
+	def add_affinityPropagation(self) -> ConfigReaderBuilder:
+		self._registered.affinityPropagation = AffinityPropagationConfigReader()
 		return self
 
 	def add_interpretation(self) -> ConfigReaderBuilder:
