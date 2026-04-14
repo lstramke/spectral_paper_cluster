@@ -34,7 +34,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: outputs/spectral_tfidf
+  output_dir: experiments/spectral_tfidf/outputs
   plot_name: spectral_tfidf_pca.png
   summary_name: best_spectral_tfidf_summary.json
   point_size: 42
