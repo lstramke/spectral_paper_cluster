@@ -21,6 +21,8 @@ from .optics_config_reader import OpticsConfigReader
 from .hdbscan_config_reader import HdbscanConfigReader
 from .input_config_reader import InputConfigReader, InputConfig
 from .output_config_reader import OutputsConfigReader, OutputsConfig
+from .gaussianMixture_config_reader import GaussianMixtureConfigReader
+from src.clustering.gaussianMixture import GMMConfig
 from src.clustering.dbscan import DBSCANConfig
 from src.clustering.kmeans import KMeansConfig
 from src.clustering.optics import OpticsConfig
@@ -39,6 +41,7 @@ class RegisteredReaders:
 	agglomerative: Optional[AgglomerativeConfigReader] = None	
 	affinityPropagation: Optional[AffinityPropagationConfigReader] = None
 	spectral: Optional[SpectralConfigReader] = None
+	gaussianMixture: Optional[GaussianMixtureConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -59,6 +62,7 @@ class CombinedConfig:
 	agglomerative: Optional[AgglomerativeConfig]
 	affinityPropagation: Optional[AffinityPropagationConfig]
 	spectral: Optional[SpectralClusteringConfig]
+	gaussianMixture: Optional[GMMConfig]
 	tfidf: Optional[TfidfConfig]
 	interpretation: Optional[TfidfInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -81,6 +85,7 @@ class ConfigReader:
 			agglomerative=builder._registered.agglomerative,
 			affinityPropagation=builder._registered.affinityPropagation,
 			spectral=builder._registered.spectral,
+			gaussianMixture=builder._registered.gaussianMixture,
 			tfidf=builder._registered.tfidf,
 			interpretation=builder._registered.interpretation,
 			outputs=builder._registered.outputs,
@@ -114,6 +119,7 @@ class ConfigReader:
 			agglomerative=results.get("agglomerative"),
 			affinityPropagation=results.get("affinityPropagation"),
 			spectral=results.get("spectral"),
+			gaussianMixture=results.get("gaussianMixture"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			outputs=results.get("outputs"),
@@ -157,6 +163,10 @@ class ConfigReaderBuilder:
 		self._registered.spectral = SpectralConfigReader()
 		return self
 
+	def add_gaussianMixture(self) -> ConfigReaderBuilder:
+		self._registered.gaussianMixture = GaussianMixtureConfigReader()
+		return self
+	
 	def add_interpretation(self) -> ConfigReaderBuilder:
 		self._registered.interpretation = InterpretationConfigReader()
 		return self
