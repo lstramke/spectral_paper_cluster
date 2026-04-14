@@ -25,9 +25,9 @@ if str(SRC_PATH) not in sys.path:
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from src.features.tfidf import TfidfConfig
 from src.clustering.spectralClustering import SpectralClusteringConfig
-from configs.config_reader.input_config_reader import InputConfig
-from configs.config_reader.output_config_reader import OutputsConfig
-from configs.config_reader.config_reader_new import ConfigReaderBuilder
+from config_reader.input_config_reader import InputConfig
+from config_reader.output_config_reader import OutputsConfig
+from config_reader.config_reader_new import ConfigReaderBuilder
 from src.pipelines.spectral_tfidf import SpectralTfidfPipeline
 
 

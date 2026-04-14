@@ -15,20 +15,20 @@ import numpy as np
 from matplotlib import cm, colors as mcolors
 
 # Allow imports from the src package tree when running from project root.
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_PATH = PROJECT_ROOT / "src"
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from interpretation.tfidf_interpreter import TfidfInterpreterConfig
-from features.tfidf import TfidfConfig
+from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
+from src.features.tfidf import TfidfConfig
 from src.clustering.affinityPropagation import AffinityPropagationConfig
-from configs.config_reader.input_config_reader import InputConfig
-from configs.config_reader.output_config_reader import OutputsConfig
-from configs.config_reader.config_reader_new import ConfigReaderBuilder
-from pipelines.affinityPropagation_tfidf import AffinityPropagationTfidfPipeline
+from config_reader.input_config_reader import InputConfig
+from config_reader.output_config_reader import OutputsConfig
+from config_reader.config_reader_new import ConfigReaderBuilder
+from src.pipelines.affinityPropagation_tfidf import AffinityPropagationTfidfPipeline
 
 
 @dataclass(slots=True)

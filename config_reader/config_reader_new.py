@@ -7,10 +7,10 @@ from dataclasses import dataclass, fields
 import yaml
 
 from clustering.agglomerativeClustering import AgglomerativeConfig
-from configs.config_reader.agglomerative_config_reader import AgglomerativeConfigReader
-from configs.config_reader.affinityPropagation_config_reader import AffinityPropagationConfigReader
+from .agglomerative_config_reader import AgglomerativeConfigReader
+from .affinityPropagation_config_reader import AffinityPropagationConfigReader
 from src.clustering.affinityPropagation import AffinityPropagationConfig
-from configs.config_reader.spectral_config_reader import SpectralConfigReader
+from .spectral_config_reader import SpectralConfigReader
 from src.clustering.spectralClustering import SpectralClusteringConfig
 
 from .tfidf_config_reader import TfidfConfigReader

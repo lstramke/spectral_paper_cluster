@@ -25,9 +25,9 @@ if str(SRC_PATH) not in sys.path:
 from interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from features.tfidf import TfidfConfig
 from clustering.optics import OpticsConfig
-from configs.config_reader.input_config_reader import InputConfig
-from configs.config_reader.output_config_reader import OutputsConfig
-from configs.config_reader.config_reader_new import ConfigReaderBuilder
+from config_reader.input_config_reader import InputConfig
+from config_reader.output_config_reader import OutputsConfig
+from config_reader.config_reader_new import ConfigReaderBuilder
 from pipelines.optics_tfidf import OpticsTfidfPipeline
 
 
