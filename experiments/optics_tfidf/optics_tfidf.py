@@ -15,7 +15,7 @@ import numpy as np
 from matplotlib import cm, colors as mcolors
 
 # Allow imports from the src package tree when running from project root.
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_PATH = PROJECT_ROOT / "src"
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))

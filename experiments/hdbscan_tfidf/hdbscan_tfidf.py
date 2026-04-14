@@ -15,20 +15,20 @@ import numpy as np
 from matplotlib import cm, colors as mcolors
 
 # Allow imports from the src package tree when running from project root.
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_PATH = PROJECT_ROOT / "src"
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from interpretation.tfidf_interpreter import TfidfInterpreterConfig
-from features.tfidf import TfidfConfig
-from clustering.hdbscan import HDBSCANConfig
+from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
+from src.features.tfidf import TfidfConfig
+from src.clustering.hdbscan import HDBSCANConfig
 from configs.config_reader.input_config_reader import InputConfig
 from configs.config_reader.output_config_reader import OutputsConfig
 from configs.config_reader.config_reader_new import ConfigReaderBuilder
-from pipelines.hdbscan_tfidf import HDBSCANTfidfPipeline
+from src.pipelines.hdbscan_tfidf import HDBSCANTfidfPipeline
 
 
 @dataclass(slots=True)
@@ -96,7 +96,7 @@ def main() -> None:
     documents = load_documents(experimentConfig)
 
     pipeline = HDBSCANTfidfPipeline(
-        dbscan_config=experimentConfig.hdbscan,
+        hdbscan_config=experimentConfig.hdbscan,
         tfidf_config=experimentConfig.tfidf,
         interpretation_config=experimentConfig.interpretation,
     )

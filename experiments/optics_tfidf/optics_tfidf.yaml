@@ -29,7 +29,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: outputs/optics_tfidf
+  output_dir: experiments/optics_tfidf/outputs
   plot_name: optics_tfidf_pca.png
   summary_name: best_optics_tfidf_summary.json
   point_size: 42

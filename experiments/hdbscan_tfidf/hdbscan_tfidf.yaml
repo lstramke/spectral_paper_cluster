@@ -28,7 +28,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: outputs/hdbscan_tfidf
+  output_dir: experiments/hdbscan_tfidf/outputs
   plot_name: hdbscan_tfidf_pca.png
   summary_name: best_hdbscan_tfidf_summary.json
   point_size: 42
