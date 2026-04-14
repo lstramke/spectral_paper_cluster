@@ -72,7 +72,7 @@ Die Metriken werden in `outputs/best_dbscan_tfidf_summary.json` gespeichert. Fü
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.026386065408587456 | Cluster kaum getrennt |
+| Silhouette Score | 0.04853330925107002 | Cluster kaum getrennt |
 | Davies–Bouldin Index | 2.1547427614491355 | mittlere Überlappung zwischen den Clustern |
 | Calinski–Harabasz Index | 1.1843962957162295 | schwache Clusterstruktur |
 

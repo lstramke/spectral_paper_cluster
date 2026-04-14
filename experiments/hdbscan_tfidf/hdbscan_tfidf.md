@@ -72,7 +72,7 @@ Die Metriken werden in `outputs/best_hdbscan_tfidf_summary.json` gespeichert. F�
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.0036065103486180305 | praktisch keine trennbare Clusterstruktur |
+| Silhouette Score | 0.005429198034107685 | praktisch keine trennbare Clusterstruktur |
 | Davies–Bouldin Index | 2.5101242847961958 | mittlere bis deutliche Überlappung |
 | Calinski–Harabasz Index | 1.8106643920736916 | schwache Clusterstruktur |
 
@@ -89,7 +89,7 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 | 3 | medical, learning, medical applications, images, diagnosis, diseases, early, challenges, machine, clinical |
 
 ## Evaluation
-Die Kennzahlen zeigen kaum trennbare Cluster (Silhouette ≈ 0.0036) und eine insgesamt schwache Clusterstruktur (Calinski–Harabasz ≈ 1.81, Davies–Bouldin ≈ 2.51). HDBSCAN extrahierte vier kleine Kerncluster (Größen: 3, 6, 3, 4) und markierte viele Dokumente als Rauschen (25 von 41), was auf heterogene Texte, sehr feine Themen oder konservative Dichte‑Parameter hindeutet.
+Die Kennzahlen zeigen kaum trennbare Cluster (Silhouette ≈ 0.0053) und eine insgesamt schwache Clusterstruktur (Calinski–Harabasz ≈ 1.81, Davies–Bouldin ≈ 2.51). HDBSCAN extrahierte vier kleine Kerncluster (Größen: 3, 6, 3, 4) und markierte viele Dokumente als Rauschen (25 von 41), was auf heterogene Texte, sehr feine Themen oder konservative Dichte‑Parameter hindeutet.
 
 - Viele Punkte als Rauschen: HDBSCAN greift konservativ — nützliche Reduktion von Fehlclustern, aber geringe Abdeckung der Daten.
 - Niedrige Silhouette + hoher DB: Cluster überlappen stark, inhaltliche Trennung ist schwach.

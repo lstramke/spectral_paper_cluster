@@ -71,7 +71,7 @@ Die Metriken werden in `outputs/best_optics_tfidf_summary.json` gespeichert. Fü
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.04035249724984169 | Cluster kaum getrennt |
+| Silhouette Score | 0.07216697186231613 | Cluster kaum getrennt |
 | Davies–Bouldin Index | 2.8434577940363983 | deutliche Überlappung zwischen den Clustern |
 | Calinski–Harabasz Index | 2.552131362549424 | schwache Clusterstruktur |
 
@@ -87,4 +87,4 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 ## Evaluation
 
-Die Kennzahlen deuten auf eine schwache Clusterstruktur hin: die Silhouette ist mit 0.040 nur geringfügig über 0, der Davies–Bouldin Index (2.843) zeigt deutliche Überlappung und der Calinski–Harabasz Index (2.55) ist niedrig. OPTICS fand zwei kleine Kerncluster (9 und 5 Dokumente) und markierte viele Dokumente als Rauschen (27), was auf heterogene Texte oder konservative Dichte-Parameter hindeutet.
+Die Kennzahlen deuten auf eine schwache Clusterstruktur hin: die Silhouette ist mit 0.072 nur geringfügig über 0, der Davies–Bouldin Index (2.843) zeigt deutliche Überlappung und der Calinski–Harabasz Index (2.55) ist niedrig. OPTICS fand zwei kleine Kerncluster (9 und 5 Dokumente) und markierte viele Dokumente als Rauschen (27), was auf heterogene Texte oder konservative Dichte-Parameter hindeutet.

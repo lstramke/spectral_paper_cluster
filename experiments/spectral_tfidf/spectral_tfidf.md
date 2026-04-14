@@ -78,7 +78,7 @@ Die Metriken werden in `outputs/best_spectral_tfidf_summary.json` gespeichert. F
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.12185 | schwache bis mäßige Trennung |
+| Silhouette Score | 0.12184976041316986 | schwache bis mäßige Trennung |
 | Davies–Bouldin Index | 1.90316 | mittlere Überlappung |
 | Calinski–Harabasz Index | 2.06360 | schwache Clusterstruktur |
 
