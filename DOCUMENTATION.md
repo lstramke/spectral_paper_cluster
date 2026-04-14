@@ -1,6 +1,6 @@
 # Dokumentation
 
-Es folgt eine Erläuterung der verwendeteten Metriken, CLuster Algorithmen und Feature Extraktoren, die in den Experimenten verwendet werden. Die genauen Experiment-Konfigurationen und Ergebnisse sind in den jeweiligen Experimentordnern zu finden, diese werden teilweise verlinkt sein. Ansonsten sie [README](README.md).
+Es folgt eine Erläuterung der verwendeteten Metriken, CLuster Algorithmen und Feature Extraktoren, die in den Experimenten verwendet werden. Die genauen Experiment-Konfigurationen und Ergebnisse sind in den jeweiligen Experimentordnern zu finden, diese werden teilweise verlinkt sein. Ansonsten siehe [README](README.md).
 
 ## Metriken
 
