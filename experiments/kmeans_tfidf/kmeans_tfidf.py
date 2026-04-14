@@ -15,34 +15,33 @@ import numpy as np
 from matplotlib import cm, colors as mcolors
 
 # Allow imports from the src package tree when running from project root.
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_PATH = PROJECT_ROOT / "src"
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from interpretation.tfidf_interpreter import TfidfInterpreterConfig
-from features.tfidf import TfidfConfig
-from clustering.dbscan import DBSCANConfig
+from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
+from src.features.tfidf import TfidfConfig
+from src.clustering.kmeans import KMeansConfig
 from configs.config_reader.input_config_reader import InputConfig
 from configs.config_reader.output_config_reader import OutputsConfig
 from configs.config_reader.config_reader_new import ConfigReaderBuilder
-from pipelines.dbscan_tfidf import DBSCANTfidfPipeline
-
+from src.pipelines.kmeans_tfidf import KMeansTfidfPipeline
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:
     experiment_name: str
     input: InputConfig
-    dbscan: DBSCANConfig
+    kmeans: KMeansConfig
     tfidf: TfidfConfig
     interpretation: TfidfInterpreterConfig
     outputs: OutputsConfig
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run TF-IDF + DBSCAN experiment")
+    parser = argparse.ArgumentParser(description="Run TF-IDF + KMeans experiment")
     parser.add_argument(
         "--config",
         type=str,
@@ -53,15 +52,13 @@ def main() -> None:
 
     config_path = (PROJECT_ROOT / args.config).resolve()
     start_time = perf_counter()
-    configReader = (
-        ConfigReaderBuilder()
-        .add_input()
-        .add_tfidf()
-        .add_dbscan()
-        .add_interpretation()
-        .add_outputs()
+    configReader = ConfigReaderBuilder()\
+        .add_input()\
+        .add_tfidf()\
+        .add_kmeans()\
+        .add_interpretation()\
+        .add_outputs()\
         .build()
-    )
     parsed = configReader.read(config_path)
 
     # Per-field checks so the type checker (mypy) knows values are non-None.
@@ -71,8 +68,8 @@ def main() -> None:
     if parsed.input is None:
         print("Missing required config: input", file=sys.stderr)
         sys.exit(1)
-    if parsed.dbscan is None:
-        print("Missing required config: dbscan", file=sys.stderr)
+    if parsed.kmeans is None:
+        print("Missing required config: kmeans", file=sys.stderr)
         sys.exit(1)
     if parsed.tfidf is None:
         print("Missing required config: tfidf", file=sys.stderr)
@@ -87,7 +84,7 @@ def main() -> None:
     experimentConfig = ParsedExperimentConfig(
         experiment_name=parsed.experiment_name or "",
         input=parsed.input,
-        dbscan=parsed.dbscan,
+        kmeans=parsed.kmeans,
         tfidf=parsed.tfidf,
         interpretation=parsed.interpretation,
         outputs=parsed.outputs,
@@ -95,14 +92,15 @@ def main() -> None:
 
     documents = load_documents(experimentConfig)
 
-    pipeline = DBSCANTfidfPipeline(
-        dbscan_config=experimentConfig.dbscan,
+    pipeline = KMeansTfidfPipeline(
+        kmeans_config=experimentConfig.kmeans,
         tfidf_config=experimentConfig.tfidf,
         interpretation_config=experimentConfig.interpretation,
     )
 
-    result = pipeline.run(documents)
-    plot_path = save_cluster_plot(experimentConfig, result)
+    multi_run = pipeline.run_many(documents)
+    best_result = multi_run.best_run
+    plot_path = save_cluster_plot(experimentConfig, best_result)
 
     try:
         plot_rel = plot_path.relative_to(PROJECT_ROOT).as_posix()
@@ -112,41 +110,52 @@ def main() -> None:
     output_dir = Path(experimentConfig.outputs.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    run_path = output_dir / f"{experimentConfig.experiment_name}_run.json"
-    summary_path = output_dir / experimentConfig.outputs.summary_name
+    all_runs_path = output_dir / f"{experimentConfig.experiment_name}_all_runs.json"
+    best_summary_path = output_dir / experimentConfig.outputs.summary_name
 
-    elapsed_seconds = perf_counter() - start_time
-
-    run_summary: dict[str, Any] = {
+    all_runs_summary: dict[str, Any] = {
         "experiment_name": experimentConfig.experiment_name,
-        "n_documents": len(documents),
-        "n_features": int(result.features.features.size(1)),
-        "n_clusters_found": result.clustering.n_clusters_found,
-        "metrics": result.evaluation.metrics,
-        "objective": result.clustering.objective,
-        "cluster_sizes": result.clustering.cluster_sizes,
-        "interpretation": asdict(result.interpretation) if result.interpretation is not None else None,
-        "elapsed_seconds": elapsed_seconds,
+        "seed_range": list(experimentConfig.kmeans.seed_range) if experimentConfig.kmeans.seed_range is not None else [experimentConfig.kmeans.seed],
+        "n_seeds": len(multi_run.runs),
+        "selected_metric": multi_run.selected_metric,
+        "best_seed": multi_run.best_seed,
+        "runs": [asdict(run) for run in multi_run.runs],
     }
 
-    with run_path.open("w", encoding="utf-8") as fp:
-        json.dump(run_summary, fp, indent=2)
-    with summary_path.open("w", encoding="utf-8") as fp:
-        json.dump(run_summary, fp, indent=2)
+    best_summary: dict[str, Any] = {
+        "experiment_name": experimentConfig.experiment_name,
+        "seed": multi_run.best_seed,
+        "n_documents": len(documents),
+        "n_features": int(best_result.features.features.size(1)),
+        "n_clusters_found": best_result.clustering.n_clusters_found,
+        "metrics": best_result.evaluation.metrics,
+        "objective": best_result.clustering.objective,
+        "cluster_sizes": best_result.clustering.cluster_sizes,
+        "selected_metric": multi_run.selected_metric,
+        "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
+    }
 
-    print(json.dumps(run_summary, indent=2))
+    elapsed_seconds = perf_counter() - start_time
+    all_runs_summary["elapsed_seconds"] = elapsed_seconds
+    best_summary["elapsed_seconds"] = elapsed_seconds
+
+    with all_runs_path.open("w", encoding="utf-8") as fp:
+        json.dump(all_runs_summary, fp, indent=2)
+    with best_summary_path.open("w", encoding="utf-8") as fp:
+        json.dump(best_summary, fp, indent=2)
+
+    print(json.dumps(best_summary, indent=2))
     try:
-        run_rel = run_path.relative_to(PROJECT_ROOT).as_posix()
+        all_runs_rel = all_runs_path.relative_to(PROJECT_ROOT).as_posix()
     except Exception:
-        run_rel = str(run_path)
-    print(f"Run -> {run_rel}")
+        all_runs_rel = str(all_runs_path)
+    print(f"All runs -> {all_runs_rel}")
     print(f"Plot -> {plot_rel}")
     try:
-        summary_rel = summary_path.relative_to(PROJECT_ROOT).as_posix()
+        summary_rel = best_summary_path.relative_to(PROJECT_ROOT).as_posix()
     except Exception:
-        summary_rel = str(summary_path)
+        summary_rel = str(best_summary_path)
     print(f"Summary -> {summary_rel}")
-
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     output_dir = parsed.outputs.output_dir
@@ -182,7 +191,6 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
     output_path = output_dir / parsed.outputs.plot_name
     fig.savefig(str(output_path), dpi=200)
 
-    # Also save an interactive HTML version (rotatable) if plotly is available.
     try:
         import plotly.graph_objects as go
         from plotly.colors import qualitative as pqual
@@ -210,13 +218,9 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
             cmap = cm.get_cmap("tab20", max(n_labels, 20))
             palette = [mcolors.to_hex(cmap(i)) for i in range(n_labels)]
 
-        # Map labels to colors (reserve gray for noise label -1 if present)
         color_map: dict[int, str] = {}
         for i, lab in enumerate(unique_labels):
-            if lab == -1:
-                color_map[int(lab)] = "#AAAAAA"
-            else:
-                color_map[int(lab)] = palette[i % len(palette)]
+            color_map[int(lab)] = palette[i % len(palette)]
 
         marker_colors = [color_map[int(l)] for l in labels_arr]
 
@@ -235,7 +239,6 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
 
     plt.close(fig)
     return output_path
-
 
 def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
     if parsed.input.format == "line":
@@ -260,7 +263,6 @@ def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
     if not documents:
         raise ValueError("No documents found in input file")
     return documents
-
 
 if __name__ == "__main__":
     main()

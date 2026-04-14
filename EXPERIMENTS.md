@@ -704,7 +704,7 @@ outputs:
 
 #### Plot:
 
-![spectral + tfidf PCA](outputs/spectral_tfidf/spectral_tfidf_pca.png)
+![spectral + tfidf PCA](experiments/spectral_tfidf/outputs/spectral_tfidf_pca.png)
 
 Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/spectral_tfidf/spectral_tfidf_pca.html](outputs/spectral_tfidf/spectral_tfidf_pca.html)
 
