@@ -13,7 +13,7 @@ affinityPropagation:
   convergence_iter: 15
   affinity: euclidean
   random_state: 42
-  normalize: false
+  normalize: true
 
 tfidf:
   max_features: 1000
