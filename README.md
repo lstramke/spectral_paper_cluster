@@ -52,6 +52,16 @@ Weitere Beispiele:
 
 Ergebnisse werden im jeweiligen `experiments/<name>/outputs/`-Ordner gespeichert.
 
+Alternativ: Interaktives CLI
+
+Du kannst Experimente auch interaktiv per Text‑UI auswählen und starten. Das kleine Hilfsprogramm listet alle Ordner unter `experiments/` auf und startet das gewählte Experiment mit der zugehörigen YAML‑Konfiguration.
+
+```bash
+python cluster_cli.py
+```
+
+Hinweis: Für die Auswahl per Pfeiltasten werden `questionary` und `colorama` verwendet.
+
 ## Hinweise
 
 - Die  Dokumentation befindet sich in [`DOCUMENTATION.md`](DOCUMENTATION.md).
