@@ -1,0 +1,42 @@
+experiment_name: gaussianMixture_tfidf
+
+input:
+  documents_path: data/raw/data_db_raw.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+gaussianMixture:
+  n_components: 10
+  tol: 0.001
+  reg_covar: 1e-6
+  max_iter: 200
+  n_init: 5
+  init_params: k-means++
+  random_state: 42
+  covariance_type: full
+
+
+tfidf:
+  max_features: 1000
+  ngram_range: [1, 2]
+  min_df: 5
+  max_df: 0.5
+  lowercase: true
+  stop_words: english
+  extra_stop_words: ["hsi"]
+  use_lsa: true
+  lsa_components: 100
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: experiments/gaussianMixture_tfidf/outputs
+  plot_name: gaussianMixture_tfidf_pca.png
+  summary_name: best_gaussianMixture_tfidf_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7

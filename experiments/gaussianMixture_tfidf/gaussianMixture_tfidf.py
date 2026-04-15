@@ -24,25 +24,26 @@ if str(SRC_PATH) not in sys.path:
 
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from src.features.tfidf import TfidfConfig
-from src.clustering.dbscan import DBSCANConfig
+from src.clustering.gaussianMixture import GMMConfig
 from config_reader.input_config_reader import InputConfig
 from config_reader.output_config_reader import OutputsConfig
 from config_reader.config_reader_new import ConfigReaderBuilder
-from src.pipelines.dbscan_tfidf import DBSCANTfidfPipeline
+from src.pipelines.gaussianMixture_tfidf import GaussianMixtureTfidfPipeline
 from src.pipelines.pipeline import PipelineResult
+
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:
     experiment_name: str
     input: InputConfig
-    dbscan: DBSCANConfig
+    gaussianMixture: GMMConfig
     tfidf: TfidfConfig
     interpretation: TfidfInterpreterConfig
     outputs: OutputsConfig
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run TF-IDF + DBSCAN experiment")
+    parser = argparse.ArgumentParser(description="Run TF-IDF + GaussianMixture experiment")
     parser.add_argument(
         "--config",
         type=str,
@@ -57,7 +58,7 @@ def main() -> None:
         ConfigReaderBuilder()
         .add_input()
         .add_tfidf()
-        .add_dbscan()
+        .add_gaussianMixture()
         .add_interpretation()
         .add_outputs()
         .build()
@@ -71,8 +72,8 @@ def main() -> None:
     if parsed.input is None:
         print("Missing required config: input", file=sys.stderr)
         sys.exit(1)
-    if parsed.dbscan is None:
-        print("Missing required config: dbscan", file=sys.stderr)
+    if parsed.gaussianMixture is None:
+        print("Missing required config: gaussianMixture", file=sys.stderr)
         sys.exit(1)
     if parsed.tfidf is None:
         print("Missing required config: tfidf", file=sys.stderr)
@@ -87,7 +88,7 @@ def main() -> None:
     experimentConfig = ParsedExperimentConfig(
         experiment_name=parsed.experiment_name or "",
         input=parsed.input,
-        dbscan=parsed.dbscan,
+        gaussianMixture=parsed.gaussianMixture,
         tfidf=parsed.tfidf,
         interpretation=parsed.interpretation,
         outputs=parsed.outputs,
@@ -95,8 +96,8 @@ def main() -> None:
 
     documents = load_documents(experimentConfig)
 
-    pipeline = DBSCANTfidfPipeline(
-        dbscan_config=experimentConfig.dbscan,
+    pipeline = GaussianMixtureTfidfPipeline(
+        gaussianMixture_config=experimentConfig.gaussianMixture,
         tfidf_config=experimentConfig.tfidf,
         interpretation_config=experimentConfig.interpretation,
     )
@@ -182,7 +183,6 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: PipelineResult) ->
     output_path = output_dir / parsed.outputs.plot_name
     fig.savefig(str(output_path), dpi=200)
 
-    # Also save an interactive HTML version (rotatable) if plotly is available.
     try:
         import plotly.graph_objects as go
         from plotly.colors import qualitative as pqual
@@ -210,13 +210,9 @@ def save_cluster_plot(parsed: ParsedExperimentConfig, result: PipelineResult) ->
             cmap = cm.get_cmap("tab20", max(n_labels, 20))
             palette = [mcolors.to_hex(cmap(i)) for i in range(n_labels)]
 
-        # Map labels to colors (reserve gray for noise label -1 if present)
         color_map: dict[int, str] = {}
         for i, lab in enumerate(unique_labels):
-            if lab == -1:
-                color_map[int(lab)] = "#AAAAAA"
-            else:
-                color_map[int(lab)] = palette[i % len(palette)]
+            color_map[int(lab)] = palette[i % len(palette)]
 
         marker_colors = [color_map[int(l)] for l in labels_arr]
 
