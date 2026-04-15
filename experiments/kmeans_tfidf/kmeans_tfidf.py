@@ -29,6 +29,7 @@ from config_reader.input_config_reader import InputConfig
 from config_reader.output_config_reader import OutputsConfig
 from config_reader.config_reader_new import ConfigReaderBuilder
 from src.pipelines.kmeans_tfidf import KMeansTfidfPipeline
+from src.pipelines.pipeline import PipelineResult
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:
@@ -157,7 +158,7 @@ def main() -> None:
         summary_rel = str(best_summary_path)
     print(f"Summary -> {summary_rel}")
 
-def save_cluster_plot(parsed: ParsedExperimentConfig, result: Any) -> Path:
+def save_cluster_plot(parsed: ParsedExperimentConfig, result: PipelineResult) -> Path:
     output_dir = parsed.outputs.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
 
