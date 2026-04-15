@@ -41,7 +41,7 @@ Die folgenden Abschnitte beschreiben die in diesem Repository genutzten Clusteri
 
 K‑Means ist ein centroidenbasiertes Verfahren. Es ordnet jeden Punkt dem nächstgelegenen Zentrum zu und aktualisiert danach die Zentren iterativ. Das zugehörige Optimierungsproblem lautet:
 $$
-\min_{c,\mu} J(c,\mu) = \sum_{i=1}^{n} \left\| x_i - \mu_{c_i} \right\|^2
+\min_{c,\mu} J(c,\mu) = \sum_{i=1}^{n} \left\| xᵢ - \mu_{cᵢ} \right\|^2
 $$
 
 **Ablauf (Pseudocode):**
@@ -52,7 +52,7 @@ Output: assignments c, centers μ
 
 1:  μ <- InitializeCenters(X, k)
 2:  for t <- 1 to T_max do
-3:      for each point x_i do
+3:      for each point xᵢ do
 4:          cᵢ <- argminⱼ ‖xᵢ − μⱼ‖²
 5:      end for
 6:      for each cluster j in {1..k} do
@@ -335,9 +335,9 @@ Output: labels y
 
 1:  for each pair (i,j) do
 2:      if affinityType = rbf then
-3:          W_ij <- exp(-γ * ||x_i - x_j||^2)
+3:          Wᵢⱼ <- exp(-γ * ||xᵢ - xⱼ||^2)
 4:      else if affinityType = knn then
-5:          W_ij <- 1 if x_j ∈ kNN(x_i), else 0
+5:          Wᵢⱼ <- 1 if xⱼ ∈ kNN(xᵢ), else 0
 6:      end if
 7:  end for
 8:  Dᵢᵢ <- ∑ⱼ Wᵢⱼ
@@ -353,6 +353,53 @@ Output: labels y
 
 - Implementierung: [src/clustering/spectralClustering.py](src/clustering/spectralClustering.py)
 - Verwendet in: [experiments/spectral_tfidf/spectral_tfidf.md](experiments/spectral_tfidf/spectral_tfidf.md)
+
+### Gaussian Mixture Model (GMM)
+
+Ein Gaussian Mixture Model beschreibt die Daten als Mischung mehrerer Gaußscher Dichten. Es liefert eine probabilistische, "weiche" Zuordnung von Punkten zu Komponenten und wird typischerweise mit dem EM‑Algorithmus geschätzt.
+
+Die Verantwortlichkeiten (Posteriorwahrscheinlichkeiten) lauten:
+$$
+\gamma_{ik} = \frac{\pi_k \; \mathcal{N}(xᵢ \mid \mu_k, \Sigma_k)}{\sum_{j=1}^{K} \pi_j \; \mathcal{N}(xᵢ \mid \mu_j, \Sigma_j)}
+$$
+Mit den M‑Step Updates:
+$$
+N_k = \sum_{i=1}^n \gamma_{ik},\quad
+\mu_k = \frac{1}{N_k} \sum_{i=1}^n \gamma_{ik} xᵢ,\quad
+\Sigma_k = \frac{1}{N_k} \sum_{i=1}^n \gamma_{ik} (xᵢ - \mu_k)(xᵢ - \mu_k)^T,\quad
+\pi_k = \frac{N_k}{n}
+$$
+
+**Ablauf (Pseudocode):**
+```text
+Algorithm: Gaussian Mixture (EM)
+Input: data X, number components K, max iterations T_max, tol
+Output: labels (hard or soft), component params (π, μ, Σ)
+
+1:  initialize π_k, μ_k, Σ_k for k in 1..K
+2:  for t <- 1 to T_max do
+3:      # E-step: compute responsibilities
+4:      for each i,k do
+5:          γ_{ik} <- π_k * N(xᵢ | μ_k, Σ_k) / sum_j π_j * N(xᵢ | μ_j, Σ_j)
+6:      end for
+7:      # M-step: update parameters
+8:      for each k do
+9:          N_k <- sum_i γ_{ik}
+10:         μ_k <- (1 / N_k) * sum_i γ_{ik} xᵢ
+11:         Σ_k <- (1 / N_k) * sum_i γ_{ik} (xᵢ - μ_k)(xᵢ - μ_k)^T
+12:         π_k <- N_k / n
+13:     end for
+14:     if convergence change < tol then break
+15: end for
+16: return responsibilities γ (or hard labels via argmax)
+```
+
+- **Stärken:** Probabilistische Zuordnungen; modelliert elliptische, unterschiedlich skalierte Cluster; flexible Kovarianztypen (`full`, `diag`, `tied`, `spherical`).
+- **Schwächen:** EM kann in lokalen Optima landen; empfindlich gegenüber Ausreißern; nicht ideal für sehr hochdimensionale, spärliche TF‑IDF‑Vektoren ohne vorherige Dimensionsreduktion.
+
+- Implementierung: [src/clustering/gaussianMixture.py](src/clustering/gaussianMixture.py)
+- Verwendet in: [experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py](experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py)
+
 
 ## Feature‑Extractor
 
