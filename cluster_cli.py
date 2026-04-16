@@ -9,4 +9,4 @@ from cli.cli_module import ClusterCLI
 
 
 if __name__ == "__main__":
-    ClusterCLI(Path(__file__).resolve().parent).run()
+    ClusterCLI(Path(__file__).resolve().parent).start()
