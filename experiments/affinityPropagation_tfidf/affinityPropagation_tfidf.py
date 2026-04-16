@@ -25,6 +25,7 @@ from config_reader.output_config_reader import OutputsConfig
 from config_reader.config_reader_new import ConfigReaderBuilder
 from src.pipelines.affinityPropagation_tfidf import AffinityPropagationTfidfPipeline
 from src.experiments.plot_helper import PlotHelper
+from src.experiments.base import BaseExperiment
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:
@@ -36,7 +37,7 @@ class ParsedExperimentConfig:
     outputs: OutputsConfig
 
 
-class AffinityPropagationExperiment:
+class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
     """Encapsulates the AffinityPropagation + TF-IDF experiment logic."""
     
     def __init__(self, config_path: str | Path) -> None:
@@ -87,7 +88,7 @@ class AffinityPropagationExperiment:
 
         assert self.experiment_config is not None
 
-        documents = load_documents(self.experiment_config)
+        documents = self.load_documents(self.experiment_config)
 
         # Run pipeline and time execution
         pipeline = AffinityPropagationTfidfPipeline(
@@ -148,30 +149,6 @@ def main() -> None:
     
     experiment = AffinityPropagationExperiment(config_path)
     experiment.run()
-
-def load_documents(parsed: ParsedExperimentConfig) -> list[str]:
-    if parsed.input.format == "line":
-        with parsed.input.documents_path.open("r", encoding="utf-8") as file:
-            documents = [line.strip() for line in file if line.strip()]
-    else:
-        documents: list[str] = []
-        with parsed.input.documents_path.open("r", encoding="utf-8", newline="") as file:
-            reader = csv.DictReader(file, delimiter=parsed.input.separator)
-            for row in reader:
-                values = [str(row.get(field, "")).strip() for field in parsed.input.text_fields]
-                non_empty = [value for value in values if value]
-                if not non_empty:
-                    continue
-
-                if parsed.input.fuse_mode == "join":
-                    document = parsed.input.separator.join(non_empty)
-                else:
-                    document = non_empty[0]
-                documents.append(document)
-
-    if not documents:
-        raise ValueError("No documents found in input file")
-    return documents
 
 if __name__ == "__main__":
     main()
