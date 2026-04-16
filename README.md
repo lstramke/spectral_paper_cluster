@@ -21,6 +21,7 @@ Projekt zur Durchführung und Auswertung von Clustering-Experimenten auf Textdat
 	- `src/features/`: Feature-Extraktion (TF-IDF).
 	- `src/evaluation/`: Unsupervised-Metriken und Evaluator.
 	- `src/interpretation/`: Interpretationslogik für Cluster.
+	- `src/experiments/`: Gemeinsame Experiment-Hilfsfunktionen und Basisklassen (z. B. `BaseExperiment`, Plot-/IO-Helper).
 	- `src/pipelines/`: End-to-End-Pipelines je Experimenttyp.
 - `EXPERIMENTS.md`
 	- Mathematische Einordnung, Pseudocode und inhaltliche Beschreibung der Experimente.
@@ -36,9 +37,19 @@ pip install -r requirements.txt
 
 ## Experimente ausführen
 
-Die Skripte werden jeweils mit der zugehörigen YAML-Konfiguration gestartet.
+Primär: Interaktives CLI (empfohlen)
 
-Beispiel:
+Das kleine Hilfsprogramm listet alle Ordner unter `experiments/` auf und startet das gewählte Experiment mit der zugehörigen YAML‑Konfiguration. Dies ist der empfohlene Weg, weil das CLI eine einfache Auswahl, Standardpfade und konsistente Aufrufe bietet.
+
+```bash
+python cluster_cli.py
+```
+
+Hinweis: Für die Auswahl per Pfeiltasten werden `questionary` und `colorama` verwendet.
+
+Fallback: Einzelnes Experiment per Skript
+
+Wenn du ein Experiment direkt starten möchtest (z. B. für Debugging oder automatisierte Skripte), kannst du das zugehörige Skript mit der YAML-Konfiguration aufrufen:
 
 ```bash
 python experiments/kmeans_tfidf/kmeans_tfidf.py --config experiments/kmeans_tfidf/kmeans_tfidf.yaml
@@ -52,15 +63,6 @@ Weitere Beispiele:
 
 Ergebnisse werden im jeweiligen `experiments/<name>/outputs/`-Ordner gespeichert.
 
-Alternativ: Interaktives CLI
-
-Du kannst Experimente auch interaktiv per Text‑UI auswählen und starten. Das kleine Hilfsprogramm listet alle Ordner unter `experiments/` auf und startet das gewählte Experiment mit der zugehörigen YAML‑Konfiguration.
-
-```bash
-python cluster_cli.py
-```
-
-Hinweis: Für die Auswahl per Pfeiltasten werden `questionary` und `colorama` verwendet.
 
 ## Hinweise
 
