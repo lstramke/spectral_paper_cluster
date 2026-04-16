@@ -139,13 +139,13 @@ def main() -> None:
         run_rel = run_path.relative_to(PROJECT_ROOT).as_posix()
     except Exception:
         run_rel = str(run_path)
-    print(f"Run -> {run_rel}")
+    print(f"Summary -> {run_rel}")
     print(f"Plot -> {plot_rel}")
     try:
         summary_rel = summary_path.relative_to(PROJECT_ROOT).as_posix()
     except Exception:
         summary_rel = str(summary_path)
-    print(f"Summary -> {summary_rel}")
+    print(f"Best run -> {summary_rel}")
 
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: PipelineResult) -> Path:
