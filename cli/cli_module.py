@@ -50,14 +50,12 @@ class ClusterCLI:
         script = folder / f"{token}.py"
         cfg = folder / f"{token}.yaml"
         if not script.exists() or not cfg.exists():
-            print(f"Missing script or config for {token}", file=sys.stderr)
+            print(colorama.Style.BRIGHT + colorama.Fore.RED + f"Missing script or config for {token}" + colorama.Style.RESET_ALL, file=sys.stderr)
             return 2
         cmd = [sys.executable, str(script), "--config", str(cfg)]
         if show_header:
             print()
-            print(colorama.Fore.CYAN + f"=== {token} ===" + colorama.Style.RESET_ALL)
-            print(colorama.Fore.YELLOW + "Running: " + " ".join(cmd) + colorama.Style.RESET_ALL)
-            print()
+            print(colorama.Style.BRIGHT + colorama.Fore.CYAN + f"  ▶ {token}" + colorama.Style.RESET_ALL)
         proc = subprocess.run(cmd)
         if show_header:
             print()
@@ -66,7 +64,7 @@ class ClusterCLI:
     def offer_open_outputs(self, token: str) -> None:
         files = self.outputs.outputs_for(token)
         if not files:
-            print("No outputs found.")
+            print(colorama.Fore.YELLOW + "⚠ No outputs found." + colorama.Style.RESET_ALL)
             return
         htmls = [f for f in files if f.suffix.lower() in (".html", ".htm")]
         first_html = htmls[0] if htmls else None
@@ -89,26 +87,33 @@ class ClusterCLI:
             if sel:
                 self.outputs.open_path(sel)
             else:
-                print("Selection not found.", file=sys.stderr)
+                print(colorama.Style.BRIGHT + colorama.Fore.RED + "Selection not found." + colorama.Style.RESET_ALL, file=sys.stderr)
 
     def run(self) -> None:
         try:
             while True:
                 tokens = self.list_experiments()
                 if not tokens:
-                    print(f"No experiments found in {self.experiments}", file=sys.stderr)
+                    print(colorama.Style.BRIGHT + colorama.Fore.RED + f"No experiments found in {self.experiments}" + colorama.Style.RESET_ALL, file=sys.stderr)
                     sys.exit(1)
                 choices = ["Run all"] + tokens + ["Close"]
                 chosen = self.choose_experiment(choices)
                 if not chosen:
-                    print("No selection, exiting.")
+                    print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "No selection, exiting." + colorama.Style.RESET_ALL)
                     sys.exit(0)
                 if chosen == "Close":
-                    print("Closing...")
+                    print(colorama.Style.BRIGHT + " Closing..." + colorama.Style.RESET_ALL)
                     sys.exit(0)
                 if chosen == "Run all":
                     results = self.run_all(tokens)
-                    print("\nRun all finished\n")
+                    ok_count = sum(1 for rc in results.values() if rc == 0)
+                    total_count = len(results)
+                    status_color = colorama.Fore.GREEN if ok_count == total_count else colorama.Fore.YELLOW if ok_count > 0 else colorama.Fore.RED
+                    print()
+                    print(colorama.Style.DIM + colorama.Fore.WHITE + "═" * 60 + colorama.Style.RESET_ALL)
+                    print(status_color + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Run all finished: {ok_count}/{total_count} successful" + colorama.Style.RESET_ALL)
+                    print(colorama.Style.DIM + colorama.Fore.WHITE + "═" * 60 + colorama.Style.RESET_ALL)
+                    print()
 
                     # let user inspect outputs for any finished experiment
                     while True:
@@ -123,17 +128,22 @@ class ClusterCLI:
                 
                 rc = self.run_experiment(chosen)
                 if rc != 0:
-                    print("Experiment exited with code", rc)
+                    print(colorama.Fore.RED + "✗" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Experiment exited with code {rc}" + colorama.Style.RESET_ALL)
+                else:
+                    print(colorama.Fore.GREEN + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + " Experiment completed successfully" + colorama.Style.RESET_ALL)
+                print()
                 self.offer_open_outputs(chosen)
         except KeyboardInterrupt:
-            print("\nInterrupted, exiting.")
+            print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "\n⚠ Interrupted, exiting." + colorama.Style.RESET_ALL)
             sys.exit(0)
 
     def run_all(self, tokens):
         cpu = os.cpu_count() or 1
         # leave one core free by default, but at least 1 worker
         max_workers = min(len(tokens), max(1, cpu - 1))
-        print(f"Running {len(tokens)} experiments in parallel ({max_workers} workers)...")
+        print()
+        print(colorama.Style.BRIGHT + colorama.Fore.CYAN + f"▶ Running {len(tokens)} experiments in parallel ({max_workers} workers)..." + colorama.Style.RESET_ALL)
+        print()
         futures = {}
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as ex:
             for t in tokens:
@@ -147,7 +157,9 @@ class ClusterCLI:
                     rc = 1
                     print(f"Experiment {t} raised an exception: {exc}", file=sys.stderr)
                 results[t] = rc
-                status = "OK" if rc == 0 else f"EXIT {rc}"
+                symbol = "✓" if rc == 0 else "✗"
+                status = f"EXIT {rc}" if rc != 0 else ""
                 color = colorama.Fore.GREEN if rc == 0 else colorama.Fore.RED
-                print(f"Finished {t}: {color}{status}{colorama.Style.RESET_ALL}", flush=True)
+                msg = f" {t}" if not status else f" {t}: {status}"
+                print(color + symbol + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + msg + colorama.Style.RESET_ALL, flush=True)
         return results
