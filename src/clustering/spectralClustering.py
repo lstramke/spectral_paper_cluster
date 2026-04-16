@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from torch import Tensor
 from sklearn.cluster import SpectralClustering as SKLearnSpectralClustering
+import warnings
 
 from .base import ClusteringAlgorithm, ClusteringResult
 
@@ -66,10 +67,22 @@ class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):
             if arr.shape[0] != arr.shape[1]:
                 raise ValueError("For affinity='precomputed' x must be a square affinity matrix")
             # sklearn will treat input as affinity matrix when affinity='precomputed'
-            self._sk.fit(arr)
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    category=UserWarning,
+                    message=r".*affinity.*",
+                )
+                self._sk.fit(arr)
         else:
             # treat arr as feature matrix; sklearn will compute affinity internally
-            self._sk.fit(arr)
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    category=UserWarning,
+                    message=r".*affinity.*",
+                )
+                self._sk.fit(arr)
 
         return self
 
@@ -86,9 +99,21 @@ class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):
         if self.config.affinity == "precomputed":
             if arr.shape[0] != arr.shape[1]:
                 raise ValueError("For affinity='precomputed' x must be a square affinity matrix")
-            labels = self._sk.fit_predict(arr)
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    category=UserWarning,
+                    message=r".*affinity.*",
+                )
+                labels = self._sk.fit_predict(arr)
         else:
-            labels = self._sk.fit_predict(arr)
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    category=UserWarning,
+                    message=r".*affinity.*",
+                )
+                labels = self._sk.fit_predict(arr)
 
         labels_t = torch.from_numpy(np.asarray(labels, dtype=np.int64))
 
