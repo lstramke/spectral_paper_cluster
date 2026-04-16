@@ -2,12 +2,10 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import asdict, dataclass
-import csv
 import json
 import sys
 from pathlib import Path
 from typing import Any
-from time import perf_counter
 
 # Allow imports from the src package tree when running from project root.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -17,6 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from src.features.tfidf import TfidfConfig
 from src.clustering.kmeans import KMeansConfig
@@ -44,9 +43,7 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
         self.experiment_config: ParsedExperimentConfig | None = None
-        self.multi_run = None
-        self.best_result = None
-
+        
     def load_config(self) -> None:
         config_reader = ConfigReaderBuilder()\
             .add_input()\
@@ -79,30 +76,26 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             outputs=parsed.outputs,
         )
 
-    def run(self) -> None:
-        if self.experiment_config is None:
-            self.load_config()
-
+    def build_pipeline(self) -> ExperimentPipeline:
         assert self.experiment_config is not None
-
-        documents = self.load_documents(self.experiment_config)
-
-        pipeline = KMeansTfidfPipeline(
+        return KMeansTfidfPipeline(
             kmeans_config=self.experiment_config.kmeans,
             tfidf_config=self.experiment_config.tfidf,
             interpretation_config=self.experiment_config.interpretation,
         )
 
-        start_time = perf_counter()
-        self.multi_run = pipeline.run_many(documents)
-        elapsed_seconds = perf_counter() - start_time
-
-        self.best_result = self.multi_run.best_run
-
-        self._save_results(documents, self.multi_run, self.best_result, elapsed_seconds)
-
-    def _save_results(self, documents: list[str], multi_run: Any, best_result: PipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
+
+        # result is expected to be MultiRunPipelineResult for KMeans
+        if isinstance(result, MultiRunPipelineResult):
+            multi_run = result
+            best_result = multi_run.best_run
+        else:
+            # fallback: single run
+            multi_run = None
+            best_result = result
+
         assert best_result is not None
 
         PlotHelper.save_cluster_plot(self.experiment_config, best_result)
@@ -116,22 +109,22 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
         all_runs_summary: dict[str, Any] = {
             "experiment_name": self.experiment_config.experiment_name,
             "seed_range": list(self.experiment_config.kmeans.seed_range) if self.experiment_config.kmeans.seed_range is not None else [self.experiment_config.kmeans.seed],
-            "n_seeds": len(multi_run.runs),
-            "selected_metric": multi_run.selected_metric,
-            "best_seed": multi_run.best_seed,
-            "runs": [asdict(run) for run in multi_run.runs],
+            "n_seeds": len(multi_run.runs) if multi_run is not None else 1,
+            "selected_metric": multi_run.selected_metric if multi_run is not None else None,
+            "best_seed": multi_run.best_seed if multi_run is not None else None,
+            "runs": [asdict(run) for run in multi_run.runs] if multi_run is not None else [],
         }
 
         best_summary: dict[str, Any] = {
             "experiment_name": self.experiment_config.experiment_name,
-            "seed": multi_run.best_seed,
+            "seed": multi_run.best_seed if multi_run is not None else None,
             "n_documents": len(documents),
             "n_features": int(best_result.features.features.size(1)),
             "n_clusters_found": best_result.clustering.n_clusters_found,
             "metrics": best_result.evaluation.metrics,
             "objective": best_result.clustering.objective,
             "cluster_sizes": best_result.clustering.cluster_sizes,
-            "selected_metric": multi_run.selected_metric,
+            "selected_metric": multi_run.selected_metric if multi_run is not None else None,
             "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
         }
 
@@ -157,7 +150,7 @@ def main() -> None:
     config_path = (PROJECT_ROOT / args.config).resolve()
 
     experiment = KMeansExperiment(config_path)
-    experiment.run()
+    experiment.run_many()
 
 if __name__ == "__main__":
     main()

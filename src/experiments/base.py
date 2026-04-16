@@ -1,16 +1,97 @@
 from __future__ import annotations
 
 import csv
+from abc import ABC, abstractmethod
 from typing import Protocol, TypeVar, Generic, List
+from pathlib import Path
+from time import perf_counter
+
 from config_reader.input_config_reader import InputConfig
+from src.pipelines.pipeline import ExperimentPipeline, PipelineResult, MultiRunPipelineResult
 
 class HasInput(Protocol):
     input: InputConfig
 
 T = TypeVar("T", bound=HasInput)
 
-class BaseExperiment(Generic[T]):
-    
+class BaseExperiment(ABC, Generic[T]):
+    """Abstract base for experiments.
+
+    Concrete experiments must implement the lifecycle hooks below. A
+    reusable `load_documents` implementation is provided.
+    """
+
+    config_path: Path
+    experiment_config: T | None = None
+
+    def run(self) -> None:
+        """Default orchestration for an experiment run using lifecycle hooks.
+
+        Concrete experiments must implement `load_config`, `build_pipeline` and
+        `save_results`. This default `run` will call those hooks, execute the
+        pipeline and save the result.
+        """
+        if self.experiment_config is None:
+            self.load_config()
+
+        assert self.experiment_config is not None
+
+        documents = self.load_documents(self.experiment_config)
+
+        pipeline = self.build_pipeline()
+
+        # execute pipeline and measure elapsed time (inline)
+        start = perf_counter()
+        result = pipeline.run(documents)
+        elapsed = perf_counter() - start
+
+        self.save_results(documents, result, elapsed)
+
+    def run_many(self, seeds: list[int] | None = None) -> None:
+        """Orchestrate a multi-run experiment using the pipeline's `run_many`.
+
+        This mirrors `run()` but calls `ExperimentPipeline.run_many` and
+        forwards the resulting `MultiRunPipelineResult` to `save_results`.
+        """
+        if self.experiment_config is None:
+            self.load_config()
+
+        assert self.experiment_config is not None
+
+        documents = self.load_documents(self.experiment_config)
+
+        pipeline = self.build_pipeline()
+
+        if hasattr(pipeline, "run_many"):
+            start = perf_counter()
+            result = pipeline.run_many(documents, seeds=seeds)
+            elapsed = perf_counter() - start
+            self.save_results(documents, result, elapsed)
+        else:
+            raise NotImplementedError("Pipeline does not implement run_many()")
+
+
+    @abstractmethod
+    def load_config(self) -> None:
+        """Read and validate config; set `self.experiment_config`."""
+
+    @abstractmethod
+    def build_pipeline(self) -> ExperimentPipeline:
+        """Return an `ExperimentPipeline` instance for this experiment."""
+
+    @abstractmethod
+    def save_results(
+        self,
+        documents: list[str],
+        result: PipelineResult | MultiRunPipelineResult,
+        elapsed_seconds: float,
+    ) -> None:
+        """Persist results and any outputs for this experiment.
+
+        Receives the pipeline `result` and measured `elapsed_seconds` so
+        concrete experiments don't need to read instance attributes.
+        """
+
     def load_documents(self, parsed: T) -> List[str]:
         inp = parsed.input
         if inp.format == "line":
@@ -34,3 +115,4 @@ class BaseExperiment(Generic[T]):
         if not docs:
             raise ValueError("No documents found in input file")
         return docs
+    

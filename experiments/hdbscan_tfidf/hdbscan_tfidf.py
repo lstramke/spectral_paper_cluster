@@ -2,12 +2,10 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import asdict, dataclass
-import csv
 import json
 import sys
 from pathlib import Path
 from typing import Any
-from time import perf_counter
 
 # Allow imports from the src package tree when running from project root.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -17,6 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from src.features.tfidf import TfidfConfig
 from src.clustering.hdbscan import HDBSCANConfig
@@ -44,7 +43,6 @@ class HDBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
         self.experiment_config: ParsedExperimentConfig | None = None
-        self.result = None
 
     def load_config(self) -> None:
         config_reader = (
@@ -80,31 +78,23 @@ class HDBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
             outputs=parsed.outputs,
         )
 
-    def run(self) -> None:
-        if self.experiment_config is None:
-            self.load_config()
-
+    def build_pipeline(self) -> ExperimentPipeline:
         assert self.experiment_config is not None
-
-        documents = self.load_documents(self.experiment_config)
-
-        pipeline = HDBSCANTfidfPipeline(
+        return HDBSCANTfidfPipeline(
             hdbscan_config=self.experiment_config.hdbscan,
             tfidf_config=self.experiment_config.tfidf,
             interpretation_config=self.experiment_config.interpretation,
         )
 
-        start_time = perf_counter()
-        self.result = pipeline.run(documents)
-        elapsed_seconds = perf_counter() - start_time
-
-        self._save_results(documents, elapsed_seconds)
-
-    def _save_results(self, documents: list[str], elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
-        assert self.result is not None
 
-        PlotHelper.save_cluster_plot(self.experiment_config, self.result)
+        if isinstance(result, MultiRunPipelineResult):
+            pipeline_result = result.best_run
+        else:
+            pipeline_result = result
+
+        PlotHelper.save_cluster_plot(self.experiment_config, pipeline_result)
 
         output_dir = Path(self.experiment_config.outputs.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -115,12 +105,12 @@ class HDBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
         run_summary: dict[str, Any] = {
             "experiment_name": self.experiment_config.experiment_name,
             "n_documents": len(documents),
-            "n_features": int(self.result.features.features.size(1)),
-            "n_clusters_found": self.result.clustering.n_clusters_found,
-            "metrics": self.result.evaluation.metrics,
-            "objective": self.result.clustering.objective,
-            "cluster_sizes": self.result.clustering.cluster_sizes,
-            "interpretation": asdict(self.result.interpretation) if self.result.interpretation is not None else None,
+            "n_features": int(pipeline_result.features.features.size(1)),
+            "n_clusters_found": pipeline_result.clustering.n_clusters_found,
+            "metrics": pipeline_result.evaluation.metrics,
+            "objective": pipeline_result.clustering.objective,
+            "cluster_sizes": pipeline_result.clustering.cluster_sizes,
+            "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
             "elapsed_seconds": elapsed_seconds,
         }
 
