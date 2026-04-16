@@ -15,6 +15,7 @@ Contains `ClusterCLI` which provides a small TUI built on
 """
 
 from cli.cli_outputs import CLIOutputs
+from cli.cli_config_editor import CLIConfigEditor
 
 colorama.init()
 
@@ -30,6 +31,7 @@ class ClusterCLI:
             ("highlighted", "fg:ansigreen bold"),
             ("question", "bold"),
         ])
+        self.config_editor = CLIConfigEditor(style=self.style)
 
     def list_experiments(self) -> List[str]:
         if not self.experiments.exists():
@@ -89,50 +91,68 @@ class ClusterCLI:
             else:
                 print(colorama.Style.BRIGHT + colorama.Fore.RED + "Selection not found." + colorama.Style.RESET_ALL, file=sys.stderr)
 
-    def run(self) -> None:
+    def edit_config_menu(self, tokens: List[str]) -> None:
+        """Show the edit-config submenu and open the config editor."""
+        pick = questionary.select("Select experiment to edit config:", choices=tokens + ["Back"], use_arrow_keys=True, style=self.style).ask()
+        if not pick or pick == "Back":
+            return
+        cfg = self.experiments / pick / f"{pick}.yaml"
+        self.config_editor.edit_config(cfg)
+
+    def experiments_menu(self, tokens: List[str]) -> None:
+        """Show the experiments submenu (run all, run one, inspect outputs)."""
+        choices = ["Run all"] + tokens + ["Back"]
+        chosen = self.choose_experiment(choices)
+        if not chosen or chosen == "Back":
+            return
+        if chosen == "Run all":
+            results = self.run_all(tokens)
+            ok_count = sum(1 for rc in results.values() if rc == 0)
+            total_count = len(results)
+            status_color = colorama.Fore.GREEN if ok_count == total_count else colorama.Fore.YELLOW if ok_count > 0 else colorama.Fore.RED
+            print()
+            print(colorama.Style.DIM + colorama.Fore.WHITE + "═" * 60 + colorama.Style.RESET_ALL)
+            print(status_color + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Run all finished: {ok_count}/{total_count} successful" + colorama.Style.RESET_ALL)
+            print(colorama.Style.DIM + colorama.Fore.WHITE + "═" * 60 + colorama.Style.RESET_ALL)
+            print()
+
+            while True:
+                choices_status = [f"{t} ({'OK' if results.get(t,1)==0 else 'ERR'})" for t in tokens]
+                choices_status.append("Back")
+                pick = questionary.select("Inspect outputs for experiment:", choices=choices_status, use_arrow_keys=True, style=self.style).ask()
+                if not pick or pick == "Back":
+                    break
+                picked_name = pick.split()[0]
+                self.offer_open_outputs(picked_name)
+            return
+
+        rc = self.run_experiment(chosen)
+        if rc != 0:
+            print(colorama.Fore.RED + "✗" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Experiment exited with code {rc}" + colorama.Style.RESET_ALL)
+        else:
+            print(colorama.Fore.GREEN + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + " Experiment completed successfully" + colorama.Style.RESET_ALL)
+        print()
+        self.offer_open_outputs(chosen)
+
+    def start(self) -> None:
         try:
             while True:
                 tokens = self.list_experiments()
                 if not tokens:
                     print(colorama.Style.BRIGHT + colorama.Fore.RED + f"No experiments found in {self.experiments}" + colorama.Style.RESET_ALL, file=sys.stderr)
                     sys.exit(1)
-                choices = ["Run all"] + tokens + ["Close"]
-                chosen = self.choose_experiment(choices)
-                if not chosen:
+                main_choices = ["Edit config", "Experiments", "Close"]
+                action = questionary.select("Select action:", choices=main_choices, use_arrow_keys=True, style=self.style).ask()
+                if not action:
                     print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "No selection, exiting." + colorama.Style.RESET_ALL)
                     sys.exit(0)
-                if chosen == "Close":
+                if action == "Close":
                     print(colorama.Style.BRIGHT + " Closing..." + colorama.Style.RESET_ALL)
                     sys.exit(0)
-                if chosen == "Run all":
-                    results = self.run_all(tokens)
-                    ok_count = sum(1 for rc in results.values() if rc == 0)
-                    total_count = len(results)
-                    status_color = colorama.Fore.GREEN if ok_count == total_count else colorama.Fore.YELLOW if ok_count > 0 else colorama.Fore.RED
-                    print()
-                    print(colorama.Style.DIM + colorama.Fore.WHITE + "═" * 60 + colorama.Style.RESET_ALL)
-                    print(status_color + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Run all finished: {ok_count}/{total_count} successful" + colorama.Style.RESET_ALL)
-                    print(colorama.Style.DIM + colorama.Fore.WHITE + "═" * 60 + colorama.Style.RESET_ALL)
-                    print()
-
-                    # let user inspect outputs for any finished experiment
-                    while True:
-                        choices_status = [f"{t} ({'OK' if results.get(t,1)==0 else 'ERR'})" for t in tokens]
-                        choices_status.append("Back")
-                        pick = questionary.select("Inspect outputs for experiment:", choices=choices_status, use_arrow_keys=True, style=self.style).ask()
-                        if not pick or pick == "Back":
-                            break
-                        picked_name = pick.split()[0]
-                        self.offer_open_outputs(picked_name)
+                if action == "Edit config":
+                    self.edit_config_menu(tokens)
                     continue
-                
-                rc = self.run_experiment(chosen)
-                if rc != 0:
-                    print(colorama.Fore.RED + "✗" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Experiment exited with code {rc}" + colorama.Style.RESET_ALL)
-                else:
-                    print(colorama.Fore.GREEN + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + " Experiment completed successfully" + colorama.Style.RESET_ALL)
-                print()
-                self.offer_open_outputs(chosen)
+                self.experiments_menu(tokens)
         except KeyboardInterrupt:
             print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "\n⚠ Interrupted, exiting." + colorama.Style.RESET_ALL)
             sys.exit(0)
