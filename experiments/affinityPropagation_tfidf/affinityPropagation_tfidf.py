@@ -134,18 +134,6 @@ def main() -> None:
     with summary_path.open("w", encoding="utf-8") as fp:
         json.dump(run_summary, fp, indent=2)
 
-    print(json.dumps(run_summary, indent=2))
-    try:
-        run_rel = run_path.relative_to(PROJECT_ROOT).as_posix()
-    except Exception:
-        run_rel = str(run_path)
-    print(f"Run -> {run_rel}")
-    print(f"Plot -> {plot_rel}")
-    try:
-        summary_rel = summary_path.relative_to(PROJECT_ROOT).as_posix()
-    except Exception:
-        summary_rel = str(summary_path)
-    print(f"Summary -> {summary_rel}")
 
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: PipelineResult) -> Path:
