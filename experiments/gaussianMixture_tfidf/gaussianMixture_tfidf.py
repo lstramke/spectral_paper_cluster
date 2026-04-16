@@ -135,7 +135,6 @@ def main() -> None:
     with summary_path.open("w", encoding="utf-8") as fp:
         json.dump(run_summary, fp, indent=2)
 
-    print(json.dumps(run_summary, indent=2))
     try:
         run_rel = run_path.relative_to(PROJECT_ROOT).as_posix()
     except Exception:

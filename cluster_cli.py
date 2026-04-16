@@ -49,18 +49,26 @@ def run_experiment(token: str) -> int:
     return proc.returncode
 
 def main():
-    tokens = list_experiments()
-    if not tokens:
-        print(f"No experiments found in {EXPERIMENTS}", file=sys.stderr)
-        sys.exit(1)
-    chosen = choose_experiment(tokens)
-    if not chosen:
-        print("No selection, exiting.")
+    try:
+        while True:
+            tokens = list_experiments()
+            if not tokens:
+                print(f"No experiments found in {EXPERIMENTS}", file=sys.stderr)
+                sys.exit(1)
+            choices = ["Close"] + tokens
+            chosen = choose_experiment(choices)
+            if not chosen:
+                print("No selection, exiting.")
+                sys.exit(0)
+            if chosen == "Close":
+                print("Closing...")
+                sys.exit(0)
+            rc = run_experiment(chosen)
+            if rc != 0:
+                print("Experiment exited with code", rc)
+    except KeyboardInterrupt:
+        print("\nInterrupted, exiting.")
         sys.exit(0)
-    rc = run_experiment(chosen)
-    if rc != 0:
-        print("Experiment exited with code", rc)
-        sys.exit(rc)
 
 if __name__ == "__main__":
     main()
