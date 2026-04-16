@@ -145,17 +145,6 @@ def main() -> None:
     with best_summary_path.open("w", encoding="utf-8") as fp:
         json.dump(best_summary, fp, indent=2)
 
-    try:
-        all_runs_rel = all_runs_path.relative_to(PROJECT_ROOT).as_posix()
-    except Exception:
-        all_runs_rel = str(all_runs_path)
-    print(f"Summary -> {all_runs_rel}")
-    print(f"Plot -> {plot_rel}")
-    try:
-        summary_rel = best_summary_path.relative_to(PROJECT_ROOT).as_posix()
-    except Exception:
-        summary_rel = str(best_summary_path)
-    print(f"Best run -> {summary_rel}")
 
 def save_cluster_plot(parsed: ParsedExperimentConfig, result: PipelineResult) -> Path:
     output_dir = parsed.outputs.output_dir

@@ -59,7 +59,8 @@ class ClusterCLI:
             print(colorama.Fore.YELLOW + "Running: " + " ".join(cmd) + colorama.Style.RESET_ALL)
             print()
         proc = subprocess.run(cmd)
-        print()
+        if show_header:
+            print()
         return proc.returncode
 
     def offer_open_outputs(self, token: str) -> None:
@@ -106,29 +107,8 @@ class ClusterCLI:
                     print("Closing...")
                     sys.exit(0)
                 if chosen == "Run all":
-                    cpu = os.cpu_count() or 1
-                    # leave one core free by default, but at least 1 worker
-                    max_workers = min(len(tokens), max(1, cpu - 1))
-                    print(f"Running {len(tokens)} experiments in parallel ({max_workers} workers)...")
-                    futures = {}
-                    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as ex:
-                        for t in tokens:
-                            futures[ex.submit(self.run_experiment, t, False)] = t
-                        results = {}
-                        for fut in concurrent.futures.as_completed(futures):
-                            t = futures[fut]
-                            try:
-                                rc = fut.result()
-                            except Exception as exc:
-                                rc = 1
-                                print(f"Experiment {t} raised an exception: {exc}", file=sys.stderr)
-                            results[t] = rc
-
-                    print("\nRun all finished — summary:")
-                    for t in tokens:
-                        rc = results.get(t, 1)
-                        status = "OK" if rc == 0 else f"EXIT {rc}"
-                        print(f" - {t}: {status}")
+                    results = self.run_all(tokens)
+                    print("\nRun all finished\n")
 
                     # let user inspect outputs for any finished experiment
                     while True:
@@ -148,3 +128,26 @@ class ClusterCLI:
         except KeyboardInterrupt:
             print("\nInterrupted, exiting.")
             sys.exit(0)
+
+    def run_all(self, tokens):
+        cpu = os.cpu_count() or 1
+        # leave one core free by default, but at least 1 worker
+        max_workers = min(len(tokens), max(1, cpu - 1))
+        print(f"Running {len(tokens)} experiments in parallel ({max_workers} workers)...")
+        futures = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as ex:
+            for t in tokens:
+                futures[ex.submit(self.run_experiment, t, False)] = t
+            results = {}
+            for fut in concurrent.futures.as_completed(futures):
+                t = futures[fut]
+                try:
+                    rc = fut.result()
+                except Exception as exc:
+                    rc = 1
+                    print(f"Experiment {t} raised an exception: {exc}", file=sys.stderr)
+                results[t] = rc
+                status = "OK" if rc == 0 else f"EXIT {rc}"
+                color = colorama.Fore.GREEN if rc == 0 else colorama.Fore.RED
+                print(f"Finished {t}: {color}{status}{colorama.Style.RESET_ALL}", flush=True)
+        return results
