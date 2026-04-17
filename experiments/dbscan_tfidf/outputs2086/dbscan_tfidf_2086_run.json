@@ -1,0 +1,65 @@
+{
+  "experiment_name": "dbscan_tfidf_2086",
+  "n_documents": 2086,
+  "n_features": 100,
+  "n_clusters_found": 1,
+  "metrics": {},
+  "objective": null,
+  "cluster_sizes": {
+    "0": 2086
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "0": [
+        [
+          "spectral",
+          0.043723296374082565
+        ],
+        [
+          "tissue",
+          0.03922095522284508
+        ],
+        [
+          "images",
+          0.036248914897441864
+        ],
+        [
+          "image",
+          0.03544863685965538
+        ],
+        [
+          "multispectral",
+          0.03446529805660248
+        ],
+        [
+          "data",
+          0.031815528869628906
+        ],
+        [
+          "hyperspectral imaging",
+          0.029430067166686058
+        ],
+        [
+          "optical",
+          0.02714714966714382
+        ],
+        [
+          "method",
+          0.02645527757704258
+        ],
+        [
+          "analysis",
+          0.026441385969519615
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 14.948276900002384
+}

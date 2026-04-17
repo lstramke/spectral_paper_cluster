@@ -1,7 +1,7 @@
-experiment_name: dbscan_tfidf
+experiment_name: dbscan_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
@@ -12,8 +12,8 @@ dbscan:
   min_samples: 3
   metric: cosine
   leaf_size: 30
-  p: null
-  n_jobs: null
+  p:
+  n_jobs:
 
 tfidf:
   max_features: 1000
@@ -30,7 +30,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/dbscan_tfidf/outputs
+  output_dir: experiments/dbscan_tfidf/outputs2086
   plot_name: dbscan_tfidf_pca.png
   summary_name: best_dbscan_tfidf_summary.json
   point_size: 42
