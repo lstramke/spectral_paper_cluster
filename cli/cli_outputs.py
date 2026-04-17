@@ -12,19 +12,42 @@ import os
 import subprocess
 import webbrowser
 from typing import List
+from ruamel.yaml import YAML
 
 
 class CLIOutputs:
     """Helper to list and open experiment output files.
 
     Initialized with the `experiments` root Path.
+    Reads the output directory name from the experiment's YAML config.
     """
 
     def __init__(self, experiments_root: Path) -> None:
         self.experiments_root: Path = experiments_root
+        self.yaml = YAML()
+
+    def _get_output_dir_name(self, token: str) -> str:
+        """Read output directory name from experiment config.
+        
+        Returns only the last segment of the output directory path
+        (e.g., 'outputs2086' from 'experiments/affinityPropagation_tfidf/outputs2086').
+        """
+        cfg_path = self.experiments_root / token / f"{token}.yaml"
+        if not cfg_path.exists():
+            return "outputs"
+        
+        try:
+            with open(cfg_path, encoding="utf-8") as f:
+                data = self.yaml.load(f) or {}
+            
+            output_dir = data.get("outputs", {}).get("output_dir") or "outputs"
+            return Path(output_dir).name
+        except Exception:
+            return "outputs"
 
     def outputs_for(self, token: str) -> List[Path]:
-        outdir = self.experiments_root / token / "outputs"
+        output_dir_name = self._get_output_dir_name(token)
+        outdir = self.experiments_root / token / output_dir_name
         if not outdir.exists():
             return []
         return sorted([p for p in outdir.iterdir() if p.is_file()])
