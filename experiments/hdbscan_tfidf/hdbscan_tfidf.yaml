@@ -1,7 +1,7 @@
-experiment_name: hdbscan_tfidf
+experiment_name: hdbscan_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
@@ -9,7 +9,7 @@ input:
 
 hdbscan:
   min_cluster_size: 3
-  min_samples: null
+  min_samples:
   metric: euclidean
   cluster_selection_method: eom
 
@@ -28,7 +28,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/hdbscan_tfidf/outputs
+  output_dir: experiments/hdbscan_tfidf/outputs2086
   plot_name: hdbscan_tfidf_pca.png
   summary_name: best_hdbscan_tfidf_summary.json
   point_size: 42
