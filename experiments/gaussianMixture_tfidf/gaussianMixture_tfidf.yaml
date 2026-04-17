@@ -1,7 +1,7 @@
-experiment_name: gaussianMixture_tfidf
+experiment_name: gaussianMixture_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
@@ -33,7 +33,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/gaussianMixture_tfidf/outputs
+  output_dir: experiments/gaussianMixture_tfidf/outputs2086
   plot_name: gaussianMixture_tfidf_pca.png
   summary_name: best_gaussianMixture_tfidf_summary.json
   point_size: 42
