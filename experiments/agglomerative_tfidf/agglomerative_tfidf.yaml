@@ -1,7 +1,7 @@
-experiment_name: agglomerative_tfidf
+experiment_name: agglomerative_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
@@ -12,7 +12,7 @@ agglomerative:
   metric: cosine
   linkage: average
   distance_threshold: 0.8
-  compute_full_tree: True
+  compute_full_tree: true
 
 tfidf:
   max_features: 1000
@@ -29,7 +29,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/agglomerative_tfidf/outputs
+  output_dir: experiments/agglomerative_tfidf/outputs2086
   plot_name: agglomerative_tfidf_pca.png
   summary_name: best_agglomerative_tfidf_summary.json
   point_size: 42
