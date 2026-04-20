@@ -6,7 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [affinityPropagation_tfidf.yaml](affinityPropagation_tfidf.yaml).
+Die Experimentkonfiguration muss in [affinityPropagation_tfidf.yaml](../affinityPropagation_tfidf.yaml) eingetragen sein.
+
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 
 ```yaml
 experiment_name: affinityPropagation_tfidf
@@ -41,7 +43,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/affinityPropagation_tfidf/outputs
+  output_dir: experiments/affinityPropagation_tfidf/results_41
   plot_name: affinityPropagation_tfidf_pca.png
   summary_name: best_affinityPropagation_tfidf_summary.json
   point_size: 42
@@ -56,21 +58,21 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/affinityPropagation.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: Plot und Summary im Unterordner `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner `results_41/` speichern
 
 ## Ergebnisse
 
 ### Plot:
 
-![affinity propagation + tfidf PCA](outputs/affinityPropagation_tfidf_pca.png)
+![affinity propagation + tfidf PCA](affinityPropagation_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/affinityPropagtion_tfidf_pca.html](outputs/affinityPropagation_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [affinityPropagtion_tfidf_pca.html](affinityPropagation_tfidf_pca.html)
 
 #### Metriken: 
 
 Die in der JSON gespeicherten Kennzahlen direkt auswerten.
 
-Die Metriken werden in `outputs/best_affinityPropagation_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_affinityPropagation_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |

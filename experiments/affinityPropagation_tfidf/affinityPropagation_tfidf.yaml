@@ -30,7 +30,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/affinityPropagation_tfidf/outputs2086
+  output_dir: experiments/affinityPropagation_tfidf/results_2086
   plot_name: affinityPropagation_tfidf_2086_pca.png
   summary_name: best_affinityPropagation_tfidf_2086_summary.json
   point_size: 42
