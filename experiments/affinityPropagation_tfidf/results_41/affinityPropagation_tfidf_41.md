@@ -1,4 +1,4 @@
-# affinity propagation + tfidf
+# affinity propagation + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -69,8 +69,6 @@ outputs:
 Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [affinityPropagtion_tfidf_pca.html](affinityPropagation_tfidf_pca.html)
 
 #### Metriken: 
-
-Die in der JSON gespeicherten Kennzahlen direkt auswerten.
 
 Die Metriken werden in `best_affinityPropagation_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 

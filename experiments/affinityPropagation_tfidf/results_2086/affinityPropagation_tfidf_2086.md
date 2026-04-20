@@ -1,0 +1,99 @@
+# affinity propagation + tfidf auf 2086
+
+## Kurzüberblick
+
+- **Kurzbeschreibung:** Dokumente werden in TF‑IDF‑Vektoren überführt (optional LSA), anschließend wendet die Pipeline Affinity Propagation an, das automatisch repräsentative Exemplare (Cluster‑Zentren) findet. Ziel ist explorative Themenentdeckung ohne feste `k`‑Angabe; Affinity Propagation ist besonders nützlich bei kleineren Datensätzen, reagiert aber stark auf die Normalisierung der Merkmale.
+
+## Konfiguration
+
+Die Experimentkonfiguration muss in [affinityPropagation_tfidf.yaml](../affinityPropagation_tfidf.yaml) eingetragen sein.
+
+Die Konfiguration für das hier dargestellte Ergebnis ist:
+
+```yaml
+experiment_name: affinityPropagation_tfidf_2086
+
+input:
+  documents_path: data/raw/dataset_2086.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+affinityPropagation:
+  damping: 0.7
+  max_iter: 200
+  convergence_iter: 15
+  affinity: euclidean
+  random_state: 42
+  normalize: true
+
+tfidf:
+  max_features: 1000
+  ngram_range: [1, 2]
+  min_df: 5
+  max_df: 0.4
+  lowercase: true
+  stop_words: english
+  extra_stop_words: ["hsi"]
+  use_lsa: true
+  lsa_components: 100
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: experiments/affinityPropagation_tfidf/results_2086
+  plot_name: affinityPropagation_tfidf_2086_pca.png
+  summary_name: best_affinityPropagation_tfidf_2086_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7
+```
+
+## Pipeline
+
+1. Daten einlesen (`data/raw/`)
+2. Feature-Extraktion mit `src/features/tfidf.py`
+3. Clustering mit `src/clustering/affinityPropagation.py`
+4. Evaluation mit `src/evaluation/basic_unsupervised.py`
+5. Outputs: Plot und Summary im Unterordner `results_2086/` speichern
+
+## Ergebnisse
+
+### Plot:
+
+![affinity propagation + tfidf PCA](affinityPropagation_tfidf_2086_pca.png)
+
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [affinityPropagtion_tfidf_2086_pca.html](affinityPropagation_tfidf_2086_pca.html)
+
+#### Metriken: 
+
+Die Metriken werden in `best_affinityPropagation_tfidf_2086_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+
+| Metrik | Wert | Einordnung |
+| --- | ---: | --- |
+| Silhouette Score |  |    |
+| Davies–Bouldin Index |  |    |
+| Calinski–Harabasz Index | |   |
+
+#### Cluster-Interpretation
+
+Die Top‑Wörter (Top‑10) pro Cluster, berechnet aus den nicht reduzierten TF‑IDF‑Features, lauten:
+
+| Cluster | Top‑Wörter |
+| ---: | --- |
+| 0 |  |
+| 1 |  |
+| 2 |  |
+| 3 |  |
+| 4 |  |
+| 5 |  |
+| 6 |  |
+| 7 |  |
+| 8 |  |
+| 9 |  |
+
+### Evaluation
+
