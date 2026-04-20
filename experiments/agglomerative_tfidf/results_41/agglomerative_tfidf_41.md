@@ -1,4 +1,4 @@
-# agglomerative + tfidf
+# agglomerative + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -6,8 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [agglomerative_tfidf.yaml](agglomerative_tfidf.yaml).
+Die Experimentkonfiguration muss in [agglomerative_tfidf.yaml](../agglomerative_tfidf.yaml) eingetragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: agglomerative_tfidf
 
@@ -40,7 +41,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/agglomerative_tfidf/outputs
+  output_dir: experiments/agglomerative_tfidf/results_41
   plot_name: agglomerative_tfidf_pca.png
   summary_name: best_agglomerative_tfidf_summary.json
   point_size: 42
@@ -55,19 +56,19 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/agglomerativeClustering.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: Plot und Summary im Unterordner `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner `results_41/` speichern
 
 ### Ergebnisse
 
 #### Plot:
 
-![agglomerative + tfidf PCA](outputs/agglomerative_tfidf_pca.png)
+![agglomerative + tfidf PCA](agglomerative_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/agglomerative_tfidf_pca.html](outputs/agglomerative_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [agglomerative_tfidf_pca.html](agglomerative_tfidf_pca.html)
 
 #### Metriken:
 
-Die Metriken werden in `outputs/best_agglomerative_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_agglomerative_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |

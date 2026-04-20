@@ -29,7 +29,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/agglomerative_tfidf/outputs2086
+  output_dir: experiments/agglomerative_tfidf/results_2086
   plot_name: agglomerative_tfidf_pca.png
   summary_name: best_agglomerative_tfidf_summary.json
   point_size: 42
