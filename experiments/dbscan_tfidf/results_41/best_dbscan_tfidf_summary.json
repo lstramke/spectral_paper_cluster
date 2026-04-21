@@ -1,12 +1,12 @@
 {
   "experiment_name": "dbscan_tfidf",
   "n_documents": 41,
-  "n_features": 41,
+  "n_features": 40,
   "n_clusters_found": 1,
   "metrics": {
-    "silhouette": 0.04853330925107002,
-    "davies_bouldin": 2.1547427614491355,
-    "calinski_harabasz": 1.1843962957162295
+    "silhouette": 0.04912794381380081,
+    "davies_bouldin": 2.152774204441197,
+    "calinski_harabasz": 1.1866975846121282
   },
   "objective": null,
   "cluster_sizes": {
@@ -108,5 +108,5 @@
       "labels_true_provided": false
     }
   },
-  "elapsed_seconds": 0.5226098000002821
+  "elapsed_seconds": 0.025081899999349844
 }

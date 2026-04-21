@@ -1,12 +1,12 @@
 {
   "experiment_name": "agglomerative_tfidf",
   "n_documents": 41,
-  "n_features": 41,
+  "n_features": 40,
   "n_clusters_found": 10,
   "metrics": {
-    "silhouette": 0.14020588994026184,
-    "davies_bouldin": 1.8421871790100686,
-    "calinski_harabasz": 2.1347662569929904
+    "silhouette": 0.14200261235237122,
+    "davies_bouldin": 1.8365325829568917,
+    "calinski_harabasz": 2.148901278585822
   },
   "objective": null,
   "cluster_sizes": {
@@ -452,5 +452,5 @@
       "labels_true_provided": false
     }
   },
-  "elapsed_seconds": 1.5193631000001915
+  "elapsed_seconds": 0.026006400001278962
 }

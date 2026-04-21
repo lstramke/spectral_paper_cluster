@@ -36,7 +36,7 @@ tfidf:
   stop_words: english
   extra_stop_words: ["hsi"]
   use_lsa: true
-  lsa_components: 100
+  lsa_components: 40
 
 interpretation:
   top_n_terms: 10
@@ -73,9 +73,9 @@ Die Metriken werden in `best_dbscan_tfidf_summary.json` gespeichert. Für das ak
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.04853330925107002 | Cluster kaum getrennt |
-| Davies–Bouldin Index | 2.1547427614491355 | mittlere Überlappung zwischen den Clustern |
-| Calinski–Harabasz Index | 1.1843962957162295 | schwache Clusterstruktur |
+| Silhouette Score | 0.04912794381380081 | Cluster kaum getrennt |
+| Davies–Bouldin Index | 2.152774204441197 | mittlere Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 1.1866975846121282 | schwache Clusterstruktur |
 
 ### Cluster-Interpretation
 
