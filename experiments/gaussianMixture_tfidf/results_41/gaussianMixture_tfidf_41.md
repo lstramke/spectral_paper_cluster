@@ -40,7 +40,7 @@ tfidf:
   stop_words: english
   extra_stop_words: ["hsi"]
   use_lsa: true
-  lsa_components: 100
+  lsa_components: 40
 
 interpretation:
   top_n_terms: 10
@@ -79,29 +79,29 @@ Die Metriken werden in `best_gaussianMixture_tfidf_summary.json` gespeichert. F�
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.1031 | sehr gering — schwache Trennung |
-| Davies–Bouldin Index | 2.0178 | mittel bis hoch — deutliche Überlappung |
-| Calinski–Harabasz Index | 1.9930 | niedrig (relativ zur Datenmenge) |
+| Silhouette Score | 0.08469785004854202 | sehr gering — schwache Trennung |
+| Davies–Bouldin Index | 2.0553832063634028 | mittel — mäßig bis deutliche Überlappung |
+| Calinski–Harabasz Index | 2.0330562688400016 | niedrig  |
 
 ### Cluster-Interpretation
 Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `best_gaussianMixture_tfidf_summary.json`.
 
 | Cluster | Top-Wörter |
 | ---: | --- |
-| 0 | vision, spectroscopy, technologies, technology, based, capabilities, use, spatial, different, monitoring |
-| 1 | patients, studies, detection, small, meta analysis, meta, lesions, improvement, results, literature |
-| 2 | tissue, technology, information, brain, biological, provides, recent, diagnosis, data, disease |
-| 3 | cancer, accuracy, sensitivity, aided, computer aided, specificity, high, detection, computer, techniques |
-| 4 | medical, medical applications, research, challenges, clinical, limitations, field, future, study, technology |
-| 5 | tissue, guidance, systems, vivo, surgical, patients, current, studies, modality, different |
-| 6 | perfusion, clinical, light, surgery, measurements, results, literature, color, gastrointestinal, promising |
-| 7 | disease, disorders, field, current, clinical, brain, early, approaches, diseases, significant |
-| 8 | multispectral, lesions, skin, multispectral imaging, systematic, summarize, level, systematic review, cancer, hyperspectral multispectral |
-| 9 | learning, medical, images, biological, image, algorithms, data, techniques, various, machine |
+| 0 | patients, perfusion, studies, literature, spectral imaging, gastrointestinal, measurements, detection, surgery, results |
+| 1 | medical, medical applications, research, field, challenges, techniques, clinical, recent, article, limitations |
+| 2 | technology, data, information, provides, diseases, diagnosis, disease, recent, spectra, disease diagnosis |
+| 3 | disease, disorders, brain, field, recent, information, technology, diagnosis, current, clinical |
+| 4 | skin, cancer, skin cancer, color, light, compared, detection, systematic, multispectral, systematic review |
+| 5 | biological, tissue, high, resolution, brain, proposed, images, different, use, tissues |
+| 6 | systems, vivo, clinical, studies, patients, tissue, surgical, current, guidance, work |
+| 7 | multispectral, vision, technology, spectroscopy, capabilities, technologies, different, based, lesions, multispectral imaging |
+| 8 | learning, medical, images, algorithms, diseases, data, approaches, study, various, principles |
+| 9 | cancer, accuracy, sensitivity, techniques, aided, computer aided, studies, computer, specificity, meta |
 
 ## Evaluation
 
-Die Kennzahlen zeigen eine insgesamt schwache Clusterstruktur: der Silhouette‑Score (0.1031) spricht für geringe Trennung, der Davies–Bouldin‑Index (2.0178) weist auf  Überlappungen hin und der Calinski–Harabasz‑Index ist vergleichsweise niedrig. Praktische nächste Schritte sind:
+Die Kennzahlen zeigen eine insgesamt schwache Clusterstruktur: der Silhouette‑Score (0.08469785004854202) spricht für geringe Trennung, der Davies–Bouldin‑Index (2.0553832063634028) weist auf Überlappungen hin und der Calinski–Harabasz‑Index (2.0330562688400016) ist vergleichsweise niedrig. Praktische nächste Schritte sind:
 
 - `n_components` feiner abstufen (z. B. Grid- oder Elbow‑Suche)
 - andere `covariance_type`-Einstellungen testen (`tied`, `diag`, `spherical`) und `n_init` erhöhen
