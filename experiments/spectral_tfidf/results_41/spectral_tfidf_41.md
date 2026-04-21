@@ -40,7 +40,7 @@ tfidf:
   stop_words: english
   extra_stop_words: ["hsi"]
   use_lsa: true
-  lsa_components: 100
+  lsa_components: 40
 
 interpretation:
   top_n_terms: 10
@@ -77,9 +77,9 @@ Die Metriken werden in `best_spectral_tfidf_summary.json` gespeichert. Für das 
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.12184976041316986 | schwache bis mäßige Trennung |
-| Davies–Bouldin Index | 1.90316 | mittlere Überlappung |
-| Calinski–Harabasz Index | 2.06360 | schwache Clusterstruktur |
+| Silhouette Score | 0.11248621344566345 | schwache bis mäßige Trennung |
+| Davies–Bouldin Index | 1.9227023029672683 | mittlere Überlappung |
+| Calinski–Harabasz Index | 2.0304430584237467 | schwache Clusterstruktur |
 
 ### Cluster-Interpretation
 
@@ -87,17 +87,17 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster (Top‑10), berechne
 
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | disease, disorders, field, current, clinical, brain, early, approaches, diseases, significant |
-| 1 | technology, information, data, recent, diagnosis, provides, disease, diseases, medical, spatial |
-| 2 | medical, learning, algorithms, research, medical applications, images, future, study, techniques, machine |
-| 3 | spectroscopy, use, vision, modalities, light, technologies, spatial, based, techniques, range |
-| 4 | cancer, computer aided, aided, computer, skin, accuracy, skin cancer, detection, diagnostic, studies |
-| 5 | patients, studies, vivo, measurements, detection, small, systems, performed, tissue, systematic |
+| 0 | multispectral, vision, capabilities, spectroscopy, technologies, use, using, limitations, different, monitoring |
+| 1 | medical, learning, algorithms, research, medical applications, images, future, study, techniques, machine |
+| 2 | studies, vivo, patients, measurements, tissue, detection, sensitivity, performed, systems, literature |
+| 3 | cancer, skin, color, computer, computer aided, aided, accuracy, skin cancer, diagnostic, light |
+| 4 | technology, information, data, recent, diagnosis, provides, disease, diseases, medical, spatial |
+| 5 | tissue, high, brain, guidance, different, used, resolution, types, modality, surgical |
 | 6 | clinical, perfusion, surgery, gastrointestinal, promising, results, spectral imaging, main, systems, article |
-| 7 | tissue, high, brain, guidance, different, used, resolution, types, modality, surgical |
-| 8 | multispectral, lesions, multispectral imaging, skin, hyperspectral multispectral, different, limitations, tissue, current, level |
-| 9 | biological, images, light, proposed, color, tissue, tissues, use, image, compared |
+| 7 | lesions, patients, skin, multispectral, small, multispectral imaging, significant, level, advances, tissue |
+| 8 | disease, disorders, field, current, clinical, brain, early, approaches, diseases, significant |
+| 9 | biological, proposed, images, tissue, tissues, use, related, resolution, visualization, image |
 
 ## Evaluation
 
-Die aktuelle Konfiguration liefert nur eine schwache bis mäßige Trennung (Silhouette ≈ 0.12) bei moderater Überlappung (Davies–Bouldin ≈ 1.90); die Clusterstruktur ist insgesamt eher schwach. Empfehlung: `n_neighbors`, `gamma` und `affinity` (kNN vs. rbf/precomputed) feinabstimmen.
+Die aktuelle Konfiguration liefert nur eine schwache bis mäßige Trennung (Silhouette ≈ 0.11) bei moderater Überlappung (Davies–Bouldin ≈ 1.92); die Clusterstruktur ist insgesamt eher schwach. Empfehlung: `n_neighbors`, `gamma` und `affinity` (kNN vs. rbf/precomputed) feinabstimmen.

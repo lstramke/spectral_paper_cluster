@@ -35,7 +35,7 @@ tfidf:
   stop_words: english
   extra_stop_words: ["hsi"]
   use_lsa: true
-  lsa_components: 100
+  lsa_components: 40
 
 interpretation:
   top_n_terms: 10
@@ -72,9 +72,9 @@ Die Metriken werden in `best_optics_tfidf_summary.json` gespeichert. Für das ak
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.07216697186231613 | Cluster kaum getrennt |
-| Davies–Bouldin Index | 2.8434577940363983 | deutliche Überlappung zwischen den Clustern |
-| Calinski–Harabasz Index | 2.552131362549424 | schwache Clusterstruktur |
+| Silhouette Score | 0.07049638032913208 | Cluster kaum getrennt |
+| Davies–Bouldin Index | 2.9323449516790725 | deutliche Überlappung zwischen den Clustern |
+| Calinski–Harabasz Index | 2.521684262709035 | schwache Clusterstruktur |
 
 ### Cluster-Interpretation
 
@@ -82,10 +82,10 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| -1 | tissue, multispectral, patients, studies, technology, use, brain, different, biological, information |
+| -1 | tissue, patients, studies, multispectral, technology, use, brain, different, biological, information |
 | 0 | medical, learning, diseases, data, research, disease, algorithms, disorders, diagnosis, future |
-| 1 | cancer, accuracy, aided, computer aided, computer, detection, diagnostic, sensitivity, studies, skin |
+| 1 | cancer, skin, detection, accuracy, aided, computer aided, computer, diagnostic, sensitivity, skin cancer |
 
 ## Evaluation
 
-Die Kennzahlen deuten auf eine schwache Clusterstruktur hin: die Silhouette ist mit 0.072 nur geringfügig über 0, der Davies–Bouldin Index (2.843) zeigt deutliche Überlappung und der Calinski–Harabasz Index (2.55) ist niedrig. OPTICS fand zwei kleine Kerncluster (9 und 5 Dokumente) und markierte viele Dokumente als Rauschen (27), was auf heterogene Texte oder konservative Dichte-Parameter hindeutet.
+Die Kennzahlen deuten auf eine schwache Clusterstruktur hin: die Silhouette ist mit 0.07 nur geringfügig über 0, der Davies–Bouldin Index (2.932) zeigt deutliche Überlappung und der Calinski–Harabasz Index (2.52) ist niedrig. OPTICS fand zwei kleine Kerncluster (9 und 6 Dokumente) und markierte viele Dokumente als Rauschen (26), was auf heterogene Texte oder konservative Dichte-Parameter hindeutet.
