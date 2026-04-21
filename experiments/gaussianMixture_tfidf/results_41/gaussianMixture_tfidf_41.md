@@ -1,6 +1,4 @@
-## Template für weitere Experimente
-
-# gaussianMixture + tfidf
+# gaussianMixture + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -10,7 +8,7 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [gaussianMixture_tfidf.yaml](gaussianMixture_tfidf.yaml).
+Die Experimentkonfiguration liegt in [gaussianMixture_tfidf.yaml](../gaussianMixture_tfidf.yaml).
 
 ```yaml
 experiment_name: gaussianMixture_tfidf
@@ -48,7 +46,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/gaussianMixture_tfidf/outputs
+  output_dir: experiments/gaussianMixture_tfidf/results_41
   plot_name: gaussianMixture_tfidf_pca.png
   summary_name: best_gaussianMixture_tfidf_summary.json
   point_size: 42
@@ -63,21 +61,21 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/gaussianMixture.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: Plot und Summary im Unterordner `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner `results_41/` speichern
 
 ## Ergebnisse
 
 ### Plot:
 
-![GaussianMixture + tfidf PCA](outputs/gaussianMixture_tfidf_pca.png)
+![GaussianMixture + tfidf PCA](gaussianMixture_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/gaussianMixture_tfidf_pca.html](outputs/gaussianMixture_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [gaussianMixture_tfidf_pca.html](gaussianMixture_tfidf_pca.html)
 
 ### Metriken: 
 
 Die in der JSON gespeicherten Kennzahlen direkt auswerten.
 
-Die Metriken werden in `outputs/best_gaussianMixture_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergeben sich folgende Werte:
+Die Metriken werden in `best_gaussianMixture_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergeben sich folgende Werte:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
@@ -86,7 +84,7 @@ Die Metriken werden in `outputs/best_gaussianMixture_tfidf_summary.json` gespeic
 | Calinski–Harabasz Index | 1.9930 | niedrig (relativ zur Datenmenge) |
 
 ### Cluster-Interpretation
-Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `outputs/best_gaussianMixture_tfidf_summary.json`.
+Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `best_gaussianMixture_tfidf_summary.json`.
 
 | Cluster | Top-Wörter |
 | ---: | --- |
