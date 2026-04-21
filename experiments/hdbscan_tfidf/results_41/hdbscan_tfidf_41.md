@@ -1,4 +1,4 @@
-# hdbscan + tfidf
+# hdbscan + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -6,8 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [hdbscan_tfidf.yaml](hdbscan_tfidf.yaml).
+Die Experimentkonfiguration muss in [hdbscan_tfidf.yaml](../hdbscan_tfidf.yaml) einegtragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: hdbscan_tfidf
 
@@ -39,7 +40,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/hdbscan_tfidf/outputs
+  output_dir: experiments/hdbscan_tfidf/results_41
   plot_name: hdbscan_tfidf_pca.png
   summary_name: best_hdbscan_tfidf_summary.json
   point_size: 42
@@ -54,21 +55,21 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/hdbscan.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: Plot und Summary im Unterordner `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner `results_41/` speichern
 
 ## Ergebnisse
 
 ### Plot:
 
-![hdbscan + tfidf PCA](outputs/hdbscan_tfidf_pca.png)
+![hdbscan + tfidf PCA](hdbscan_tfidf_pca.png)
 
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/hdbscan_tfidf_pca.html](outputs/hdbscan_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [hdbscan_tfidf_pca.html](hdbscan_tfidf_pca.html)
 
 
 ### Metriken:
 
-Die Metriken werden in `outputs/best_hdbscan_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_hdbscan_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
@@ -78,7 +79,7 @@ Die Metriken werden in `outputs/best_hdbscan_tfidf_summary.json` gespeichert. F�
 
 ### Cluster-Interpretation
 
-Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `outputs/best_hdbscan_tfidf_summary.json`.
+Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `best_hdbscan_tfidf_summary.json`.
 
 | Cluster | Top-Wörter |
 | --- | --- |
