@@ -21,11 +21,12 @@ input:
   separator: ";"
 
 affinityPropagation:
-  damping: 0.7
-  max_iter: 200
+  damping_range: [0.5, 0.95]
+  random_state_range: [1, 10000]
+  n_trials: 120
+  max_iter: 400
   convergence_iter: 15
   affinity: euclidean
-  random_state: 42
   normalize: true
 
 tfidf:
@@ -74,9 +75,9 @@ Die Metriken werden in `best_affinityPropagation_tfidf_2086_summary.json` gespei
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score |  |    |
-| Davies–Bouldin Index |  |    |
-| Calinski–Harabasz Index | |   |
+| Silhouette Score | 0.1661059558391571 | |
+| Davies–Bouldin Index | 2.1659880230829995  |  |
+| Calinski–Harabasz Index | 12.37905129582148 |  |
 
 #### Cluster-Interpretation
 
@@ -84,16 +85,17 @@ Die Top‑Wörter (Top‑10) pro Cluster, berechnet aus den nicht reduzierten TF
 
 | Cluster | Top‑Wörter |
 | ---: | --- |
-| 0 |  |
-| 1 |  |
-| 2 |  |
-| 3 |  |
-| 4 |  |
-| 5 |  |
-| 6 |  |
-| 7 |  |
-| 8 |  |
-| 9 |  |
+| 0 | learning, deep, deep learning, cancer, attention, data, medical, framework, domain, feature |
+| 1 | band, ratio, selection, narrow, contrast, tissue, dual, proposed, prediction, imaging techniques |
+| 2 | unmixing, linear, end, pixel, non, matrix, negative, method, algorithm, nonlinear |
+| 3 | cameras, information, camera, multispectral imaging, device, medical, used, light, applications, monitoring |
+| 4 | swir, short, wave, infrared, hyperspectral imaging, nm, validation, collagen, phantoms, analysis |
+| 5 | data, image data, software, analysis, sets, medical image, processing, tools, visible, spectroscopic |
+| 6 | skin, line, illumination, laser, rgb, maps, mapping, snapshot, data, nm |
+| 7 | systems, devices, sensing, applications, optical, spectral imaging, sensors, advanced, integration, design |
+| 8 | calibration, scanning, hyperspectral imaging, applications, video, biomedical, spatial, device, custom, acquisition |
+| 9 | classification, deep, learning, deep learning, network, medical, hyperspectral image, proposed, accuracy, classify |
+| … | weitere 159 Cluster (siehe `best_affinityPropagation_tfidf_2086_summary.json`) |
 
 ### Evaluation
 
