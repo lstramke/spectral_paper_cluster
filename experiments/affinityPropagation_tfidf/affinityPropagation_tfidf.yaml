@@ -8,11 +8,12 @@ input:
   separator: ";"
 
 affinityPropagation:
-  damping: 0.7
-  max_iter: 200
+  damping_range: [0.5, 0.95]
+  random_state_range: [1, 10000]
+  n_trials: 1200
+  max_iter: 400
   convergence_iter: 15
   affinity: euclidean
-  random_state: 42
   normalize: true
 
 tfidf:
