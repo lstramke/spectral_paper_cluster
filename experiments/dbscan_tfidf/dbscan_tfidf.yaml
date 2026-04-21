@@ -30,9 +30,9 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/dbscan_tfidf/outputs2086
-  plot_name: dbscan_tfidf_pca.png
-  summary_name: best_dbscan_tfidf_summary.json
+  output_dir: experiments/dbscan_tfidf/results_2086
+  plot_name: dbscan_tfidf_2086_pca.png
+  summary_name: best_dbscan_tfidf_2086_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10

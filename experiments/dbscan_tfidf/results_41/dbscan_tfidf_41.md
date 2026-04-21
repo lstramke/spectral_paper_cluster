@@ -1,4 +1,4 @@
-# dbscan + tfidf
+# dbscan + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -6,8 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [dbscan_tfidf.yaml](dbscan_tfidf.yaml).
+Die Experimentkonfiguration muss in [dbscan_tfidf.yaml](../dbscan_tfidf.yaml) eingetragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: dbscan_tfidf
 
@@ -41,7 +42,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/dbscan_tfidf/outputs
+  output_dir: experiments/dbscan_tfidf/results_41
   plot_name: dbscan_tfidf_pca.png
   summary_name: best_dbscan_tfidf_summary.json
   point_size: 42
@@ -56,19 +57,19 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/dbscan.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: PNG-Plot und Summary-JSON im Unterordner `outputs/` speichern
+5. Outputs: PNG-Plot und Summary-JSON im Unterordner `results_41/` speichern
 
 ## Ergebnisse
 
 ### Plot:
 
-![dbscan + tfidf PCA](outputs/dbscan_tfidf_pca.png)
+![dbscan + tfidf PCA](dbscan_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/dbscan_tfidf_pca.html](outputs/dbscan_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [dbscan_tfidf_pca.html](dbscan_tfidf_pca.html)
 
 ### Metriken:
 
-Die Metriken werden in `outputs/best_dbscan_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_dbscan_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
