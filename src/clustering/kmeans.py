@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import random
 from typing import Optional
 
 import numpy as np
@@ -25,7 +26,6 @@ class SklearnKMeansAdapter(ClusteringAlgorithm):
 
     def __init__(self, config: KMeansConfig, **sk_kwargs) -> None:
         self.config = config
-        # map our config into sklearn's parameters
         self._sk = SKLearnKMeans(
             n_clusters=config.n_clusters,
             max_iter=config.max_iter,
