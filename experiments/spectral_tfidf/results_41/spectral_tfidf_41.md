@@ -1,4 +1,4 @@
-# spectral + tfidf
+# spectral + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -6,8 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [spectral_tfidf.yaml](spectral_tfidf.yaml).
+Die Experimentkonfiguration muss in [spectral_tfidf.yaml](../spectral_tfidf.yaml) eingetragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: spectral_tfidf
 
@@ -45,7 +46,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/spectral_tfidf/outputs
+  output_dir: experiments/spectral_tfidf/results_41
   plot_name: spectral_tfidf_pca.png
   summary_name: best_spectral_tfidf_summary.json
   point_size: 42
@@ -60,21 +61,19 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/spectralClustering.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: Plot und Summary im Unterordner unter `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner unter `results_41/` speichern
 
 ## Ergebnisse
 
 ### Plot:
 
-![spectral + tfidf PCA](outputs/spectral_tfidf_pca.png)
+![spectral + tfidf PCA](spectral_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/spectral_tfidf/spectral_tfidf_pca.html](outputs/spectral_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [spectral_tfidf/spectral_tfidf_pca.html](spectral_tfidf_pca.html)
 
-### Metriken: 
+### Metriken:
 
-Die in der JSON gespeicherten Kennzahlen direkt auswerten.
-
-Die Metriken werden in `outputs/best_spectral_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_spectral_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
