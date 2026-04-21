@@ -30,8 +30,8 @@ interpretation:
 
 outputs:
   output_dir: experiments/agglomerative_tfidf/results_2086
-  plot_name: agglomerative_tfidf_pca.png
-  summary_name: best_agglomerative_tfidf_summary.json
+  plot_name: agglomerative_tfidf_2086_pca.png
+  summary_name: best_agglomerative_tfidf_2086_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10
