@@ -14,6 +14,7 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class KMeansConfig:
     n_clusters: int
+    cluster_range: tuple[int, int] | None
     max_iter: int
     tol: float
     seed: int

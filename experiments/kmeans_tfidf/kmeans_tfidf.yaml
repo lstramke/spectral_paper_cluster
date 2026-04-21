@@ -8,11 +8,11 @@ input:
   separator: ";"
 
 kmeans:
-  n_clusters: 10
+  cluster_range: [5, 20]
   max_iter: 100
   tol: 0.0001
   seed_range: [1, 10000]
-  n_trials: 1000
+  n_trials: 1200
 
 tfidf:
   max_features: 1000
