@@ -37,7 +37,7 @@ tfidf:
   stop_words: english
   extra_stop_words: ["hsi"]
   use_lsa: true
-  lsa_components: 100
+  lsa_components: 40
 
 interpretation:
   top_n_terms: 10
@@ -74,9 +74,9 @@ Die Metriken werden in `best_affinityPropagation_tfidf_summary.json` gespeichert
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.0943 | schwach getrennte Cluster |
-| Davies–Bouldin Index | 2.0359 | mittlere bis deutliche Überlappung  |
-| Calinski–Harabasz Index | 2.0412 | niedriger bis schwache Clusterstruktur |
+| Silhouette Score |  0.0911928117275238 | schwach getrennte Cluster |
+| Davies–Bouldin Index | 2.0933003434378477 | mittlere bis deutliche Überlappung  |
+| Calinski–Harabasz Index | 2.054876870442089 | niedriger bis schwache Clusterstruktur |
 
 #### Cluster-Interpretation
 
@@ -85,15 +85,14 @@ Die Top‑Wörter (Top‑10) pro Cluster, berechnet aus den nicht reduzierten TF
 | Cluster | Top‑Wörter |
 | ---: | --- |
 | 0 | biological, high, proposed, tissue, resolution, images, tissues, using, use, different |
-| 1 | patients, studies, vivo, systems, multispectral, reported, small, surgical, systematic, current |
+| 1 | patients, systems, studies, vivo, multispectral, systematic, lesions, tissue, small, systematic review |
 | 2 | disease, disorders, diseases, field, data, monitoring, overview, advances, current, clinical |
 | 3 | medical, medical applications, research, challenges, clinical, limitations, field, future, study, technology |
 | 4 | perfusion, clinical, surgery, measurements, literature, gastrointestinal, promising, results, spectral imaging, tissue |
 | 5 | brain, tissue, technology, information, biological, diagnosis, recent, acquisition, disease diagnosis, disease |
-| 6 | cancer, studies, accuracy, detection, meta, sensitivity, meta analysis, techniques, computer aided, aided |
-| 7 | skin, cancer, skin cancer, color, light, compared, detection, systematic, multispectral, systematic review |
-| 8 | multispectral, vision, technology, spectroscopy, capabilities, technologies, different, based, lesions, multispectral imaging |
-| 9 | learning, medical, images, algorithms, techniques, image, data, various, machine, systems |
+| 6 | cancer, studies, detection, accuracy, skin, computer aided, aided, sensitivity, computer, color |
+| 7 | multispectral, vision, technology, spectroscopy, capabilities, technologies, different, based, lesions, multispectral imaging |
+| 8 | learning, medical, images, algorithms, techniques, image, data, various, machine, systems |
 
 ### Evaluation
 
