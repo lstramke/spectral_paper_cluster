@@ -1,4 +1,4 @@
-# optics + tfidf
+# optics + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -6,8 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [optics_tfidf.yaml](optics_tfidf.yaml).
+Die Experimentkonfiguration muss in [optics_tfidf.yaml](../optics_tfidf.yaml) eingetragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: optics_tfidf
 
@@ -40,7 +41,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/optics_tfidf/outputs
+  output_dir: experiments/optics_tfidf/results_41
   plot_name: optics_tfidf_pca.png
   summary_name: best_optics_tfidf_summary.json
   point_size: 42
@@ -55,19 +56,19 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py`
 3. Clustering mit `src/clustering/optics.py`
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: Plot und Summary im Unterordner `outputs/` speichern
+5. Outputs: Plot und Summary im Unterordner `results_41/` speichern
 
 ## Ergebnisse
 
 ### Plot:
 
-![optics + tfidf PCA](outputs/optics_tfidf_pca.png)
+![optics + tfidf PCA](optics_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/optics_tfidf_pca.html](outputs/optics_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [optics_tfidf_pca.html](optics_tfidf_pca.html)
 
 ### Metriken: Die in der JSON gespeicherten Kennzahlen direkt auswerten.
 
-Die Metriken werden in `outputs/best_optics_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_optics_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
@@ -77,7 +78,7 @@ Die Metriken werden in `outputs/best_optics_tfidf_summary.json` gespeichert. Fü
 
 ### Cluster-Interpretation
 
-Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `outputs/best_optics_tfidf_summary.json`.
+Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `best_optics_tfidf_summary.json`.
 
 | Cluster | Top-Wörter |
 | --- | --- |

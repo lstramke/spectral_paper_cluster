@@ -29,9 +29,9 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/optics_tfidf/outputs2086
-  plot_name: optics_tfidf_pca.png
-  summary_name: best_optics_tfidf_summary.json
+  output_dir: experiments/optics_tfidf/results_2086
+  plot_name: optics_tfidf_2086_pca.png
+  summary_name: best_optics_tfidf_2086_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10
