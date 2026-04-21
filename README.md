@@ -14,8 +14,7 @@ Projekt zur Durchführung und Auswertung von Clustering-Experimenten auf Textdat
 	- Typischer Inhalt pro Ordner:
 		- `<experiment>.py` (ausführbares Skript)
 		- `<experiment>.yaml` (Konfiguration)
-		- `<experiment>.md` (Beschreibung)
-		- `outputs/` (Run-JSON, Summary, Plot/HTML)
+		- `results_*/` (Run-JSON, Summary, Plot/HTML, spezifische md)
 - `src/`
 	- `src/clustering/`: Algorithmus-Wrapper (k-means, DBSCAN, OPTICS, HDBSCAN, agglomerative, affinity propagation, spectral).
 	- `src/features/`: Feature-Extraktion (TF-IDF).
@@ -23,8 +22,8 @@ Projekt zur Durchführung und Auswertung von Clustering-Experimenten auf Textdat
 	- `src/interpretation/`: Interpretationslogik für Cluster.
 	- `src/experiments/`: Gemeinsame Experiment-Hilfsfunktionen und Basisklassen (z. B. `BaseExperiment`, Plot-/IO-Helper).
 	- `src/pipelines/`: End-to-End-Pipelines je Experimenttyp.
-- `EXPERIMENTS.md`
-	- Mathematische Einordnung, Pseudocode und inhaltliche Beschreibung der Experimente.
+- `DOCUMENTATION.md`
+	- Mathematische Einordnung und Pseudocode der Cluster-Algorithmen und Feature-Extractor.
 
 ## Installation
 
@@ -61,7 +60,7 @@ Weitere Beispiele:
 - `python experiments/hdbscan_tfidf/hdbscan_tfidf.py --config experiments/hdbscan_tfidf/hdbscan_tfidf.yaml`
 - `python experiments/spectral_tfidf/spectral_tfidf.py --config experiments/spectral_tfidf/spectral_tfidf.yaml`
 
-Ergebnisse werden im jeweiligen `experiments/<name>/outputs/`-Ordner gespeichert.
+Ergebnisse werden im jeweiligen `experiments/<name>/results_*/`-Ordner gespeichert.
 
 
 ## Hinweise
