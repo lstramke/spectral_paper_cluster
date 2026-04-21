@@ -20,8 +20,9 @@ input:
   separator: ";"
 
 dbscan:
-  eps: 0.75
-  min_samples: 3
+  eps_range: [0.3, 1.0]
+  min_samples_range: [2, 20]
+  n_trials: 400
   metric: cosine
   leaf_size: 30
   p:
@@ -73,9 +74,9 @@ Die Metriken werden in `best_dbscan_tfidf_summary.json` gespeichert. Für das ak
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | | |
-| Davies–Bouldin Index | | |
-| Calinski–Harabasz Index | | |
+| Silhouette Score | 0.03307177498936653 | |
+| Davies–Bouldin Index | 3.362438019745703 | |
+| Calinski–Harabasz Index | 1.8410140601212166 | |
 
 ### Cluster-Interpretation
 
@@ -83,8 +84,12 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| -1 |  |
-| 0 |  |
-
+| -1 (Noise) | dynamic, range, malignant, normal, tissues, modality, high, endoscope, mouse, spectroscopic |
+| 0 | spectral, tissue, images, image, multispectral, data, hyperspectral imaging, optical, method, analysis |
 
 ## Evaluation
+
+  "cluster_sizes": {
+    "-1": 6,
+    "0": 2080
+  }, nicht so toll, noise fast interssanter als das cluster
