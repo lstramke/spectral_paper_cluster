@@ -163,6 +163,10 @@ class ClusterCLI:
                 if not pick or pick == "Back":
                     break
                 picked_name = pick.split()[0]
+                rc_picked = results.get(picked_name, 1)
+                if rc_picked != 0:
+                    print(colorama.Fore.YELLOW + f"⚠ Experiment {picked_name} did not finish successfully; outputs/metrics unavailable." + colorama.Style.RESET_ALL)
+                    continue
                 metrics = self.outputs.metrics_for(picked_name)
                 self._print_metrics(metrics)
                 self.offer_open_outputs(picked_name)
@@ -173,10 +177,10 @@ class ClusterCLI:
             print(colorama.Fore.RED + "✗" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Experiment exited with code {rc}" + colorama.Style.RESET_ALL)
         else:
             print(colorama.Fore.GREEN + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + " Experiment completed successfully" + colorama.Style.RESET_ALL)
-        metrics = self.outputs.metrics_for(chosen)
-        self._print_metrics(metrics)
-        print()
-        self.offer_open_outputs(chosen)
+            metrics = self.outputs.metrics_for(chosen)
+            self._print_metrics(metrics)
+            print()
+            self.offer_open_outputs(chosen)
 
     def start(self) -> None:
         try:
