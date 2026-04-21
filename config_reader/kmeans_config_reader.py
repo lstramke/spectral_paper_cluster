@@ -20,6 +20,7 @@ class KMeansConfigReader(ConfigSectionReader[KMeansConfig]):
 		tol = float(self.require_value(kmeans_cfg, "tol"))
 
 		seed_range: tuple[int, int] | None = None
+		n_trials: int = 1
 		if "seed_range" in kmeans_cfg:
 			seed_range_raw: Any = self.require_value(kmeans_cfg, "seed_range")
 			if not isinstance(seed_range_raw, (list, tuple)):
@@ -33,6 +34,7 @@ class KMeansConfigReader(ConfigSectionReader[KMeansConfig]):
 				raise ValueError("kmeans.seed_range start must be <= end")
 			seed_range = (seed_start, seed_end)
 			seed = seed_start
+			n_trials = self.require_value(kmeans_cfg, "n_trials")
 		else:
 			seed = int(self.require_value(kmeans_cfg, "seed"))
 
@@ -42,4 +44,5 @@ class KMeansConfigReader(ConfigSectionReader[KMeansConfig]):
 			tol=tol,
 			seed=seed,
 			seed_range=seed_range,
+			n_trials=n_trials
 		)

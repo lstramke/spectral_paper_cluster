@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+import optuna
 import torch
 
 from clustering.kmeans import KMeansConfig
@@ -35,11 +36,10 @@ class KMeansTfidfPipeline(ExperimentPipeline):
         self,
         features,
         seed: int,
-        labels_true: torch.Tensor | None = None,
     ) -> tuple[RunSummary, PipelineResult]:
         clusterer = self._make_clusterer(seed)
         clustering = clusterer.fit_predict(features.features)
-        evaluation = self.evaluator.evaluate(features, clustering, labels_true=labels_true)
+        evaluation = self.evaluator.evaluate(features, clustering)
 
         run_summary = RunSummary(
             seed=seed,
@@ -61,51 +61,64 @@ class KMeansTfidfPipeline(ExperimentPipeline):
     def run(
         self,
         documents: list[str],
-        labels_true: torch.Tensor | None = None,
     ) -> PipelineResult:
-        return self.run_many(documents, labels_true=labels_true).best_run
+        return self.run_many(documents).best_run
 
     def run_many(
         self,
         documents: list[str],
-        labels_true: torch.Tensor | None = None,
-        seeds: list[int] | None = None,
     ) -> MultiRunPipelineResult:
-        if seeds is None or not seeds:
-            if self.kmeans_config.seed_range is not None:
-                start, end = self.kmeans_config.seed_range
-                seeds = list(range(start, end + 1))
-            else:
-                seeds = [self.kmeans_config.seed]
+        """Run KMeans optimization using Optuna.
+        
+        If seed in config is a tuple (min, max), uses it as search range.
+        Otherwise uses single seed value.
+        """
 
+        n_trials = self.kmeans_config.n_trials
+
+        if self.kmeans_config.seed_range is not None:
+            seed_min, seed_max = self.kmeans_config.seed_range
+        else:
+            seed_min = seed_max = self.kmeans_config.seed
+            
         features = self.feature_extractor.extract_features(documents)
         run_summaries: list[RunSummary] = []
+
+        def objective(trial: optuna.Trial) -> float:
+            seed = trial.suggest_int("seed", seed_min, seed_max) # pyright: ignore[reportPossiblyUnboundVariable]
+            run_summary, _ = self._run_single_seed(features, seed)
+            run_summaries.append(run_summary)
+            
+            return run_summary.metrics.get("silhouette", -1)
+
+        sampler = optuna.samplers.TPESampler(seed=42)
+        study = optuna.create_study(direction="maximize", sampler=sampler)
+        study.optimize(objective, n_trials=n_trials, show_progress_bar=False)
+
         best_result: PipelineResult | None = None
         best_seed: int | None = None
         best_score: tuple[float, float, float] | None = None
 
-        for seed in seeds:
-            run_summary, pipeline_result = self._run_single_seed(features, seed, labels_true=labels_true)
-            run_summaries.append(run_summary)
-
+        for run_summary in run_summaries:
             current_score = self._score(run_summary.metrics)
             if best_score is None or current_score > best_score:
                 best_score = current_score
-                best_result = pipeline_result
-                best_seed = seed
+                best_seed = run_summary.seed
 
-        if best_result is None or best_seed is None:
+        # Re-run best seed to get full PipelineResult with interpretation
+        if best_seed is not None:
+            _, best_result = self._run_single_seed(features, best_seed)
+            best_result.interpretation = self.interpreter.interpret(features, best_result.clustering)
+            best_result.metadata = {**best_result.metadata, "selected_metric": "silhouette", "best_seed": best_seed}
+        else:
             raise RuntimeError("No seed runs were executed")
-
-        best_result.interpretation = self.interpreter.interpret(features, best_result.clustering, labels_true=labels_true)
-        best_result.metadata = {**best_result.metadata, "selected_metric": "silhouette", "best_seed": best_seed}
 
         return MultiRunPipelineResult(
             runs=run_summaries,
             best_run=best_result,
             best_seed=best_seed,
             selected_metric="silhouette",
-            metadata={"pipeline": "kmeans_tfidf", "n_seeds": len(seeds)},
+            metadata={"pipeline": "kmeans_tfidf", "n_trials": n_trials, "optuna_seed": 42},
         )
 
     @staticmethod

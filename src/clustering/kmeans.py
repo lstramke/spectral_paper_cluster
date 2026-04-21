@@ -17,7 +17,8 @@ class KMeansConfig:
     max_iter: int
     tol: float
     seed: int
-    seed_range: tuple[int, int] | None = None
+    seed_range: tuple[int, int] | None
+    n_trials: int
 
 class SklearnKMeansAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.KMeans that implements the project's

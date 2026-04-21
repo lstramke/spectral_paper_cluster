@@ -62,7 +62,7 @@ class BaseExperiment(ABC, Generic[T]):
 
         if hasattr(pipeline, "run_many"):
             start = perf_counter()
-            result = pipeline.run_many(documents, seeds=seeds)
+            result = pipeline.run_many(documents)
             elapsed = perf_counter() - start
             self.save_results(documents, result, elapsed)
         else:

@@ -23,7 +23,8 @@ kmeans:
   n_clusters: 10
   max_iter: 100
   tol: 0.0001
-  seed_range: [1, 100]
+  seed_range: [1, 10000]
+  n_trials: 1000
 
 tfidf:
   max_features: 1000
@@ -73,9 +74,9 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_tfidf_2086_all_runs.json`
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | | |
-| Davies–Bouldin Index | |
-| Calinski–Harabasz Index | | |
+| Silhouette Score | 0.10958269983530045 | |
+| Davies–Bouldin Index | 3.7165332560885966 |
+| Calinski–Harabasz Index | 41.7749704180452 | |
 
 ### Cluster-Interpretation
 
@@ -83,15 +84,15 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| 0 |  |
-| 1 |  |
-| 2 |  |
-| 3 |  |
-| 4 |  |
-| 5 |  |
-| 6 |  |
-| 7 |  |
-| 8 |  |
-| 9 |  |
+| 0 | mri, brain, magnetic, segmentation, resonance, mr, magnetic resonance, images, weighted, multispectral |
+| 1 | optoacoustic, msot, optoacoustic tomography, multispectral optoacoustic, tomography, tomography msot, multispectral, tumor, nanoparticles, contrast |
+| 2 | image, classification, data, spectral, learning, images, deep, model, fusion, network |
+| 3 | tissue, cancer, fluorescence, multispectral, vivo, detection, hyperspectral imaging, spectral, optical, images |
+| 4 | perfusion, wound, tissue, burn, oxygenation, patients, healing, hyperspectral imaging, flap, sto |
+| 5 | skin, melanoma, lesions, lesion, spectral, multispectral, images, skin cancer, detection, non |
+| 6 | raman, srs, raman scattering, microscopy, scattering, spectroscopy, spectral, cells, analysis, chemical |
+| 7 | photoacoustic, pa, pai, photoacoustic imaging, ultrasound, pa imaging, pat, optical, tomography, vivo |
+| 8 | spectral, optical, multispectral, applications, resolution, nm, light, high, image, biomedical |
+| 9 | cells, cell, immune, tumor, cancer, pd, expression, single, patients, microscopy |
 
 ## Evaluation
