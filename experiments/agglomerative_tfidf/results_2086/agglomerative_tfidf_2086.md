@@ -20,10 +20,10 @@ input:
   separator: ";"
 
 agglomerative:
-  n_clusters:
+  distance_threshold_range: [0.1, 1.0]
+  n_trials: 1000
   metric: cosine
   linkage: average
-  distance_threshold: 0.8
   compute_full_tree: true
 
 tfidf:
@@ -72,24 +72,25 @@ Die Metriken werden in `best_agglomerative_tfidf_summary.json` gespeichert. Für
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score |  |  |
-| Davies–Bouldin Index |  |  |
-| Calinski–Harabasz Index |  |  |
+| Silhouette Score | 0.18110454082489014  |  |
+| Davies–Bouldin Index | 1.263998561526703 |  |
+| Calinski–Harabasz Index | 6.369068977866109 |  |
 
 #### Cluster-Interpretation
 
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | clinical, perfusion, modality, surgery, surgical, tissue, gastrointestinal, promising, results, spectral imaging |
-| 1 |  |
-| 2 |  |
-| 3 |  |
-| 4 |  |
-| 5 |  |
-| 6 |  |
-| 7 |  |
-| 8 |  |
-| 9 |  |
+| 0 | learning, deep, deep learning, cancer, attention, data, medical, framework, domain, feature |
+| 1 | band, ratio, selection, narrow, contrast, tissue, dual, proposed, prediction, imaging techniques |
+| 2 | unmixing, linear, end, pixel, non, matrix, negative, method, algorithm, nonlinear |
+| 3 | cameras, information, camera, multispectral imaging, device, medical, used, light, applications, monitoring |
+| 4 | swir, short, wave, infrared, hyperspectral imaging, nm, validation, collagen, phantoms, analysis |
+| 5 | data, image data, software, analysis, sets, medical image, processing, tools, visible, spectroscopic |
+| 6 | skin, line, illumination, laser, rgb, maps, mapping, snapshot, data, nm |
+| 7 | systems, devices, sensing, applications, optical, spectral imaging, sensors, advanced, integration, design |
+| 8 | calibration, scanning, hyperspectral imaging, applications, video, biomedical, spatial, device, custom, acquisition |
+| 9 | classification, deep, learning, deep learning, network, medical, hyperspectral image, proposed, accuracy, classify |
+| … | weitere 534 Cluster (siehe `best_agglomerative_tfidf_2086_summary.json`) |
 
 ### Evaluation
 

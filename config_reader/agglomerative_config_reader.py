@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast, Sequence
 
 from src.clustering.agglomerativeClustering import AgglomerativeConfig
 from .config_section_reader import ConfigSectionReader
@@ -16,7 +16,27 @@ class AgglomerativeConfigReader(ConfigSectionReader[AgglomerativeConfig]):
     def read_section(self, raw: dict[str, Any]) -> AgglomerativeConfig:
         agg = self.require_mapping(raw, "agglomerative")
 
-        # n_clusters may be null/None for distance_threshold-based cuts
+        distance_threshold_range: tuple[float, float] | None = None
+        if "distance_threshold_range" in agg:
+            distance_threshold_range_raw: Any = self.require_value(agg, "distance_threshold_range")
+            if not isinstance(distance_threshold_range_raw, (list, tuple)):
+                raise ValueError("agglomerative.distance_threshold_range must be a list or tuple with two floats")
+            distance_threshold_range_values = cast(Sequence[Any], distance_threshold_range_raw)
+            if len(distance_threshold_range_values) != 2:
+                raise ValueError("agglomerative.distance_threshold_range must have exactly two values")
+            distance_threshold_start = float(distance_threshold_range_values[0])
+            distance_threshold_end = float(distance_threshold_range_values[1])
+            if distance_threshold_start > distance_threshold_end:
+                raise ValueError("agglomerative.distance_threshold_range start must be <= end")
+            distance_threshold_range = (distance_threshold_start, distance_threshold_end)
+            distance_threshold = distance_threshold_start
+        else:
+            distance_threshold_raw = agg.get("distance_threshold", None)
+            if distance_threshold_raw is not None:
+                distance_threshold = float(distance_threshold_raw)
+            else:
+                distance_threshold = None
+
         n_clusters: int | None = None
         if "n_clusters" in agg:
             raw_nc = agg["n_clusters"]
@@ -29,16 +49,15 @@ class AgglomerativeConfigReader(ConfigSectionReader[AgglomerativeConfig]):
         if linkage not in ("ward", "complete", "average", "single"):
             raise ValueError(f"Invalid linkage: {linkage}")
 
-        distance_threshold = agg.get("distance_threshold", None)
-        if distance_threshold is not None:
-            distance_threshold = float(distance_threshold)
-
         compute_full_tree = bool(self.optional_value(agg, "compute_full_tree", False))
+        n_trials = int(self.require_value(agg, "n_trials"))
 
         return AgglomerativeConfig(
+            distance_threshold=distance_threshold,
+            distance_threshold_range=distance_threshold_range,
             n_clusters=n_clusters,
             metric=metric,
             linkage=linkage,
-            distance_threshold=distance_threshold,
             compute_full_tree=compute_full_tree,
+            n_trials=n_trials,
         )

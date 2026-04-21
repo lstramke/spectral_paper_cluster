@@ -8,10 +8,10 @@ input:
   separator: ";"
 
 agglomerative:
-  n_clusters:
+  distance_threshold_range: [0.1, 1.0]
+  n_trials: 1000
   metric: cosine
   linkage: average
-  distance_threshold: 0.8
   compute_full_tree: true
 
 tfidf:
