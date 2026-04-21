@@ -74,9 +74,9 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_tfidf_2086_all_runs.json`
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.10958269983530045 | |
-| Davies–Bouldin Index | 3.7165332560885966 |
-| Calinski–Harabasz Index | 41.7749704180452 | |
+| Silhouette Score | 0.1375163197517395 | schlecht bis mäßig |
+| Davies–Bouldin Index | 3.163783244649756 | zu groß |
+| Calinski–Harabasz Index | 32.606495428528206 | in Ordnung |
 
 ### Cluster-Interpretation
 
@@ -84,15 +84,25 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| 0 | mri, brain, magnetic, segmentation, resonance, mr, magnetic resonance, images, weighted, multispectral |
-| 1 | optoacoustic, msot, optoacoustic tomography, multispectral optoacoustic, tomography, tomography msot, multispectral, tumor, nanoparticles, contrast |
-| 2 | image, classification, data, spectral, learning, images, deep, model, fusion, network |
-| 3 | tissue, cancer, fluorescence, multispectral, vivo, detection, hyperspectral imaging, spectral, optical, images |
-| 4 | perfusion, wound, tissue, burn, oxygenation, patients, healing, hyperspectral imaging, flap, sto |
-| 5 | skin, melanoma, lesions, lesion, spectral, multispectral, images, skin cancer, detection, non |
-| 6 | raman, srs, raman scattering, microscopy, scattering, spectroscopy, spectral, cells, analysis, chemical |
-| 7 | photoacoustic, pa, pai, photoacoustic imaging, ultrasound, pa imaging, pat, optical, tomography, vivo |
-| 8 | spectral, optical, multispectral, applications, resolution, nm, light, high, image, biomedical |
-| 9 | cells, cell, immune, tumor, cancer, pd, expression, single, patients, microscopy |
+| 0 | infrared, nir, near, near infrared, nm, visible, mid, detection, multispectral, ii |
+| 1 | classification, learning, deep, deep learning, spectral, network, accuracy, data, model, feature |
+| 2 | msot, optoacoustic, optoacoustic tomography, multispectral optoacoustic, tomography, tomography msot, multispectral, tumor, nanoparticles, contrast |
+| 3 | surgery, surgical, tissue, intraoperative, tumor, hyperspectral imaging, resection, brain, time, vivo |
+| 4 | cancer, tissue, breast, detection, cervical, breast cancer, images, tumor, analysis, multispectral |
+| 5 | wound, healing, wound healing, tissue, diabetic, wounds, perfusion, oxygenation, hyperspectral imaging, tissue oxygenation |
+| 6 | burn, depth, wounds, wound, assessment, thickness, partial, severity, tissue, hyperspectral imaging |
+| 7 | image, images, data, medical, fusion, method, tongue, proposed, information, algorithm |
+| 8 | skin, melanoma, lesions, multispectral, lesion, spectral, skin cancer, images, detection, diagnosis |
+| 9 | perfusion, tissue, oxygenation, flap, patients, sto, tissue oxygenation, index, hyperspectral imaging, sto2 |
+| 10 | optical, light, microscopy, applications, tissue, properties, multispectral, scattering, nm, high |
+| 11 | photoacoustic, pai, photoacoustic imaging, pat, ultrasound, optical, tomography, vivo, resolution, tissue |
+| 12 | cell, cells, immune, tumor, pd, cancer, single, expression, patients, mice |
+| 13 | raman, srs, raman scattering, microscopy, scattering, spectral, cells, spectroscopy, analysis, spectra |
+| 14 | patients, disease, blood, ms, treatment, liver, retinal, study, hyperspectral imaging, vascular |
+| 15 | mri, brain, segmentation, magnetic, resonance, mr, magnetic resonance, images, weighted, multispectral |
+| 16 | pa, pa imaging, photoacoustic, breast, ultrasound, tumor, photoacoustic imaging, melanoma, 3d, contrast |
+| 17 | msi, multispectral, multispectral imaging, retinal, patients, spectral, 3d, images, data, blood |
+| 18 | spectral, nm, resolution, spatial, multispectral, snapshot, applications, hyperspectral imaging, filter, range |
+| 19 | fluorescence, flim, lifetime, fluorescence imaging, vivo, tissue, multispectral, excitation, microscopy, autofluorescence |
 
 ## Evaluation
