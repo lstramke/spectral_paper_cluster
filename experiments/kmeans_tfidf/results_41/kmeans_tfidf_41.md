@@ -1,4 +1,4 @@
-# kmeans + tfidf
+# kmeans + tfidf auf 41
 
 ## Kurzüberblick
 
@@ -6,8 +6,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [kmeans_tfidf.yaml](kmeans_tfidf.yaml).
+Die Experimentkonfiguration muss in [kmeans_tfidf.yaml](../kmeans_tfidf.yaml) eingetragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: kmeans_tfidf
 
@@ -39,7 +40,7 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/kmeans_tfidf/outputs
+  output_dir: experiments/kmeans_tfidf/results_41
   plot_name: kmeans_tfidf_pca.png
   summary_name: best_kmeans_tfidf_summary.json
   point_size: 42
@@ -54,21 +55,21 @@ outputs:
 2. Feature-Extraktion mit `src/features/tfidf.py` (TF‑IDF, optional LSA)
 3. `k-means` Clustering (siehe `src/clustering/kmeans.py`)
 4. Evaluation mit `src/evaluation/basic_unsupervised.py`
-5. Outputs: PCA wird zur 3D-Visualisierung nach dem Clustering angewendet. Plot und Metrik-JSON werden zusammen in einem Unterordner `outputs/` abgelegt.
+5. Outputs: PCA wird zur 3D-Visualisierung nach dem Clustering angewendet. Plot und Metrik-JSON werden zusammen in einem Unterordner `results_41/` abgelegt.
 
 ## Ergebnisse
 
-Das Ergebnisbild und die zugehörige JSON-Zusammenfassung werden im Experiment-Unterordner unter `outputs/` abgelegt.
+Das Ergebnisbild und die zugehörige JSON-Zusammenfassung werden im Experiment-Unterordner unter `results_41/` abgelegt.
 
 ### Plot (PCA):
 
-![kmeans + tfidf PCA](outputs/kmeans_tfidf_pca.png)
+![kmeans + tfidf PCA](kmeans_tfidf_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [outputs/kmeans_tfidf_pca.html](outputs/kmeans_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [kmeans_tfidf_pca.html](kmeans_tfidf_pca.html)
 
 ### Metriken:
 
-Die Metriken für alle Zufallswerte werden in [`outputs/kmeans_tfidf_all_runs.json`](outputs/kmeans_tfidf_all_runs.json) gespeichert. Die Details zum besten Lauf stehen zusätzlich in [`outputs/best_kmeans_tfidf_summary.json`](outputs/best_kmeans_tfidf_summary.json). Für den aktuellen besten Lauf ergibt sich:
+Die Metriken für alle Zufallswerte werden in [`kmeans_tfidf_all_runs.json`](kmeans_tfidf_all_runs.json) gespeichert. Die Details zum besten Lauf stehen zusätzlich in [`best_kmeans_tfidf_summary.json`](best_kmeans_tfidf_summary.json). Für den aktuellen besten Lauf ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
