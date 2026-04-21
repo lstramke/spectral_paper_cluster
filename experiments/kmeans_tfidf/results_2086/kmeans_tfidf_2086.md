@@ -73,9 +73,9 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_tfidf_2086_all_runs.json`
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.12519335746765137 | Cluster sind nur schwach getrennt |
-| Davies–Bouldin Index | 1.968354674659104 | mittlere Überlappung zwischen den Clustern |
-| Calinski–Harabasz Index | 2.0730763807090407 | schwache Clusterstruktur |
+| Silhouette Score | | |
+| Davies–Bouldin Index | |
+| Calinski–Harabasz Index | | |
 
 ### Cluster-Interpretation
 
