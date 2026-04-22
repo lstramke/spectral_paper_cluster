@@ -1,0 +1,112 @@
+{
+  "experiment_name": "optics_tfidf_2086",
+  "n_documents": 2086,
+  "n_features": 100,
+  "n_clusters_found": 1,
+  "metrics": {
+    "silhouette": 0.08690537512302399,
+    "davies_bouldin": 1.2788574311944978,
+    "calinski_harabasz": 14.896716848634357
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 2072,
+    "0": 14
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "spectral",
+          0.04375256597995758
+        ],
+        [
+          "tissue",
+          0.039485957473516464
+        ],
+        [
+          "images",
+          0.03603651374578476
+        ],
+        [
+          "image",
+          0.03549923002719879
+        ],
+        [
+          "multispectral",
+          0.03469817340373993
+        ],
+        [
+          "data",
+          0.031897831708192825
+        ],
+        [
+          "hyperspectral imaging",
+          0.029437119141221046
+        ],
+        [
+          "optical",
+          0.027294179424643517
+        ],
+        [
+          "analysis",
+          0.026384083554148674
+        ],
+        [
+          "method",
+          0.02633541449904442
+        ]
+      ],
+      "0": [
+        [
+          "tongue",
+          0.8054661750793457
+        ],
+        [
+          "medicine",
+          0.09904009103775024
+        ],
+        [
+          "color",
+          0.08239883184432983
+        ],
+        [
+          "diagnosis",
+          0.06795590370893478
+        ],
+        [
+          "images",
+          0.06768430769443512
+        ],
+        [
+          "traditional",
+          0.06182830408215523
+        ],
+        [
+          "vector",
+          0.047561366111040115
+        ],
+        [
+          "method",
+          0.044195424765348434
+        ],
+        [
+          "information",
+          0.042992789298295975
+        ],
+        [
+          "spectral",
+          0.03939171880483627
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 2896.266425499999
+}

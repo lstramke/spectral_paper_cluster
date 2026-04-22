@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import random
 from typing import Optional
 
 import numpy as np
@@ -13,10 +14,12 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class KMeansConfig:
     n_clusters: int
+    cluster_range: tuple[int, int] | None
     max_iter: int
     tol: float
     seed: int
-    seed_range: tuple[int, int] | None = None
+    seed_range: tuple[int, int] | None
+    n_trials: int
 
 class SklearnKMeansAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.KMeans that implements the project's
@@ -25,7 +28,6 @@ class SklearnKMeansAdapter(ClusteringAlgorithm):
 
     def __init__(self, config: KMeansConfig, **sk_kwargs) -> None:
         self.config = config
-        # map our config into sklearn's parameters
         self._sk = SKLearnKMeans(
             n_clusters=config.n_clusters,
             max_iter=config.max_iter,

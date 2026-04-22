@@ -1,0 +1,2213 @@
+{
+  "experiment_name": "kmeans_tfidf",
+  "seed_range": [
+    1,
+    100
+  ],
+  "n_seeds": 100,
+  "selected_metric": "silhouette",
+  "best_seed": 53,
+  "runs": [
+    {
+      "seed": 1,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11380156874656677,
+        "davies_bouldin": 1.96831121540492,
+        "calinski_harabasz": 2.028027638601398
+      },
+      "objective": 21.406450271606445,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 7,
+        "2": 6,
+        "3": 2,
+        "4": 4,
+        "5": 4,
+        "6": 4,
+        "7": 2,
+        "8": 5,
+        "9": 2
+      }
+    },
+    {
+      "seed": 2,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09485781937837601,
+        "davies_bouldin": 2.0549861485942387,
+        "calinski_harabasz": 2.0149863308254847
+      },
+      "objective": 21.457584381103516,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 3,
+        "2": 4,
+        "3": 3,
+        "4": 7,
+        "5": 4,
+        "6": 7,
+        "7": 2,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 3,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07098602503538132,
+        "davies_bouldin": 2.06606616449844,
+        "calinski_harabasz": 1.8874015560825501
+      },
+      "objective": 21.971038818359375,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 5,
+        "2": 6,
+        "3": 6,
+        "4": 5,
+        "5": 3,
+        "6": 4,
+        "7": 4,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 4,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10663402080535889,
+        "davies_bouldin": 2.0394116765180295,
+        "calinski_harabasz": 1.997485993817464
+      },
+      "objective": 21.52659034729004,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 7,
+        "2": 3,
+        "3": 5,
+        "4": 2,
+        "5": 5,
+        "6": 2,
+        "7": 3,
+        "8": 5,
+        "9": 2
+      }
+    },
+    {
+      "seed": 5,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09121833741664886,
+        "davies_bouldin": 2.0165201547359133,
+        "calinski_harabasz": 1.9172603924970715
+      },
+      "objective": 21.848684310913086,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 7,
+        "2": 3,
+        "3": 5,
+        "4": 7,
+        "5": 5,
+        "6": 3,
+        "7": 5,
+        "8": 1,
+        "9": 3
+      }
+    },
+    {
+      "seed": 6,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11308617889881134,
+        "davies_bouldin": 1.919680737477687,
+        "calinski_harabasz": 2.037446506835884
+      },
+      "objective": 21.369670867919922,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 8,
+        "2": 4,
+        "3": 6,
+        "4": 4,
+        "5": 5,
+        "6": 2,
+        "7": 4,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 7,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0746404379606247,
+        "davies_bouldin": 2.1217161115322787,
+        "calinski_harabasz": 1.9010917120031896
+      },
+      "objective": 21.914770126342773,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 5,
+        "2": 4,
+        "3": 3,
+        "4": 5,
+        "5": 5,
+        "6": 2,
+        "7": 4,
+        "8": 2,
+        "9": 6
+      }
+    },
+    {
+      "seed": 8,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09297013282775879,
+        "davies_bouldin": 2.093111059559799,
+        "calinski_harabasz": 1.964718094894595
+      },
+      "objective": 21.65699577331543,
+      "cluster_sizes": {
+        "0": 10,
+        "1": 5,
+        "2": 2,
+        "3": 4,
+        "4": 3,
+        "5": 2,
+        "6": 5,
+        "7": 4,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 9,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10281871259212494,
+        "davies_bouldin": 1.9763501695824648,
+        "calinski_harabasz": 1.9792167608064075
+      },
+      "objective": 21.599098205566406,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 4,
+        "2": 6,
+        "3": 4,
+        "4": 7,
+        "5": 5,
+        "6": 5,
+        "7": 3,
+        "8": 2,
+        "9": 2
+      }
+    },
+    {
+      "seed": 10,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0688696950674057,
+        "davies_bouldin": 1.958333591368623,
+        "calinski_harabasz": 1.860795758549689
+      },
+      "objective": 22.08122444152832,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 2,
+        "2": 5,
+        "3": 6,
+        "4": 4,
+        "5": 5,
+        "6": 5,
+        "7": 6,
+        "8": 1,
+        "9": 1
+      }
+    },
+    {
+      "seed": 11,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09190835058689117,
+        "davies_bouldin": 2.0525086667543873,
+        "calinski_harabasz": 1.9304407489509707
+      },
+      "objective": 21.795108795166016,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 7,
+        "2": 2,
+        "3": 5,
+        "4": 5,
+        "5": 6,
+        "6": 2,
+        "7": 4,
+        "8": 2,
+        "9": 3
+      }
+    },
+    {
+      "seed": 12,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.050166256725788116,
+        "davies_bouldin": 2.1148373426583524,
+        "calinski_harabasz": 1.7745750829572076
+      },
+      "objective": 22.446016311645508,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 4,
+        "2": 10,
+        "3": 3,
+        "4": 3,
+        "5": 5,
+        "6": 3,
+        "7": 6,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 13,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08540751785039902,
+        "davies_bouldin": 2.046034033787026,
+        "calinski_harabasz": 1.9248619249620238
+      },
+      "objective": 21.817752838134766,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 6,
+        "2": 4,
+        "3": 6,
+        "4": 5,
+        "5": 4,
+        "6": 3,
+        "7": 7,
+        "8": 2,
+        "9": 1
+      }
+    },
+    {
+      "seed": 14,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08478453010320663,
+        "davies_bouldin": 2.1028784615336056,
+        "calinski_harabasz": 1.9387592788089076
+      },
+      "objective": 21.761430740356445,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 5,
+        "2": 8,
+        "3": 3,
+        "4": 4,
+        "5": 3,
+        "6": 2,
+        "7": 3,
+        "8": 7,
+        "9": 4
+      }
+    },
+    {
+      "seed": 15,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06944674998521805,
+        "davies_bouldin": 2.029055072010007,
+        "calinski_harabasz": 1.918000416586988
+      },
+      "objective": 21.845670700073242,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 4,
+        "2": 5,
+        "3": 1,
+        "4": 4,
+        "5": 4,
+        "6": 3,
+        "7": 7,
+        "8": 3,
+        "9": 5
+      }
+    },
+    {
+      "seed": 16,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09416106343269348,
+        "davies_bouldin": 1.9506015481088923,
+        "calinski_harabasz": 1.9820022288732049
+      },
+      "objective": 21.5880126953125,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 5,
+        "2": 5,
+        "3": 8,
+        "4": 1,
+        "5": 5,
+        "6": 6,
+        "7": 4,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 17,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08141762763261795,
+        "davies_bouldin": 2.0895350948187423,
+        "calinski_harabasz": 1.9390941190244566
+      },
+      "objective": 21.760074615478516,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 5,
+        "2": 4,
+        "3": 7,
+        "4": 4,
+        "5": 2,
+        "6": 5,
+        "7": 4,
+        "8": 5,
+        "9": 3
+      }
+    },
+    {
+      "seed": 18,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06283753365278244,
+        "davies_bouldin": 2.0299329210391486,
+        "calinski_harabasz": 1.8470824419795764
+      },
+      "objective": 22.13844871520996,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 8,
+        "2": 6,
+        "3": 3,
+        "4": 1,
+        "5": 4,
+        "6": 3,
+        "7": 4,
+        "8": 2,
+        "9": 6
+      }
+    },
+    {
+      "seed": 19,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08880768716335297,
+        "davies_bouldin": 2.0389064689904752,
+        "calinski_harabasz": 1.9642510848871564
+      },
+      "objective": 21.658863067626953,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 3,
+        "2": 8,
+        "3": 2,
+        "4": 5,
+        "5": 4,
+        "6": 6,
+        "7": 3,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 20,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09940233826637268,
+        "davies_bouldin": 2.070223328158736,
+        "calinski_harabasz": 1.9802795224421568
+      },
+      "objective": 21.59486961364746,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 5,
+        "2": 3,
+        "3": 5,
+        "4": 7,
+        "5": 2,
+        "6": 5,
+        "7": 3,
+        "8": 5,
+        "9": 2
+      }
+    },
+    {
+      "seed": 21,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.046422746032476425,
+        "davies_bouldin": 2.0829326399688597,
+        "calinski_harabasz": 1.7765845133234515
+      },
+      "objective": 22.437379837036133,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 2,
+        "2": 4,
+        "3": 4,
+        "4": 3,
+        "5": 5,
+        "6": 2,
+        "7": 5,
+        "8": 6,
+        "9": 4
+      }
+    },
+    {
+      "seed": 22,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0887342169880867,
+        "davies_bouldin": 2.0263615550080294,
+        "calinski_harabasz": 1.9877805580228665
+      },
+      "objective": 21.565048217773438,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 6,
+        "2": 4,
+        "3": 3,
+        "4": 4,
+        "5": 4,
+        "6": 4,
+        "7": 4,
+        "8": 3,
+        "9": 6
+      }
+    },
+    {
+      "seed": 23,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.05185983330011368,
+        "davies_bouldin": 2.0415466982152584,
+        "calinski_harabasz": 1.8146237055911247
+      },
+      "objective": 22.27508544921875,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 6,
+        "2": 4,
+        "3": 1,
+        "4": 7,
+        "5": 3,
+        "6": 6,
+        "7": 5,
+        "8": 2,
+        "9": 4
+      }
+    },
+    {
+      "seed": 24,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06042534485459328,
+        "davies_bouldin": 2.0869212480145958,
+        "calinski_harabasz": 1.8324220231331545
+      },
+      "objective": 22.199954986572266,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 1,
+        "2": 5,
+        "3": 3,
+        "4": 3,
+        "5": 4,
+        "6": 3,
+        "7": 8,
+        "8": 4,
+        "9": 4
+      }
+    },
+    {
+      "seed": 25,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08770719170570374,
+        "davies_bouldin": 2.0252995975108807,
+        "calinski_harabasz": 1.9688238360131274
+      },
+      "objective": 21.640567779541016,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 4,
+        "2": 3,
+        "3": 4,
+        "4": 4,
+        "5": 7,
+        "6": 2,
+        "7": 5,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 26,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08333456516265869,
+        "davies_bouldin": 2.093971183665885,
+        "calinski_harabasz": 1.9277099539786708
+      },
+      "objective": 21.806184768676758,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 8,
+        "2": 5,
+        "3": 2,
+        "4": 7,
+        "5": 3,
+        "6": 6,
+        "7": 2,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 27,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10299379378557205,
+        "davies_bouldin": 2.0566978498295128,
+        "calinski_harabasz": 1.9807953655761128
+      },
+      "objective": 21.592815399169922,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 6,
+        "2": 8,
+        "3": 6,
+        "4": 3,
+        "5": 3,
+        "6": 2,
+        "7": 2,
+        "8": 3,
+        "9": 5
+      }
+    },
+    {
+      "seed": 28,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07857130467891693,
+        "davies_bouldin": 2.156685311740632,
+        "calinski_harabasz": 1.8926321571170892
+      },
+      "objective": 21.949504852294922,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 4,
+        "2": 6,
+        "3": 2,
+        "4": 5,
+        "5": 6,
+        "6": 4,
+        "7": 4,
+        "8": 2,
+        "9": 4
+      }
+    },
+    {
+      "seed": 29,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.04858653247356415,
+        "davies_bouldin": 2.0075125629041257,
+        "calinski_harabasz": 1.8451713156786766
+      },
+      "objective": 22.146446228027344,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 6,
+        "2": 6,
+        "3": 2,
+        "4": 5,
+        "5": 1,
+        "6": 2,
+        "7": 3,
+        "8": 5,
+        "9": 4
+      }
+    },
+    {
+      "seed": 30,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08679160475730896,
+        "davies_bouldin": 2.168961757331684,
+        "calinski_harabasz": 1.9278931963078014
+      },
+      "objective": 21.805442810058594,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 8,
+        "2": 4,
+        "3": 5,
+        "4": 3,
+        "5": 3,
+        "6": 5,
+        "7": 3,
+        "8": 2,
+        "9": 6
+      }
+    },
+    {
+      "seed": 31,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11524464190006256,
+        "davies_bouldin": 1.8802570919913921,
+        "calinski_harabasz": 2.0145663984756195
+      },
+      "objective": 21.45923614501953,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 5,
+        "2": 4,
+        "3": 8,
+        "4": 4,
+        "5": 4,
+        "6": 5,
+        "7": 3,
+        "8": 2,
+        "9": 5
+      }
+    },
+    {
+      "seed": 32,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07188689708709717,
+        "davies_bouldin": 1.9619085324800047,
+        "calinski_harabasz": 1.8993111046357603
+      },
+      "objective": 21.922073364257812,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 7,
+        "2": 3,
+        "3": 3,
+        "4": 5,
+        "5": 5,
+        "6": 4,
+        "7": 2,
+        "8": 4,
+        "9": 1
+      }
+    },
+    {
+      "seed": 33,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08533316105604172,
+        "davies_bouldin": 1.9917647237090357,
+        "calinski_harabasz": 1.9709396882941117
+      },
+      "objective": 21.632112503051758,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 5,
+        "2": 7,
+        "3": 7,
+        "4": 4,
+        "5": 5,
+        "6": 2,
+        "7": 3,
+        "8": 3,
+        "9": 4
+      }
+    },
+    {
+      "seed": 34,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.047841787338256836,
+        "davies_bouldin": 1.9201096470956718,
+        "calinski_harabasz": 1.818237930899557
+      },
+      "objective": 22.25979232788086,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 5,
+        "2": 1,
+        "3": 4,
+        "4": 5,
+        "5": 9,
+        "6": 3,
+        "7": 1,
+        "8": 5,
+        "9": 1
+      }
+    },
+    {
+      "seed": 35,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09283333271741867,
+        "davies_bouldin": 2.003323540358493,
+        "calinski_harabasz": 1.921896749305649
+      },
+      "objective": 21.829809188842773,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 2,
+        "2": 3,
+        "3": 8,
+        "4": 4,
+        "5": 4,
+        "6": 3,
+        "7": 3,
+        "8": 3,
+        "9": 4
+      }
+    },
+    {
+      "seed": 36,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10767241567373276,
+        "davies_bouldin": 1.9331910659024794,
+        "calinski_harabasz": 1.9824294554365853
+      },
+      "objective": 21.586313247680664,
+      "cluster_sizes": {
+        "0": 8,
+        "1": 4,
+        "2": 2,
+        "3": 5,
+        "4": 5,
+        "5": 4,
+        "6": 4,
+        "7": 4,
+        "8": 2,
+        "9": 3
+      }
+    },
+    {
+      "seed": 37,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0858459621667862,
+        "davies_bouldin": 2.044885988641294,
+        "calinski_harabasz": 1.9343904204121591
+      },
+      "objective": 21.77910614013672,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 4,
+        "2": 3,
+        "3": 4,
+        "4": 11,
+        "5": 6,
+        "6": 2,
+        "7": 3,
+        "8": 5,
+        "9": 2
+      }
+    },
+    {
+      "seed": 38,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07881246507167816,
+        "davies_bouldin": 2.0618432075411612,
+        "calinski_harabasz": 1.9027389123586882
+      },
+      "objective": 21.908021926879883,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 6,
+        "2": 2,
+        "3": 6,
+        "4": 3,
+        "5": 3,
+        "6": 3,
+        "7": 5,
+        "8": 5,
+        "9": 3
+      }
+    },
+    {
+      "seed": 39,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08306068181991577,
+        "davies_bouldin": 2.049064488478696,
+        "calinski_harabasz": 1.9377990864804553
+      },
+      "objective": 21.765310287475586,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 3,
+        "2": 4,
+        "3": 10,
+        "4": 5,
+        "5": 4,
+        "6": 4,
+        "7": 2,
+        "8": 3,
+        "9": 4
+      }
+    },
+    {
+      "seed": 40,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08899327367544174,
+        "davies_bouldin": 1.940311895204,
+        "calinski_harabasz": 1.9478924174588077
+      },
+      "objective": 21.724571228027344,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 4,
+        "2": 3,
+        "3": 7,
+        "4": 4,
+        "5": 3,
+        "6": 9,
+        "7": 2,
+        "8": 3,
+        "9": 1
+      }
+    },
+    {
+      "seed": 41,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11306484788656235,
+        "davies_bouldin": 2.0100164543494983,
+        "calinski_harabasz": 2.0669553631536957
+      },
+      "objective": 21.255252838134766,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 5,
+        "2": 4,
+        "3": 2,
+        "4": 4,
+        "5": 4,
+        "6": 6,
+        "7": 3,
+        "8": 5,
+        "9": 2
+      }
+    },
+    {
+      "seed": 42,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.1046726182103157,
+        "davies_bouldin": 2.0680816069489323,
+        "calinski_harabasz": 1.9664597343954409
+      },
+      "objective": 21.6500244140625,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 6,
+        "2": 2,
+        "3": 8,
+        "4": 4,
+        "5": 7,
+        "6": 2,
+        "7": 3,
+        "8": 2,
+        "9": 3
+      }
+    },
+    {
+      "seed": 43,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07639658451080322,
+        "davies_bouldin": 1.9446769515410511,
+        "calinski_harabasz": 1.9545533102673722
+      },
+      "objective": 21.697769165039062,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 4,
+        "2": 5,
+        "3": 4,
+        "4": 6,
+        "5": 5,
+        "6": 5,
+        "7": 3,
+        "8": 1,
+        "9": 2
+      }
+    },
+    {
+      "seed": 44,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09787043929100037,
+        "davies_bouldin": 2.077084456590421,
+        "calinski_harabasz": 2.0020078878726384
+      },
+      "objective": 21.508718490600586,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 5,
+        "2": 5,
+        "3": 4,
+        "4": 4,
+        "5": 2,
+        "6": 7,
+        "7": 2,
+        "8": 4,
+        "9": 3
+      }
+    },
+    {
+      "seed": 45,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0842505693435669,
+        "davies_bouldin": 2.1746605925917377,
+        "calinski_harabasz": 1.9128816436800242
+      },
+      "objective": 21.86654281616211,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 7,
+        "2": 2,
+        "3": 7,
+        "4": 3,
+        "5": 3,
+        "6": 5,
+        "7": 6,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 46,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07378857582807541,
+        "davies_bouldin": 1.9764723938845248,
+        "calinski_harabasz": 1.886585491943726
+      },
+      "objective": 21.974401473999023,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 2,
+        "2": 8,
+        "3": 5,
+        "4": 5,
+        "5": 4,
+        "6": 2,
+        "7": 3,
+        "8": 1,
+        "9": 8
+      }
+    },
+    {
+      "seed": 47,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11646378040313721,
+        "davies_bouldin": 1.9399603767397386,
+        "calinski_harabasz": 2.023225282434344
+      },
+      "objective": 21.42525291442871,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 5,
+        "2": 3,
+        "3": 2,
+        "4": 7,
+        "5": 5,
+        "6": 6,
+        "7": 3,
+        "8": 1,
+        "9": 3
+      }
+    },
+    {
+      "seed": 48,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.05608464404940605,
+        "davies_bouldin": 2.1135330856983017,
+        "calinski_harabasz": 1.8273440149712763
+      },
+      "objective": 22.22134017944336,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 4,
+        "2": 8,
+        "3": 3,
+        "4": 8,
+        "5": 4,
+        "6": 2,
+        "7": 4,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 49,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08478472381830215,
+        "davies_bouldin": 1.9975394904645913,
+        "calinski_harabasz": 1.958466240738073
+      },
+      "objective": 21.682052612304688,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 5,
+        "2": 3,
+        "3": 6,
+        "4": 6,
+        "5": 4,
+        "6": 2,
+        "7": 3,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 50,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10720457881689072,
+        "davies_bouldin": 1.9597635935399231,
+        "calinski_harabasz": 2.011978164345682
+      },
+      "objective": 21.46941375732422,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 6,
+        "2": 2,
+        "3": 8,
+        "4": 2,
+        "5": 3,
+        "6": 3,
+        "7": 5,
+        "8": 4,
+        "9": 6
+      }
+    },
+    {
+      "seed": 51,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07844537496566772,
+        "davies_bouldin": 2.031959203097945,
+        "calinski_harabasz": 1.935050900156528
+      },
+      "objective": 21.77642822265625,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 4,
+        "2": 4,
+        "3": 2,
+        "4": 5,
+        "5": 4,
+        "6": 5,
+        "7": 3,
+        "8": 5,
+        "9": 3
+      }
+    },
+    {
+      "seed": 52,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.046779047697782516,
+        "davies_bouldin": 1.9808694784025296,
+        "calinski_harabasz": 1.7815388367193767
+      },
+      "objective": 22.416107177734375,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 5,
+        "2": 10,
+        "3": 4,
+        "4": 5,
+        "5": 4,
+        "6": 3,
+        "7": 3,
+        "8": 5,
+        "9": 1
+      }
+    },
+    {
+      "seed": 53,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.1251147836446762,
+        "davies_bouldin": 1.9727481809192724,
+        "calinski_harabasz": 2.064641326951606
+      },
+      "objective": 21.264183044433594,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 3,
+        "2": 7,
+        "3": 3,
+        "4": 6,
+        "5": 3,
+        "6": 4,
+        "7": 2,
+        "8": 2,
+        "9": 5
+      }
+    },
+    {
+      "seed": 54,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07536742836236954,
+        "davies_bouldin": 2.0099165009277664,
+        "calinski_harabasz": 1.8981682483244435
+      },
+      "objective": 21.9267635345459,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 2,
+        "2": 3,
+        "3": 6,
+        "4": 5,
+        "5": 2,
+        "6": 4,
+        "7": 6,
+        "8": 4,
+        "9": 4
+      }
+    },
+    {
+      "seed": 55,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09939666092395782,
+        "davies_bouldin": 2.068172643723658,
+        "calinski_harabasz": 2.0038816321061454
+      },
+      "objective": 21.501319885253906,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 7,
+        "2": 6,
+        "3": 3,
+        "4": 3,
+        "5": 4,
+        "6": 4,
+        "7": 2,
+        "8": 3,
+        "9": 6
+      }
+    },
+    {
+      "seed": 56,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11175037175416946,
+        "davies_bouldin": 2.05445057124237,
+        "calinski_harabasz": 2.016568169930028
+      },
+      "objective": 21.451370239257812,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 5,
+        "2": 7,
+        "3": 2,
+        "4": 3,
+        "5": 5,
+        "6": 6,
+        "7": 2,
+        "8": 6,
+        "9": 2
+      }
+    },
+    {
+      "seed": 57,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07314768433570862,
+        "davies_bouldin": 2.030951344307199,
+        "calinski_harabasz": 1.9505667629607828
+      },
+      "objective": 21.71380043029785,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 3,
+        "2": 7,
+        "3": 2,
+        "4": 3,
+        "5": 7,
+        "6": 2,
+        "7": 5,
+        "8": 4,
+        "9": 4
+      }
+    },
+    {
+      "seed": 58,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08943771570920944,
+        "davies_bouldin": 1.9847952131315392,
+        "calinski_harabasz": 1.9910380318012921
+      },
+      "objective": 21.5521240234375,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 2,
+        "2": 7,
+        "3": 5,
+        "4": 3,
+        "5": 6,
+        "6": 3,
+        "7": 4,
+        "8": 3,
+        "9": 5
+      }
+    },
+    {
+      "seed": 59,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0855371430516243,
+        "davies_bouldin": 2.066275351195681,
+        "calinski_harabasz": 1.9491974436999304
+      },
+      "objective": 21.719314575195312,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 5,
+        "2": 4,
+        "3": 5,
+        "4": 4,
+        "5": 4,
+        "6": 3,
+        "7": 4,
+        "8": 5,
+        "9": 2
+      }
+    },
+    {
+      "seed": 60,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.053578563034534454,
+        "davies_bouldin": 2.0946950155810797,
+        "calinski_harabasz": 1.7497731485282164
+      },
+      "objective": 22.553194046020508,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 6,
+        "2": 3,
+        "3": 5,
+        "4": 4,
+        "5": 2,
+        "6": 7,
+        "7": 3,
+        "8": 1,
+        "9": 6
+      }
+    },
+    {
+      "seed": 61,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09980062395334244,
+        "davies_bouldin": 2.086806036573946,
+        "calinski_harabasz": 1.9663634452150562
+      },
+      "objective": 21.65041160583496,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 7,
+        "2": 7,
+        "3": 5,
+        "4": 5,
+        "5": 3,
+        "6": 3,
+        "7": 4,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 62,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0814296305179596,
+        "davies_bouldin": 2.048395653518769,
+        "calinski_harabasz": 1.878955891967668
+      },
+      "objective": 22.00589942932129,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 5,
+        "2": 4,
+        "3": 9,
+        "4": 5,
+        "5": 4,
+        "6": 1,
+        "7": 2,
+        "8": 2,
+        "9": 4
+      }
+    },
+    {
+      "seed": 63,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07817711681127548,
+        "davies_bouldin": 2.032662903020093,
+        "calinski_harabasz": 1.9008358799839231
+      },
+      "objective": 21.91581916809082,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 9,
+        "5": 3,
+        "6": 3,
+        "7": 1,
+        "8": 6,
+        "9": 3
+      }
+    },
+    {
+      "seed": 64,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06786482781171799,
+        "davies_bouldin": 2.0331246170809223,
+        "calinski_harabasz": 1.8822560593014939
+      },
+      "objective": 21.99226188659668,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 5,
+        "2": 4,
+        "3": 3,
+        "4": 3,
+        "5": 6,
+        "6": 5,
+        "7": 3,
+        "8": 4,
+        "9": 3
+      }
+    },
+    {
+      "seed": 65,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09247805923223495,
+        "davies_bouldin": 1.9203597721725842,
+        "calinski_harabasz": 1.9665268618670548
+      },
+      "objective": 21.649755477905273,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 5,
+        "2": 7,
+        "3": 2,
+        "4": 6,
+        "5": 7,
+        "6": 1,
+        "7": 2,
+        "8": 5,
+        "9": 3
+      }
+    },
+    {
+      "seed": 66,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07032833993434906,
+        "davies_bouldin": 2.1188492205662075,
+        "calinski_harabasz": 1.8436316310113408
+      },
+      "objective": 22.152896881103516,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 4,
+        "2": 5,
+        "3": 5,
+        "4": 4,
+        "5": 3,
+        "6": 7,
+        "7": 3,
+        "8": 6,
+        "9": 2
+      }
+    },
+    {
+      "seed": 67,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08572204411029816,
+        "davies_bouldin": 1.9586150770874666,
+        "calinski_harabasz": 1.9669924999633812
+      },
+      "objective": 21.647891998291016,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 7,
+        "2": 6,
+        "3": 5,
+        "4": 5,
+        "5": 5,
+        "6": 4,
+        "7": 1,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 68,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08755198121070862,
+        "davies_bouldin": 1.967174963325307,
+        "calinski_harabasz": 1.9550488162261128
+      },
+      "objective": 21.695777893066406,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 4,
+        "2": 8,
+        "3": 7,
+        "4": 7,
+        "5": 3,
+        "6": 2,
+        "7": 3,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 69,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10592181235551834,
+        "davies_bouldin": 1.9596075001285302,
+        "calinski_harabasz": 2.031230866268569
+      },
+      "objective": 21.3939266204834,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 3,
+        "2": 5,
+        "3": 7,
+        "4": 6,
+        "5": 3,
+        "6": 2,
+        "7": 6,
+        "8": 4,
+        "9": 3
+      }
+    },
+    {
+      "seed": 70,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.02556627057492733,
+        "davies_bouldin": 2.0993080829857824,
+        "calinski_harabasz": 1.7141220877842944
+      },
+      "objective": 22.70905876159668,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 8,
+        "2": 1,
+        "3": 3,
+        "4": 5,
+        "5": 6,
+        "6": 4,
+        "7": 3,
+        "8": 3,
+        "9": 7
+      }
+    },
+    {
+      "seed": 71,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11291031539440155,
+        "davies_bouldin": 1.966204915087357,
+        "calinski_harabasz": 1.9965952629364434
+      },
+      "objective": 21.530113220214844,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 5,
+        "2": 8,
+        "3": 4,
+        "4": 7,
+        "5": 2,
+        "6": 3,
+        "7": 7,
+        "8": 2,
+        "9": 1
+      }
+    },
+    {
+      "seed": 72,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08948376029729843,
+        "davies_bouldin": 1.9723754957825765,
+        "calinski_harabasz": 1.9448175540269736
+      },
+      "objective": 21.73696517944336,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 6,
+        "2": 7,
+        "3": 3,
+        "4": 3,
+        "5": 3,
+        "6": 5,
+        "7": 4,
+        "8": 2,
+        "9": 5
+      }
+    },
+    {
+      "seed": 73,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06378750503063202,
+        "davies_bouldin": 2.145384024767249,
+        "calinski_harabasz": 1.856874481080005
+      },
+      "objective": 22.097558975219727,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 2,
+        "2": 3,
+        "3": 2,
+        "4": 4,
+        "5": 8,
+        "6": 6,
+        "7": 5,
+        "8": 6,
+        "9": 3
+      }
+    },
+    {
+      "seed": 74,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09510907530784607,
+        "davies_bouldin": 2.013244151244059,
+        "calinski_harabasz": 1.9628736478954762
+      },
+      "objective": 21.664379119873047,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 6,
+        "2": 6,
+        "3": 3,
+        "4": 5,
+        "5": 5,
+        "6": 4,
+        "7": 2,
+        "8": 5,
+        "9": 3
+      }
+    },
+    {
+      "seed": 75,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08738558739423752,
+        "davies_bouldin": 2.0995200204445,
+        "calinski_harabasz": 1.9609467319190872
+      },
+      "objective": 21.672103881835938,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 7,
+        "2": 6,
+        "3": 2,
+        "4": 3,
+        "5": 6,
+        "6": 3,
+        "7": 3,
+        "8": 3,
+        "9": 5
+      }
+    },
+    {
+      "seed": 76,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09429074078798294,
+        "davies_bouldin": 1.9693133007204522,
+        "calinski_harabasz": 1.987264240069989
+      },
+      "objective": 21.567100524902344,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 1,
+        "2": 8,
+        "3": 4,
+        "4": 7,
+        "5": 6,
+        "6": 5,
+        "7": 3,
+        "8": 2,
+        "9": 3
+      }
+    },
+    {
+      "seed": 77,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07424544543027878,
+        "davies_bouldin": 1.8768781749805963,
+        "calinski_harabasz": 1.8573282909957718
+      },
+      "objective": 22.09566879272461,
+      "cluster_sizes": {
+        "0": 8,
+        "1": 6,
+        "2": 3,
+        "3": 3,
+        "4": 1,
+        "5": 6,
+        "6": 5,
+        "7": 5,
+        "8": 2,
+        "9": 2
+      }
+    },
+    {
+      "seed": 78,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06794202327728271,
+        "davies_bouldin": 1.9478477617800816,
+        "calinski_harabasz": 1.8806312215089682
+      },
+      "objective": 21.998973846435547,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 6,
+        "2": 5,
+        "3": 5,
+        "4": 2,
+        "5": 8,
+        "6": 1,
+        "7": 3,
+        "8": 1,
+        "9": 3
+      }
+    },
+    {
+      "seed": 79,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.09073027968406677,
+        "davies_bouldin": 1.991222575517829,
+        "calinski_harabasz": 1.955045852162192
+      },
+      "objective": 21.695789337158203,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 6,
+        "2": 4,
+        "3": 7,
+        "4": 4,
+        "5": 3,
+        "6": 5,
+        "7": 3,
+        "8": 4,
+        "9": 3
+      }
+    },
+    {
+      "seed": 80,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.0802108645439148,
+        "davies_bouldin": 2.05229572108434,
+        "calinski_harabasz": 1.9030486494767052
+      },
+      "objective": 21.906749725341797,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 8,
+        "2": 4,
+        "3": 3,
+        "4": 2,
+        "5": 4,
+        "6": 5,
+        "7": 5,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 81,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.048879075795412064,
+        "davies_bouldin": 1.9926441006448514,
+        "calinski_harabasz": 1.7657967390436793
+      },
+      "objective": 22.48383331298828,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 4,
+        "2": 3,
+        "3": 8,
+        "4": 6,
+        "5": 5,
+        "6": 4,
+        "7": 3,
+        "8": 4,
+        "9": 1
+      }
+    },
+    {
+      "seed": 82,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07687395066022873,
+        "davies_bouldin": 1.9972686432824265,
+        "calinski_harabasz": 1.821136212349383
+      },
+      "objective": 22.24753761291504,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 9,
+        "2": 6,
+        "3": 5,
+        "4": 3,
+        "5": 3,
+        "6": 2,
+        "7": 4,
+        "8": 6,
+        "9": 2
+      }
+    },
+    {
+      "seed": 83,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07163814455270767,
+        "davies_bouldin": 1.9874385008998927,
+        "calinski_harabasz": 1.8895357013223333
+      },
+      "objective": 21.962249755859375,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 4,
+        "2": 5,
+        "3": 6,
+        "4": 6,
+        "5": 6,
+        "6": 5,
+        "7": 2,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 84,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.03646309673786163,
+        "davies_bouldin": 1.9413980710431136,
+        "calinski_harabasz": 1.7974906245850413
+      },
+      "objective": 22.347890853881836,
+      "cluster_sizes": {
+        "0": 8,
+        "1": 1,
+        "2": 2,
+        "3": 6,
+        "4": 1,
+        "5": 8,
+        "6": 3,
+        "7": 2,
+        "8": 4,
+        "9": 6
+      }
+    },
+    {
+      "seed": 85,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06858833879232407,
+        "davies_bouldin": 2.0271046968814526,
+        "calinski_harabasz": 1.8425620806544785
+      },
+      "objective": 22.15737533569336,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 7,
+        "2": 6,
+        "3": 4,
+        "4": 2,
+        "5": 5,
+        "6": 3,
+        "7": 4,
+        "8": 4,
+        "9": 5
+      }
+    },
+    {
+      "seed": 86,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07612495869398117,
+        "davies_bouldin": 2.005947697007089,
+        "calinski_harabasz": 1.863898261300981
+      },
+      "objective": 22.06831932067871,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 4,
+        "2": 5,
+        "3": 7,
+        "4": 4,
+        "5": 3,
+        "6": 2,
+        "7": 4,
+        "8": 5,
+        "9": 3
+      }
+    },
+    {
+      "seed": 87,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11246208846569061,
+        "davies_bouldin": 1.9792217947352397,
+        "calinski_harabasz": 1.9948930405298224
+      },
+      "objective": 21.53685188293457,
+      "cluster_sizes": {
+        "0": 3,
+        "1": 6,
+        "2": 6,
+        "3": 4,
+        "4": 7,
+        "5": 2,
+        "6": 4,
+        "7": 3,
+        "8": 1,
+        "9": 5
+      }
+    },
+    {
+      "seed": 88,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06952248513698578,
+        "davies_bouldin": 2.1364269591967058,
+        "calinski_harabasz": 1.9031138351242478
+      },
+      "objective": 21.906484603881836,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 6,
+        "2": 3,
+        "3": 4,
+        "4": 8,
+        "5": 3,
+        "6": 4,
+        "7": 5,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 89,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07314061373472214,
+        "davies_bouldin": 1.966005727645787,
+        "calinski_harabasz": 1.880606662707343
+      },
+      "objective": 21.99907684326172,
+      "cluster_sizes": {
+        "0": 1,
+        "1": 6,
+        "2": 5,
+        "3": 4,
+        "4": 7,
+        "5": 3,
+        "6": 6,
+        "7": 5,
+        "8": 3,
+        "9": 1
+      }
+    },
+    {
+      "seed": 90,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07886265218257904,
+        "davies_bouldin": 2.0864061038778234,
+        "calinski_harabasz": 1.9096733608464023
+      },
+      "objective": 21.87964630126953,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 2,
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 4,
+        "6": 4,
+        "7": 5,
+        "8": 6,
+        "9": 4
+      }
+    },
+    {
+      "seed": 91,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06390781700611115,
+        "davies_bouldin": 2.1406688003728376,
+        "calinski_harabasz": 1.8464170707811332
+      },
+      "objective": 22.1412353515625,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 3,
+        "2": 7,
+        "3": 3,
+        "4": 4,
+        "5": 3,
+        "6": 4,
+        "7": 5,
+        "8": 4,
+        "9": 3
+      }
+    },
+    {
+      "seed": 92,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06880389899015427,
+        "davies_bouldin": 2.106114635157747,
+        "calinski_harabasz": 1.8639463355934989
+      },
+      "objective": 22.068119049072266,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 4,
+        "2": 7,
+        "3": 4,
+        "4": 4,
+        "5": 5,
+        "6": 5,
+        "7": 4,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 93,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07565399259328842,
+        "davies_bouldin": 2.079230429762972,
+        "calinski_harabasz": 1.9178509593393744
+      },
+      "objective": 21.84627914428711,
+      "cluster_sizes": {
+        "0": 4,
+        "1": 5,
+        "2": 4,
+        "3": 4,
+        "4": 5,
+        "5": 7,
+        "6": 4,
+        "7": 2,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 94,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.07976380735635757,
+        "davies_bouldin": 2.08442849949673,
+        "calinski_harabasz": 1.8762939876582414
+      },
+      "objective": 22.01690673828125,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 5,
+        "2": 6,
+        "3": 4,
+        "4": 4,
+        "5": 3,
+        "6": 6,
+        "7": 2,
+        "8": 4,
+        "9": 2
+      }
+    },
+    {
+      "seed": 95,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10168997943401337,
+        "davies_bouldin": 1.9791180283202692,
+        "calinski_harabasz": 1.9836514490697328
+      },
+      "objective": 21.58145523071289,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 8,
+        "2": 5,
+        "3": 6,
+        "4": 2,
+        "5": 4,
+        "6": 4,
+        "7": 4,
+        "8": 3,
+        "9": 3
+      }
+    },
+    {
+      "seed": 96,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10940182954072952,
+        "davies_bouldin": 2.0242001980446207,
+        "calinski_harabasz": 1.980772781619318
+      },
+      "objective": 21.592905044555664,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 7,
+        "2": 4,
+        "3": 5,
+        "4": 4,
+        "5": 4,
+        "6": 8,
+        "7": 2,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 97,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.11874132603406906,
+        "davies_bouldin": 2.0245112636475073,
+        "calinski_harabasz": 2.0572045555071408
+      },
+      "objective": 21.292926788330078,
+      "cluster_sizes": {
+        "0": 5,
+        "1": 4,
+        "2": 4,
+        "3": 3,
+        "4": 7,
+        "5": 6,
+        "6": 2,
+        "7": 5,
+        "8": 3,
+        "9": 2
+      }
+    },
+    {
+      "seed": 98,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.10371463000774384,
+        "davies_bouldin": 1.9267065507529963,
+        "calinski_harabasz": 2.008544608378047
+      },
+      "objective": 21.482934951782227,
+      "cluster_sizes": {
+        "0": 6,
+        "1": 4,
+        "2": 6,
+        "3": 4,
+        "4": 7,
+        "5": 4,
+        "6": 3,
+        "7": 2,
+        "8": 1,
+        "9": 4
+      }
+    },
+    {
+      "seed": 99,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.06354951113462448,
+        "davies_bouldin": 2.0674635791593348,
+        "calinski_harabasz": 1.7805554142569364
+      },
+      "objective": 22.420326232910156,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 6,
+        "2": 4,
+        "3": 7,
+        "4": 4,
+        "5": 3,
+        "6": 3,
+        "7": 2,
+        "8": 4,
+        "9": 1
+      }
+    },
+    {
+      "seed": 100,
+      "n_clusters_found": 10,
+      "metrics": {
+        "silhouette": 0.08363937586545944,
+        "davies_bouldin": 2.0367671068089863,
+        "calinski_harabasz": 1.9315316979203994
+      },
+      "objective": 21.79068374633789,
+      "cluster_sizes": {
+        "0": 2,
+        "1": 5,
+        "2": 5,
+        "3": 6,
+        "4": 6,
+        "5": 3,
+        "6": 1,
+        "7": 2,
+        "8": 4,
+        "9": 7
+      }
+    }
+  ],
+  "elapsed_seconds": 2.244840999999724
+}

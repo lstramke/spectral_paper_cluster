@@ -15,11 +15,14 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class AffinityPropagationConfig:
     damping: float
+    damping_range: tuple[float, float] | None
+    random_state: int
+    random_state_range: tuple[int, int] | None
     max_iter: int
     convergence_iter: int
     affinity: Literal["euclidean", "precomputed"]
-    random_state: int
     normalize: bool
+    n_trials: int
 
 class SklearnAffinityPropagationAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.AffinityPropagation implementing the

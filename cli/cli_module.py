@@ -2,7 +2,7 @@ from pathlib import Path
 import subprocess
 import sys
 import os
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import questionary
 from questionary import Style
 import colorama
@@ -91,6 +91,46 @@ class ClusterCLI:
             else:
                 print(colorama.Style.BRIGHT + colorama.Fore.RED + "Selection not found." + colorama.Style.RESET_ALL, file=sys.stderr)
 
+    def _print_metrics(self, summary: Dict[str, Any]) -> None:
+        """Print a metrics table (two columns) using colorama.
+
+        Uses `summary['metrics']` if present, otherwise treats `summary`
+        itself as a flat metrics mapping.
+        """
+        if not summary:
+            print()
+            print(colorama.Fore.YELLOW + "⚠ No summary found." + colorama.Style.RESET_ALL)
+            return
+
+        if isinstance(summary.get("metrics"), dict):
+            metrics = summary["metrics"]
+        elif isinstance(summary, dict) and all(isinstance(v, (int, float)) for v in summary.values()):
+            metrics = {k: float(v) for k, v in summary.items()}
+        else:
+            metrics = None
+
+        if not metrics:
+            print()
+            print(colorama.Fore.YELLOW + "⚠ No metrics found." + colorama.Style.RESET_ALL)
+            return
+
+        # Format values and compute column widths
+        val_strs = {k: (f"{v:.6g}" if isinstance(v, (int, float)) else str(v)) for k, v in metrics.items()}
+        key_width = max(len("Metric"), *(len(k) for k in val_strs.keys()))
+        val_width = max(len("Value"), *(len(s) for s in val_strs.values()))
+        sep = "  "
+
+        print()
+
+        print(colorama.Style.BRIGHT + colorama.Fore.CYAN + f"{ 'Metric'.ljust(key_width) }{sep}{ 'Value'.rjust(val_width) }" + colorama.Style.RESET_ALL)
+        print(colorama.Fore.WHITE + "-" * (key_width + len(sep) + val_width) + colorama.Style.RESET_ALL)
+
+        for k in sorted(val_strs.keys()):
+            k_disp = k.ljust(key_width)
+            v_disp = val_strs[k].rjust(val_width)
+            print(colorama.Fore.GREEN + k_disp + colorama.Style.RESET_ALL + sep + colorama.Style.BRIGHT + colorama.Fore.WHITE + v_disp + colorama.Style.RESET_ALL)
+        print()
+        
     def edit_config_menu(self, tokens: List[str]) -> None:
         """Show the edit-config submenu and open the config editor."""
         pick = questionary.select("Select experiment to edit config:", choices=tokens + ["Back"], use_arrow_keys=True, style=self.style).ask()
@@ -123,6 +163,12 @@ class ClusterCLI:
                 if not pick or pick == "Back":
                     break
                 picked_name = pick.split()[0]
+                rc_picked = results.get(picked_name, 1)
+                if rc_picked != 0:
+                    print(colorama.Fore.YELLOW + f"⚠ Experiment {picked_name} did not finish successfully; outputs/metrics unavailable." + colorama.Style.RESET_ALL)
+                    continue
+                metrics = self.outputs.metrics_for(picked_name)
+                self._print_metrics(metrics)
                 self.offer_open_outputs(picked_name)
             return
 
@@ -131,8 +177,10 @@ class ClusterCLI:
             print(colorama.Fore.RED + "✗" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + f" Experiment exited with code {rc}" + colorama.Style.RESET_ALL)
         else:
             print(colorama.Fore.GREEN + "✓" + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + " Experiment completed successfully" + colorama.Style.RESET_ALL)
-        print()
-        self.offer_open_outputs(chosen)
+            metrics = self.outputs.metrics_for(chosen)
+            self._print_metrics(metrics)
+            print()
+            self.offer_open_outputs(chosen)
 
     def start(self) -> None:
         try:

@@ -1,0 +1,112 @@
+{
+  "experiment_name": "dbscan_tfidf_2086",
+  "n_documents": 2086,
+  "n_features": 100,
+  "n_clusters_found": 1,
+  "metrics": {
+    "silhouette": 0.03307177498936653,
+    "davies_bouldin": 3.362438019745703,
+    "calinski_harabasz": 1.841014060121224
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 6,
+    "0": 2080
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "dynamic",
+          0.21909622848033905
+        ],
+        [
+          "range",
+          0.1516842395067215
+        ],
+        [
+          "malignant",
+          0.15016458928585052
+        ],
+        [
+          "normal",
+          0.12262066453695297
+        ],
+        [
+          "tissues",
+          0.09379985183477402
+        ],
+        [
+          "modality",
+          0.09063319116830826
+        ],
+        [
+          "high",
+          0.08933737874031067
+        ],
+        [
+          "endoscope",
+          0.0863543376326561
+        ],
+        [
+          "mouse",
+          0.07508229464292526
+        ],
+        [
+          "spectroscopic",
+          0.07425316423177719
+        ]
+      ],
+      "0": [
+        [
+          "spectral",
+          0.04384942725300789
+        ],
+        [
+          "tissue",
+          0.03928380087018013
+        ],
+        [
+          "images",
+          0.03626225143671036
+        ],
+        [
+          "image",
+          0.03547601401805878
+        ],
+        [
+          "multispectral",
+          0.03453856334090233
+        ],
+        [
+          "data",
+          0.0318572036921978
+        ],
+        [
+          "hyperspectral imaging",
+          0.029359223321080208
+        ],
+        [
+          "optical",
+          0.0271015502512455
+        ],
+        [
+          "method",
+          0.02653159387409687
+        ],
+        [
+          "analysis",
+          0.026413768529891968
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 35.48116309999932
+}

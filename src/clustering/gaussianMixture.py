@@ -14,13 +14,16 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class GMMConfig:
     n_components: int
+    n_components_range: tuple[int, int] | None
     tol: float
     reg_covar: float
     max_iter: int
     n_init: int
     init_params: Literal['kmeans', 'k-means++', 'random', 'random_from_data']
     random_state: int
+    random_state_range: tuple[int, int] | None
     covariance_type: Literal['full', 'tied', 'diag', 'spherical']
+    n_trials: int
 
 
 class SklearnGMMAdapter(ClusteringAlgorithm):

@@ -31,8 +31,7 @@ class BaseExperiment(ABC, Generic[T]):
         `save_results`. This default `run` will call those hooks, execute the
         pipeline and save the result.
         """
-        if self.experiment_config is None:
-            self.load_config()
+        self.load_config()
 
         assert self.experiment_config is not None
 
@@ -53,8 +52,7 @@ class BaseExperiment(ABC, Generic[T]):
         This mirrors `run()` but calls `ExperimentPipeline.run_many` and
         forwards the resulting `MultiRunPipelineResult` to `save_results`.
         """
-        if self.experiment_config is None:
-            self.load_config()
+        self.load_config()
 
         assert self.experiment_config is not None
 
@@ -64,7 +62,7 @@ class BaseExperiment(ABC, Generic[T]):
 
         if hasattr(pipeline, "run_many"):
             start = perf_counter()
-            result = pipeline.run_many(documents, seeds=seeds)
+            result = pipeline.run_many(documents)
             elapsed = perf_counter() - start
             self.save_results(documents, result, elapsed)
         else:

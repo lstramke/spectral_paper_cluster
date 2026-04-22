@@ -1,25 +1,26 @@
-experiment_name: affinityPropagation_tfidf
+experiment_name: affinityPropagation_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
   separator: ";"
 
 affinityPropagation:
-  damping: 0.5
-  max_iter: 200
+  damping_range: [0.5, 0.95]
+  random_state_range: [1, 10000]
+  n_trials: 120
+  max_iter: 400
   convergence_iter: 15
   affinity: euclidean
-  random_state: 42
   normalize: true
 
 tfidf:
   max_features: 1000
   ngram_range: [1, 2]
   min_df: 5
-  max_df: 0.5
+  max_df: 0.4
   lowercase: true
   stop_words: english
   extra_stop_words: ["hsi"]
@@ -30,9 +31,9 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/affinityPropagation_tfidf/outputs
-  plot_name: affinityPropagation_tfidf_pca.png
-  summary_name: best_affinityPropagation_tfidf_summary.json
+  output_dir: experiments/affinityPropagation_tfidf/results_2086
+  plot_name: affinityPropagation_tfidf_2086_pca.png
+  summary_name: best_affinityPropagation_tfidf_2086_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10

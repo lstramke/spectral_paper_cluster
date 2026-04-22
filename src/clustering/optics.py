@@ -14,10 +14,13 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class OpticsConfig:
     min_samples: int
+    min_samples_range: tuple[int, int] | None
     metric: str 
     cluster_method: str
     xi: float
+    xi_range: tuple[float, float] | None
     n_jobs: Optional[int]
+    n_trials: int
 
 
 class SklearnOpticsAdapter(ClusteringAlgorithm):

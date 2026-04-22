@@ -11,23 +11,94 @@ import sys
 import os
 import subprocess
 import webbrowser
-from typing import List
+from typing import Dict, List
+from ruamel.yaml import YAML
+import json
 
 
 class CLIOutputs:
     """Helper to list and open experiment output files.
 
     Initialized with the `experiments` root Path.
+    Reads the output directory name from the experiment's YAML config.
     """
 
     def __init__(self, experiments_root: Path) -> None:
         self.experiments_root: Path = experiments_root
+        self.yaml = YAML()
+
+    def _get_output_dir_name(self, token: str) -> str:
+        """Read output directory name from experiment config.
+        
+        Returns only the last segment of the output directory path
+        (e.g., 'outputs2086' from 'experiments/affinityPropagation_tfidf/outputs2086').
+        """
+        cfg_path = self.experiments_root / token / f"{token}.yaml"
+        if not cfg_path.exists():
+            return "outputs"
+        
+        try:
+            with open(cfg_path, encoding="utf-8") as f:
+                data = self.yaml.load(f) or {}
+            
+            output_dir = data.get("outputs", {}).get("output_dir") or "outputs"
+            return Path(output_dir).name
+        except Exception:
+            return "outputs"
 
     def outputs_for(self, token: str) -> List[Path]:
-        outdir = self.experiments_root / token / "outputs"
+        output_dir_name = self._get_output_dir_name(token)
+        outdir = self.experiments_root / token / output_dir_name
         if not outdir.exists():
             return []
         return sorted([p for p in outdir.iterdir() if p.is_file()])
+    
+    def metrics_for(self, token: str) -> Dict[str, float]:
+        """Load the experiment summary JSON and return it as a dict.
+
+        Returns the full parsed JSON (if it's an object) with the
+        `n_features` key removed. If the summary file is a bare metrics
+        mapping, it is returned under the `metrics` key. Returns an empty
+        dict on error or if no summary is found.
+        """
+        output_dir_name = self._get_output_dir_name(token)
+        cfg_path = self.experiments_root / token / f"{token}.yaml"
+
+        summary_name = None
+        if cfg_path.exists():
+            try:
+                with open(cfg_path, encoding="utf-8") as f:
+                    data = self.yaml.load(f) or {}
+                summary_name = (data.get("outputs") or {}).get("summary_name")
+            except Exception:
+                summary_name = None
+
+        outdir = self.experiments_root / token / output_dir_name
+        if not outdir.exists():
+            return {}
+
+        if not summary_name:
+            return {}
+
+        summary_path = outdir / summary_name
+        if not summary_path.exists():
+            return {}
+
+        try:
+            with open(summary_path, encoding="utf-8") as f:
+                content = json.load(f)
+
+            metrics_clean: Dict[str, float] = {}
+            if isinstance(content, dict):
+                if isinstance(content.get("metrics"), dict):
+                    for k, v in list(content["metrics"].items()):
+                        try:
+                            metrics_clean[k] = float(v)
+                        except Exception:
+                            continue
+            return metrics_clean
+        except Exception:
+            return {}
 
     def open_path(self, p: Path) -> None:
         """Open a file using the platform default application.
