@@ -75,27 +75,28 @@ Die Metriken werden in `best_affinityPropagation_tfidf_2086_summary.json` gespei
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.1661059558391571 | |
-| Davies–Bouldin Index | 2.1659880230829995  |  |
-| Calinski–Harabasz Index | 12.379051295821812 |  |
+| Silhouette Score | 0.26424601674079895 | |
+| Davies–Bouldin Index | 1.7716755566247075 |  |
+| Calinski–Harabasz Index | 16.440219700130623 |  |
 
 #### Cluster-Interpretation
 
 Die Top‑Wörter (Top‑10) pro Cluster, berechnet aus den nicht reduzierten TF‑IDF‑Features, lauten:
 
+
 | Cluster | Top‑Wörter |
 | ---: | --- |
-| 0 | learning, deep, deep learning, cancer, attention, data, medical, framework, domain, feature |
-| 1 | band, ratio, selection, narrow, contrast, tissue, dual, proposed, prediction, imaging techniques |
-| 2 | unmixing, linear, end, pixel, non, matrix, negative, method, algorithm, nonlinear |
-| 3 | cameras, information, camera, multispectral imaging, device, medical, used, light, applications, monitoring |
-| 4 | swir, short, wave, infrared, hyperspectral imaging, nm, validation, collagen, phantoms, analysis |
-| 5 | data, image data, software, analysis, sets, medical image, processing, tools, visible, spectroscopic |
-| 6 | skin, line, illumination, laser, rgb, maps, mapping, snapshot, data, nm |
-| 7 | systems, devices, sensing, applications, optical, spectral imaging, sensors, advanced, integration, design |
-| 8 | calibration, scanning, hyperspectral imaging, applications, video, biomedical, spatial, device, custom, acquisition |
-| 9 | classification, deep, learning, deep learning, network, medical, hyperspectral image, proposed, accuracy, classify |
-| … | weitere 159 Cluster (siehe `best_affinityPropagation_tfidf_2086_summary.json`) |
+| 0 | optica, publishing, group terms, optica publishing, publishing group, terms optica, optica open, publishing agreement, access publishing, open access |
+| 1 | convolutional neural, convolutional, neural network, cnn, age, network cnn, using convolutional, training, body, chaotic |
+| 2 | image processing, problems, gp, image data, scientific, cluster, windows, recognition, multichannel, tree |
+| 3 | metasurfaces, metasurface, phase, fig, photonic, sensing, cs, amplitude, multidimensional, integral |
+| 4 | lesions, pigmented, skin lesions, malignant, pigmented skin, benign, skin cancer, maflim, dermatologists, dermoscopy |
+| 5 | pai, photoacoustic, photoacoustic imaging, imaging pai, dyes, oxygen, oxygen saturation, phantoms, ph, saturation |
+| 6 | smartphone, mobile, rgb, device, cost, multispectral data, low cost, cameras, leverage, single shot |
+| 7 | malignant, dual modality, endoscope, mouse, aotf, dual, normal, modality, tunable filter, 440 |
+| 8 | microscopic, microscopic hyperspectral, attention, spatial spectral, pathological, mn, stitching, nephropathy, membranous nephropathy, membranous |
+| 9 | snapshot, snapshot hyperspectral, fiber, bundle, fiber bundle, endoscope, fabricated, custom, spectrometer, double |
+| … | weitere 166 Cluster (siehe `best_affinityPropagation_tfidf_2086_summary.json`) |
 
 ### Evaluation
 
