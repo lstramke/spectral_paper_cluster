@@ -20,16 +20,17 @@ input:
   separator: ";"
 
 hdbscan:
-  min_cluster_size: 3
-  min_samples:
+  min_cluster_size_range: [5, 30]
+  min_samples_range: [1, 5]
   metric: euclidean
   cluster_selection_method: eom
+  n_trials: 400
 
 tfidf:
-  max_features: 1000
+  max_features: 5000
   ngram_range: [1, 2]
-  min_df: 5
-  max_df: 0.5
+  min_df: 0.001
+  max_df: 0.09
   lowercase: true
   stop_words: english
   extra_stop_words: ["hsi"]
@@ -73,9 +74,9 @@ Die Metriken werden in `best_hdbscan_tfidf_2086_summary.json` gespeichert. Für 
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.019441409036517143 |  |
-| Davies–Bouldin Index | 3.476095659721325 |  |
-| Calinski–Harabasz Index | 22.91511778029764 | |
+| Silhouette Score | 0.08024097979068756 |  |
+| Davies–Bouldin Index | 2.1040121387844115 |  |
+| Calinski–Harabasz Index | 14.443256265588882 | |
 
 ### Cluster-Interpretation
 
@@ -83,15 +84,19 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | ---: | --- |
-| -1 | spectral, tissue, multispectral, images, data, image, hyperspectral imaging, optical, detection, high |
-| 0 | retinal, registration, noise, image, images, fundus, spectral, prior, snapshot, method |
-| 1 | pai, photoacoustic, photoacoustic imaging, ultrasound, optical, properties, tissue, optical properties, phantoms, contrast |
-| 2 | tensor, processing, band, dimensionality, image, image processing, images, data, selection, bands |
-| 3 | skin, melanoma, lesions, lesion, skin cancer, multispectral, diagnosis, non, spectral, thickness |
-| 4 | perfusion, wound, burn, tissue, patients, healing, oxygenation, hyperspectral imaging, flap, surgery |
-| 5 | msot, optoacoustic, optoacoustic tomography, multispectral optoacoustic, tomography, nanoparticles, tumor, tomography msot, multispectral, ct |
-| 6 | segmentation, fusion, mri, image, brain, images, classification, network, learning, deep |
-| 7 | cells, cell, immune, pa, breast, tumor, cancer, pa imaging, breast cancer, pd |
-| 8 | raman, srs, raman scattering, microscopy, scattering, cells, chemical, label, analysis, spectral |
+
+| Cluster | Top-Wörter |
+| ---: | --- |
+| -1 | perfusion, 3d, oxygen, photoacoustic, oxygenation, deep learning, nir, saturation, intraoperative, noise |
+| 0 | cervical, cervical cancer, colposcopy, cin, mdc, cervix, colposcope, neoplasia, acetic, acetic acid |
+| 1 | tongue, tongue diagnosis, medicine, coating, tongue images, tongue color, kampo, tcm, segmentation, chinese medicine |
+| 2 | laparoscopic, laparoscope, video, cm, broom, push broom, push, intraoperative, minimally invasive, distances |
+| 3 | endoscopy, comb, flexible, msi, endoscope, endoscopic, cubes, pattern, tract, modalities |
+| 4 | bacterial, pathogens, optica, species, publishing, bacteria, group terms, biofilms, aureus, optica publishing |
+| 5 | thyroid, nodules, thyroid nodules, cerenkov, needle, single cells, hyperspectral raman, benign, raman, fine |
+| 6 | caries, enamel, dental, surfaces, teeth, occlusal, dental caries, surface, tooth, swir |
+| 7 | carcinoma, cell carcinoma, scc, squamous, actinic, squamous cell, keratosis, actinic keratosis, skin cancer, carcinomas |
+| 8 | melanoma, lesions, melanomas, pigmented, lesion, dermoscopy, benign, nevi, specificity, malignant |
+| … | weitere 63 Cluster (siehe `best_hdbscan_tfidf_2086_summary.json`) |
 
 ## Evaluation

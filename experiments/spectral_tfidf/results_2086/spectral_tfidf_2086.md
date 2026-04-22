@@ -20,22 +20,23 @@ input:
   separator: ";"
 
 spectral:
-  n_clusters: 10
+  n_clusters_range: [5, 40]
   affinity: nearest_neighbors
   eigen_solver: arpack
   assign_labels: kmeans
   n_init: 10
   gamma: 1.0
-  n_neighbors: 10
-  random_state: 42
+  n_neighbors_range: [5, 20]
+  random_state_range: [0, 10000]
   n_jobs: 1
+  n_trials: 400
 
 
 tfidf:
-  max_features: 1000
+  max_features: 5000
   ngram_range: [1, 2]
-  min_df: 5
-  max_df: 0.5
+  min_df: 0.001
+  max_df: 0.09
   lowercase: true
   stop_words: english
   extra_stop_words: ["hsi"]
@@ -77,9 +78,9 @@ Die Metriken werden in `best_spectral_tfidf_2086_summary.json` gespeichert. Für
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.11032392084598541 |  |
-| Davies–Bouldin Index | 2.603746602659673 |  |
-| Calinski–Harabasz Index | 28.54055405437507 | |
+| Silhouette Score |0.1702127307653427 |  |
+| Davies–Bouldin Index | 2.521106186145267 |  |
+| Calinski–Harabasz Index | 23.460122799765603| |
 
 ### Cluster-Interpretation
 
@@ -107,5 +108,6 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster (Top‑10), berechne
 | 17 | tensor, low, data, dimensionality, matrix, medical hyperspectral, reduction, medical, images, framework |
 | 18 | cell, cells, immune, pd, tumor, cancer, patients, single, expression, cellular |
 | 19 | breast, breast cancer, cancer, tissue, detection, tumor, analysis, margin, patients, images |
+| … | weitere 20 Cluster (siehe `best_spectral_tfidf_2086_summary.json`) |
 
 ## Evaluation

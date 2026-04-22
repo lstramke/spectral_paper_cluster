@@ -27,10 +27,10 @@ agglomerative:
   compute_full_tree: true
 
 tfidf:
-  max_features: 1000
+  max_features: 5000
   ngram_range: [1, 2]
-  min_df: 5
-  max_df: 0.5
+  min_df: 0.001
+  max_df: 0.09
   lowercase: true
   stop_words: english
   extra_stop_words: ["hsi"]
@@ -72,25 +72,25 @@ Die Metriken werden in `best_agglomerative_tfidf_summary.json` gespeichert. Für
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.18110454082489014  |  |
-| Davies–Bouldin Index | 1.263998561526703 |  |
-| Calinski–Harabasz Index | 6.369068977866156 |  |
+| Silhouette Score | 0.2717430889606476  |  |
+| Davies–Bouldin Index | 1.6730642750088283 |  |
+| Calinski–Harabasz Index | 18.07832378325674 |  |
 
 #### Cluster-Interpretation
 
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | learning, deep, deep learning, cancer, attention, data, medical, framework, domain, feature |
-| 1 | band, ratio, selection, narrow, contrast, tissue, dual, proposed, prediction, imaging techniques |
-| 2 | unmixing, linear, end, pixel, non, matrix, negative, method, algorithm, nonlinear |
-| 3 | cameras, information, camera, multispectral imaging, device, medical, used, light, applications, monitoring |
-| 4 | swir, short, wave, infrared, hyperspectral imaging, nm, validation, collagen, phantoms, analysis |
-| 5 | data, image data, software, analysis, sets, medical image, processing, tools, visible, spectroscopic |
-| 6 | skin, line, illumination, laser, rgb, maps, mapping, snapshot, data, nm |
-| 7 | systems, devices, sensing, applications, optical, spectral imaging, sensors, advanced, integration, design |
-| 8 | calibration, scanning, hyperspectral imaging, applications, video, biomedical, spatial, device, custom, acquisition |
-| 9 | classification, deep, learning, deep learning, network, medical, hyperspectral image, proposed, accuracy, classify |
-| … | weitere 534 Cluster (siehe `best_agglomerative_tfidf_2086_summary.json`) |
+| 0 | prism, instrument, lambda, test, hyperspectral microscopy, lens, spectral resolution, spatial resolution, spatially, spectral imaging |
+| 1 | flap, perfusion, flaps, necrosis, free flap, flap perfusion, index, sto, thi, flap necrosis |
+| 2 | encryption, phase, glare, edge, fast, differential, matching, feature detection, secure, security |
+| 3 | scattering, phantoms, phantom, depth, optical properties, turbid, absorption, mimicking, absorption scattering, tissue mimicking |
+| 4 | noise, denoising, filter, nesma, filtering, image denoising, restoration, gaussian, prior, brain |
+| 5 | deep learning, medical hyperspectral, graph, anomaly, framework, attention, 1d cnn, anomaly detection, image classification, 1d |
+| 6 | cs, endoscopic imaging, light sources, endoscopic, sources, diffraction, fast, lung, source, compressive |
+| 7 | foot, diabetic, healing, diabetic foot, ulcer, ulceration, ulcers, limb, dfu, diabetes |
+| 8 | oxygen, saturation, oxygen saturation, sto2, hemoglobin, oxygenation, tissue oxygen, hypoxia, concentration, microcirculatory |
+| 9 | optoacoustic, msot, optoacoustic tomography, multispectral optoacoustic, tomography msot, optoacoustic imaging, muscle, ultrasound, handheld, volumetric |
+| … | weitere 122 Cluster (siehe `best_agglomerative_tfidf_2086_summary.json`) |
 
 ### Evaluation
 

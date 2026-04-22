@@ -8,7 +8,7 @@ input:
   separator: ";"
 
 spectral:
-  n_clusters_range: [5, 20]
+  n_clusters_range: [5, 40]
   affinity: nearest_neighbors
   eigen_solver: arpack
   assign_labels: kmeans
@@ -17,14 +17,14 @@ spectral:
   n_neighbors_range: [5, 20]
   random_state_range: [0, 10000]
   n_jobs: 1
-  n_trials: 50
+  n_trials: 400
 
 
 tfidf:
-  max_features: 1000
+  max_features: 5000
   ngram_range: [1, 2]
-  min_df: 5
-  max_df: 0.5
+  min_df: 0.001
+  max_df: 0.09
   lowercase: true
   stop_words: english
   extra_stop_words: ["hsi"]
