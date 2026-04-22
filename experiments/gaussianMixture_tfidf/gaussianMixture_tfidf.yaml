@@ -8,14 +8,15 @@ input:
   separator: ";"
 
 gaussianMixture:
-  n_components: 10
+  n_components_range: [5, 20]
   tol: 0.001
   reg_covar: 1e-6
   max_iter: 200
   n_init: 10
   init_params: kmeans
-  random_state: 42
+  random_state_range: [1, 10000]
   covariance_type: full
+  n_trials: 400
 
 
 tfidf:

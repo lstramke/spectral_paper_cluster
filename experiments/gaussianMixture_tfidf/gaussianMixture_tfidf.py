@@ -133,7 +133,7 @@ def main() -> None:
     config_path = (PROJECT_ROOT / args.config).resolve()
 
     experiment = GaussianMixtureExperiment(config_path)
-    experiment.run()
+    experiment.run_many()
 
 if __name__ == "__main__":
     main()
