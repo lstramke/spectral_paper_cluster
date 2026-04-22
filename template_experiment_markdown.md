@@ -1,6 +1,6 @@
 ## Template für weitere Experimente
 
-# <experiment_name>
+# <experiment_name> auf <dataset>
 
 ## Kurzüberblick
 
@@ -8,8 +8,9 @@
 
 ## Konfiguration
 
-Die Experimentkonfiguration liegt in [<experiment>.yaml]().
+Die Experimentkonfiguration muss in [<experiment>.yaml]() eingetragen sein.
 
+Die Konfiguration für das hier dargestellte Ergebnis ist:
 ```yaml
 experiment_name: <experiment_name>
 

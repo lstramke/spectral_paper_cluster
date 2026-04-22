@@ -1,0 +1,155 @@
+{
+  "experiment_name": "optics_tfidf",
+  "n_documents": 41,
+  "n_features": 40,
+  "n_clusters_found": 2,
+  "metrics": {
+    "silhouette": 0.07049638032913208,
+    "davies_bouldin": 2.9323449516790725,
+    "calinski_harabasz": 2.521684262709035
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 26,
+    "0": 9,
+    "1": 6
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "tissue",
+          0.119349405169487
+        ],
+        [
+          "patients",
+          0.07922914624214172
+        ],
+        [
+          "studies",
+          0.07612285017967224
+        ],
+        [
+          "multispectral",
+          0.07432365417480469
+        ],
+        [
+          "technology",
+          0.07281408458948135
+        ],
+        [
+          "use",
+          0.06425303220748901
+        ],
+        [
+          "brain",
+          0.06191220134496689
+        ],
+        [
+          "different",
+          0.06159786880016327
+        ],
+        [
+          "biological",
+          0.06110767275094986
+        ],
+        [
+          "information",
+          0.06054085120558739
+        ]
+      ],
+      "0": [
+        [
+          "medical",
+          0.3402359187602997
+        ],
+        [
+          "learning",
+          0.20616145431995392
+        ],
+        [
+          "diseases",
+          0.11127495765686035
+        ],
+        [
+          "data",
+          0.10016913712024689
+        ],
+        [
+          "research",
+          0.09126970171928406
+        ],
+        [
+          "disease",
+          0.08822418749332428
+        ],
+        [
+          "algorithms",
+          0.08554306626319885
+        ],
+        [
+          "disorders",
+          0.08366000652313232
+        ],
+        [
+          "diagnosis",
+          0.08118709921836853
+        ],
+        [
+          "future",
+          0.08067920804023743
+        ]
+      ],
+      "1": [
+        [
+          "cancer",
+          0.3020089864730835
+        ],
+        [
+          "skin",
+          0.18383175134658813
+        ],
+        [
+          "detection",
+          0.16179095208644867
+        ],
+        [
+          "accuracy",
+          0.15769432485103607
+        ],
+        [
+          "aided",
+          0.15194213390350342
+        ],
+        [
+          "computer aided",
+          0.15194213390350342
+        ],
+        [
+          "computer",
+          0.13710425794124603
+        ],
+        [
+          "diagnostic",
+          0.12649808824062347
+        ],
+        [
+          "sensitivity",
+          0.12630590796470642
+        ],
+        [
+          "skin cancer",
+          0.12186058610677719
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 0.07318370000029972
+}

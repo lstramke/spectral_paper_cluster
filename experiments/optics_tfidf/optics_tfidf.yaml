@@ -1,18 +1,19 @@
-experiment_name: optics_tfidf
+experiment_name: optics_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
   separator: ";"
 
 optics:
-  min_samples: 5
+  min_samples_range: [2, 15]
   metric: cosine
   cluster_method: xi
-  xi: 0.05
+  xi_range: [0.01, 0.5]
   n_jobs: 1
+  n_trials: 400
 
 tfidf:
   max_features: 1000
@@ -29,9 +30,9 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/optics_tfidf/outputs
-  plot_name: optics_tfidf_pca.png
-  summary_name: best_optics_tfidf_summary.json
+  output_dir: experiments/optics_tfidf/results_2086
+  plot_name: optics_tfidf_2086_pca.png
+  summary_name: best_optics_tfidf_2086_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10

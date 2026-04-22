@@ -1,21 +1,22 @@
-experiment_name: gaussianMixture_tfidf
+experiment_name: gaussianMixture_tfidf_2086
 
 input:
-  documents_path: data/raw/data_db_raw.csv
+  documents_path: data/raw/dataset_2086.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
   separator: ";"
 
 gaussianMixture:
-  n_components: 10
+  n_components_range: [5, 20]
   tol: 0.001
   reg_covar: 1e-6
   max_iter: 200
-  n_init: 5
-  init_params: k-means++
-  random_state: 42
+  n_init: 10
+  init_params: kmeans
+  random_state_range: [1, 10000]
   covariance_type: full
+  n_trials: 400
 
 
 tfidf:
@@ -33,9 +34,9 @@ interpretation:
   top_n_terms: 10
 
 outputs:
-  output_dir: experiments/gaussianMixture_tfidf/outputs
-  plot_name: gaussianMixture_tfidf_pca.png
-  summary_name: best_gaussianMixture_tfidf_summary.json
+  output_dir: experiments/gaussianMixture_tfidf/results_2086
+  plot_name: gaussianMixture_tfidf_2086_pca.png
+  summary_name: best_gaussianMixture_tfidf_2086_summary.json
   point_size: 42
   alpha: 0.85
   figsize_width: 10

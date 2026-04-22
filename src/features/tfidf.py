@@ -54,7 +54,7 @@ class TfidfFeatureExtractor(FeatureExtractor):
         self.lsa_svd: Optional[TruncatedSVD] = None
         self.lsa_normalizer: Optional[Normalizer] = None
         if self.config.use_lsa:
-            self.lsa_svd = TruncatedSVD(n_components=self.config.lsa_components)
+            self.lsa_svd = TruncatedSVD(n_components=self.config.lsa_components, algorithm="arpack")
             self.lsa_normalizer = Normalizer(copy=False)
 
     def extract_features(self, documents: list[str]) -> FeatureExtractionResult:

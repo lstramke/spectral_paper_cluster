@@ -14,11 +14,14 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class DBSCANConfig:
     eps: float
+    eps_range: tuple[float, float] | None
     min_samples: int
+    min_samples_range: tuple[int, int] | None
     metric: str
     leaf_size: int
     p: Optional[int]
     n_jobs: Optional[int]
+    n_trials: int
 
 
 class SklearnDBSCANAdapter(ClusteringAlgorithm):

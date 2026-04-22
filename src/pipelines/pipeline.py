@@ -51,16 +51,14 @@ class ExperimentPipeline(ABC):
     @abstractmethod
     def run(
         self,
-        documents: list[str],
-        labels_true: torch.Tensor | None = None,
+        documents: list[str]
     ) -> PipelineResult:
         """Run full pipeline: feature extraction -> clustering -> evaluation."""
 
+    @abstractmethod
     def run_many(
         self,
-        documents: list[str],
-        labels_true: torch.Tensor | None = None,
-        seeds: list[int] | None = None,
+        documents: list[str]
     ) -> MultiRunPipelineResult:
         """Run the pipeline multiple times for a seed list."""
         raise NotImplementedError("run_many() is not implemented for this pipeline")

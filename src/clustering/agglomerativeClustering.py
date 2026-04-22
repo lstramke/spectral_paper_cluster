@@ -13,11 +13,13 @@ from .base import ClusteringAlgorithm, ClusteringResult
 
 @dataclass(slots=True)
 class AgglomerativeConfig:
-    n_clusters: Optional[int]
+    distance_threshold: float | None
+    distance_threshold_range: tuple[float, float] | None
+    n_clusters: int | None
     metric: str
     linkage: Literal['ward', 'complete', 'average', 'single']
-    distance_threshold: Optional[float]
     compute_full_tree: bool
+    n_trials: int
 
 
 class SklearnAgglomerativeAdapter(ClusteringAlgorithm):

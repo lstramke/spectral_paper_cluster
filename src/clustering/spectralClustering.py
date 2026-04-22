@@ -15,14 +15,18 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class SpectralClusteringConfig:
     n_clusters: int
+    n_clusters_range: tuple[int, int] | None
     affinity: str  # 'rbf', 'nearest_neighbors', 'precomputed'
     eigen_solver: str
     assign_labels: str
     n_init: int
     gamma: float
     n_neighbors: int
+    n_neighbors_range: tuple[int, int] | None
     random_state: int
+    random_state_range: tuple[int, int] | None
     n_jobs: int
+    n_trials: int
 
 
 class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):
