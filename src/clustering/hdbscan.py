@@ -15,9 +15,12 @@ from .base import ClusteringAlgorithm, ClusteringResult
 @dataclass(slots=True)
 class HDBSCANConfig:
     min_cluster_size: int
+    min_cluster_size_range: tuple[int, int] | None
     min_samples: Optional[int]
+    min_samples_range: tuple[int, int] | None
     metric: str
     cluster_selection_method: str
+    n_trials: int
 
 
 class HDBSCANAdapter(ClusteringAlgorithm):
