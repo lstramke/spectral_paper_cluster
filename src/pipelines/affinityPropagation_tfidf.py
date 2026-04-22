@@ -88,12 +88,14 @@ class AffinityPropagationTfidfPipeline(ExperimentPipeline):
             
         features = self.feature_extractor.extract_features(documents)
         run_summaries: list[RunSummary] = []
+        pipeline_results: list[PipelineResult] = []
 
         def objective(trial: optuna.Trial) -> float:
             damping = trial.suggest_float("damping", damping_min, damping_max)
             random_state = trial.suggest_int("random_state", random_state_min, random_state_max)
-            run_summary, _ = self._run_single_trial(features, damping, random_state)
+            run_summary, pipeline_result = self._run_single_trial(features, damping, random_state)
             run_summaries.append(run_summary)
+            pipeline_results.append(pipeline_result)
             
             return run_summary.metrics.get("silhouette", -1)
 
@@ -101,36 +103,27 @@ class AffinityPropagationTfidfPipeline(ExperimentPipeline):
         study = optuna.create_study(direction="maximize", sampler=sampler)
         study.optimize(objective, n_trials=n_trials, show_progress_bar=False)
 
-        best_result: PipelineResult | None = None
-        best_damping: float | None = None
-        best_random_state: int | None = None
+        best_idx: int | None = None
         best_score: tuple[float, float, float] | None = None
 
-        for run_summary in run_summaries:
+        for idx, run_summary in enumerate(run_summaries):
             current_score = self._score(run_summary.metrics)
             if best_score is None or current_score > best_score:
                 best_score = current_score
-                best_random_state = run_summary.seed
+                best_idx = idx
 
-        if study.best_trial:
-            best_damping = study.best_trial.params.get("damping", damping_min)
-        else:
-            best_damping = damping_min
-
-        # Re-run best damping+random_state to get full PipelineResult with interpretation
-        if best_random_state is not None and best_damping is not None:
-            _, best_result = self._run_single_trial(features, best_damping, best_random_state)
+        if best_idx is not None:
+            best_result = pipeline_results[best_idx]
             best_result.interpretation = self.interpreter.interpret(features, best_result.clustering)
-            best_result.metadata = {**best_result.metadata, "selected_metric": "silhouette", "best_damping": best_damping, "best_random_state": best_random_state}
         else:
             raise RuntimeError("No trials were executed")
 
         return MultiRunPipelineResult(
             runs=run_summaries,
             best_run=best_result,
-            best_seed=best_random_state,
-            selected_metric="silhouette",
-            metadata={"pipeline": "affinityPropagation_tfidf", "n_trials": n_trials, "optuna_seed": 42},
+            best_seed=run_summaries[best_idx].seed,
+            selected_metric="multi_criteria",
+            metadata={"pipeline": "affinityPropagation_tfidf", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
         )
 
     @staticmethod
