@@ -79,24 +79,34 @@ Die Metriken werden in `best_gaussianMixture_tfidf_2086_summary.json` gespeicher
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | | |
-| Davies–Bouldin Index | | |
-| Calinski–Harabasz Index | | |
+| Silhouette Score | 0.13955402374267578 | |
+| Davies–Bouldin Index | 3.0673331208113805 | |
+| Calinski–Harabasz Index | 33.24359931241326 | |
 
 ### Cluster-Interpretation
 Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `best_gaussianMixture_tfidf_summary.json`.
 
 | Cluster | Top-Wörter |
 | ---: | --- |
-| 0 | |
-| 1 | |
-| 2 | |
-| 3 | |
-| 4 | |
-| 5 | |
-| 6 | |
-| 7 | |
-| 8 | |
-| 9 | |
+| 0 | melanoma, lesions, lesion, skin, diagnostic, multispectral, detection, specificity, analysis, diagnosis |
+| 1 | wound, healing, wound healing, tissue, diabetic, wounds, perfusion, oxygenation, hyperspectral imaging, tissue oxygenation |
+| 2 | tumor, tumors, cancer, tissue, cells, targeting, vivo, resection, brain, multispectral |
+| 3 | photoacoustic, pai, pa, photoacoustic imaging, ultrasound, pat, pa imaging, optical, tomography, vivo |
+| 4 | image, images, fusion, data, proposed, method, algorithm, medical, tensor, processing |
+| 5 | perfusion, tissue, oxygenation, flap, patients, surgery, hyperspectral imaging, sto, index, tissue oxygenation |
+| 6 | spectral, nm, resolution, applications, multispectral, optical, high, infrared, biomedical, spatial |
+| 7 | fluorescence, flim, lifetime, fluorescence imaging, vivo, tissue, multispectral, excitation, fluorescent, spectral |
+| 8 | skin, lesions, spectral, severity, multispectral, skin cancer, hyperspectral imaging, images, assessment, non |
+| 9 | classification, learning, hyperspectral imaging, data, cancer, deep, deep learning, accuracy, model, machine |
+| 10 | network, spectral, classification, feature, neural, attention, features, spatial, cnn, image |
+| 11 | mri, brain, segmentation, magnetic, resonance, mr, magnetic resonance, images, weighted, multispectral |
+| 12 | burn, depth, wounds, wound, assessment, thickness, partial, severity, tissue, hyperspectral imaging |
+| 13 | tongue, medicine, color, diagnosis, images, information, traditional, method, spectral, vector |
+| 14 | retinal, fundus, msi, spectral, images, disease, camera, multimodal, multispectral, patients |
+| 15 | breast, breast cancer, cancer, tissue, margin, tumor, pa, detection, resection, analysis |
+| 16 | cell, cells, immune, pd, cancer, expression, single, microscopy, tumor, patients |
+| 17 | tissue, optical, spectral, multispectral, light, images, hyperspectral imaging, used, time, detection |
+| 18 | optoacoustic, msot, optoacoustic tomography, multispectral optoacoustic, tomography, tomography msot, multispectral, nanoparticles, contrast, tissue |
+| 19 | raman, srs, raman scattering, microscopy, scattering, spectral, spectroscopy, analysis, chemical, spectra |
 
 ## Evaluation

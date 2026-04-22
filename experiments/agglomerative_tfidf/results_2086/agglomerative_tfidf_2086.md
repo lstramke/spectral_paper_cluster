@@ -74,7 +74,7 @@ Die Metriken werden in `best_agglomerative_tfidf_summary.json` gespeichert. Für
 | --- | ---: | --- |
 | Silhouette Score | 0.18110454082489014  |  |
 | Davies–Bouldin Index | 1.263998561526703 |  |
-| Calinski–Harabasz Index | 6.369068977866109 |  |
+| Calinski–Harabasz Index | 6.369068977866156 |  |
 
 #### Cluster-Interpretation
 

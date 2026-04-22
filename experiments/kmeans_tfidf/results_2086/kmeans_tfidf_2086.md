@@ -76,7 +76,7 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_tfidf_2086_all_runs.json`
 | --- | ---: | --- |
 | Silhouette Score | 0.1375163197517395 | schlecht bis mäßig |
 | Davies–Bouldin Index | 3.163783244649756 | zu groß |
-| Calinski–Harabasz Index | 32.606495428528206 | in Ordnung |
+| Calinski–Harabasz Index | 32.6064954285274 | in Ordnung |
 
 ### Cluster-Interpretation
 

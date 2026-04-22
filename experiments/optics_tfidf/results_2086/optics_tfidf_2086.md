@@ -72,18 +72,19 @@ Die Metriken werden in `best_optics_tfidf_2086_summary.json` gespeichert. Für d
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | | |
-| Davies–Bouldin Index | | |
-| Calinski–Harabasz Index | | |
+| Silhouette Score | 0.08690537512302399 | |
+| Davies–Bouldin Index | 1.2788574311944978 | |
+| Calinski–Harabasz Index | 14.896716848634357 | |
 
 ### Cluster-Interpretation
 
 Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `best_optics_tfidf_2086_summary.json`.
 
 | Cluster | Top-Wörter |
-| --- | --- |
-| -1 | |
-| 0 | |
-| 1 | |
+| ---: | --- |
+| -1 | spectral, tissue, images, image, multispectral, data, hyperspectral imaging, optical, analysis, method |
+| 0 | tongue, medicine, color, diagnosis, images, traditional, vector, method, information, spectral |
 
 ## Evaluation
+
+Achtung es wurden nur 14 Paper nicht als Rauschen markiert.

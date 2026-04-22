@@ -73,20 +73,25 @@ Die Metriken werden in `best_hdbscan_tfidf_2086_summary.json` gespeichert. Für 
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | |  |
-| Davies–Bouldin Index | |  |
-| Calinski–Harabasz Index | | |
+| Silhouette Score | 0.019441409036517143 |  |
+| Davies–Bouldin Index | 3.476095659721325 |  |
+| Calinski–Harabasz Index | 22.91511778029764 | |
 
 ### Cluster-Interpretation
 
 Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter stammen aus dem nicht reduzierten TF‑IDF‑Raum; die zugehörigen Gewichte stehen in `best_hdbscan_tfidf_2086_summary.json`.
 
 | Cluster | Top-Wörter |
-| --- | --- |
-| -1 |  |
-| 0 |  |
-| 1 |  |
-| 2 |  |
-| 3 |  |
+| ---: | --- |
+| -1 | spectral, tissue, multispectral, images, data, image, hyperspectral imaging, optical, detection, high |
+| 0 | retinal, registration, noise, image, images, fundus, spectral, prior, snapshot, method |
+| 1 | pai, photoacoustic, photoacoustic imaging, ultrasound, optical, properties, tissue, optical properties, phantoms, contrast |
+| 2 | tensor, processing, band, dimensionality, image, image processing, images, data, selection, bands |
+| 3 | skin, melanoma, lesions, lesion, skin cancer, multispectral, diagnosis, non, spectral, thickness |
+| 4 | perfusion, wound, burn, tissue, patients, healing, oxygenation, hyperspectral imaging, flap, surgery |
+| 5 | msot, optoacoustic, optoacoustic tomography, multispectral optoacoustic, tomography, nanoparticles, tumor, tomography msot, multispectral, ct |
+| 6 | segmentation, fusion, mri, image, brain, images, classification, network, learning, deep |
+| 7 | cells, cell, immune, pa, breast, tumor, cancer, pa imaging, breast cancer, pd |
+| 8 | raman, srs, raman scattering, microscopy, scattering, cells, chemical, label, analysis, spectral |
 
 ## Evaluation
