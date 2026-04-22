@@ -20,12 +20,12 @@ Tabelle zum Vergleich der Experimente nach Cluster-Anzahl und Metriken. Jede Zei
 
 | Experiment | n_clusters | silhouette | davies_bouldin | calinski_harabasz | summary markdown |
 | --- | ---: | ---: | ---: | ---: | --- |
-| affinityPropagation_tfidf | 169 | 0.1661059558391571 | 2.1659880230829995 | 12.379051295821812 | [summary](experiments/affinityPropagation_tfidf/results_2086/affinityPropagation_tfidf_2086.md) |
-| agglomerative_tfidf | 544 | 0.18110454082489014 | 1.263998561526703 | 6.369068977866156 | [summary](experiments/agglomerative_tfidf/results_2086/agglomerative_tfidf_2086.md) |
-| dbscan_tfidf | 1 | 0.03307177498936653 | 3.362438019745703 | 1.841014060121224 | [summary](experiments/dbscan_tfidf/results_2086/dbscan_tfidf_2086.md) |
+| affinityPropagation_tfidf | 176 | 0.26424601674079895 | 1.7716755566247075 | 16.440219700130623 | [summary](experiments/affinityPropagation_tfidf/results_2086/affinityPropagation_tfidf_2086.md) |
+| agglomerative_tfidf | 132 | 0.2717430889606476 | 1.6730642750088283 | 18.07832378325674 | [summary](experiments/agglomerative_tfidf/results_2086/agglomerative_tfidf_2086.md) |
+| dbscan_tfidf | 19 | 0.06773672997951508 | 2.1881803095409063 | 21.951147621359112 | [summary](experiments/dbscan_tfidf/results_2086/dbscan_tfidf_2086.md) |
 | gaussianMixture_tfidf | 20 | 0.13955402374267578 | 3.0673331208113805 | 33.24359931241326 | [summary](experiments/gaussianMixture_tfidf/results_2086/gaussianMixture_tfidf_2086.md) |
-| hdbscan_tfidf | 9 | 0.019441409036517143 | 3.476095659721325 | 22.91511778029764 | [summary](experiments/hdbscan_tfidf/results_2086/hdbscan_tfidf_2086.md) |
-| kmeans_tfidf | 20 | 0.1375163197517395 | 3.163783244649756 | 32.6064954285274 | [summary](experiments/kmeans_tfidf/results_2086/kmeans_tfidf_2086.md) |
-| optics_tfidf | 1 | 0.08690537512302399 | 1.2788574311944978 | 14.896716848634357 | [summary](experiments/optics_tfidf/results_2086/optics_tfidf_2086.md) |
-| spectral_tfidf | 20 | 0.11032392084598541 | 2.603746602659673 | 28.54055405437507 | [summary](experiments/spectral_tfidf/results_2086/spectral_tfidf_2086.md) |
+| hdbscan_tfidf | 73 | 0.08024097979068756 | 2.1040121387844115 | 14.443256265588882 | [summary](experiments/hdbscan_tfidf/results_2086/hdbscan_tfidf_2086.md) |
+| kmeans_tfidf | 40 | 0.20143121480941772 | 2.620221613949932 | 25.640215288652055 | [summary](experiments/kmeans_tfidf/results_2086/kmeans_tfidf_2086.md) |
+| optics_tfidf | 1 | 0.05994307994842529 | 1.2141481885763068 | 15.62638434689137 | [summary](experiments/optics_tfidf/results_2086/optics_tfidf_2086.md) |
+| spectral_tfidf | 40 | 0.1702127307653427 | 2.521106186145267 | 23.460122799765603 | [summary](experiments/spectral_tfidf/results_2086/spectral_tfidf_2086.md) |
 

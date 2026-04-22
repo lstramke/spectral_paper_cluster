@@ -20,17 +20,18 @@ input:
   separator: ";"
 
 optics:
-  min_samples: 5
+  min_samples_range: [2, 15]
   metric: cosine
   cluster_method: xi
-  xi: 0.05
+  xi_range: [0.01, 0.5]
   n_jobs: 1
+  n_trials: 400
 
 tfidf:
-  max_features: 1000
+  max_features: 5000
   ngram_range: [1, 2]
-  min_df: 5
-  max_df: 0.5
+  min_df: 0.001
+  max_df: 0.09
   lowercase: true
   stop_words: english
   extra_stop_words: ["hsi"]
@@ -72,9 +73,9 @@ Die Metriken werden in `best_optics_tfidf_2086_summary.json` gespeichert. Für d
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.08690537512302399 | |
-| Davies–Bouldin Index | 1.2788574311944978 | |
-| Calinski–Harabasz Index | 14.896716848634357 | |
+| Silhouette Score | 0.05994307994842529 | |
+| Davies–Bouldin Index | 1.2141481885763068 | |
+| Calinski–Harabasz Index | 15.62638434689137 | |
 
 ### Cluster-Interpretation
 
@@ -82,9 +83,9 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | ---: | --- |
-| -1 | spectral, tissue, images, image, multispectral, data, hyperspectral imaging, optical, analysis, method |
-| 0 | tongue, medicine, color, diagnosis, images, traditional, vector, method, information, spectral |
+| -1 | segmentation, raman, photoacoustic, perfusion, brain, lesions, fusion, 3d, deep learning, optoacoustic |
+| 0 | tongue, tongue diagnosis, medicine, coating, tongue images, tongue color, kampo, tcm, chinese medicine, chinese |
 
 ## Evaluation
 
-Achtung es wurden nur 14 Paper nicht als Rauschen markiert.
+Achtung es wurden nur 15 Paper nicht als Rauschen markiert.
