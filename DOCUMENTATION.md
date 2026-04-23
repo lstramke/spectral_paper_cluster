@@ -459,3 +459,48 @@ Output: feature matrix X
 	- [experiments/agglomerative_tfidf/agglomerative_tfidf.md](experiments/agglomerative_tfidf/agglomerative_tfidf.md)
 	- [experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.md](experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.md)
 	- [experiments/spectral_tfidf/spectral_tfidf.md](experiments/spectral_tfidf/spectral_tfidf.md)
+
+### fastText (Subword‑Wortvektoren)
+
+fastText erzeugt dichte Wortvektoren unter Verwendung von Subword‑Informationen (n‑Gramme). Das macht das Modell robust gegenüber seltenen Fachbegriffen und zusammengesetzten Termini, nützlich für medizinisch‑technische Paper. Dokumentrepräsentationen werden üblicherweise durch Aggregation der Wortvektoren (z. B. arithmetisches Mittel oder TF‑IDF‑gewichtetes Mittel) und anschließende Normalisierung gewonnen.
+
+**Ablauf (Pseudocode):**
+```text
+Algorithm: fastText Pooling
+Input: Dokumentliste D, vortrainierte fastText‑Vektoren V, pooling ∈ {mean, tfidf}
+Output: Embedding‑Matrix E
+
+1: Lade fastText‑Vektoren V
+2: Falls pooling == tfidf dann
+3:     TF <- fit TF‑IDF auf D
+4: end if
+5: for jedes Dokument d in D do
+6:     toks <- Tokenize(d)
+7:     vecs <- [V[t] für t in toks, falls t in V]
+8:     falls vecs leer dann
+9:         e <- Nullvektor
+10:    sonst falls pooling == tfidf dann
+11:        weights <- [TF[d,t] für t in toks]
+12:        e <- gewichtetes Mittel(vecs, weights)
+13:    sonst
+14:        e <- Mittel(vecs)
+15:    end if
+16:    e <- L2‑Normalisiere(e)
+17:    E.append(e)
+18: end for
+19: return E
+```
+
+**Stärken:**
+- Robust gegenüber OOV‑Tokens, Tippfehlern und morphologischen Varianten durch Subword‑Repräsentation.
+- Effizient und vergleichsweise leichtgewichtig gegenüber großen Transformer‑Modellen.
+
+**Schwächen:**
+- Kein kontextsensitives Encoding (keine Polysemie‑Auflösung wie bei BERT‑Typen).
+- Aggregation (Pooling) verwirft Wortreihenfolge und feine Kontextsignale.
+
+- Implementierung: [src/features/fasttext.py](src/features/fasttext.py)
+- Verwendet in: noch nicht in Experimenten integriert
+
+
+

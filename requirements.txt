@@ -33,3 +33,4 @@ optuna==4.8.0
 torch==2.11.0
 typing_extensions==4.15.0
 wcwidth==0.6.0
+gensim==4.4.0
