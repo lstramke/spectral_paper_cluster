@@ -35,7 +35,7 @@ class ParsedExperimentConfig:
 
 
 class DBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
-    """Encapsulates the DBSCAN + TF-IDF experiment logic."""
+    """Encapsulates the DBSCAN + Fasttext experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
@@ -114,7 +114,7 @@ class DBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run TF-IDF + DBSCAN experiment")
+    parser = argparse.ArgumentParser(description="Run Fasttext + DBSCAN experiment")
     parser.add_argument(
         "--config",
         type=str,
