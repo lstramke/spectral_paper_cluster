@@ -13,7 +13,7 @@ from .pipeline import ExperimentPipeline, PipelineResult, RunSummary, MultiRunPi
 
 
 class HDBSCANFasttextPipeline(ExperimentPipeline):
-    """Pipeline: TF-IDF -> HDBSCAN -> evaluation/interpretation with Optuna optimization.
+    """Pipeline: Fasttext -> HDBSCAN -> evaluation/interpretation with Optuna optimization.
 
     Supports Optuna-based joint optimization of `min_cluster_size` (int)
     and `min_samples` (int) when the corresponding `_range` fields are
@@ -56,7 +56,7 @@ class HDBSCANFasttextPipeline(ExperimentPipeline):
             clustering=clustering,
             evaluation=evaluation,
             interpretation=None,
-            metadata={"pipeline": "hdbscan_tfidf", "min_cluster_size": min_cluster_size, "min_samples": min_samples},
+            metadata={"pipeline": "hdbscan_fasttext", "min_cluster_size": min_cluster_size, "min_samples": min_samples},
         )
         return run_summary, pipeline_result
 
@@ -125,7 +125,7 @@ class HDBSCANFasttextPipeline(ExperimentPipeline):
             best_run=best_result,
             best_seed=0,  # Not used for HDBSCAN
             selected_metric="multi_criteria",
-            metadata={"pipeline": "hdbscan_tfidf", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
+            metadata={"pipeline": "hdbscan_fasttext", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
         )
 
     @staticmethod

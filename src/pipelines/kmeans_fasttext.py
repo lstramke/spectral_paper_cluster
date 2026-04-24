@@ -14,7 +14,7 @@ from .pipeline import ExperimentPipeline, MultiRunPipelineResult, PipelineResult
 
 
 class KMeansFasttextPipeline(ExperimentPipeline):
-    """First baseline pipeline: TF-IDF -> KMeans -> unsupervised metrics."""
+    """First baseline pipeline: Fasttext -> KMeans -> unsupervised metrics."""
 
     def __init__(
         self,
@@ -53,7 +53,7 @@ class KMeansFasttextPipeline(ExperimentPipeline):
             clustering=clustering,
             evaluation=evaluation,
             interpretation=None,
-            metadata={"pipeline": "kmeans_tfidf", "seed": seed, "n_clusters": n_clusters},
+            metadata={"pipeline": "kmeans_fasttext", "seed": seed, "n_clusters": n_clusters},
         )
         return run_summary, pipeline_result
 
@@ -121,7 +121,7 @@ class KMeansFasttextPipeline(ExperimentPipeline):
             best_run=best_result,
             best_seed=run_summaries[best_idx].seed,
             selected_metric="multi_criteria",
-            metadata={"pipeline": "kmeans_tfidf", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
+            metadata={"pipeline": "kmeans_fasttext", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
         )
 
     @staticmethod

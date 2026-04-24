@@ -15,7 +15,7 @@ from .pipeline import ExperimentPipeline, MultiRunPipelineResult, PipelineResult
 
 
 class DBSCANFasttextPipeline(ExperimentPipeline):
-    """Pipeline: TF-IDF -> DBSCAN -> evaluation/interpretation with Optuna optimization."""
+    """Pipeline: Fasttext -> DBSCAN -> evaluation/interpretation with Optuna optimization."""
 
     def __init__(
         self,
@@ -54,7 +54,7 @@ class DBSCANFasttextPipeline(ExperimentPipeline):
             clustering=clustering,
             evaluation=evaluation,
             interpretation=None,
-            metadata={"pipeline": "dbscan_tfidf", "eps": eps, "min_samples": min_samples},
+            metadata={"pipeline": "dbscan_fasttext", "eps": eps, "min_samples": min_samples},
         )
         return run_summary, pipeline_result
 
@@ -122,7 +122,7 @@ class DBSCANFasttextPipeline(ExperimentPipeline):
             best_run=best_result,
             best_seed=0,  # Not used for DBSCAN
             selected_metric="multi_criteria",
-            metadata={"pipeline": "dbscan_tfidf", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
+            metadata={"pipeline": "dbscan_fasttext", "n_trials": n_trials, "optuna_seed": 42, "scoring": "silhouette, calinski_harabasz, davies_bouldin"},
         )
 
     @staticmethod
