@@ -1,0 +1,112 @@
+{
+  "experiment_name": "agglomerative_fasttext_2086",
+  "n_documents": 2086,
+  "n_features": 100,
+  "n_clusters_found": 2,
+  "metrics": {
+    "silhouette": 0.69720059633255,
+    "davies_bouldin": 0.9863880926760953,
+    "calinski_harabasz": 13.250217858074196
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "0": 2083,
+    "1": 3
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "0": [
+        [
+          "imaging",
+          0.04697280377149582
+        ],
+        [
+          "tissue",
+          0.028444631025195122
+        ],
+        [
+          "based",
+          0.021869609132409096
+        ],
+        [
+          "optical",
+          0.01921503059566021
+        ],
+        [
+          "method",
+          0.019172461703419685
+        ],
+        [
+          "clinical",
+          0.018557606264948845
+        ],
+        [
+          "analysis",
+          0.018355170264840126
+        ],
+        [
+          "high",
+          0.017654312774538994
+        ],
+        [
+          "classification",
+          0.017532993108034134
+        ],
+        [
+          "skin",
+          0.017285019159317017
+        ]
+      ],
+      "1": [
+        [
+          "biomedical",
+          0.3035667836666107
+        ],
+        [
+          "fluorescence",
+          0.26123160123825073
+        ],
+        [
+          "infrared",
+          0.22983509302139282
+        ],
+        [
+          "imaging",
+          0.2242848426103592
+        ],
+        [
+          "paradigms",
+          0.19741272926330566
+        ],
+        [
+          "opening",
+          0.1907017081975937
+        ],
+        [
+          "medical",
+          0.1839979737997055
+        ],
+        [
+          "photoacoustic",
+          0.11069473624229431
+        ],
+        [
+          "tomography",
+          0.09760260581970215
+        ],
+        [
+          "new",
+          0.07843532413244247
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 178.6738077000009
+}
