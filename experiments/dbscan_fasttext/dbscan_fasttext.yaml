@@ -8,28 +8,13 @@ input:
   separator: ";"
 
 dbscan:
-  eps_range: [0.3, 1.0]
+  eps_range: [0.1, 1.0]
   min_samples_range: [2, 20]
   n_trials: 400
   metric: cosine
   leaf_size: 30
   p:
   n_jobs:
-
-fasttext:
-  use_tfidf_weighting: false
-  max_features: 5000
-  ngram_range: [1, 2]
-  use_idf: false
-  smooth_idf: true
-  sublinear_tf: false
-  stop_words: english
-  min_df: 0.001
-  max_df: 0.09
-  lowercase: true
-  extra_stop_words: ["hsi"]
-  model_name: fasttext-wiki-news-subwords-300
-  token_pattern: "(?u)\\b\\w+\\b"
 
 interpretation:
   top_n_terms: 10

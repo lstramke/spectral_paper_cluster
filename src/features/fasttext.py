@@ -1,5 +1,3 @@
-
-
 from __future__ import annotations
 
 from typing import cast
@@ -47,20 +45,24 @@ class FasttextFeatureExtractor(FeatureExtractor):
         if not documents:
             raise ValueError("documents must not be empty")
         rows: list[np.ndarray] = []
+        stopwords = GENSIM_STOPWORDS.union("spectral", "hyperspectral", "multispectral", "hsi", "data", "image", "images")
 
-        tf_vectorizer = TfidfVectorizer(stop_words=list(GENSIM_STOPWORDS))
+
+        tf_vectorizer = TfidfVectorizer(stop_words=list(stopwords), min_df=0.001, max_df=0.09)
         tf_matrix = tf_vectorizer.fit_transform(documents)
         feature_names = list(tf_vectorizer.get_feature_names_out())
         
+        analyzer = tf_vectorizer.build_analyzer()
+        allowed_terms = set(feature_names)
+
         for doc in documents:
-            tokens = doc.split()
+            tokens = analyzer(doc)
             vec_list: list[np.ndarray] = []
             for t in tokens:
-                t_norm = t.lower()
-                if t_norm in GENSIM_STOPWORDS:
+                if t not in allowed_terms:
                     continue
                 vec = None
-                for cand in (t, t_norm):
+                for cand in (t, t.lower()):
                     try:
                         vec = self.wv[cand]
                         break
@@ -88,7 +90,7 @@ class FasttextFeatureExtractor(FeatureExtractor):
         features = torch.from_numpy(np.vstack(rows))
         features = F.normalize(features, p=2, dim=1)
 
-        original_features = torch.from_numpy(np.asarray(tf_matrix, dtype=np.float32))
+        original_features = torch.from_numpy(np.asarray(tf_matrix.todense(), dtype=np.float32))
 
         return FeatureExtractionResult(
             features=features,
