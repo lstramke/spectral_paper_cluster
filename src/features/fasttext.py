@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import cast
+from typing import cast, Iterable, Optional
+from sklearn.decomposition import TruncatedSVD
 
 import numpy as np
 import torch
@@ -35,26 +36,42 @@ class FasttextFeatureExtractor(FeatureExtractor):
 
     Parameters
     - model_name: gensim model id (defaults to fasttext wiki-news subwords)
+    - min_df: passed to TfidfVectorizer (float for ratio or int for counts)
+    - max_df: passed to TfidfVectorizer (float for ratio or int for counts)
+    - n_components: reduce pooled embeddings to this many dims using TruncatedSVD
+    - extra_stop_words: iterable of additional stop words
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        min_df: float | int = 0.001,
+        max_df: float | int = 0.9,
+        n_components: Optional[int] = 100,
+        extra_stop_words: Optional[Iterable[str]] = None,
+    ) -> None:
         self.wv = _get_wv()
         self.dim = self.wv.vector_size
+        self.min_df = min_df
+        self.max_df = max_df
+        self.n_components = n_components
+        self.extra_stop_words = set(extra_stop_words) if extra_stop_words else set()
 
     def extract_features(self, documents: list[str]) -> FeatureExtractionResult:
         if not documents:
             raise ValueError("documents must not be empty")
-        rows: list[np.ndarray] = []
-        stopwords = GENSIM_STOPWORDS.union("spectral", "hyperspectral", "multispectral", "hsi", "data", "image", "images")
 
+        stopwords = set(GENSIM_STOPWORDS) | self.extra_stop_words | {
+            "spectral", "hyperspectral", "multispectral", "hsi", "data", "image", "images"
+        }
 
-        tf_vectorizer = TfidfVectorizer(stop_words=list(stopwords), min_df=0.001, max_df=0.09)
+        tf_vectorizer = TfidfVectorizer(stop_words=list(stopwords), min_df=self.min_df, max_df=self.max_df)
         tf_matrix = tf_vectorizer.fit_transform(documents)
-        feature_names = list(tf_vectorizer.get_feature_names_out())
-        
-        analyzer = tf_vectorizer.build_analyzer()
+        feature_names = np.array(tf_vectorizer.get_feature_names_out())
         allowed_terms = set(feature_names)
 
+        analyzer = tf_vectorizer.build_analyzer()
+
+        rows: list[np.ndarray] = []
         for doc in documents:
             tokens = analyzer(doc)
             vec_list: list[np.ndarray] = []
@@ -72,10 +89,8 @@ class FasttextFeatureExtractor(FeatureExtractor):
                             break
                         except Exception:
                             continue
-
                 if vec is None:
                     continue
-
                 vec_list.append(np.asarray(vec, dtype=np.float32))
 
             if not vec_list:
@@ -84,10 +99,17 @@ class FasttextFeatureExtractor(FeatureExtractor):
 
             vecs = np.vstack(vec_list)
             doc_vec = vecs.mean(axis=0)
-
             rows.append(doc_vec.astype(np.float32))
 
-        features = torch.from_numpy(np.vstack(rows))
+        emb_np = np.vstack(rows)
+
+        if self.n_components is not None and 0 < self.n_components < emb_np.shape[1]:
+            svd = TruncatedSVD(n_components=self.n_components, random_state=0)
+            reduced = svd.fit_transform(emb_np)
+        else:
+            reduced = emb_np
+
+        features = torch.from_numpy(np.asarray(reduced, dtype=np.float32))
         features = F.normalize(features, p=2, dim=1)
 
         original_features = torch.from_numpy(np.asarray(tf_matrix.todense(), dtype=np.float32))
@@ -96,13 +118,17 @@ class FasttextFeatureExtractor(FeatureExtractor):
             features=features,
             feature_names=[f"ft_{i}" for i in range(features.size(1))],
             original_features=original_features,
-            original_feature_names=feature_names,
+            original_feature_names=list(feature_names),
             metadata={
                 "extractor": "fasttext",
                 "model_name": _DEFAULT_MODEL,
-                "dim": self.dim,
-                "use_tfidf": False,
+                "orig_dim": self.dim,
+                "n_components": self.n_components,
+                "use_tfidf": True,
+                "tfidf_min_df": self.min_df,
+                "tfidf_max_df": self.max_df,
+                "tfidf_stop_words": "gensim+extra",
+                "extra_stop_words": list(self.extra_stop_words),
                 "normalized": True,
-                "tfidf_stop_words": "gensim",
             },
         )

@@ -1,0 +1,27 @@
+experiment_name: kmeans_fasttext_2086
+
+input:
+  documents_path: data/raw/dataset_2086.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+kmeans:
+  cluster_range: [5, 40]
+  max_iter: 400
+  tol: 0.00001
+  seed_range: [1, 10000]
+  n_trials: 1200
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: experiments/kmeans_fasttext/results_2086
+  plot_name: kmeans_fasttext_2086_pca.png
+  summary_name: best_kmeans_fasttext_2086_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7
