@@ -1,0 +1,53 @@
+experiment_name: dbscan_fasttext_2086
+
+input:
+  documents_path: data/raw/dataset_2086.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+dbscan:
+  eps_range: [0.3, 1.0]
+  min_samples_range: [2, 20]
+  n_trials: 400
+  metric: cosine
+  leaf_size: 30
+  p:
+  n_jobs:
+
+fasttext:
+  use_tfidf_weighting: false
+  max_features: 5000
+  ngram_range: [1, 2]
+  use_idf: false
+  smooth_idf: true
+  sublinear_tf: false
+  stop_words: english
+  min_df: 0.001
+  max_df: 0.09
+  lowercase: true
+  extra_stop_words: ["hsi"]
+  model_name: fasttext-wiki-news-subwords-300
+  token_pattern: "(?u)\\b\\w+\\b"
+
+interpretation:
+  top_n_terms: 10
+  tfidf:
+    max_features: 5000
+    ngram_range: [1, 2]
+    min_df: 1
+    max_df: 1.0
+    lowercase: true
+    stop_words: english
+    extra_stop_words: ["hsi"]
+    use_lsa: false
+
+outputs:
+  output_dir: experiments/dbscan_fasttext/results_2086
+  plot_name: dbscan_fasttext_2086_pca.png
+  summary_name: best_dbscan_fasttext_2086_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7

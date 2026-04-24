@@ -29,9 +29,11 @@ class TfidfConfigReader(ConfigSectionReader[TfidfConfig]):
 			max_features = int(max_features_raw)
 
 		use_lsa = bool(self.require_value(tfidf_cfg, "use_lsa"))
-		lsa_components = int(self.require_value(tfidf_cfg, "lsa_components"))
-		if use_lsa and lsa_components < 2:
-			raise ValueError("tfidf.lsa_components must be >= 2 when LSA is enabled")
+		lsa_components = 0
+		if use_lsa:
+			lsa_components = int(self.require_value(tfidf_cfg, "lsa_components"))
+			if  lsa_components < 2:
+				raise ValueError("tfidf.lsa_components must be >= 2 when LSA is enabled")
 
 		extra_stop_words: list[str] | None = None
 		if "extra_stop_words" in tfidf_cfg:

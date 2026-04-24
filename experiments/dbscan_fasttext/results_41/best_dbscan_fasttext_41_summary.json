@@ -1,0 +1,65 @@
+{
+  "experiment_name": "dbscan_fasttext",
+  "n_documents": 41,
+  "n_features": 300,
+  "n_clusters_found": 1,
+  "metrics": {},
+  "objective": null,
+  "cluster_sizes": {
+    "0": 41
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "0": [
+        [
+          "ft_187",
+          0.19326749444007874
+        ],
+        [
+          "ft_62",
+          0.1289011687040329
+        ],
+        [
+          "ft_223",
+          0.1100216805934906
+        ],
+        [
+          "ft_210",
+          0.10894821584224701
+        ],
+        [
+          "ft_129",
+          0.10428227484226227
+        ],
+        [
+          "ft_271",
+          0.0990593284368515
+        ],
+        [
+          "ft_227",
+          0.0883265808224678
+        ],
+        [
+          "ft_18",
+          0.0834406316280365
+        ],
+        [
+          "ft_16",
+          0.08168981224298477
+        ],
+        [
+          "ft_191",
+          0.07817946374416351
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": false,
+      "uses_original_feature_names": false,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 2.1243854000001647
+}
