@@ -19,18 +19,6 @@ spectral:
   n_jobs: 1
   n_trials: 400
 
-
-tfidf:
-  max_features: 5000
-  ngram_range: [1, 2]
-  min_df: 0.001
-  max_df: 0.09
-  lowercase: true
-  stop_words: english
-  extra_stop_words: ["hsi"]
-  use_lsa: true
-  lsa_components: 100
-
 interpretation:
   top_n_terms: 10
 

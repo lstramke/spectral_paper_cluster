@@ -362,7 +362,9 @@ Output: labels y
 - **Schwächen:** Eigenzerlegung kann teuer sein; empfindlich gegenüber Wahl von Affinität, $\gamma$, `n_neighbors`.
 
 - Implementierung: [src/clustering/spectralClustering.py](src/clustering/spectralClustering.py)
-- Verwendet in: [experiments/spectral_tfidf/spectral_tfidf.py](experiments/spectral_tfidf/spectral_tfidf.py)
+- Verwendet in: 
+	- [experiments/spectral_tfidf/spectral_tfidf.py](experiments/spectral_tfidf/spectral_tfidf.py)
+	- [experiments/spectral_fasttext/spectral_fasttext.py](experiments/spectral_fasttext/spectral_fasttext.py)
 
 ### Gaussian Mixture Model (GMM)
 
@@ -519,6 +521,7 @@ Output: Embedding‑Matrix E
 	- [experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
 	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
 	- [experiments/kmeans_fasttext/kmeans_fasttext.py](experiments/kmeans_fasttext/kmeans_fasttext.py)
+	- [experiments/spectral_fasttext/spectral_fasttext.py](experiments/spectral_fasttext/spectral_fasttext.py)
 
 
 
