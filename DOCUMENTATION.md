@@ -500,7 +500,8 @@ Output: Embedding‑Matrix E
 - Aggregation (Pooling) verwirft Wortreihenfolge und feine Kontextsignale.
 
 - Implementierung: [src/features/fasttext.py](src/features/fasttext.py)
-- Verwendet in: noch nicht in Experimenten integriert
+- Verwendet in:
+	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
 
 
 
