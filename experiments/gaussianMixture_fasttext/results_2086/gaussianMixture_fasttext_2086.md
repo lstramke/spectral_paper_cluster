@@ -2,8 +2,6 @@
 
 ## Kurzüberblick
 
-- **Kurzbeschreibung:** kurze, natürliche Beschreibung des Experiments und der Zielsetzung.
-
 - **Kurzbeschreibung:** Unüberwachtes Clustering von Dokumenten mithilfe von TF‑IDF (mit optionaler LSA) gefolgt von einem Gaussian Mixture Model (GMM). Ziel ist es, semantische Gruppen im Korpus zu identifizieren und die Clusterqualität mit etablierten Metriken zu bewerten.
 
 ## Konfiguration
