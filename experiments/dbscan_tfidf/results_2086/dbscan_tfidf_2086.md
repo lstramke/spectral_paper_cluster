@@ -67,7 +67,7 @@ outputs:
 
 ![dbscan + tfidf PCA](dbscan_tfidf_2086_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [dbscan_tfidf_pca.html](dbscan_tfidf_2086_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [dbscan_tfidf_2086_pca.html](dbscan_tfidf_2086_pca.html)
 
 ### Metriken:
 

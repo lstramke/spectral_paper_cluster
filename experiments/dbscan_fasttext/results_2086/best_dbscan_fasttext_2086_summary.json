@@ -1,0 +1,112 @@
+{
+  "experiment_name": "dbscan_fasttext_2086",
+  "n_documents": 2086,
+  "n_features": 300,
+  "n_clusters_found": 1,
+  "metrics": {
+    "silhouette": 0.892043948173523,
+    "davies_bouldin": 0.3388814357842144,
+    "calinski_harabasz": 16.66710516056775
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 2,
+    "0": 2084
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "006",
+          0.0
+        ],
+        [
+          "007",
+          0.0
+        ],
+        [
+          "001",
+          0.0
+        ],
+        [
+          "005",
+          0.0
+        ],
+        [
+          "002",
+          0.0
+        ],
+        [
+          "0003",
+          0.0
+        ],
+        [
+          "000",
+          0.0
+        ],
+        [
+          "00",
+          0.0
+        ],
+        [
+          "0001",
+          0.0
+        ],
+        [
+          "003",
+          0.0
+        ]
+      ],
+      "0": [
+        [
+          "segmentation",
+          0.013684875331819057
+        ],
+        [
+          "raman",
+          0.011966723017394543
+        ],
+        [
+          "photoacoustic",
+          0.01111619919538498
+        ],
+        [
+          "perfusion",
+          0.011115980334579945
+        ],
+        [
+          "brain",
+          0.010538727045059204
+        ],
+        [
+          "fusion",
+          0.009656615555286407
+        ],
+        [
+          "lesions",
+          0.009320748038589954
+        ],
+        [
+          "3d",
+          0.009272191673517227
+        ],
+        [
+          "optoacoustic",
+          0.008603308349847794
+        ],
+        [
+          "nir",
+          0.008523654192686081
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "tfidf",
+      "top_n_terms": 10,
+      "uses_original_features": true,
+      "uses_original_feature_names": true,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 94.5083115999987
+}
