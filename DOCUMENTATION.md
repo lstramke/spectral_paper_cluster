@@ -223,7 +223,9 @@ Output: labels y
 - **Schwächen:** Höhere algorithmische Komplexität; bei kleinen Datensätzen oft viele Punkte als Rauschen.
 
 - Implementierung: [src/clustering/hdbscan.py](src/clustering/hdbscan.py)
-- Verwendet in: [experiments/hdbscan_tfidf/hdbscan_tfidf.py](experiments/hdbscan_tfidf/hdbscan_tfidf.py)
+- Verwendet in: 
+	- [experiments/hdbscan_tfidf/hdbscan_tfidf.py](experiments/hdbscan_tfidf/hdbscan_tfidf.py)
+	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
 
 ### Agglomerative Clustering
 
@@ -512,7 +514,8 @@ Output: Embedding‑Matrix E
 	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
 	- [experiments/aagglomerative_fasttext/agglomerative_fasttext.py](experiments/agglomerative_fasttext/agglomerative_fasttext.py)
 	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
-	- [experiments/gaussianMixture_fasttext/dbscan_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
+	- [experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
+	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
 
 
 
