@@ -1,4 +1,4 @@
-# affinity propagation + tfidf auf 2086
+# affinity propagation + Fasttext auf 2086
 
 ## Kurzüberblick
 
