@@ -18,15 +18,6 @@ dbscan:
 
 interpretation:
   top_n_terms: 10
-  tfidf:
-    max_features: 5000
-    ngram_range: [1, 2]
-    min_df: 1
-    max_df: 1.0
-    lowercase: true
-    stop_words: english
-    extra_stop_words: ["hsi"]
-    use_lsa: false
 
 outputs:
   output_dir: experiments/dbscan_fasttext/results_2086

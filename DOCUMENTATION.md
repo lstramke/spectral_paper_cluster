@@ -126,7 +126,9 @@ Output: labels y
 - **Schwächen:** Parameterwahl ($\varepsilon$, `minPts`) ist sensitiv; Probleme bei stark variierenden Dichten.
 
 - Implementierung: [src/clustering/dbscan.py](src/clustering/dbscan.py)
-- Verwendet in: [experiments/dbscan_tfidf/dbscan_tfidf.py](experiments/dbscan_tfidf/dbscan_tfidf.py)
+- Verwendet in: 
+	- [experiments/dbscan_tfidf/dbscan_tfidf.py](experiments/dbscan_tfidf/dbscan_tfidf.py)
+	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
 
 ### OPTICS
 
@@ -507,6 +509,7 @@ Output: Embedding‑Matrix E
 - Verwendet in:
 	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
 	- [experiments/aagglomerative_fasttext/agglomerative_fasttext.py](experiments/agglomerative_fasttext/agglomerative_fasttext.py)
+	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
 
 
 
