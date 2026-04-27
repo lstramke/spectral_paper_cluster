@@ -72,7 +72,9 @@ Output: assignments c, centers μ
 - **Schwächen:** Benötigt festes `k`; sensitiv gegenüber Initialisierung, Ausreißern und nicht-konvexen Strukturen.
 
 - Implementierung: [src/clustering/kmeans.py](src/clustering/kmeans.py)
-- Verwendet in: [experiments/kmeans_tfidf/kmeans_tfidf.py](experiments/kmeans_tfidf/kmeans_tfidf.py)
+- Verwendet in: 
+	- [experiments/kmeans_tfidf/kmeans_tfidf.py](experiments/kmeans_tfidf/kmeans_tfidf.py)
+	- [experiments/kmeans_fasttext/kmeans_fasttext.py](experiments/kmeans_fasttext/kmeans_fasttext.py)
 
 ### DBSCAN
 
@@ -516,7 +518,7 @@ Output: Embedding‑Matrix E
 	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
 	- [experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
 	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
-
+	- [experiments/kmeans_fasttext/kmeans_fasttext.py](experiments/kmeans_fasttext/kmeans_fasttext.py)
 
 
 
