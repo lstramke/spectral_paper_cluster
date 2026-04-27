@@ -404,7 +404,9 @@ Output: labels (hard or soft), component params (π, μ, Σ)
 - **Schwächen:** EM kann in lokalen Optima landen; empfindlich gegenüber Ausreißern; nicht ideal für sehr hochdimensionale, spärliche TF‑IDF‑Vektoren ohne vorherige Dimensionsreduktion.
 
 - Implementierung: [src/clustering/gaussianMixture.py](src/clustering/gaussianMixture.py)
-- Verwendet in: [experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py](experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py)
+- Verwendet in: 
+	- [experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py](experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py)
+	- [experiments/gaussianMixture_fasttext/dbscan_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
 
 
 ## Feature‑Extractor
@@ -510,6 +512,7 @@ Output: Embedding‑Matrix E
 	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
 	- [experiments/aagglomerative_fasttext/agglomerative_fasttext.py](experiments/agglomerative_fasttext/agglomerative_fasttext.py)
 	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
+	- [experiments/gaussianMixture_fasttext/dbscan_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
 
 
 

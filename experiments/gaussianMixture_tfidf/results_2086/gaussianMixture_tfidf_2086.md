@@ -73,8 +73,6 @@ Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier:
 
 ### Metriken: 
 
-Die in der JSON gespeicherten Kennzahlen direkt auswerten.
-
 Die Metriken werden in `best_gaussianMixture_tfidf_2086_summary.json` gespeichert. Für das aktuelle Experiment ergeben sich folgende Werte:
 
 | Metrik | Wert | Einordnung |
@@ -84,7 +82,7 @@ Die Metriken werden in `best_gaussianMixture_tfidf_2086_summary.json` gespeicher
 | Calinski–Harabasz Index | 33.24359931241326 | |
 
 ### Cluster-Interpretation
-Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `best_gaussianMixture_tfidf_summary.json`.
+Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `best_gaussianMixture_tfidf_2086_summary.json`.
 
 | Cluster | Top-Wörter |
 | ---: | --- |
