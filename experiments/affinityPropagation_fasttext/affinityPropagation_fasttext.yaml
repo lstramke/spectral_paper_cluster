@@ -1,0 +1,29 @@
+experiment_name: affinityPropagation_fasttext_2086
+
+input:
+  documents_path: data/raw/dataset_2086.csv
+  format: csv
+  text_fields: [title, abstract]
+  fuse_mode: join
+  separator: ";"
+
+affinityPropagation:
+  damping_range: [0.5, 0.95]
+  random_state_range: [1, 10000]
+  n_trials: 120
+  max_iter: 400
+  convergence_iter: 15
+  affinity: euclidean
+  normalize: true
+
+interpretation:
+  top_n_terms: 10
+
+outputs:
+  output_dir: experiments/affinityPropagation_fasttext/results_2086
+  plot_name: affinityPropagation_fasttext_2086_pca.png
+  summary_name: best_affinityPropagation_fasttext_2086_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7

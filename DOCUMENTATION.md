@@ -72,7 +72,9 @@ Output: assignments c, centers μ
 - **Schwächen:** Benötigt festes `k`; sensitiv gegenüber Initialisierung, Ausreißern und nicht-konvexen Strukturen.
 
 - Implementierung: [src/clustering/kmeans.py](src/clustering/kmeans.py)
-- Verwendet in: [experiments/kmeans_tfidf/kmeans_tfidf.md](experiments/kmeans_tfidf/kmeans_tfidf.md)
+- Verwendet in: 
+	- [experiments/kmeans_tfidf/kmeans_tfidf.py](experiments/kmeans_tfidf/kmeans_tfidf.py)
+	- [experiments/kmeans_fasttext/kmeans_fasttext.py](experiments/kmeans_fasttext/kmeans_fasttext.py)
 
 ### DBSCAN
 
@@ -126,7 +128,9 @@ Output: labels y
 - **Schwächen:** Parameterwahl ($\varepsilon$, `minPts`) ist sensitiv; Probleme bei stark variierenden Dichten.
 
 - Implementierung: [src/clustering/dbscan.py](src/clustering/dbscan.py)
-- Verwendet in: [experiments/dbscan_tfidf/dbscan_tfidf.md](experiments/dbscan_tfidf/dbscan_tfidf.md)
+- Verwendet in: 
+	- [experiments/dbscan_tfidf/dbscan_tfidf.py](experiments/dbscan_tfidf/dbscan_tfidf.py)
+	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
 
 ### OPTICS
 
@@ -185,7 +189,7 @@ Output: ordered points O, reachability distances, derived clusters
 - **Schwächen:** Komplexer zu interpretieren; Clusterextraktion (z. B. `xi`) benötigt zusätzliche Entscheidungen.
 
 - Implementierung: [src/clustering/optics.py](src/clustering/optics.py)
-- Verwendet in: [experiments/optics_tfidf/optics_tfidf.md](experiments/optics_tfidf/optics_tfidf.md)
+- Verwendet in: [experiments/optics_tfidf/optics_tfidf.py](experiments/optics_tfidf/optics_tfidf.py)
 
 ### HDBSCAN
 
@@ -221,7 +225,9 @@ Output: labels y
 - **Schwächen:** Höhere algorithmische Komplexität; bei kleinen Datensätzen oft viele Punkte als Rauschen.
 
 - Implementierung: [src/clustering/hdbscan.py](src/clustering/hdbscan.py)
-- Verwendet in: [experiments/hdbscan_tfidf/hdbscan_tfidf.md](experiments/hdbscan_tfidf/hdbscan_tfidf.md)
+- Verwendet in: 
+	- [experiments/hdbscan_tfidf/hdbscan_tfidf.py](experiments/hdbscan_tfidf/hdbscan_tfidf.py)
+	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
 
 ### Agglomerative Clustering
 
@@ -264,7 +270,9 @@ Output: cluster set C
 - **Schwächen:** Rechenintensiver bei vielen Punkten; frühe Fehl-Merges sind irreversibel.
 
 - Implementierung: [src/clustering/agglomerativeClustering.py](src/clustering/agglomerativeClustering.py)
-- Verwendet in: [experiments/agglomerative_tfidf/agglomerative_tfidf.md](experiments/agglomerative_tfidf/agglomerative_tfidf.md)
+- Verwendet in: 
+	- [experiments/agglomerative_tfidf/agglomerative_tfidf.py](experiments/agglomerative_tfidf/agglomerative_tfidf.py)
+	- [experiments/aagglomerative_fasttext/agglomerative_fasttext.py](experiments/agglomerative_fasttext/agglomerative_fasttext.py)
 
 ### Affinity Propagation
 
@@ -317,7 +325,9 @@ Output: exemplar indices E
 - **Schwächen:** Sensitiv gegenüber `preference` und Dämpfung; quadratischer Speicher-/Zeitbedarf in der Punktanzahl.
 
 - Implementierung: [src/clustering/affinityPropagation.py](src/clustering/affinityPropagation.py)
-- Verwendet in: [experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.md](experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.md)
+- Verwendet in: 
+	- [experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.py](experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.py)
+	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
 
 ### Spectral Clustering
 
@@ -352,7 +362,9 @@ Output: labels y
 - **Schwächen:** Eigenzerlegung kann teuer sein; empfindlich gegenüber Wahl von Affinität, $\gamma$, `n_neighbors`.
 
 - Implementierung: [src/clustering/spectralClustering.py](src/clustering/spectralClustering.py)
-- Verwendet in: [experiments/spectral_tfidf/spectral_tfidf.md](experiments/spectral_tfidf/spectral_tfidf.md)
+- Verwendet in: 
+	- [experiments/spectral_tfidf/spectral_tfidf.py](experiments/spectral_tfidf/spectral_tfidf.py)
+	- [experiments/spectral_fasttext/spectral_fasttext.py](experiments/spectral_fasttext/spectral_fasttext.py)
 
 ### Gaussian Mixture Model (GMM)
 
@@ -398,7 +410,9 @@ Output: labels (hard or soft), component params (π, μ, Σ)
 - **Schwächen:** EM kann in lokalen Optima landen; empfindlich gegenüber Ausreißern; nicht ideal für sehr hochdimensionale, spärliche TF‑IDF‑Vektoren ohne vorherige Dimensionsreduktion.
 
 - Implementierung: [src/clustering/gaussianMixture.py](src/clustering/gaussianMixture.py)
-- Verwendet in: [experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py](experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py)
+- Verwendet in: 
+	- [experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py](experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py)
+	- [experiments/gaussianMixture_fasttext/dbscan_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
 
 
 ## Feature‑Extractor
@@ -452,10 +466,62 @@ Output: feature matrix X
 
 - Implementierung: [src/features/tfidf.py](src/features/tfidf.py)
 - Verwendet in: 
-	- [experiments/kmeans_tfidf/kmeans_tfidf.md](experiments/kmeans_tfidf/kmeans_tfidf.md)
-	- [experiments/dbscan_tfidf/dbscan_tfidf.md](experiments/dbscan_tfidf/dbscan_tfidf.md)
-	- [experiments/optics_tfidf/optics_tfidf.md](experiments/optics_tfidf/optics_tfidf.md)
-	- [experiments/hdbscan_tfidf/hdbscan_tfidf.md](experiments/hdbscan_tfidf/hdbscan_tfidf.md)
-	- [experiments/agglomerative_tfidf/agglomerative_tfidf.md](experiments/agglomerative_tfidf/agglomerative_tfidf.md)
-	- [experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.md](experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.md)
-	- [experiments/spectral_tfidf/spectral_tfidf.md](experiments/spectral_tfidf/spectral_tfidf.md)
+	- [experiments/kmeans_tfidf/kmeans_tfidf.py](experiments/kmeans_tfidf/kmeans_tfidf.py)
+	- [experiments/dbscan_tfidf/dbscan_tfidf.py](experiments/dbscan_tfidf/dbscan_tfidf.py)
+	- [experiments/optics_tfidf/optics_tfidf.py](experiments/optics_tfidf/optics_tfidf.py)
+	- [experiments/hdbscan_tfidf/hdbscan_tfidf.py](experiments/hdbscan_tfidf/hdbscan_tfidf.py)
+	- [experiments/agglomerative_tfidf/agglomerative_tfidf.py](experiments/agglomerative_tfidf/agglomerative_tfidf.py)
+	- [experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.py](experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.py)
+	- [experiments/spectral_tfidf/spectral_tfidf.py](experiments/spectral_tfidf/spectral_tfidf.py)
+
+### fastText (Subword‑Wortvektoren)
+
+fastText erzeugt dichte Wortvektoren unter Verwendung von Subword‑Informationen (n‑Gramme). Das macht das Modell robust gegenüber seltenen Fachbegriffen und zusammengesetzten Termini, nützlich für medizinisch‑technische Paper. Dokumentrepräsentationen werden üblicherweise durch Aggregation der Wortvektoren (z. B. arithmetisches Mittel oder TF‑IDF‑gewichtetes Mittel) und anschließende Normalisierung gewonnen.
+
+**Ablauf (Pseudocode):**
+```text
+Algorithm: fastText Pooling
+Input: Dokumentliste D, vortrainierte fastText‑Vektoren V, pooling ∈ {mean, tfidf}
+Output: Embedding‑Matrix E
+
+1: Lade fastText‑Vektoren V
+2: Falls pooling == tfidf dann
+3:     TF <- fit TF‑IDF auf D
+4: end if
+5: for jedes Dokument d in D do
+6:     toks <- Tokenize(d)
+7:     vecs <- [V[t] für t in toks, falls t in V]
+8:     falls vecs leer dann
+9:         e <- Nullvektor
+10:    sonst falls pooling == tfidf dann
+11:        weights <- [TF[d,t] für t in toks]
+12:        e <- gewichtetes Mittel(vecs, weights)
+13:    sonst
+14:        e <- Mittel(vecs)
+15:    end if
+16:    e <- L2‑Normalisiere(e)
+17:    E.append(e)
+18: end for
+19: return E
+```
+
+**Stärken:**
+- Robust gegenüber OOV‑Tokens, Tippfehlern und morphologischen Varianten durch Subword‑Repräsentation.
+- Effizient und vergleichsweise leichtgewichtig gegenüber großen Transformer‑Modellen.
+
+**Schwächen:**
+- Kein kontextsensitives Encoding (keine Polysemie‑Auflösung wie bei BERT‑Typen).
+- Aggregation (Pooling) verwirft Wortreihenfolge und feine Kontextsignale.
+
+- Implementierung: [src/features/fasttext.py](src/features/fasttext.py)
+- Verwendet in:
+	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
+	- [experiments/aagglomerative_fasttext/agglomerative_fasttext.py](experiments/agglomerative_fasttext/agglomerative_fasttext.py)
+	- [experiments/dbscan_fasttext/dbscan_fasttext.py](experiments/dbscan_fasttext/dbscan_fasttext.py)
+	- [experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
+	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
+	- [experiments/kmeans_fasttext/kmeans_fasttext.py](experiments/kmeans_fasttext/kmeans_fasttext.py)
+	- [experiments/spectral_fasttext/spectral_fasttext.py](experiments/spectral_fasttext/spectral_fasttext.py)
+
+
+

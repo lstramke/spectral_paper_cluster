@@ -65,7 +65,7 @@ outputs:
 ![hdbscan + tfidf PCA](hdbscan_tfidf_2086_pca.png)
 
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [hdbscan_tfidf_pca.html](hdbscan_tfidf_2086_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [hdbscan_tfidf_2086_pca.html](hdbscan_tfidf_2086_pca.html)
 
 
 ### Metriken:
