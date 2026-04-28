@@ -1,13 +1,63 @@
 from __future__ import annotations
+from dataclasses import dataclass
 
 import torch
 import torch.nn.functional as F
 import numpy as np
+from transformers import BertConfig
 from umap import UMAP
 from sentence_transformers import SentenceTransformer
+from pathlib import Path
+import os
+
+
+def _load_sentence_transformer(model_name: str, device: str) -> SentenceTransformer:
+	"""Load a SentenceTransformer model, preferring a local cache under
+	`models/<model_slug>` (or directory from `LOCAL_MODELS_DIR`). If the
+	local copy doesn't exist, attempt to download and save it; fall back to
+	the normal loader on failure.
+	"""
+	model_source = model_name
+	# Always use the project's ./models directory for caching
+	local_models_dir = Path("models")
+	# If user provided a local path, prefer it
+	if Path(model_name).exists():
+		model_source = model_name
+	else:
+		model_slug = model_name.replace("/", "_")
+		local_copy = local_models_dir / model_slug
+		if local_copy.exists():
+			model_source = str(local_copy)
+		else:
+			# download and save into local_models_dir (best-effort)
+			try:
+				print(f"Downloading SentenceTransformer '{model_name}' and caching to {local_copy}...")
+				model = SentenceTransformer(model_name, device=device)
+				try:
+					local_copy.parent.mkdir(parents=True, exist_ok=True)
+					model.save(str(local_copy))
+					print(f"Saved model to {local_copy}")
+				except Exception:
+					print("Warning: failed to save local model cache; continuing with in-memory model.")
+				return model
+			except Exception:
+				print(f"Warning: failed to download model '{model_name}' from HF Hub. Will retry via SentenceTransformer loader.")
+				model_source = model_name
+
+	# Load model from chosen source (local dir or HF id)
+	return SentenceTransformer(model_source, device=device)
 
 from .feature_extractor import FeatureExtractionResult, FeatureExtractor
 
+@dataclass(slots=True)
+class BERTConfig:
+	model_name: str
+	device: str
+	batch_size: int
+	normalize: bool
+	show_progress: bool
+	umap_n_components: int | None
+	umap_random_state: int
 
 class BertFeatureExtractor(FeatureExtractor):
 	"""Extract sentence/document embeddings using a Sentence‑Transformers model.
@@ -23,26 +73,17 @@ class BertFeatureExtractor(FeatureExtractor):
 	- show_progress: show progress bar during encoding
 	"""
 
-	def __init__(
-		self,
-		model_name: str = "NeuML/bioclinical-modernbert-base-embeddings",
-		device: str = "cpu",
-		batch_size: int = 8,
-		normalize: bool = True,
-		show_progress: bool = False,
-		umap_n_components: int | None = 100,
-		umap_random_state: int = 42,
-	) -> None:
-		self.model_name = model_name
-		self.device = device
-		self.batch_size = batch_size
-		self.normalize = normalize
-		self.show_progress = show_progress
-		self.umap_n_components = umap_n_components
-		self.umap_random_state = umap_random_state
+	def __init__(self, config: BERTConfig) -> None:
+		self.model_name = config.model_name
+		self.device = config.device
+		self.batch_size = config.batch_size
+		self.normalize = config.normalize
+		self.show_progress = config.show_progress
+		self.umap_n_components = config.umap_n_components
+		self.umap_random_state = config.umap_random_state
 
-		# Load SentenceTransformer (will download if needed)
-		self.model = SentenceTransformer(self.model_name, device=self.device)
+		# Load SentenceTransformer via helper (prefers local cache under ./models/)
+		self.model = _load_sentence_transformer(self.model_name, self.device)
 
 	def extract_features(self, documents: list[str]) -> FeatureExtractionResult:
 		if not documents:
@@ -85,6 +126,7 @@ class BertFeatureExtractor(FeatureExtractor):
 			"embedding_dim": dim,
 			"normalized": bool(self.normalize),
 			"sentence_transformers_version": getattr(self.model, "__version__", None),
+			"raw_documents": documents
 		}
 		if self.umap_n_components is not None:
 			metadata.update({"umap_n_components": self.umap_n_components, "umap_random_state": self.umap_random_state})
