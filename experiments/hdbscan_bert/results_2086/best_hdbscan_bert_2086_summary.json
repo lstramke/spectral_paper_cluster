@@ -1,0 +1,3855 @@
+{
+  "experiment_name": "hdbscan_bert_2086",
+  "n_documents": 2086,
+  "n_features": 100,
+  "n_clusters_found": 88,
+  "metrics": {
+    "silhouette": 0.32158026099205017,
+    "davies_bouldin": 1.118359172553747,
+    "calinski_harabasz": 129.28370098085418
+  },
+  "objective": null,
+  "cluster_sizes": {
+    "-1": 418,
+    "0": 20,
+    "1": 15,
+    "2": 18,
+    "3": 28,
+    "4": 14,
+    "5": 8,
+    "6": 12,
+    "7": 15,
+    "8": 11,
+    "9": 9,
+    "10": 26,
+    "11": 18,
+    "12": 10,
+    "13": 9,
+    "14": 8,
+    "15": 11,
+    "16": 48,
+    "17": 15,
+    "18": 17,
+    "19": 17,
+    "20": 21,
+    "21": 13,
+    "22": 9,
+    "23": 23,
+    "24": 32,
+    "25": 86,
+    "26": 14,
+    "27": 13,
+    "28": 64,
+    "29": 33,
+    "30": 9,
+    "31": 10,
+    "32": 34,
+    "33": 13,
+    "34": 12,
+    "35": 13,
+    "36": 20,
+    "37": 8,
+    "38": 8,
+    "39": 9,
+    "40": 9,
+    "41": 80,
+    "42": 8,
+    "43": 9,
+    "44": 11,
+    "45": 18,
+    "46": 24,
+    "47": 18,
+    "48": 15,
+    "49": 15,
+    "50": 11,
+    "51": 13,
+    "52": 11,
+    "53": 15,
+    "54": 25,
+    "55": 9,
+    "56": 9,
+    "57": 19,
+    "58": 21,
+    "59": 33,
+    "60": 12,
+    "61": 20,
+    "62": 28,
+    "63": 13,
+    "64": 9,
+    "65": 24,
+    "66": 11,
+    "67": 9,
+    "68": 20,
+    "69": 10,
+    "70": 9,
+    "71": 65,
+    "72": 45,
+    "73": 38,
+    "74": 8,
+    "75": 18,
+    "76": 10,
+    "77": 21,
+    "78": 15,
+    "79": 21,
+    "80": 17,
+    "81": 26,
+    "82": 13,
+    "83": 8,
+    "84": 16,
+    "85": 9,
+    "86": 14,
+    "87": 13
+  },
+  "interpretation": {
+    "cluster_terms": {
+      "-1": [
+        [
+          "custom fluorescence imaging system exploiting hyperspectral camera",
+          0.5732
+        ],
+        [
+          "nm hyperspectral imaging system",
+          0.5681
+        ],
+        [
+          "near infrared hyperspectral imaging",
+          0.551
+        ],
+        [
+          "active hyperspectral imaging classification method",
+          0.5487
+        ],
+        [
+          "snapshot hyperspectral imaging",
+          0.5403
+        ],
+        [
+          "vivo hyperspectral imaging",
+          0.5375
+        ],
+        [
+          "hyperspectral imager",
+          0.5367
+        ],
+        [
+          "medical hyperspectral image feature selection framework",
+          0.532
+        ],
+        [
+          "vivo multispectral photoacoustic imaging",
+          0.5278
+        ],
+        [
+          "pixel hyperspectral imaging via spatial",
+          0.5221
+        ]
+      ],
+      "0": [
+        [
+          "vivo hyperspectral cervix dataset",
+          0.432
+        ],
+        [
+          "cervix screening",
+          0.425
+        ],
+        [
+          "cervical intraepithelial neoplasia",
+          0.4194
+        ],
+        [
+          "cervical neoplasia detection",
+          0.4179
+        ],
+        [
+          "tip transvaginal imaging system",
+          0.4007
+        ],
+        [
+          "cervical cancer tissue analysis",
+          0.3896
+        ],
+        [
+          "transvaginal imaging probe",
+          0.3733
+        ],
+        [
+          "cervical intraepithelial",
+          0.3683
+        ],
+        [
+          "imaging colposcopic system",
+          0.3586
+        ],
+        [
+          "cervix images",
+          0.3556
+        ]
+      ],
+      "1": [
+        [
+          "hyperspectral imaging data;tongue diagnosis",
+          0.5424
+        ],
+        [
+          "methods hyperspectral tongue surface images",
+          0.5213
+        ],
+        [
+          "hyperspectral image;tongue coat information extraction",
+          0.5049
+        ],
+        [
+          "tongue hyperspectral imaging",
+          0.4747
+        ],
+        [
+          "tongue hyperspectral",
+          0.46
+        ],
+        [
+          "methods tongue images",
+          0.411
+        ],
+        [
+          "tongue tumor detection",
+          0.4094
+        ],
+        [
+          "tongue diagnosis",
+          0.3931
+        ],
+        [
+          "tcm tongue diagnosis",
+          0.39
+        ],
+        [
+          "tongue color analysis",
+          0.3868
+        ]
+      ],
+      "2": [
+        [
+          "tagged hyperspectral stimulated raman scattering microscopy;antibiotics resistance",
+          0.3843
+        ],
+        [
+          "mode hyperspectral imaging",
+          0.362
+        ],
+        [
+          "pathogenic bacteria;identification",
+          0.3248
+        ],
+        [
+          "machine learning;bone infections",
+          0.3097
+        ],
+        [
+          "ir hyperspectral imaging",
+          0.3059
+        ],
+        [
+          "bone infection detection",
+          0.3056
+        ],
+        [
+          "combining hyperspectral microscopic images",
+          0.3054
+        ],
+        [
+          "staphylococcus aureus infection;staphylococcus aureus",
+          0.298
+        ],
+        [
+          "common infected bacteria",
+          0.2941
+        ],
+        [
+          "staphylococcus aureus",
+          0.2808
+        ]
+      ],
+      "3": [
+        [
+          "hand burns;the depth assessment",
+          0.4796
+        ],
+        [
+          "uk evaluation;introduction accurate burn wound assessment",
+          0.4575
+        ],
+        [
+          "burn depth assessment",
+          0.4402
+        ],
+        [
+          "burn severity assessment",
+          0.4265
+        ],
+        [
+          "burn wound assessment",
+          0.4252
+        ],
+        [
+          "burn severity detection method",
+          0.4171
+        ],
+        [
+          "thickness burns",
+          0.4124
+        ],
+        [
+          "h. burn severity",
+          0.4109
+        ],
+        [
+          "burn wound characterization",
+          0.4092
+        ],
+        [
+          "thickness burn",
+          0.4056
+        ]
+      ],
+      "4": [
+        [
+          "art multimodality image registration techniques",
+          0.6617
+        ],
+        [
+          "groupwise image registration problem",
+          0.66
+        ],
+        [
+          "groupwise multichannel image registration;multichannel image registration",
+          0.659
+        ],
+        [
+          "multimodality image registration applications",
+          0.6323
+        ],
+        [
+          "groupwise multichannel image registration",
+          0.6306
+        ],
+        [
+          "multispectral snapshot image registration",
+          0.6273
+        ],
+        [
+          "image registration method",
+          0.5953
+        ],
+        [
+          "differential search algorithm;image registration",
+          0.5755
+        ],
+        [
+          "image registration approaches",
+          0.5739
+        ],
+        [
+          "image registration",
+          0.573
+        ]
+      ],
+      "5": [
+        [
+          "medullary thyroid carcinoma",
+          0.5039
+        ],
+        [
+          "thyroid pathology analysis",
+          0.4975
+        ],
+        [
+          "thyroid carcinoma",
+          0.4743
+        ],
+        [
+          "thyroid nodule classification",
+          0.4682
+        ],
+        [
+          "thyroid nodule sample acquisition",
+          0.4655
+        ],
+        [
+          "medullary thyroid carcinoma;background",
+          0.4636
+        ],
+        [
+          "thyroid tissue classification",
+          0.4509
+        ],
+        [
+          "thyroid cancer",
+          0.4414
+        ],
+        [
+          "follicular thyroid carcinoma",
+          0.4393
+        ],
+        [
+          "thyroid lesions;thyroid nodule",
+          0.4391
+        ]
+      ],
+      "6": [
+        [
+          "guidance;intraoperative fluorescence imaging",
+          0.6222
+        ],
+        [
+          "new intraoperative imaging tools",
+          0.5354
+        ],
+        [
+          "guided surgery",
+          0.5037
+        ],
+        [
+          "intraoperative fluorescence",
+          0.4827
+        ],
+        [
+          "fluorescence imaging systems",
+          0.4215
+        ],
+        [
+          "cancer surgery guidance;an",
+          0.4191
+        ],
+        [
+          "endoscopes",
+          0.3985
+        ],
+        [
+          "precision surgery",
+          0.3927
+        ],
+        [
+          "surgery;image",
+          0.3879
+        ],
+        [
+          "fluorescent imaging",
+          0.3698
+        ]
+      ],
+      "7": [
+        [
+          "fluorescein imaging",
+          0.5008
+        ],
+        [
+          "ii fluorescence imaging method",
+          0.4912
+        ],
+        [
+          "multispectral fluorescence imaging",
+          0.4829
+        ],
+        [
+          "fluorescence imaging",
+          0.4788
+        ],
+        [
+          "fluorescence laparoscope",
+          0.4785
+        ],
+        [
+          "imaging autofluorescence microscopy",
+          0.4773
+        ],
+        [
+          "ii fluorescence imaging",
+          0.4743
+        ],
+        [
+          "fluorescent imaging",
+          0.472
+        ],
+        [
+          "time fluorescence imaging",
+          0.4663
+        ],
+        [
+          "fluorescence imaging technology",
+          0.4606
+        ]
+      ],
+      "8": [
+        [
+          "domain optical coherence tomography",
+          0.6975
+        ],
+        [
+          "coherence tomography;optical coherence tomography",
+          0.6549
+        ],
+        [
+          "coherence tomography",
+          0.5722
+        ],
+        [
+          "coherence hyperspectral microscopy",
+          0.542
+        ],
+        [
+          "hyperspectral imaging",
+          0.4545
+        ],
+        [
+          "oct imaging",
+          0.3817
+        ],
+        [
+          "tomography",
+          0.3746
+        ],
+        [
+          "coherence interferometry",
+          0.3502
+        ],
+        [
+          "axis illumination",
+          0.3382
+        ],
+        [
+          "tomograms",
+          0.3344
+        ]
+      ],
+      "9": [
+        [
+          "prostate cancer detection;hyperspectral imaging",
+          0.5052
+        ],
+        [
+          "prostate cancer histopathology",
+          0.4038
+        ],
+        [
+          "hyperspectral autofluorescence microscopy",
+          0.3933
+        ],
+        [
+          "prostate cancer;histopathology",
+          0.3749
+        ],
+        [
+          "prostate cancer;the tissue diagnosis",
+          0.3697
+        ],
+        [
+          "prostate cancer detection",
+          0.3536
+        ],
+        [
+          "prostate cancer grade",
+          0.3513
+        ],
+        [
+          "duplex immunofluorescence imaging",
+          0.3348
+        ],
+        [
+          "hyperspectral imaging",
+          0.3265
+        ],
+        [
+          "prostate cancer malignancy",
+          0.3175
+        ]
+      ],
+      "10": [
+        [
+          "vivo oral cancer diagnosis;deep learning approaches",
+          0.5462
+        ],
+        [
+          "noninvasive oral hyperspectral imaging",
+          0.4423
+        ],
+        [
+          "image classification algorithm",
+          0.3253
+        ],
+        [
+          "digital diagnosis",
+          0.3002
+        ],
+        [
+          "root caries lesions",
+          0.2973
+        ],
+        [
+          "deep learning model",
+          0.2959
+        ],
+        [
+          "international caries detection",
+          0.2941
+        ],
+        [
+          "tooth enamel",
+          0.2897
+        ],
+        [
+          "multispectral short wavelength infrared transillumination",
+          0.28
+        ],
+        [
+          "incipient caries detection",
+          0.2756
+        ]
+      ],
+      "11": [
+        [
+          "hyperspectral remote sensing",
+          0.405
+        ],
+        [
+          "discrete frequency infrared images",
+          0.399
+        ],
+        [
+          "based hyperspectral data optimization",
+          0.3364
+        ],
+        [
+          "fresh turmeric rhizomes;hyperspectral image",
+          0.3074
+        ],
+        [
+          "nir hyperspectral imaging",
+          0.2808
+        ],
+        [
+          "dataset classifiers",
+          0.276
+        ],
+        [
+          "hyperspectral imaging",
+          0.2751
+        ],
+        [
+          "hyperspectral images",
+          0.2677
+        ],
+        [
+          "machine learning method",
+          0.2586
+        ],
+        [
+          "hyperspectral",
+          0.2543
+        ]
+      ],
+      "12": [
+        [
+          "radiofrequency ablation",
+          0.4447
+        ],
+        [
+          "tissue;radiofrequency ablation",
+          0.4358
+        ],
+        [
+          "liver ablation",
+          0.4309
+        ],
+        [
+          "laser ablation therapy",
+          0.4171
+        ],
+        [
+          "active dynamic thermal imaging",
+          0.415
+        ],
+        [
+          "hyperspectral imaging",
+          0.3728
+        ],
+        [
+          "liver fat quantification",
+          0.334
+        ],
+        [
+          "reflectance imaging",
+          0.3321
+        ],
+        [
+          "custom hyperspectral imaging",
+          0.3262
+        ],
+        [
+          "intensity focused ultrasound",
+          0.3261
+        ]
+      ],
+      "13": [
+        [
+          "autofluorescence lifetime endoscopy",
+          0.4748
+        ],
+        [
+          "autofluorescence lifetime imaging",
+          0.4449
+        ],
+        [
+          "fluorescence lifetime imaging",
+          0.4409
+        ],
+        [
+          "fluorescence imaging",
+          0.4392
+        ],
+        [
+          "autofluorescence imaging",
+          0.438
+        ],
+        [
+          "multispectral fluorescence lifetime imaging",
+          0.4296
+        ],
+        [
+          "autofluorescence lifetime images",
+          0.3908
+        ],
+        [
+          "endoscopic imaging",
+          0.3806
+        ],
+        [
+          "autofluorescence biomarkers",
+          0.3766
+        ],
+        [
+          "endoscopic images",
+          0.3452
+        ]
+      ],
+      "14": [
+        [
+          "field radiofrequency tomography",
+          0.4713
+        ],
+        [
+          "body surface thermograms",
+          0.4348
+        ],
+        [
+          "phasor thermography",
+          0.418
+        ],
+        [
+          "cancer thermotherapy",
+          0.397
+        ],
+        [
+          "thermography platforms",
+          0.3952
+        ],
+        [
+          "midwave infrared",
+          0.3951
+        ],
+        [
+          "thermography",
+          0.3948
+        ],
+        [
+          "infrared",
+          0.3945
+        ],
+        [
+          "contrast temperature changes",
+          0.391
+        ],
+        [
+          "wave infrared",
+          0.3893
+        ]
+      ],
+      "15": [
+        [
+          "high energy resolution hyperspectral x - ray imaging",
+          0.6008
+        ],
+        [
+          "counting detector ct;photon",
+          0.5843
+        ],
+        [
+          "spect imaging;a cadmium telluride",
+          0.5563
+        ],
+        [
+          "photon counting detector",
+          0.5416
+        ],
+        [
+          "photon counting semiconductor detector",
+          0.5358
+        ],
+        [
+          "photon counting detectors",
+          0.532
+        ],
+        [
+          "x - ray imaging applications",
+          0.5197
+        ],
+        [
+          "x - ray detector",
+          0.5054
+        ],
+        [
+          "x - ray imaging",
+          0.5052
+        ],
+        [
+          "x - ray detectors",
+          0.4999
+        ]
+      ],
+      "16": [
+        [
+          "endoscopic imaging system",
+          0.643
+        ],
+        [
+          "vivo rapid multispectral endoscopic imaging system",
+          0.6246
+        ],
+        [
+          "imaging endoscopic system",
+          0.605
+        ],
+        [
+          "spectral endoscopy",
+          0.5744
+        ],
+        [
+          "endoscopic imaging",
+          0.5686
+        ],
+        [
+          "endoscopic system",
+          0.5643
+        ],
+        [
+          "imaging endoscopes",
+          0.5613
+        ],
+        [
+          "imaging endoscope;hyperspectral imaging",
+          0.5598
+        ],
+        [
+          "imaging endoscope",
+          0.556
+        ],
+        [
+          "image scanning endoscope",
+          0.5546
+        ]
+      ],
+      "17": [
+        [
+          "multispectral photoacoustic tomography",
+          0.4438
+        ],
+        [
+          "photoacoustic imaging",
+          0.4354
+        ],
+        [
+          "tissue oximetry imaging",
+          0.419
+        ],
+        [
+          "imaging phantoms",
+          0.4102
+        ],
+        [
+          "blood phantom model",
+          0.3904
+        ],
+        [
+          "wound imaging devices",
+          0.3753
+        ],
+        [
+          "tissue phantom",
+          0.3645
+        ],
+        [
+          "oa oximetry imaging",
+          0.359
+        ],
+        [
+          "vascular phantoms",
+          0.3571
+        ],
+        [
+          "blood flow phantoms",
+          0.3432
+        ]
+      ],
+      "18": [
+        [
+          "light source calibration",
+          0.4359
+        ],
+        [
+          "hyperspectral imaging",
+          0.431
+        ],
+        [
+          "hyperspectral imaging endoscopes",
+          0.4059
+        ],
+        [
+          "multispectral digital colposcope",
+          0.398
+        ],
+        [
+          "multispectral imaging",
+          0.3817
+        ],
+        [
+          "background illumination",
+          0.3711
+        ],
+        [
+          "medical hyperspectral",
+          0.3659
+        ],
+        [
+          "calibration images",
+          0.3634
+        ],
+        [
+          "background correction method",
+          0.363
+        ],
+        [
+          "reflectance imaging",
+          0.3584
+        ]
+      ],
+      "19": [
+        [
+          "neck cancer diagnosis",
+          0.3601
+        ],
+        [
+          "neck cancer identification",
+          0.3558
+        ],
+        [
+          "ocular surface squamous neoplasia",
+          0.3363
+        ],
+        [
+          "tongue carcinogenesis;hyperspectral imaging",
+          0.333
+        ],
+        [
+          "aided diagnosis systems;brain cancer",
+          0.3312
+        ],
+        [
+          "neck tumor surgery",
+          0.3217
+        ],
+        [
+          "quantitative hyperspectral",
+          0.2925
+        ],
+        [
+          "neck cancer",
+          0.2872
+        ],
+        [
+          "neck cancers",
+          0.273
+        ],
+        [
+          "neck tumors",
+          0.269
+        ]
+      ],
+      "20": [
+        [
+          "breast cancer margin assessment technique",
+          0.4583
+        ],
+        [
+          "histological hyperspectral breast cancer recurrence database",
+          0.4432
+        ],
+        [
+          "ultrasound imaging",
+          0.3955
+        ],
+        [
+          "skin carcinoma margin assessment",
+          0.3782
+        ],
+        [
+          "medical hyperspectral imaging",
+          0.3771
+        ],
+        [
+          "intraoperative margin assessment",
+          0.3751
+        ],
+        [
+          "breast tumor resection",
+          0.37
+        ],
+        [
+          "hyperspectral imaging;the",
+          0.3644
+        ],
+        [
+          "hyperspectral imaging",
+          0.3541
+        ],
+        [
+          "ultrasound",
+          0.3538
+        ]
+      ],
+      "21": [
+        [
+          "lightweight convolutional neural network;hyperspectral imaging",
+          0.4231
+        ],
+        [
+          "blood cell image analysis",
+          0.3907
+        ],
+        [
+          "imaging technology;red blood cell counting",
+          0.3484
+        ],
+        [
+          "blood cell detection",
+          0.3093
+        ],
+        [
+          "machine learning algorithms",
+          0.2999
+        ],
+        [
+          "blood smear analysis",
+          0.2938
+        ],
+        [
+          "deep learning",
+          0.2937
+        ],
+        [
+          "blood cell recognition method",
+          0.2923
+        ],
+        [
+          "blood cell classification framework",
+          0.2837
+        ],
+        [
+          "machine learning",
+          0.2812
+        ]
+      ],
+      "22": [
+        [
+          "endoscopic hyperspectral imaging system",
+          0.4414
+        ],
+        [
+          "laparoscopic colorectal",
+          0.3752
+        ],
+        [
+          "hyperspectral image analysis",
+          0.3743
+        ],
+        [
+          "colorectal cancer detection",
+          0.3588
+        ],
+        [
+          "hyperspectral imaging system",
+          0.3391
+        ],
+        [
+          "hyperspectral imaging",
+          0.3312
+        ],
+        [
+          "endoscopic tumor removal",
+          0.3177
+        ],
+        [
+          "classification;hyperspectral imaging",
+          0.3167
+        ],
+        [
+          "cancer detection performance",
+          0.2999
+        ],
+        [
+          "cancer detection",
+          0.298
+        ]
+      ],
+      "23": [
+        [
+          "esophageal cancer detection",
+          0.4708
+        ],
+        [
+          "endoscopic cancer sensing",
+          0.445
+        ],
+        [
+          "esophageal cancer detection;objective",
+          0.442
+        ],
+        [
+          "endoscopic image classification",
+          0.4416
+        ],
+        [
+          "endoscopic cancer detection",
+          0.4261
+        ],
+        [
+          "broadband hyperspectral imaging endoscopy",
+          0.4204
+        ],
+        [
+          "endoscopic image categorization",
+          0.4059
+        ],
+        [
+          "esophageal carcinoma",
+          0.3516
+        ],
+        [
+          "cancer detection;band selection",
+          0.3434
+        ],
+        [
+          "endoscopic imaging",
+          0.3377
+        ]
+      ],
+      "24": [
+        [
+          "vivo human brain hyperspectral image classification",
+          0.5434
+        ],
+        [
+          "automated glioblastoma segmentation",
+          0.5095
+        ],
+        [
+          "vivo hyperspectral human brain image database",
+          0.4754
+        ],
+        [
+          "brain tumor segmentation;glioma",
+          0.4723
+        ],
+        [
+          "brain tumor segmentation",
+          0.4633
+        ],
+        [
+          "hyperspectral imaging cancer detection",
+          0.4617
+        ],
+        [
+          "tumor image classification",
+          0.4571
+        ],
+        [
+          "glioma segmentation method",
+          0.4402
+        ],
+        [
+          "intraoperative hyperspectral imaging",
+          0.4318
+        ],
+        [
+          "brain tumor segmentation challenge",
+          0.4196
+        ]
+      ],
+      "25": [
+        [
+          "mri brain segmentation",
+          0.5089
+        ],
+        [
+          "multispectral mri image fusion",
+          0.4959
+        ],
+        [
+          "brain image segmentation",
+          0.4855
+        ],
+        [
+          "mr image segmentation",
+          0.4784
+        ],
+        [
+          "mri tissue segmentation method",
+          0.4711
+        ],
+        [
+          "mr brain images;segmentation",
+          0.4665
+        ],
+        [
+          "intravoxel incoherent motion hyperspectral imaging",
+          0.4652
+        ],
+        [
+          "resonance images;segmentation",
+          0.4476
+        ],
+        [
+          "brain mri segmentation",
+          0.4473
+        ],
+        [
+          "multispectral imaging",
+          0.4372
+        ]
+      ],
+      "26": [
+        [
+          "hyperspectral image reconstruction algorithms",
+          0.7018
+        ],
+        [
+          "image reconstruction algorithms",
+          0.5478
+        ],
+        [
+          "hyperspectral image super",
+          0.5459
+        ],
+        [
+          "resolution hyperspectral",
+          0.5327
+        ],
+        [
+          "image superresolution method",
+          0.4964
+        ],
+        [
+          "hyperspectral ct technology",
+          0.4817
+        ],
+        [
+          "image reconstruction",
+          0.454
+        ],
+        [
+          "coded aperture snapshot spectral imaging",
+          0.437
+        ],
+        [
+          "image processing applications",
+          0.4336
+        ],
+        [
+          "artificial neural network;hyperspectral x - ray ct",
+          0.4241
+        ]
+      ],
+      "27": [
+        [
+          "deep learning semantic segmentation;objective",
+          0.5336
+        ],
+        [
+          "learning image segmentation methods",
+          0.5134
+        ],
+        [
+          "time tumor segmentation",
+          0.4362
+        ],
+        [
+          "arthroscopic scene segmentation",
+          0.4297
+        ],
+        [
+          "imaging segmentation performance",
+          0.4242
+        ],
+        [
+          "dental spectral image database",
+          0.4051
+        ],
+        [
+          "tissue segmentation",
+          0.3999
+        ],
+        [
+          "image segmentation",
+          0.3978
+        ],
+        [
+          "machine learning models",
+          0.3922
+        ],
+        [
+          "machine learning model",
+          0.3855
+        ]
+      ],
+      "28": [
+        [
+          "band hyperspectral stimulated raman scattering microscopy",
+          0.6453
+        ],
+        [
+          "free raman hyperspectral imaging",
+          0.6085
+        ],
+        [
+          "field superresolution vibrational imaging;stimulated raman",
+          0.6073
+        ],
+        [
+          "hyperspectral raman imaging",
+          0.5671
+        ],
+        [
+          "stimulated raman scattering microscopy",
+          0.5603
+        ],
+        [
+          "micro - raman spectroscopy",
+          0.5495
+        ],
+        [
+          "cell raman spectroscopy",
+          0.5418
+        ],
+        [
+          "light sheet raman micro - spectroscopy",
+          0.5357
+        ],
+        [
+          "coherent raman scattering microscopy;coherent raman scattering",
+          0.5316
+        ],
+        [
+          "hyperspectral coherent raman scattering",
+          0.5269
+        ]
+      ],
+      "29": [
+        [
+          "melanoma imaging biomarkers",
+          0.5613
+        ],
+        [
+          "melanoma detection",
+          0.524
+        ],
+        [
+          "skin melanoma selection",
+          0.5135
+        ],
+        [
+          "quantitative multispectral imaging differentiates melanoma",
+          0.5133
+        ],
+        [
+          "dermoscopic skin parameter maps",
+          0.5071
+        ],
+        [
+          "melanoma lesions",
+          0.5021
+        ],
+        [
+          "pigmented melanoma;the incidence",
+          0.499
+        ],
+        [
+          "skin lesion analysis",
+          0.49
+        ],
+        [
+          "skin cancer diagnostics",
+          0.4858
+        ],
+        [
+          "melanomas",
+          0.4797
+        ]
+      ],
+      "30": [
+        [
+          "vein visualization method",
+          0.5016
+        ],
+        [
+          "vein visualization",
+          0.4746
+        ],
+        [
+          "vessel visualization technology",
+          0.4588
+        ],
+        [
+          "vein imaging field",
+          0.4532
+        ],
+        [
+          "vein imaging system;phlebotomy",
+          0.4324
+        ],
+        [
+          "vein images",
+          0.4281
+        ],
+        [
+          "vein imaging experiment",
+          0.4163
+        ],
+        [
+          "vein detection",
+          0.4048
+        ],
+        [
+          "hyperspectral imaging",
+          0.3907
+        ],
+        [
+          "color doppler images",
+          0.3871
+        ]
+      ],
+      "31": [
+        [
+          "hyperspectral data analysis",
+          0.4572
+        ],
+        [
+          "hyperspectral data",
+          0.434
+        ],
+        [
+          "sensor technologies",
+          0.4312
+        ],
+        [
+          "sensor suite",
+          0.3891
+        ],
+        [
+          "use technologies",
+          0.3524
+        ],
+        [
+          "cameras",
+          0.3455
+        ],
+        [
+          "classification hardware system",
+          0.3405
+        ],
+        [
+          "multispectral data fusion algorithms;battelle scientists",
+          0.3374
+        ],
+        [
+          "vibrational spectroscopy imaging",
+          0.3306
+        ],
+        [
+          "environment monitoring devices",
+          0.3303
+        ]
+      ],
+      "32": [
+        [
+          "skin cancer detection exploiting hyperspectral imaging",
+          0.6225
+        ],
+        [
+          "skin cancer images",
+          0.4789
+        ],
+        [
+          "skin cells segmentation algorithm",
+          0.4484
+        ],
+        [
+          "skin tumor diagnostics",
+          0.4437
+        ],
+        [
+          "skin cancer detection",
+          0.4416
+        ],
+        [
+          "skin cancer diagnosis",
+          0.4399
+        ],
+        [
+          "skin tumor discrimination",
+          0.4332
+        ],
+        [
+          "skin cancer identification",
+          0.4227
+        ],
+        [
+          "skin disease detection system",
+          0.4222
+        ],
+        [
+          "skin cancer classification",
+          0.4219
+        ]
+      ],
+      "33": [
+        [
+          "microscopic urine sediment image analysis",
+          0.4417
+        ],
+        [
+          "membranous nephropathy classification",
+          0.4264
+        ],
+        [
+          "membranous nephropathy recognition",
+          0.4192
+        ],
+        [
+          "membranous nephropathy",
+          0.386
+        ],
+        [
+          "kidney pathology",
+          0.3483
+        ],
+        [
+          "kidney stones",
+          0.3429
+        ],
+        [
+          "urinary stone analysis",
+          0.3408
+        ],
+        [
+          "pathology image classification",
+          0.3341
+        ],
+        [
+          "image classification model",
+          0.3265
+        ],
+        [
+          "kidney biopsy",
+          0.3217
+        ]
+      ],
+      "34": [
+        [
+          "retinal hyperspectral imaging",
+          0.46
+        ],
+        [
+          "retinal multispectral",
+          0.3892
+        ],
+        [
+          "glaucoma detection",
+          0.3269
+        ],
+        [
+          "deep learning",
+          0.3162
+        ],
+        [
+          "glaucoma diagnostics",
+          0.3089
+        ],
+        [
+          "macular degeneration",
+          0.3062
+        ],
+        [
+          "multispectral pattern recognition",
+          0.3055
+        ],
+        [
+          "glaucoma diagnosis",
+          0.3023
+        ],
+        [
+          "glaucoma diagnosis;glaucoma",
+          0.2951
+        ],
+        [
+          "rgb fundus images",
+          0.2926
+        ]
+      ],
+      "35": [
+        [
+          "medical image analysis;deep learning",
+          0.6403
+        ],
+        [
+          "machine learning models",
+          0.5523
+        ],
+        [
+          "deep learning",
+          0.5519
+        ],
+        [
+          "medical hyperspectral image analysis;deep",
+          0.5391
+        ],
+        [
+          "deep learning methods",
+          0.5297
+        ],
+        [
+          "machine learning",
+          0.5191
+        ],
+        [
+          "training machine learning",
+          0.4706
+        ],
+        [
+          "medical hyperspectral images",
+          0.4477
+        ],
+        [
+          "learning architectures",
+          0.4304
+        ],
+        [
+          "learning models",
+          0.4075
+        ]
+      ],
+      "36": [
+        [
+          "spectrum ginseng origin recognition model",
+          0.3904
+        ],
+        [
+          "roi hyperspectral information",
+          0.3339
+        ],
+        [
+          "frankincense hyperspectral data",
+          0.3292
+        ],
+        [
+          "machine learning algorithms",
+          0.3235
+        ],
+        [
+          "machine learning method",
+          0.3159
+        ],
+        [
+          "kernel ridge regression",
+          0.2955
+        ],
+        [
+          "support vector classification",
+          0.2951
+        ],
+        [
+          "multiscale remote sensing",
+          0.2936
+        ],
+        [
+          "hyperspectral measurements;ginseng",
+          0.293
+        ],
+        [
+          "support vector machine",
+          0.2838
+        ]
+      ],
+      "37": [
+        [
+          "non - mydriatic hyperspectral retinal camera;purpose",
+          0.6071
+        ],
+        [
+          "hyperspectral imaging",
+          0.4397
+        ],
+        [
+          "device camera",
+          0.3427
+        ],
+        [
+          "imaging technology",
+          0.3306
+        ],
+        [
+          "snapshot imaging",
+          0.3283
+        ],
+        [
+          "broadband illumination",
+          0.328
+        ],
+        [
+          "imaging system",
+          0.3181
+        ],
+        [
+          "fundus camera",
+          0.3168
+        ],
+        [
+          "retinopathy",
+          0.3089
+        ],
+        [
+          "detector",
+          0.2976
+        ]
+      ],
+      "38": [
+        [
+          "imaging nanoimmunosensor",
+          0.4983
+        ],
+        [
+          "super - resolution multispectral imaging nanoimmunosensor",
+          0.4607
+        ],
+        [
+          "fluorescent nanoparticle",
+          0.434
+        ],
+        [
+          "fluorescent nanomaterials",
+          0.4145
+        ],
+        [
+          "quantum dot microarray",
+          0.4116
+        ],
+        [
+          "multiplexed nanoparticle emitters",
+          0.4039
+        ],
+        [
+          "imaging probes",
+          0.3942
+        ],
+        [
+          "fluorescent microscopy",
+          0.3692
+        ],
+        [
+          "quantum dots",
+          0.3552
+        ],
+        [
+          "molecule biosensor",
+          0.3442
+        ]
+      ],
+      "39": [
+        [
+          "murine arthritis model",
+          0.416
+        ],
+        [
+          "autofluorescence imaging",
+          0.4075
+        ],
+        [
+          "optoacoustic imaging",
+          0.3998
+        ],
+        [
+          "human arthritis",
+          0.3973
+        ],
+        [
+          "arthritis;investigations",
+          0.3693
+        ],
+        [
+          "utilising hyperspectral autofluorescence imaging",
+          0.3681
+        ],
+        [
+          "rheumatoid arthritis",
+          0.3617
+        ],
+        [
+          "arthritis",
+          0.349
+        ],
+        [
+          "rheumatoid arthritis;rheumatoid arthritis",
+          0.3433
+        ],
+        [
+          "vivo mri scan",
+          0.3376
+        ]
+      ],
+      "40": [
+        [
+          "psoriasis skin lesions",
+          0.466
+        ],
+        [
+          "scleroderma cutaneous assessment tool",
+          0.453
+        ],
+        [
+          "localized scleroderma assessment tool",
+          0.4218
+        ],
+        [
+          "psoriasis skin",
+          0.4095
+        ],
+        [
+          "scoring atopic dermatitis",
+          0.4074
+        ],
+        [
+          "skin sclerosis",
+          0.3717
+        ],
+        [
+          "psoriasis;phototherapy",
+          0.3708
+        ],
+        [
+          "psoriasis vulgaris",
+          0.3628
+        ],
+        [
+          "psoriatic plaques",
+          0.3535
+        ],
+        [
+          "hyperspectral imaging assessment",
+          0.3502
+        ]
+      ],
+      "41": [
+        [
+          "fluorescence imaging nanoprobe",
+          0.564
+        ],
+        [
+          "fluorescent imaging platforms",
+          0.5117
+        ],
+        [
+          "luminescent nanoparticles",
+          0.4895
+        ],
+        [
+          "fluorescent drug delivery system",
+          0.479
+        ],
+        [
+          "infrared fluorescent dyes",
+          0.4788
+        ],
+        [
+          "enhanced fluorescent imaging;optoacoustic imaging",
+          0.4695
+        ],
+        [
+          "dimensional theranostic nanoplatform",
+          0.4522
+        ],
+        [
+          "nanoparticle localization",
+          0.452
+        ],
+        [
+          "fluorescent labels",
+          0.4489
+        ],
+        [
+          "nanoparticle biodistribution",
+          0.4468
+        ]
+      ],
+      "42": [
+        [
+          "photodynamic therapy",
+          0.5665
+        ],
+        [
+          "photodynamic therapy efficiency",
+          0.5034
+        ],
+        [
+          "applications;significance photodynamic therapy",
+          0.4808
+        ],
+        [
+          "dose radiotherapy;tumor hypoxia",
+          0.4785
+        ],
+        [
+          "tumor hypoxia",
+          0.3864
+        ],
+        [
+          "guided oxygen delivery",
+          0.3728
+        ],
+        [
+          "ii photoacoustic imaging",
+          0.3533
+        ],
+        [
+          "melanoma hypoxia",
+          0.3434
+        ],
+        [
+          "tumor oxygenation",
+          0.3412
+        ],
+        [
+          "radiotherapy",
+          0.3391
+        ]
+      ],
+      "43": [
+        [
+          "fluorescence dualmodality imaging probe",
+          0.5615
+        ],
+        [
+          "multispectral fluorescence imaging;focused ultrasound",
+          0.5217
+        ],
+        [
+          "modality imaging probe",
+          0.5087
+        ],
+        [
+          "fluorescence imaging method",
+          0.4509
+        ],
+        [
+          "fluorescence imaging",
+          0.4489
+        ],
+        [
+          "imaging probes",
+          0.4256
+        ],
+        [
+          "hybrid positron emission tomography",
+          0.3887
+        ],
+        [
+          "infrared fluorescence",
+          0.3476
+        ],
+        [
+          "resonance imaging",
+          0.3271
+        ],
+        [
+          "fluorescent protein",
+          0.319
+        ]
+      ],
+      "44": [
+        [
+          "intraoperative hyperspectral imaging",
+          0.47
+        ],
+        [
+          "vivo spectroscopic imaging",
+          0.4518
+        ],
+        [
+          "intraoperative optical monitoring",
+          0.4444
+        ],
+        [
+          "mapping blood oxygen levels",
+          0.4243
+        ],
+        [
+          "hyperspectral imaging",
+          0.4158
+        ],
+        [
+          "microvascular hemoglobin oxygen",
+          0.4131
+        ],
+        [
+          "custom hyperspectral imaging",
+          0.3982
+        ],
+        [
+          "hemoglobin oxygen saturation",
+          0.3678
+        ],
+        [
+          "infrared spectroscopy",
+          0.3459
+        ],
+        [
+          "hemoglobin oxygenation",
+          0.343
+        ]
+      ],
+      "45": [
+        [
+          "profiling melanoma;multiplex immunofluorescence",
+          0.6347
+        ],
+        [
+          "multispectral imaging;immunohistochemistry",
+          0.5955
+        ],
+        [
+          "multiplex immunohistochemistry",
+          0.5846
+        ],
+        [
+          "multicolor immunohistochemistry methods",
+          0.5584
+        ],
+        [
+          "multiplex immunofluorescence",
+          0.5413
+        ],
+        [
+          "multiplex immunofluorescence;multiplex immunofluorescence",
+          0.5122
+        ],
+        [
+          "brightfield multiplex immunohistochemistry",
+          0.5062
+        ],
+        [
+          "accurate automated multiplex immunofluorescence method",
+          0.4819
+        ],
+        [
+          "immunohistochemistry",
+          0.4779
+        ],
+        [
+          "cancer;mass spectrometry imaging",
+          0.4742
+        ]
+      ],
+      "46": [
+        [
+          "tumor infiltrating lymphocytes",
+          0.4249
+        ],
+        [
+          "cancer immunotherapy",
+          0.4054
+        ],
+        [
+          "lung cancer recurrence;backgroundthe tumor microenvironment",
+          0.3813
+        ],
+        [
+          "tumour microenvironment",
+          0.3628
+        ],
+        [
+          "tumor microenvironment",
+          0.3603
+        ],
+        [
+          "immune checkpoint marker levels",
+          0.3375
+        ],
+        [
+          "tumor microenvironment;therapies",
+          0.3296
+        ],
+        [
+          "sporadic colorectal cancer",
+          0.3273
+        ],
+        [
+          "multiple immune checkpoint molecules",
+          0.3263
+        ],
+        [
+          "metastasis",
+          0.326
+        ]
+      ],
+      "47": [
+        [
+          "tissue oxygen saturation imaging technique",
+          0.4871
+        ],
+        [
+          "frequency domain oxygenation imaging system;oxygenation measurements",
+          0.482
+        ],
+        [
+          "oxygen saturation mapping",
+          0.4625
+        ],
+        [
+          "tissue oxygen saturation assessment;tissue oxygenation",
+          0.453
+        ],
+        [
+          "blood oxygenation mapping",
+          0.4427
+        ],
+        [
+          "imaging;oxygen saturation",
+          0.4379
+        ],
+        [
+          "blood oxygenation mapping;blood oxygenation mapping",
+          0.4286
+        ],
+        [
+          "oxygenation imaging",
+          0.4089
+        ],
+        [
+          "blood oxygen saturation",
+          0.3951
+        ],
+        [
+          "wavelength oximetry",
+          0.3918
+        ]
+      ],
+      "48": [
+        [
+          "deep learning based fiber optic imaging",
+          0.5495
+        ],
+        [
+          "deep learning framework",
+          0.4701
+        ],
+        [
+          "deep learning",
+          0.4517
+        ],
+        [
+          "multispectral optoacoustic tomography;objective",
+          0.4452
+        ],
+        [
+          "dau image reconstruction framework",
+          0.4439
+        ],
+        [
+          "time image reconstructions",
+          0.4362
+        ],
+        [
+          "optical diffractive neural network",
+          0.4258
+        ],
+        [
+          "art image reconstruction",
+          0.3947
+        ],
+        [
+          "numerical digital breast",
+          0.3856
+        ],
+        [
+          "numerical digital breast simulations",
+          0.384
+        ]
+      ],
+      "49": [
+        [
+          "skin chromophore mapping",
+          0.6091
+        ],
+        [
+          "skin chromophore maps",
+          0.5562
+        ],
+        [
+          "skin chromophores",
+          0.5422
+        ],
+        [
+          "skin chromophore",
+          0.5123
+        ],
+        [
+          "skin spectrum",
+          0.5075
+        ],
+        [
+          "skin pigment cartography",
+          0.5073
+        ],
+        [
+          "skin chromophore content variations",
+          0.4846
+        ],
+        [
+          "band skin reflectance",
+          0.4832
+        ],
+        [
+          "skin light diffusion",
+          0.4704
+        ],
+        [
+          "skin chromophore concentrations",
+          0.4687
+        ]
+      ],
+      "50": [
+        [
+          "radiation dermatitis",
+          0.5629
+        ],
+        [
+          "acute radiation dermatitis",
+          0.5318
+        ],
+        [
+          "skin dermatitis",
+          0.4613
+        ],
+        [
+          "atopic dermatitis",
+          0.4507
+        ],
+        [
+          "skin radiation damage",
+          0.4446
+        ],
+        [
+          "radiodermatitis",
+          0.4342
+        ],
+        [
+          "skin assessment",
+          0.4271
+        ],
+        [
+          "contact dermatitis",
+          0.4237
+        ],
+        [
+          "skin erythema",
+          0.421
+        ],
+        [
+          "dermatitis assessment",
+          0.4172
+        ]
+      ],
+      "51": [
+        [
+          "fluorescence hyperspectral imaging;blood coagulation mechanisms",
+          0.5409
+        ],
+        [
+          "hyperspectral computed tomographic imaging spectroscopy",
+          0.4527
+        ],
+        [
+          "bayer filter snapshot hyperspectral fundus camera",
+          0.4499
+        ],
+        [
+          "hyperspectral computed tomographic imaging spectroscopy;purpose",
+          0.4486
+        ],
+        [
+          "tomographic spectroscopy",
+          0.4332
+        ],
+        [
+          "imaging spectroscopy",
+          0.43
+        ],
+        [
+          "wavelength photoplethysmographic imaging",
+          0.4027
+        ],
+        [
+          "blood perfusion imaging",
+          0.4005
+        ],
+        [
+          "fiber optic intravitreal illuminator",
+          0.3987
+        ],
+        [
+          "imaging spectrometer",
+          0.3958
+        ]
+      ],
+      "52": [
+        [
+          "multispectral fundus photography",
+          0.5368
+        ],
+        [
+          "color fundus photography",
+          0.4974
+        ],
+        [
+          "ir color fundus camera system",
+          0.4804
+        ],
+        [
+          "color fundus cameras",
+          0.4688
+        ],
+        [
+          "eye fundus",
+          0.4682
+        ],
+        [
+          "polypoidal choroidal vasculopathy",
+          0.4501
+        ],
+        [
+          "retinal pigment epithelium caverns multimodal imaging",
+          0.4496
+        ],
+        [
+          "eye fundus structures",
+          0.4479
+        ],
+        [
+          "chorioretinopathy;background",
+          0.4478
+        ],
+        [
+          "dermoscopic images",
+          0.4377
+        ]
+      ],
+      "53": [
+        [
+          "spectral filter array cameras",
+          0.6345
+        ],
+        [
+          "infrared hyperspectral camera",
+          0.5893
+        ],
+        [
+          "compact hyperspectral camera",
+          0.5621
+        ],
+        [
+          "filter array cameras",
+          0.5465
+        ],
+        [
+          "broadband filter array",
+          0.5267
+        ],
+        [
+          "tunable spectral filter",
+          0.507
+        ],
+        [
+          "reconfigurable filter array",
+          0.5037
+        ],
+        [
+          "hyperspectral imager",
+          0.5017
+        ],
+        [
+          "film tunable filters",
+          0.4754
+        ],
+        [
+          "custom multispectral filter",
+          0.467
+        ]
+      ],
+      "54": [
+        [
+          "hyperspectral image denoising",
+          0.5563
+        ],
+        [
+          "image denoising model",
+          0.5532
+        ],
+        [
+          "image denoising methods",
+          0.5179
+        ],
+        [
+          "learning denoising methods",
+          0.5151
+        ],
+        [
+          "inhomogeneity noise removal",
+          0.4942
+        ],
+        [
+          "image denoising",
+          0.4932
+        ],
+        [
+          "noise image restoration",
+          0.4733
+        ],
+        [
+          "art denoising methods",
+          0.4498
+        ],
+        [
+          "hsi denoising methods",
+          0.4464
+        ],
+        [
+          "image denoising evaluation indices",
+          0.4457
+        ]
+      ],
+      "55": [
+        [
+          "tensor singular value decomposition framework",
+          0.6955
+        ],
+        [
+          "rank tensor decomposition model",
+          0.6818
+        ],
+        [
+          "tensor decomposition",
+          0.6198
+        ],
+        [
+          "tensor decompositions",
+          0.613
+        ],
+        [
+          "rank tensor completion",
+          0.5953
+        ],
+        [
+          "tensor completion model",
+          0.5797
+        ],
+        [
+          "tensor completion framework",
+          0.5788
+        ],
+        [
+          "tensor factorization",
+          0.5728
+        ],
+        [
+          "rank matrix factorization",
+          0.5711
+        ],
+        [
+          "tensor factorization techniques",
+          0.5642
+        ]
+      ],
+      "56": [
+        [
+          "image dimensionality reduction",
+          0.5318
+        ],
+        [
+          "rank manifold embedding",
+          0.5103
+        ],
+        [
+          "dimensionality reduction algorithm",
+          0.4801
+        ],
+        [
+          "image tensor factorization",
+          0.4735
+        ],
+        [
+          "representation tensor factorization",
+          0.4549
+        ],
+        [
+          "dimensionality reduction framework",
+          0.4193
+        ],
+        [
+          "linear embedding",
+          0.4157
+        ],
+        [
+          "dimensionality reduction methods",
+          0.4068
+        ],
+        [
+          "support vector machine",
+          0.3865
+        ],
+        [
+          "tensor representation",
+          0.3847
+        ]
+      ],
+      "57": [
+        [
+          "laparoscopic imaging system;significance",
+          0.4722
+        ],
+        [
+          "imaging system;background hyperspectral imaging",
+          0.4312
+        ],
+        [
+          "hsi imaging system",
+          0.4211
+        ],
+        [
+          "laparoscopic system",
+          0.418
+        ],
+        [
+          "laparoscopic cameras",
+          0.4071
+        ],
+        [
+          "hyperspectral imaging",
+          0.393
+        ],
+        [
+          "laparoscopic setup",
+          0.3559
+        ],
+        [
+          "intraoperative computer",
+          0.3531
+        ],
+        [
+          "minimal access surgery",
+          0.3497
+        ],
+        [
+          "imaging system",
+          0.3425
+        ]
+      ],
+      "58": [
+        [
+          "medical imaging;hyperspectral imaging",
+          0.6067
+        ],
+        [
+          "hyperspectral imaging technology",
+          0.6044
+        ],
+        [
+          "hyperspectral imaging modalities;almost",
+          0.5751
+        ],
+        [
+          "hyperspectral imaging;hyperspectral imaging",
+          0.5706
+        ],
+        [
+          "hyperspectral imaging",
+          0.5645
+        ],
+        [
+          "imaging technologies",
+          0.4831
+        ],
+        [
+          "multispectral imaging",
+          0.4785
+        ],
+        [
+          "imaging technology",
+          0.4758
+        ],
+        [
+          "imaging modalities",
+          0.4568
+        ],
+        [
+          "imaging system",
+          0.4567
+        ]
+      ],
+      "59": [
+        [
+          "hyperspectral imager",
+          0.5467
+        ],
+        [
+          "hyperspectral imaging",
+          0.523
+        ],
+        [
+          "accurate color imaging",
+          0.514
+        ],
+        [
+          "multispectral imaging technology",
+          0.4943
+        ],
+        [
+          "color evaluation;background color imaging",
+          0.4929
+        ],
+        [
+          "custom hyperspectral imaging system",
+          0.485
+        ],
+        [
+          "medical fluorescence imaging",
+          0.4823
+        ],
+        [
+          "colour imaging",
+          0.4801
+        ],
+        [
+          "image analysis",
+          0.4793
+        ],
+        [
+          "digital imaging",
+          0.4732
+        ]
+      ],
+      "60": [
+        [
+          "multispectral optoacoustic tomography",
+          0.5314
+        ],
+        [
+          "volumetric optoacoustic imaging unveils high",
+          0.4692
+        ],
+        [
+          "imaging;optoacoustic imaging",
+          0.4186
+        ],
+        [
+          "cancer imaging",
+          0.3433
+        ],
+        [
+          "tomography",
+          0.3296
+        ],
+        [
+          "ultrasound",
+          0.3272
+        ],
+        [
+          "tumor mapping",
+          0.3119
+        ],
+        [
+          "tumour oxygenation",
+          0.2949
+        ],
+        [
+          "tumor hypoxia",
+          0.293
+        ],
+        [
+          "msot imaging",
+          0.2898
+        ]
+      ],
+      "61": [
+        [
+          "image compression algorithm",
+          0.5952
+        ],
+        [
+          "image dimensionality reduction algorithm",
+          0.5629
+        ],
+        [
+          "hyperspectral image processing;this paper",
+          0.5527
+        ],
+        [
+          "multiresolution vector quantizer",
+          0.5267
+        ],
+        [
+          "improved medical image compression method",
+          0.5257
+        ],
+        [
+          "predictive image coding",
+          0.5197
+        ],
+        [
+          "video compression;efficient image sequence",
+          0.4969
+        ],
+        [
+          "image compression method",
+          0.4874
+        ],
+        [
+          "medical hyperspectral image restoration",
+          0.4849
+        ],
+        [
+          "multiresolution vector quantization",
+          0.4818
+        ]
+      ],
+      "62": [
+        [
+          "multiband infrared photodetection",
+          0.5749
+        ],
+        [
+          "band photodetectors",
+          0.5683
+        ],
+        [
+          "-band photodetector",
+          0.55
+        ],
+        [
+          "broadband photodetectors",
+          0.5496
+        ],
+        [
+          "infrared photodetection",
+          0.5175
+        ],
+        [
+          "pixel photodetector spectrometer",
+          0.4986
+        ],
+        [
+          "multispectral integrated black arsenene phototransistors",
+          0.498
+        ],
+        [
+          "noise resonant photodetector",
+          0.4944
+        ],
+        [
+          "2d insbse3 photodetector devices",
+          0.4881
+        ],
+        [
+          "reconfigurable photodiode",
+          0.4799
+        ]
+      ],
+      "63": [
+        [
+          "cold atmospheric plasma wound",
+          0.4899
+        ],
+        [
+          "gas plasma exposure alters microcirculation",
+          0.4067
+        ],
+        [
+          "gas plasma therapy",
+          0.3915
+        ],
+        [
+          "gas plasma treatment",
+          0.3869
+        ],
+        [
+          "cold physical plasma treatment",
+          0.3442
+        ],
+        [
+          "wound healing;the treatment",
+          0.3377
+        ],
+        [
+          "rat wound healing",
+          0.3357
+        ],
+        [
+          "augmented tissue oxygenation",
+          0.3354
+        ],
+        [
+          "wound inflammation",
+          0.3305
+        ],
+        [
+          "plasma therapy",
+          0.3288
+        ]
+      ],
+      "64": [
+        [
+          "imaging autofluorescence microscopy",
+          0.584
+        ],
+        [
+          "optical imaging modalities",
+          0.5834
+        ],
+        [
+          "fluorescence lifetime imaging microscopy",
+          0.5218
+        ],
+        [
+          "man;optical brain imaging",
+          0.5142
+        ],
+        [
+          "bioluminescence imaging",
+          0.5052
+        ],
+        [
+          "fluorescence reflection imaging",
+          0.4871
+        ],
+        [
+          "imaging systems",
+          0.4803
+        ],
+        [
+          "flow imaging",
+          0.4727
+        ],
+        [
+          "dye imaging",
+          0.4726
+        ],
+        [
+          "imaging approaches",
+          0.472
+        ]
+      ],
+      "65": [
+        [
+          "fluorescence lifetime imaging microscopy",
+          0.6886
+        ],
+        [
+          "fluorescence lifetime imaging microscope",
+          0.672
+        ],
+        [
+          "fluorescence lifetime imaging implementation",
+          0.6702
+        ],
+        [
+          "fluorescent lifetime imaging",
+          0.6701
+        ],
+        [
+          "fluorescence lifetime imaging",
+          0.665
+        ],
+        [
+          "speed fluorescence lifetime imaging microscopy;autofluorescence",
+          0.6499
+        ],
+        [
+          "fluorescence lifetime imaging;fluorescence lifetime imaging",
+          0.6479
+        ],
+        [
+          "applications;fluorescence lifetime imaging microscopy",
+          0.6447
+        ],
+        [
+          "handheld multispectral fluorescence lifetime imaging system",
+          0.6306
+        ],
+        [
+          "fluorescence lifetime imaging(1",
+          0.6198
+        ]
+      ],
+      "66": [
+        [
+          "diabetic foot ulcer healing",
+          0.5558
+        ],
+        [
+          "diabetic foot ulcers",
+          0.5368
+        ],
+        [
+          "foot ulcer healing",
+          0.4956
+        ],
+        [
+          "foot ulcers",
+          0.4556
+        ],
+        [
+          "foot ulceration",
+          0.4417
+        ],
+        [
+          "foot ulcer",
+          0.4411
+        ],
+        [
+          "foot ulcer formation",
+          0.4392
+        ],
+        [
+          "foot ulcer development risk",
+          0.4355
+        ],
+        [
+          "foot ulcer sites",
+          0.4331
+        ],
+        [
+          "leg ulcers",
+          0.41
+        ]
+      ],
+      "67": [
+        [
+          "wound imaging system",
+          0.5768
+        ],
+        [
+          "wound monitoring;devices",
+          0.5463
+        ],
+        [
+          "wound imaging",
+          0.4795
+        ],
+        [
+          "pressure ulcer wound assessment",
+          0.4723
+        ],
+        [
+          "wound measurement",
+          0.4182
+        ],
+        [
+          "time wound assessment",
+          0.414
+        ],
+        [
+          "stage pressure ulcer detection;the use",
+          0.4076
+        ],
+        [
+          "wound images",
+          0.3975
+        ],
+        [
+          "wound measurements",
+          0.3975
+        ],
+        [
+          "diabetic foot ulcers",
+          0.3947
+        ]
+      ],
+      "68": [
+        [
+          "multiresolution image fusion approach",
+          0.6945
+        ],
+        [
+          "image fusion algorithm",
+          0.6771
+        ],
+        [
+          "multiresolution image fusion",
+          0.6727
+        ],
+        [
+          "multiscale transform image fusion methods",
+          0.6726
+        ],
+        [
+          "sensor image fusion techniques",
+          0.6344
+        ],
+        [
+          "image fusion model",
+          0.628
+        ],
+        [
+          "hyperspectral image fusion",
+          0.6203
+        ],
+        [
+          "multispectral fusion network",
+          0.6097
+        ],
+        [
+          "efficient image fusion network exploiting unifying language",
+          0.6096
+        ],
+        [
+          "image fusion approach",
+          0.6088
+        ]
+      ],
+      "69": [
+        [
+          "photon mir imaging",
+          0.4961
+        ],
+        [
+          "infrared",
+          0.4929
+        ],
+        [
+          "advanced spaceborne thermal emission radiometer",
+          0.4905
+        ],
+        [
+          "comb polarimetry",
+          0.4857
+        ],
+        [
+          "photon imaging",
+          0.4657
+        ],
+        [
+          "photon absorption",
+          0.4381
+        ],
+        [
+          "hyperspectral imaging;mid",
+          0.409
+        ],
+        [
+          "- ir hsi upconversion system",
+          0.4045
+        ],
+        [
+          "mu wavelength range",
+          0.4025
+        ],
+        [
+          "quantum imaging technique",
+          0.3963
+        ]
+      ],
+      "70": [
+        [
+          "pixel fiber spectrometer",
+          0.5549
+        ],
+        [
+          "trafast laser pulses",
+          0.5378
+        ],
+        [
+          "fiber lasers",
+          0.5151
+        ],
+        [
+          "sapphire fs lasers",
+          0.5089
+        ],
+        [
+          "fiber laser technology",
+          0.5001
+        ],
+        [
+          "raman fiber laser",
+          0.5
+        ],
+        [
+          "fiber laser",
+          0.4995
+        ],
+        [
+          "noise fiber sc source",
+          0.4932
+        ],
+        [
+          "fiber spectrometer",
+          0.4708
+        ],
+        [
+          "ytterbium fiber laser",
+          0.4695
+        ]
+      ],
+      "71": [
+        [
+          "photoacoustic imaging;photoacoustic imaging",
+          0.6495
+        ],
+        [
+          "photoacoustic imaging system",
+          0.6345
+        ],
+        [
+          "handheld multispectral photoacoustic imaging probe",
+          0.6241
+        ],
+        [
+          "probe;photoacoustic tomography",
+          0.6193
+        ],
+        [
+          "free photoacoustic imaging",
+          0.6082
+        ],
+        [
+          "photoacoustic imaging",
+          0.6071
+        ],
+        [
+          "ultrasound imaging;photoacoustic",
+          0.6023
+        ],
+        [
+          "imaging;photoacoustic imaging",
+          0.5935
+        ],
+        [
+          "photoacoustic tomography",
+          0.591
+        ],
+        [
+          "detector array;photoacoustic imaging",
+          0.5909
+        ]
+      ],
+      "72": [
+        [
+          "pathology image segmentation network",
+          0.5162
+        ],
+        [
+          "robust hyperspectral image classification",
+          0.5012
+        ],
+        [
+          "hyperspectral image segmentation net",
+          0.4902
+        ],
+        [
+          "massive parallel deep learning algorithm",
+          0.486
+        ],
+        [
+          "medical hyperspectral image segmentation",
+          0.452
+        ],
+        [
+          "spectral attribute learning network",
+          0.4368
+        ],
+        [
+          "hyperspectral image segmentation",
+          0.4344
+        ],
+        [
+          "image classification network",
+          0.4342
+        ],
+        [
+          "medical hyperspectral image classification",
+          0.4273
+        ],
+        [
+          "tumors;deep learning",
+          0.4169
+        ]
+      ],
+      "73": [
+        [
+          "intraoperative perfusion assessment",
+          0.5065
+        ],
+        [
+          "intraoral perfusion assessment",
+          0.5004
+        ],
+        [
+          "bowel perfusion quantification",
+          0.4928
+        ],
+        [
+          "colon perfusion assessment",
+          0.4819
+        ],
+        [
+          "intestinal ischemia",
+          0.4723
+        ],
+        [
+          "intraoperative laparoscopic hyperspectral imaging",
+          0.4675
+        ],
+        [
+          "liver perfusion assessment",
+          0.4588
+        ],
+        [
+          "tissue perfusion imaging",
+          0.4402
+        ],
+        [
+          "resolution perfusion imaging;significance",
+          0.4373
+        ],
+        [
+          "hsi perfusion quantification",
+          0.4323
+        ]
+      ],
+      "74": [
+        [
+          "muscle oxygen saturation stratification",
+          0.4027
+        ],
+        [
+          "multispectral optoacoustic tomography",
+          0.3921
+        ],
+        [
+          "muscle oxygen saturation",
+          0.3617
+        ],
+        [
+          "muscle perfusion",
+          0.3254
+        ],
+        [
+          "muscle oxygenation",
+          0.3079
+        ],
+        [
+          "skeletal muscle unveils microcirculation",
+          0.3048
+        ],
+        [
+          "muscle assessment",
+          0.2733
+        ],
+        [
+          "muscle hemoglobin gradients",
+          0.2662
+        ],
+        [
+          "sarcopenia;background sarcopenia",
+          0.2645
+        ],
+        [
+          "muscle hemodynamics",
+          0.2602
+        ]
+      ],
+      "75": [
+        [
+          "fluorescence imaging system",
+          0.6761
+        ],
+        [
+          "scanning hyperspectral imaging microscopy",
+          0.6496
+        ],
+        [
+          "simultaneous multispectral fluorescence imaging;a multicolor fluorescence imaging system",
+          0.6441
+        ],
+        [
+          "hyperspectral fluorescence imaging method;we",
+          0.6396
+        ],
+        [
+          "imaging microscope;hyperspectral imaging",
+          0.6385
+        ],
+        [
+          "fluorescence imaging",
+          0.6168
+        ],
+        [
+          "fluorescence scanner",
+          0.6154
+        ],
+        [
+          "multichannel parallel scan hyperspectral fluorescence imaging method",
+          0.6039
+        ],
+        [
+          "fluorescence microscopy",
+          0.5811
+        ],
+        [
+          "imaging microscopy",
+          0.5739
+        ]
+      ],
+      "76": [
+        [
+          "time optoacoustic tracking",
+          0.5943
+        ],
+        [
+          "multispectral optoacoustic tomography",
+          0.5635
+        ],
+        [
+          "time imaging",
+          0.4841
+        ],
+        [
+          "optoacoustic tomography;despite",
+          0.4383
+        ],
+        [
+          "msot imaging applications",
+          0.4352
+        ],
+        [
+          "msot imaging device",
+          0.4293
+        ],
+        [
+          "mouse heart;cardiac imaging",
+          0.4265
+        ],
+        [
+          "ultrasound imaging",
+          0.4184
+        ],
+        [
+          "msot imaging",
+          0.4071
+        ],
+        [
+          "tomographic",
+          0.4041
+        ]
+      ],
+      "77": [
+        [
+          "multispectral optoacoustic tomography enables",
+          0.5575
+        ],
+        [
+          "multispectral optoacoustic tomography",
+          0.5116
+        ],
+        [
+          "optoacoustic imaging",
+          0.5102
+        ],
+        [
+          "spiral volumetric optoacoustic tomography;purposediabetes",
+          0.4996
+        ],
+        [
+          "acoustic tomography",
+          0.4874
+        ],
+        [
+          "imaging arteries",
+          0.435
+        ],
+        [
+          "mri plaque imaging",
+          0.4314
+        ],
+        [
+          "carotid atherosclerosis",
+          0.4279
+        ],
+        [
+          "resonance angiogram",
+          0.4006
+        ],
+        [
+          "vivo visualization",
+          0.3943
+        ]
+      ],
+      "78": [
+        [
+          "hyperspectral image classification;deep learning",
+          0.6352
+        ],
+        [
+          "deep learning neural network",
+          0.5803
+        ],
+        [
+          "unet deep learning model",
+          0.5682
+        ],
+        [
+          "deep intelligent neural network",
+          0.5328
+        ],
+        [
+          "deep convolutional neural network",
+          0.4981
+        ],
+        [
+          "end fusion deep neural",
+          0.4896
+        ],
+        [
+          "network classifier;image classification",
+          0.481
+        ],
+        [
+          "fuzzy- relevance vector machine segmentation stage",
+          0.4782
+        ],
+        [
+          "fuzzy- relevance vector machine segmentation approach",
+          0.4731
+        ],
+        [
+          "medical hyperspectral image classification",
+          0.4723
+        ]
+      ],
+      "79": [
+        [
+          "convolutional neural networks;single image super- resolution",
+          0.5991
+        ],
+        [
+          "multispectral image compression network",
+          0.5808
+        ],
+        [
+          "feature fusion spectral transformer",
+          0.5695
+        ],
+        [
+          "image fusion compression network",
+          0.5366
+        ],
+        [
+          "end image compression network",
+          0.5015
+        ],
+        [
+          "adaptive image encryption approach",
+          0.4707
+        ],
+        [
+          "microscopic hyperspectral image classification",
+          0.4568
+        ],
+        [
+          "object feature fusion network",
+          0.4534
+        ],
+        [
+          "hyperspectral image processing",
+          0.4404
+        ],
+        [
+          "multiscale feature fusion",
+          0.4374
+        ]
+      ],
+      "80": [
+        [
+          "skin microvascular perfusion indices",
+          0.5478
+        ],
+        [
+          "skin perfusion measurement",
+          0.5306
+        ],
+        [
+          "tomography;limb perfusion monitoring",
+          0.4963
+        ],
+        [
+          "perfusion indices",
+          0.4501
+        ],
+        [
+          "microvascular tissue perfusion",
+          0.4467
+        ],
+        [
+          "time perfusion assessment",
+          0.4428
+        ],
+        [
+          "perfusion parameters tissue hemoglobin index",
+          0.4292
+        ],
+        [
+          "perfusion index",
+          0.4236
+        ],
+        [
+          "perfusion parameters",
+          0.4206
+        ],
+        [
+          "microcirculatory assessment",
+          0.4172
+        ]
+      ],
+      "81": [
+        [
+          "mastectomy skin flap perfusion",
+          0.4906
+        ],
+        [
+          "free flap monitoring",
+          0.489
+        ],
+        [
+          "skin flap perfusion",
+          0.4686
+        ],
+        [
+          "flap perfusion assessment",
+          0.4567
+        ],
+        [
+          "generation flap monitoring",
+          0.43
+        ],
+        [
+          "perioperative hyperspectral imaging",
+          0.4206
+        ],
+        [
+          "tissue perfusion assessment",
+          0.4087
+        ],
+        [
+          "perfusion monitoring",
+          0.3979
+        ],
+        [
+          "infrared perfusion index",
+          0.396
+        ],
+        [
+          "assess mastectomy skin flap",
+          0.3958
+        ]
+      ],
+      "82": [
+        [
+          "mode microscopic hyperspectral imager",
+          0.6704
+        ],
+        [
+          "novel hyperspectral supercontinuum confocal microscope",
+          0.6391
+        ],
+        [
+          "imaging microscope system",
+          0.6233
+        ],
+        [
+          "multimodal microscopic imaging system",
+          0.6192
+        ],
+        [
+          "resolution fluorescence imaging",
+          0.5523
+        ],
+        [
+          "resolution imaging probe",
+          0.5319
+        ],
+        [
+          "fluorescence microscopes",
+          0.5273
+        ],
+        [
+          "hyperspectral imager",
+          0.522
+        ],
+        [
+          "quantitative microscopic imaging technique",
+          0.5206
+        ],
+        [
+          "vivo fluorescence imaging",
+          0.5185
+        ]
+      ],
+      "83": [
+        [
+          "polarization optics",
+          0.4974
+        ],
+        [
+          "mueller matrix polarimetry",
+          0.4657
+        ],
+        [
+          "polarization imaging system",
+          0.3861
+        ],
+        [
+          "mueller polarimeter",
+          0.3848
+        ],
+        [
+          "polarization rotation",
+          0.3802
+        ],
+        [
+          "opticalmaterials",
+          0.3752
+        ],
+        [
+          "mueller polarimeters",
+          0.3748
+        ],
+        [
+          "crystals devices",
+          0.3694
+        ],
+        [
+          "polarization extinction ratios",
+          0.363
+        ],
+        [
+          "liquid crystals;in",
+          0.353
+        ]
+      ],
+      "84": [
+        [
+          "hyperspectral microscope imaging system",
+          0.7359
+        ],
+        [
+          "custom scanning hyperspectral imaging system",
+          0.6604
+        ],
+        [
+          "pushbroom hyperspectral imaging system",
+          0.6596
+        ],
+        [
+          "laboratory hyperspectral imaging system",
+          0.6255
+        ],
+        [
+          "mode hyperspectral imager",
+          0.6094
+        ],
+        [
+          "microscopic hyperspectral imaging",
+          0.6059
+        ],
+        [
+          "molecular hyperspectral imaging",
+          0.5453
+        ],
+        [
+          "microscope imaging",
+          0.5212
+        ],
+        [
+          "hyperspectral imaging",
+          0.4996
+        ],
+        [
+          "imaging system",
+          0.4788
+        ]
+      ],
+      "85": [
+        [
+          "snapshot imaging spectrometer",
+          0.6799
+        ],
+        [
+          "snapshot hyperspectral imager",
+          0.6774
+        ],
+        [
+          "image mapping spectrometer",
+          0.5541
+        ],
+        [
+          "phase imaging microscopy",
+          0.5491
+        ],
+        [
+          "imaging spectrometer",
+          0.5438
+        ],
+        [
+          "field imaging spectrometry",
+          0.5435
+        ],
+        [
+          "guide snapshot spectrometer;a prototype fiber",
+          0.5219
+        ],
+        [
+          "snapshot spectroscopy",
+          0.5186
+        ],
+        [
+          "imaging microscopy",
+          0.5001
+        ],
+        [
+          "imaging microscope",
+          0.4933
+        ]
+      ],
+      "86": [
+        [
+          "snapshot compression spectral imaging system",
+          0.6024
+        ],
+        [
+          "array computational hyperspectral imaging",
+          0.5467
+        ],
+        [
+          "snapshot spectral cameras",
+          0.5424
+        ],
+        [
+          "shot hyperspectral imaging",
+          0.5269
+        ],
+        [
+          "hyperspectral imager",
+          0.4971
+        ],
+        [
+          "compact spectral imaging",
+          0.4766
+        ],
+        [
+          "real\u2043time spectral image enhancement method",
+          0.4751
+        ],
+        [
+          "shot multispectral imaging",
+          0.4626
+        ],
+        [
+          "metasurface;hyperspectral imaging",
+          0.4119
+        ],
+        [
+          "photon avalanche diode detector array",
+          0.3964
+        ]
+      ],
+      "87": [
+        [
+          "multiwavelength infrared image sensors",
+          0.5004
+        ],
+        [
+          "multispectral scattering imaging",
+          0.4966
+        ],
+        [
+          "detector;multispectral imaging",
+          0.4808
+        ],
+        [
+          "imaging metasurfaces",
+          0.4507
+        ],
+        [
+          "silicon photonic platform",
+          0.4438
+        ],
+        [
+          "silicon photonic metasystem",
+          0.4401
+        ],
+        [
+          "metasurface devices",
+          0.4367
+        ],
+        [
+          "metasurface holography",
+          0.4321
+        ],
+        [
+          "detector technologies",
+          0.4206
+        ],
+        [
+          "sensing architectures",
+          0.4111
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "bert_keybert_keyphrase",
+      "top_n_terms": 10,
+      "spacy_pipeline": "en_core_web_sm",
+      "pos_pattern": "<ADJ.*>*<N.*>+",
+      "use_mmr": false,
+      "nr_candidates": 20,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 1701.4521685
+}
