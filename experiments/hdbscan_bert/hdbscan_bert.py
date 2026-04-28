@@ -38,7 +38,7 @@ class ParsedExperimentConfig:
 
 
 class HDBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
-    """Encapsulates the HDBSCAN + Fasttext experiment logic."""
+    """Encapsulates the HDBSCAN + Bert experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
@@ -121,7 +121,7 @@ class HDBSCANExperiment(BaseExperiment[ParsedExperimentConfig]):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run Fasttext + HDBSCAN experiment")
+    parser = argparse.ArgumentParser(description="Run Bert + HDBSCAN experiment")
     parser.add_argument(
         "--config",
         type=str,

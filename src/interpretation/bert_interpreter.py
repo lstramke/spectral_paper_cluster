@@ -17,14 +17,13 @@ from .interpreter import ClusterInterpreter, InterpretationResult
 
 @dataclass(slots=True)
 class BertInterpreterConfig:
-	top_n_terms: int = 10
-	max_features: Optional[int] = None
-	model_name: Optional[str] = None
-	spacy_pipeline: str = "en_core_web_sm"
-	pos_pattern: str = "<ADJ.*>*<N.*>+"
-	use_mmr: bool = False
-	diversity: float = 0.5
-	nr_candidates: Optional[int] = None
+	top_n_terms: int
+	model_name: Optional[str]
+	spacy_pipeline: str
+	pos_pattern: str
+	use_mmr: bool
+	diversity: float
+	nr_candidates: Optional[int]
 
 
 class BertInterpreter(ClusterInterpreter):
@@ -40,11 +39,11 @@ class BertInterpreter(ClusterInterpreter):
 		self.sbert_model: Optional[SentenceTransformer] = None
 
 	def interpret(self, features: FeatureExtractionResult, clustering: ClusteringResult, labels_true: torch.Tensor | None = None,) -> InterpretationResult:
-		docs = features.metadata.get("raw_documents")
+		docs = features.metadata.get("processed_documents")
 		if docs is None:
-			raise ValueError("raw_documents not found in features.metadata; cannot compute keyphrases")
+			raise ValueError("processed_documents not found in features.metadata; cannot compute keyphrases")
 		if not docs:
-			raise ValueError("raw_documents is empty")
+			raise ValueError("processed_documents is empty")
 
 		labels = clustering.labels.detach().cpu()
 

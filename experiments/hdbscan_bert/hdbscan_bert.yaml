@@ -22,9 +22,9 @@ bert:
   show_progress: False
   umap_n_components: 100
   umap_random_state: 42
-
-interpretation:
-  top_n_terms: 10
+  preprocess_with_tfidf: true
+  tfidf_max_df: 0.4
+  tfidf_max_features: 5000
 
 interpretation_bert:
   top_n_terms: 10

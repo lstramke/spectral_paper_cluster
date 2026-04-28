@@ -20,11 +20,6 @@ class InterpretationBertConfigReader(ConfigSectionReader[BertInterpreterConfig])
         if top_n_terms < 1:
             raise ValueError("interpretation_bert.top_n_terms must be >= 1")
 
-        max_features_raw: Optional[Any] = interpretation_cfg.get("max_features")
-        max_features: Optional[int] = None
-        if max_features_raw is not None:
-            max_features = int(max_features_raw)
-
         model_name_raw: Optional[Any] = interpretation_cfg.get("model_name")
         model_name: Optional[str] = None
         if model_name_raw is not None:
@@ -42,7 +37,6 @@ class InterpretationBertConfigReader(ConfigSectionReader[BertInterpreterConfig])
 
         return BertInterpreterConfig(
             top_n_terms=top_n_terms,
-            max_features=max_features,
             model_name=model_name,
             spacy_pipeline=spacy_pipeline,
             pos_pattern=pos_pattern,

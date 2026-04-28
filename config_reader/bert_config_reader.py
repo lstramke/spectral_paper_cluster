@@ -35,6 +35,20 @@ class BertConfigReader(ConfigSectionReader[BERTConfig]):
 
         umap_random_state = int(self.require_value(bert_cfg, "umap_random_state"))
 
+        preprocess_with_tfidf = bool(bert_cfg.get("preprocess_with_tfidf", False))
+        tfidf_max_df_raw = bert_cfg.get("tfidf_max_df", 0.5)
+        try:
+            tfidf_max_df = float(tfidf_max_df_raw)
+        except Exception:
+            raise ValueError("bert.tfidf_max_df must be a float")
+
+        tfidf_max_features_raw = bert_cfg.get("tfidf_max_features", None)
+        tfidf_max_features: int
+        if tfidf_max_features_raw is None:
+            tfidf_max_features = 0
+        else:
+            tfidf_max_features = int(tfidf_max_features_raw)
+
         return BERTConfig(
             model_name=model_name,
             device=device,
@@ -43,4 +57,7 @@ class BertConfigReader(ConfigSectionReader[BERTConfig]):
             show_progress=show_progress,
             umap_n_components=umap_n_components,
             umap_random_state=umap_random_state,
+            preprocess_with_tfidf=preprocess_with_tfidf,
+            tfidf_max_df=tfidf_max_df,
+            tfidf_max_features=tfidf_max_features,
         )

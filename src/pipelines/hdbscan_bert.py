@@ -34,7 +34,6 @@ class HDBSCANBertPipeline(ExperimentPipeline):
         if interpretation_config.model_name is None:
             interpretation_config = BertInterpreterConfig(
                 top_n_terms=interpretation_config.top_n_terms,
-                max_features=interpretation_config.max_features,
                 model_name=bert_config.model_name,
                 spacy_pipeline=interpretation_config.spacy_pipeline,
                 pos_pattern=interpretation_config.pos_pattern,
