@@ -369,6 +369,7 @@ Output: labels y
 - Verwendet in: 
 	- [experiments/spectral_tfidf/spectral_tfidf.py](experiments/spectral_tfidf/spectral_tfidf.py)
 	- [experiments/spectral_fasttext/spectral_fasttext.py](experiments/spectral_fasttext/spectral_fasttext.py)
+	- [experiments/spectral_bert/spectral_bert.py](experiments/spectral_bert/spectral_bert.py)
 
 ### Gaussian Mixture Model (GMM)
 
@@ -554,3 +555,4 @@ Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](
 	- [experiments/kmeans_bert/kmeans_bert.py](experiments/kmeans_bert/kmeans_bert.py)
 	- [experiments/agglomerative_bert/agglomerative_bert.py](experiments/agglomerative_bert/agglomerative_bert.py)
 	- [experiments/affinityPropagation_bert/affinityPropagation_bert.py](experiments/affinityPropagation_bert/affinityPropagation_bert.py)
+	- [experiments/spectral_bert/spectral_bert.py](experiments/spectral_bert/spectral_bert.py)
