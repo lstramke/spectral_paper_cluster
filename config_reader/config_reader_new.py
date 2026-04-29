@@ -14,6 +14,8 @@ from .spectral_config_reader import SpectralConfigReader
 from src.clustering.spectralClustering import SpectralClusteringConfig
 
 from .tfidf_config_reader import TfidfConfigReader
+from .bert_config_reader import BertConfigReader
+from .interpretation_bert_config_reader import InterpretationBertConfigReader
 from .dbscan_config_reader import DbscanConfigReader
 from .interpretation_config_reader import InterpretationConfigReader
 from .kmeans_config_reader import KMeansConfigReader
@@ -28,13 +30,16 @@ from src.clustering.kmeans import KMeansConfig
 from src.clustering.optics import OpticsConfig
 from src.clustering.hdbscan import HDBSCANConfig
 from src.features.tfidf import TfidfConfig
+from src.features.bert import BERTConfig
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
+from src.interpretation.bert_interpreter import BertInterpreterConfig
 
 @dataclass(slots=True)
 class RegisteredReaders:
 	tfidf: Optional[TfidfConfigReader] = None
 	dbscan: Optional[DbscanConfigReader] = None
 	interpretation: Optional[InterpretationConfigReader] = None
+	interpretation_bert: Optional[InterpretationBertConfigReader] = None
 	kmeans: Optional[KMeansConfigReader] = None
 	optics: Optional[OpticsConfigReader] = None
 	hdbscan: Optional[HdbscanConfigReader] = None
@@ -42,6 +47,7 @@ class RegisteredReaders:
 	affinityPropagation: Optional[AffinityPropagationConfigReader] = None
 	spectral: Optional[SpectralConfigReader] = None
 	gaussianMixture: Optional[GaussianMixtureConfigReader] = None
+	bert: Optional[BertConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -55,6 +61,7 @@ class RegisteredReaders:
 class CombinedConfig:
 	experiment_name: Optional[str]
 	input: Optional[InputConfig]
+	bert: Optional[BERTConfig]
 	kmeans: Optional[KMeansConfig]
 	dbscan: Optional[DBSCANConfig]
 	optics: Optional[OpticsConfig]
@@ -64,7 +71,9 @@ class CombinedConfig:
 	spectral: Optional[SpectralClusteringConfig]
 	gaussianMixture: Optional[GMMConfig]
 	tfidf: Optional[TfidfConfig]
+	# Can be either a TfidfInterpreterConfig or BertInterpreterConfig
 	interpretation: Optional[TfidfInterpreterConfig]
+	interpretation_bert: Optional[BertInterpreterConfig]
 	outputs: Optional[OutputsConfig]
 
 class ConfigReader:
@@ -88,6 +97,8 @@ class ConfigReader:
 			gaussianMixture=builder._registered.gaussianMixture,
 			tfidf=builder._registered.tfidf,
 			interpretation=builder._registered.interpretation,
+			interpretation_bert=builder._registered.interpretation_bert,
+			bert=builder._registered.bert,
 			outputs=builder._registered.outputs,
 		)
 
@@ -112,6 +123,7 @@ class ConfigReader:
 		return CombinedConfig(
 			experiment_name=experiment_name,
 			input=results.get("input"),
+			bert=results.get("bert"),
 			kmeans=results.get("kmeans"),
 			dbscan=results.get("dbscan"),
 			optics=results.get("optics"),
@@ -122,6 +134,7 @@ class ConfigReader:
 			gaussianMixture=results.get("gaussianMixture"),
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
+			interpretation_bert=results.get("interpretation_bert"),
 			outputs=results.get("outputs"),
 		)
 
@@ -166,7 +179,14 @@ class ConfigReaderBuilder:
 	def add_gaussianMixture(self) -> ConfigReaderBuilder:
 		self._registered.gaussianMixture = GaussianMixtureConfigReader()
 		return self
-	
+
+	def add_bert(self) -> ConfigReaderBuilder:
+		self._registered.bert = BertConfigReader()
+		return self
+
+	def add_interpretation_bert(self) -> ConfigReaderBuilder:
+		self._registered.interpretation_bert = InterpretationBertConfigReader()
+		return self
 	def add_interpretation(self) -> ConfigReaderBuilder:
 		self._registered.interpretation = InterpretationConfigReader()
 		return self

@@ -25,28 +25,43 @@ def extract_row(exp_folder: str, result_dir: Path, data: Dict) -> Dict[str, obje
     if n_clusters is None:
         n_clusters = ''
 
+    # extractor: assume it's the suffix after the last underscore in the experiment folder
+    extractor = exp_folder.rsplit('_', 1)[-1] if '_' in exp_folder else ''
+
     return {
         'experiment': exp_folder,
         'n_clusters': n_clusters,
         'silhouette': silhouette,
         'davies_bouldin': davies,
         'calinski_harabasz': calinski,
+        'extractor': extractor,
     }
 
 def build_table(dataset: str, rows: List[Dict]) -> str:
     lines: List[str] = []
     lines.append(f'## Dataset: {dataset}\n')
-    lines.append('| Experiment | n_clusters | silhouette | davies_bouldin | calinski_harabasz | summary markdown |')
-    lines.append('| --- | ---: | ---: | ---: | ---: | --- |')
 
     suffix = dataset.split('_')[-1]
-    for r in sorted(rows, key=lambda x: x['experiment']):
-        exp = r['experiment']
-        name_display = f"{exp}"
-        md_path = f"experiments/{exp}/results_{suffix}/{exp}_{suffix}.md"
-        lines.append(f"| {name_display} | {r['n_clusters']} | {r['silhouette']} | {r['davies_bouldin']} | {r['calinski_harabasz']} | [summary]({md_path}) |")
 
-    lines.append('\n')
+    # group rows by extractor (e.g., fasttext, bert, tfidf)
+    by_extractor: Dict[str, List[Dict]] = {}
+    for r in rows:
+        ext = r.get('extractor', '')
+        by_extractor.setdefault(ext, []).append(r)
+
+    for ext in sorted(by_extractor.keys()):
+        lines.append(f'### Extractor: {ext}\n')
+        lines.append('| Experiment | n_clusters | silhouette | davies_bouldin | calinski_harabasz | summary markdown |')
+        lines.append('| --- | ---: | ---: | ---: | ---: | --- |')
+
+        for r in sorted(by_extractor[ext], key=lambda x: x['experiment']):
+            exp = r['experiment']
+            name_display = f"{exp}"
+            md_path = f"experiments/{exp}/results_{suffix}/{exp}_{suffix}.md"
+            lines.append(f"| {name_display} | {r['n_clusters']} | {r['silhouette']} | {r['davies_bouldin']} | {r['calinski_harabasz']} | [summary]({md_path}) |")
+
+        lines.append('\n')
+
     return '\n'.join(lines)
 
 def main() -> None:
