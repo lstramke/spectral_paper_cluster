@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from interpretation.bert_interpreter import BertInterpreterConfig
 
 # Allow imports from the src package tree when running from project root.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -17,7 +16,8 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from pipelines.agglomerative_bert import AgglomerativeBertPipeline
+from src.interpretation.bert_interpreter import BertInterpreterConfig
+from src.pipelines.agglomerative_bert import AgglomerativeBertPipeline
 from src.features.bert import BERTConfig
 from src.pipelines.agglomerative_fasttext import AgglomerativeFasttextPipeline
 from src.pipelines.pipeline import MultiRunPipelineResult, PipelineResult, ExperimentPipeline
