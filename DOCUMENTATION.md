@@ -275,6 +275,7 @@ Output: cluster set C
 - Verwendet in: 
 	- [experiments/agglomerative_tfidf/agglomerative_tfidf.py](experiments/agglomerative_tfidf/agglomerative_tfidf.py)
 	- [experiments/aagglomerative_fasttext/agglomerative_fasttext.py](experiments/agglomerative_fasttext/agglomerative_fasttext.py)
+	- [experiments/agglomerative_bert/agglomerative_bert.py](experiments/agglomerative_bert/agglomerative_bert.py)
 
 ### Affinity Propagation
 
@@ -550,3 +551,4 @@ Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](
 - Verwendet in: 
 	- [experiments/hdbscan_bert/hdbscan_bert.py](experiments/hdbscan_bert/hdbscan_bert.py)
 	- [experiments/kmeans_bert/kmeans_bert.py](experiments/kmeans_bert/kmeans_bert.py)
+	- [experiments/agglomerative_bert/agglomerative_bert.py](experiments/agglomerative_bert/agglomerative_bert.py)
