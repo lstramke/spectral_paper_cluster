@@ -75,6 +75,7 @@ Output: assignments c, centers μ
 - Verwendet in: 
 	- [experiments/kmeans_tfidf/kmeans_tfidf.py](experiments/kmeans_tfidf/kmeans_tfidf.py)
 	- [experiments/kmeans_fasttext/kmeans_fasttext.py](experiments/kmeans_fasttext/kmeans_fasttext.py)
+	- [experiments/kmeans_bert/kmeans_bert.py](experiments/kmeans_bert/kmeans_bert.py)
 
 ### DBSCAN
 
@@ -548,3 +549,4 @@ Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](
 - Konfiguration/Interpreter: [config_reader/bert_config_reader.py](config_reader/bert_config_reader.py), [src/interpretation/bert_interpreter.py](src/interpretation/bert_interpreter.py)
 - Verwendet in: 
 	- [experiments/hdbscan_bert/hdbscan_bert.py](experiments/hdbscan_bert/hdbscan_bert.py)
+	- [experiments/kmeans_bert/kmeans_bert.py](experiments/kmeans_bert/kmeans_bert.py)

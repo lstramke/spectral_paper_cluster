@@ -87,7 +87,7 @@ Die Metriken werden in `best_hdbscan_bert_2086_summary.json` gespeichert. Für d
 
 ### Cluster-Interpretation
 
-Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörterwurden mithilfe des [Bert Interpreters](../../../src/interpretation/bert_interpreter.py) ermittelt; die zugehörigen Gewichte stehen in `best_hdbscan_fasttext_2086_summary.json`.
+Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter wurden mithilfe des [Bert Interpreters](../../../src/interpretation/bert_interpreter.py) ermittelt; die zugehörigen Gewichte stehen in `best_hdbscan_fasttext_2086_summary.json`.
 
 | Cluster | Top-Wörter |
 | --- | --- |
