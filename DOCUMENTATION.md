@@ -524,4 +524,25 @@ Output: Embedding‑Matrix E
 	- [experiments/spectral_fasttext/spectral_fasttext.py](experiments/spectral_fasttext/spectral_fasttext.py)
 
 
+### BERT (NeuML/bioclinical-modernbert-base-embeddings)
 
+BERT (Bidirectional Encoder Representations from Transformers) ist ein auf Transformer‑Encodern basierendes, bidirektional vortrainiertes Sprachmodell, das kontextuelle Repräsentationen auf Token‑Ebene liefert. Im Folgenden werden Architektur, Vortraining, praktische Verwendungshinweise und typische Stärken/Schwächen zusammenfassend erläutert.
+
+- Architektur: Mehrere Encoder‑Layer mit Multi‑Head Self‑Attention, Residual‑Verknüpfungen, Layer‑Norm und positionweisen Feed‑Forward‑Netzen. Self‑Attention ermöglicht, dass jedes Token Informationen aus dem gesamten Kontext aufnimmt.
+- Eingabe und Tokenisierung: Wortstückbasierte Tokenisierung (z. B. WordPiece) kombiniert mit Positions‑ und Token‑Type‑Embeddings. Ein `CLS`‑Token am Sequenzanfang dient häufig als aggregierte Repräsentation für Sequenz‑Level‑Aufgaben.
+- Vortraining: Übliche Objectives sind Masked Language Modeling (MLM) — zufälliges Maskieren von Token und Vorhersage der Originaltoken — und (klassisch) Next Sentence Prediction (NSP).
+- Ausgaben und Aggregation: BERT liefert für jedes Token einen Hidden‑State. Für Dokument‑ oder Absatzrepräsentationen sind verbreitete Aggregationsmethoden `CLS`‑Token, Mittelwert über Token, Max‑Pooling oder TF‑IDF‑gewichtete Mittel; die Wahl beeinflusst die resultierende Semantik.
+
+Praktische Hinweise:
+- Umgang mit langen Texten: Bei Texten, die länger als die maximale Sequenzlänge sind, empfiehlt sich Chunking mit Überlappung oder der Einsatz spezialisierter Long‑Transformer‑Modelle.
+- Normalisierung und Distanzmessung: Für Clustering bietet sich oft L2‑Normalisierung der Embeddings an; Kosinus‑ oder euklidische Distanzen sind übliche Metriken.
+
+Domänenspezifische Modellvariante:
+Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](https://huggingface.co/NeuML/bioclinical-modernbert-base-embeddings)‑Variante ist auf medizinische Fachtexte weitertrainiert und liefert in der Regel robustere semantische Repräsentationen für wissenschaftliche/medizinische Dokumente als ein allgemeiner BERT.
+
+- **Stärken:** Hochwertige, kontextuelle Repräsentationen; starke Transferleistung für semantische Aufgaben; domänenspezifische Modelle verbessern Genauigkeit in spezialisierten Texten.
+- **Schwächen:** Hoher Rechen‑ und Speicherbedarf; Sequenzlängenbegrenzung; längere Trainings‑/Inferenzzeiten; mögliche Lizenz‑ oder Modellgrößenfragen.
+
+- Implementierung: [src/features/bert.py](src/features/bert.py)
+- Konfiguration/Interpreter: [config_reader/bert_config_reader.py](config_reader/bert_config_reader.py), [src/interpretation/bert_interpreter.py](src/interpretation/bert_interpreter.py)
+- Verwendet in: 
