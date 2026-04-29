@@ -331,6 +331,7 @@ Output: exemplar indices E
 - Verwendet in: 
 	- [experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.py](experiments/affinityPropagation_tfidf/affinityPropagation_tfidf.py)
 	- [experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py](experiments/affinityPropagation_fasttext/affinityPropagation_fasttext.py)
+	- [experiments/affinityPropagation_bert/affinityPropagation_bert.py](experiments/affinityPropagation_bert/affinityPropagation_bert.py)
 
 ### Spectral Clustering
 
@@ -552,3 +553,4 @@ Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](
 	- [experiments/hdbscan_bert/hdbscan_bert.py](experiments/hdbscan_bert/hdbscan_bert.py)
 	- [experiments/kmeans_bert/kmeans_bert.py](experiments/kmeans_bert/kmeans_bert.py)
 	- [experiments/agglomerative_bert/agglomerative_bert.py](experiments/agglomerative_bert/agglomerative_bert.py)
+	- [experiments/affinityPropagation_bert/affinityPropagation_bert.py](experiments/affinityPropagation_bert/affinityPropagation_bert.py)
