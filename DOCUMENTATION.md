@@ -228,6 +228,7 @@ Output: labels y
 - Verwendet in: 
 	- [experiments/hdbscan_tfidf/hdbscan_tfidf.py](experiments/hdbscan_tfidf/hdbscan_tfidf.py)
 	- [experiments/hdbscan_fasttext/hdbscan_fasttext.py](experiments/hdbscan_fasttext/hdbscan_fasttext.py)
+	- [experiments/hdbscan_bert/hdbscan_bert.py](experiments/hdbscan_bert/hdbscan_bert.py)
 
 ### Agglomerative Clustering
 
@@ -546,3 +547,4 @@ Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](
 - Implementierung: [src/features/bert.py](src/features/bert.py)
 - Konfiguration/Interpreter: [config_reader/bert_config_reader.py](config_reader/bert_config_reader.py), [src/interpretation/bert_interpreter.py](src/interpretation/bert_interpreter.py)
 - Verwendet in: 
+	- [experiments/hdbscan_bert/hdbscan_bert.py](experiments/hdbscan_bert/hdbscan_bert.py)
