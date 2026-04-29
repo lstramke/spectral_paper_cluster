@@ -1,0 +1,1664 @@
+{
+  "experiment_name": "kmeans_bert_2086",
+  "seed": 9652,
+  "n_documents": 2086,
+  "n_features": 100,
+  "n_clusters_found": 38,
+  "metrics": {
+    "silhouette": 0.6127510666847229,
+    "davies_bouldin": 0.8124082779279529,
+    "calinski_harabasz": 1089.5667690752662
+  },
+  "objective": 532.7874145507812,
+  "cluster_sizes": {
+    "0": 87,
+    "1": 81,
+    "2": 34,
+    "3": 65,
+    "4": 79,
+    "5": 66,
+    "6": 78,
+    "7": 49,
+    "8": 88,
+    "9": 54,
+    "10": 100,
+    "11": 38,
+    "12": 18,
+    "13": 28,
+    "14": 73,
+    "15": 41,
+    "16": 20,
+    "17": 44,
+    "18": 95,
+    "19": 54,
+    "20": 67,
+    "21": 38,
+    "22": 70,
+    "23": 26,
+    "24": 67,
+    "25": 115,
+    "26": 54,
+    "27": 62,
+    "28": 49,
+    "29": 65,
+    "30": 57,
+    "31": 37,
+    "32": 68,
+    "33": 30,
+    "34": 15,
+    "35": 7,
+    "36": 43,
+    "37": 24
+  },
+  "selected_metric": "multi_criteria",
+  "interpretation": {
+    "cluster_terms": {
+      "0": [
+        [
+          "probe;photoacoustic tomography",
+          0.607
+        ],
+        [
+          "photoacoustic tomography opening new paradigms biomedical",
+          0.5232
+        ],
+        [
+          "photoacoustic tomography",
+          0.5146
+        ],
+        [
+          "handheld photoacoustic probe label",
+          0.5046
+        ],
+        [
+          "biomedical photoacoustics",
+          0.4822
+        ],
+        [
+          "photoacoustic",
+          0.4787
+        ],
+        [
+          "wavelength photoacoustic system;osteoporosis",
+          0.4677
+        ],
+        [
+          "photoacoustic whole",
+          0.4591
+        ],
+        [
+          "diode- photoacoustic computed tomography",
+          0.4588
+        ],
+        [
+          "photoacoustic sensing",
+          0.4574
+        ]
+      ],
+      "1": [
+        [
+          "application algorithm sample mr brain scans",
+          0.4845
+        ],
+        [
+          "segmentation technique mri simulations brain",
+          0.4798
+        ],
+        [
+          "brain lesion detection segmentation;magnetic resonance",
+          0.4588
+        ],
+        [
+          "analysis methodology segmentation characterization brain tumors nmr",
+          0.4481
+        ],
+        [
+          "model brain mri segmentation",
+          0.4421
+        ],
+        [
+          "modalities mri",
+          0.4403
+        ],
+        [
+          "model adaptive segmentation brain pixel",
+          0.44
+        ],
+        [
+          "mri modalities",
+          0.4357
+        ],
+        [
+          "application mri practice brain parenchyma classification segmentation",
+          0.4269
+        ],
+        [
+          "brain tissue classification magnetic resonance",
+          0.4259
+        ]
+      ],
+      "2": [
+        [
+          "camera ophthalmology",
+          0.4981
+        ],
+        [
+          "retinal camera;purpose",
+          0.4905
+        ],
+        [
+          "reflectance evaluation eye fundus structures",
+          0.4515
+        ],
+        [
+          "bayer filter snapshot fundus camera human retinal",
+          0.4461
+        ],
+        [
+          "optical identification diabetic retinopathy",
+          0.4433
+        ],
+        [
+          "fiber optic intravitreal illuminator",
+          0.42
+        ],
+        [
+          "information retina",
+          0.4076
+        ],
+        [
+          "color fundus cameras",
+          0.4072
+        ],
+        [
+          "ir color fundus camera system",
+          0.4068
+        ],
+        [
+          "tomographic spectroscopy vascular oxygen gradients rabbit retina vivo;diagnosis",
+          0.4054
+        ]
+      ],
+      "3": [
+        [
+          "tissue segmentation liver head neck surgeries machine learning;aim",
+          0.4873
+        ],
+        [
+          "tumor identification deep -spatial approach",
+          0.4821
+        ],
+        [
+          "time classification human brain tumor",
+          0.4601
+        ],
+        [
+          "tumor identification technologies",
+          0.4575
+        ],
+        [
+          "approach segmentation classification glioblastoma brain tumors",
+          0.4568
+        ],
+        [
+          "learning 3d tumor modeling",
+          0.4545
+        ],
+        [
+          "developments field -vivo brain tumour detection delineation",
+          0.446
+        ],
+        [
+          "spatio- classification brain cancer detection",
+          0.4439
+        ],
+        [
+          "cancer segmentation mri;methods",
+          0.4405
+        ],
+        [
+          "tool -vivo identification delineation brain tumours",
+          0.4347
+        ]
+      ],
+      "4": [
+        [
+          "skin detection",
+          0.4948
+        ],
+        [
+          "time monitoring skin features",
+          0.4858
+        ],
+        [
+          "method skin assessment",
+          0.4852
+        ],
+        [
+          "skin assessment tool abilities",
+          0.485
+        ],
+        [
+          "skin assessment",
+          0.4842
+        ],
+        [
+          "skin imagers",
+          0.479
+        ],
+        [
+          "skin diagnostics;significance",
+          0.4703
+        ],
+        [
+          "analysis skin lesions polarization",
+          0.4677
+        ],
+        [
+          "skin processing",
+          0.4669
+        ],
+        [
+          "tools analysis skin characteristics",
+          0.4662
+        ]
+      ],
+      "5": [
+        [
+          "microscope system biomedical applications",
+          0.5563
+        ],
+        [
+          "custom scanning system biomedical applications",
+          0.5321
+        ],
+        [
+          "technologies system",
+          0.4978
+        ],
+        [
+          "technology applications",
+          0.4969
+        ],
+        [
+          "modalities applications",
+          0.4918
+        ],
+        [
+          "approach instrument msi technology",
+          0.4834
+        ],
+        [
+          "micro- technology",
+          0.4741
+        ],
+        [
+          "analysis technology",
+          0.4739
+        ],
+        [
+          "bioimaging applications",
+          0.4728
+        ],
+        [
+          "application technology",
+          0.472
+        ]
+      ],
+      "6": [
+        [
+          "micro - raman spectroscopy",
+          0.5867
+        ],
+        [
+          "stimulated raman scattering microscopy;significance field",
+          0.5534
+        ],
+        [
+          "cell raman spectroscopy studies",
+          0.5449
+        ],
+        [
+          "light sheet raman micro - spectroscopy",
+          0.54
+        ],
+        [
+          "applications chemical resolution visualization;raman spectroscopy",
+          0.5322
+        ],
+        [
+          "development microscopy spectroscopy techniques",
+          0.5293
+        ],
+        [
+          "cell raman spectroscopy",
+          0.5213
+        ],
+        [
+          "contrast raman spectroscopy",
+          0.5062
+        ],
+        [
+          "scanning techniques raman",
+          0.4945
+        ],
+        [
+          "scale raman micro -",
+          0.4935
+        ]
+      ],
+      "7": [
+        [
+          "systems measurement perfusion oxygenation",
+          0.4651
+        ],
+        [
+          "technique blood oxygenation research",
+          0.4485
+        ],
+        [
+          "msi oximetry vivo applications",
+          0.4253
+        ],
+        [
+          "calibration validation scheme vivo spectroscopic tissue oxygenation",
+          0.4204
+        ],
+        [
+          "technique measurement blood oxygen saturation vivo",
+          0.4201
+        ],
+        [
+          "analysis tissue oxygenation perfusion",
+          0.4099
+        ],
+        [
+          "technique pulse oximetry",
+          0.401
+        ],
+        [
+          "blood oxygenation mapping",
+          0.4006
+        ],
+        [
+          "practice measurement tissue oxygenation",
+          0.3999
+        ],
+        [
+          "application vivo microvascular tumor oxygen transport studies",
+          0.3995
+        ]
+      ],
+      "8": [
+        [
+          "multiscale transform fusion methods terms",
+          0.5019
+        ],
+        [
+          "spatial- information fusion- downscaled region;information fusion",
+          0.4902
+        ],
+        [
+          "tensor data sound approach completing",
+          0.4623
+        ],
+        [
+          "tensor decompositions signal processing",
+          0.4585
+        ],
+        [
+          "learning denoising methods",
+          0.4581
+        ],
+        [
+          "denoising framework",
+          0.4538
+        ],
+        [
+          "replacement denoising framework",
+          0.4496
+        ],
+        [
+          "data fusion method",
+          0.446
+        ],
+        [
+          "tensor- filtering",
+          0.4417
+        ],
+        [
+          "data fusion representation",
+          0.4367
+        ]
+      ],
+      "9": [
+        [
+          "probe cancer biomarkers",
+          0.5201
+        ],
+        [
+          "profiling melanoma;multiplex immunofluorescence",
+          0.5072
+        ],
+        [
+          "colorectal cancer;advances multiplex immunohistochemistry",
+          0.487
+        ],
+        [
+          "multiplexed immunofluorescence analysis quantification intratumoral pd-1",
+          0.4554
+        ],
+        [
+          "multiplex immunohistochemistry",
+          0.4496
+        ],
+        [
+          "biomarker information cancer research",
+          0.4478
+        ],
+        [
+          "assessment immune markers immunohistochemistry",
+          0.4434
+        ],
+        [
+          "cancer biomarkers",
+          0.443
+        ],
+        [
+          "scoring expression immunohistochemistry",
+          0.4337
+        ],
+        [
+          "immunohistology",
+          0.4329
+        ]
+      ],
+      "10": [
+        [
+          "fluorescence microscopy biological",
+          0.5993
+        ],
+        [
+          "spr fluorescence detection techniques",
+          0.5483
+        ],
+        [
+          "fluorescence microscopy",
+          0.5466
+        ],
+        [
+          "fluorescent microscopy",
+          0.5455
+        ],
+        [
+          "fluorescence applications",
+          0.5425
+        ],
+        [
+          "animal microscopy",
+          0.5363
+        ],
+        [
+          "mode microscopic imager sensing biological samples",
+          0.5324
+        ],
+        [
+          "fluorescence microscopes",
+          0.5297
+        ],
+        [
+          "speed fluorescence lifetime implementation vivo applications;fluorescence lifetime microscopy",
+          0.5219
+        ],
+        [
+          "microscopy biomedical",
+          0.5218
+        ]
+      ],
+      "11": [
+        [
+          "array- photodetectors",
+          0.5306
+        ],
+        [
+          "advancement photodetector technology",
+          0.5231
+        ],
+        [
+          "polarimetric photodetector ultrahigh",
+          0.5216
+        ],
+        [
+          "area fabrication itic array- photodetectors",
+          0.5204
+        ],
+        [
+          "photodetector devices",
+          0.5164
+        ],
+        [
+          "2d insbse3 photodetector devices",
+          0.5103
+        ],
+        [
+          "photodetectors",
+          0.5098
+        ],
+        [
+          "multiband infrared photodetection colloidal quantum dot",
+          0.5098
+        ],
+        [
+          "b-- photodetectors",
+          0.5098
+        ],
+        [
+          "infrared photodetection",
+          0.5085
+        ]
+      ],
+      "12": [
+        [
+          "optical technologies molecular cervical neoplasia",
+          0.5686
+        ],
+        [
+          "development multimodal colposcopy characterization cervical intraepithelial neoplasia",
+          0.5161
+        ],
+        [
+          "tissue classification algorithm screening cervical cancer",
+          0.5082
+        ],
+        [
+          "cancer screening techniques",
+          0.5006
+        ],
+        [
+          "detection cervical intraepithelial neoplasia tissue",
+          0.4936
+        ],
+        [
+          "cancer screening",
+          0.4339
+        ],
+        [
+          "vivo cervix dataset non - invasive detection precancerous",
+          0.4308
+        ],
+        [
+          "cancer screening diagnosis",
+          0.4304
+        ],
+        [
+          "cancer screening workflows",
+          0.4171
+        ],
+        [
+          "cancer screening programs",
+          0.4025
+        ]
+      ],
+      "13": [
+        [
+          "assessment burn wounds",
+          0.5353
+        ],
+        [
+          "aid assessment burn wounds",
+          0.5309
+        ],
+        [
+          "light evaluating burn wounds",
+          0.5288
+        ],
+        [
+          "classification burn injuries",
+          0.5196
+        ],
+        [
+          "depth assessment hand burns",
+          0.5191
+        ],
+        [
+          "research burn severity detection method",
+          0.5093
+        ],
+        [
+          "method burn severity assessment",
+          0.5083
+        ],
+        [
+          "estimation burn depth",
+          0.4991
+        ],
+        [
+          "detection burn wounds",
+          0.4957
+        ],
+        [
+          "intelligence feasible detecting nonhealing burn tissue",
+          0.492
+        ]
+      ],
+      "14": [
+        [
+          "applications automated vivo oral cancer diagnosis;deep learning",
+          0.601
+        ],
+        [
+          "oral health diagnostics computer vision",
+          0.4575
+        ],
+        [
+          "oral cancer detection",
+          0.4491
+        ],
+        [
+          "diagnosis cancer domains endoscopic",
+          0.4375
+        ],
+        [
+          "detection oropharyngeal carcinoma",
+          0.4145
+        ],
+        [
+          "esophageal cancer diagnosis computer",
+          0.4107
+        ],
+        [
+          "autofluorescence signature non - invasive diagnostics ocular surface",
+          0.4069
+        ],
+        [
+          "ex vivo tissue classification broadband endoscopy artificial intelligence",
+          0.4013
+        ],
+        [
+          "esophageal cancer detection;objective",
+          0.3991
+        ],
+        [
+          "oral cancer screening",
+          0.3935
+        ]
+      ],
+      "15": [
+        [
+          "range applications crop plant sciences",
+          0.4352
+        ],
+        [
+          "characterisation crops plants",
+          0.4268
+        ],
+        [
+          "application precision agriculture",
+          0.3915
+        ],
+        [
+          "monitoring characterisation crops plants",
+          0.3859
+        ],
+        [
+          "crop plant sciences",
+          0.3853
+        ],
+        [
+          "classification medicinal plant",
+          0.3836
+        ],
+        [
+          "analysis precision agriculture",
+          0.3825
+        ],
+        [
+          "remote sensing monitoring crop disease",
+          0.381
+        ],
+        [
+          "fingerprint recognition mining medicinal materials",
+          0.3769
+        ],
+        [
+          "hyperspectra used recognize black goji berry nitraria",
+          0.3747
+        ]
+      ],
+      "16": [
+        [
+          "rapid identification infectious pathogens",
+          0.5079
+        ],
+        [
+          "detection bacteria",
+          0.4879
+        ],
+        [
+          "setup situ detection bacteria",
+          0.4814
+        ],
+        [
+          "bacteria detection technology",
+          0.4664
+        ],
+        [
+          "rapid detection common infected bacteria fluorescence effect",
+          0.4461
+        ],
+        [
+          "identification microorganisms",
+          0.4308
+        ],
+        [
+          "infections",
+          0.4167
+        ],
+        [
+          "network pathogen identification",
+          0.4138
+        ],
+        [
+          "identification agaric infection",
+          0.4001
+        ],
+        [
+          "antibiotics biofilm",
+          0.3969
+        ]
+      ],
+      "17": [
+        [
+          "photonics- device monitoring diabetic foot ulcers",
+          0.5628
+        ],
+        [
+          "wound monitoring;devices",
+          0.5251
+        ],
+        [
+          "sensor system wound assessment pressure ulcer care",
+          0.4968
+        ],
+        [
+          "perfusion parameters tissue wounds",
+          0.4918
+        ],
+        [
+          "multimodal sensor system pressure ulcer wound assessment care",
+          0.4828
+        ],
+        [
+          "wound system",
+          0.4601
+        ],
+        [
+          "assessment wound tissue ischemia",
+          0.4568
+        ],
+        [
+          "device wound assessment",
+          0.4523
+        ],
+        [
+          "wound measurement",
+          0.4519
+        ],
+        [
+          "wound model",
+          0.4438
+        ]
+      ],
+      "18": [
+        [
+          "theranostic nanomedicines intrinsic fluorescence",
+          0.5471
+        ],
+        [
+          "delivery probe particles",
+          0.5189
+        ],
+        [
+          "nanoplatforms",
+          0.5132
+        ],
+        [
+          "nanoplatform",
+          0.4982
+        ],
+        [
+          "distribution raman nanoparticles",
+          0.4862
+        ],
+        [
+          "luminescent nanoparticles",
+          0.4836
+        ],
+        [
+          "fluorescent platforms",
+          0.4831
+        ],
+        [
+          "set fluorescent nanomaterials",
+          0.4799
+        ],
+        [
+          "sensitivity tracking nanoparticles",
+          0.479
+        ],
+        [
+          "response- nanoplatforms",
+          0.4756
+        ]
+      ],
+      "19": [
+        [
+          "laparoscopic system",
+          0.439
+        ],
+        [
+          "new intraoperative tools",
+          0.4142
+        ],
+        [
+          "laparoscopic hsi system",
+          0.3964
+        ],
+        [
+          "perspective surgery",
+          0.3904
+        ],
+        [
+          "optical- instrument",
+          0.3877
+        ],
+        [
+          "navigation robotic workflows",
+          0.3795
+        ],
+        [
+          "purpose precision surgery",
+          0.3754
+        ],
+        [
+          "applications tumor detection",
+          0.3643
+        ],
+        [
+          "system laparoscopic surgery",
+          0.3631
+        ],
+        [
+          "minimal access surgery",
+          0.3617
+        ]
+      ],
+      "20": [
+        [
+          "classification diagnose tumors;deep learning",
+          0.6065
+        ],
+        [
+          "cancer;deep learning",
+          0.5851
+        ],
+        [
+          "deep learning liver cancer staging cirrhosis differentiation;liver malignancies",
+          0.553
+        ],
+        [
+          "unsupervised spatial attention- generative adversarial network cholangiocarcinoma detection;cholangiocarcinoma",
+          0.5427
+        ],
+        [
+          "% machine learning method attention module",
+          0.4821
+        ],
+        [
+          "learning framework classification region interest pattern complex medical",
+          0.4803
+        ],
+        [
+          "convolutional neural network design brain tumor mri classification",
+          0.4782
+        ],
+        [
+          "diagnostic approach osteosarcoma bone callus deep learning;distinguishing",
+          0.4778
+        ],
+        [
+          "deep learning framework photoacoustic specimen",
+          0.4765
+        ],
+        [
+          "aware network kan robust classification",
+          0.4687
+        ]
+      ],
+      "21": [
+        [
+          "pathology platform",
+          0.4956
+        ],
+        [
+          "solutions analysis software immunohistochemistry",
+          0.4816
+        ],
+        [
+          "photography techniques",
+          0.4807
+        ],
+        [
+          "microscopic technology",
+          0.4745
+        ],
+        [
+          "review presents fundamentals photography techniques",
+          0.4508
+        ],
+        [
+          "microscope setup methodology capturing rgb histopathological databases",
+          0.4478
+        ],
+        [
+          "pathology samples",
+          0.4349
+        ],
+        [
+          "slidepath tissue analysis",
+          0.4338
+        ],
+        [
+          "pathology slide samples",
+          0.4293
+        ],
+        [
+          "multiplex analysis;tissue sections",
+          0.4248
+        ]
+      ],
+      "22": [
+        [
+          "network skin cancer classification;introduction classification skin cancer",
+          0.5716
+        ],
+        [
+          "skin cancer classification machine learning;objective",
+          0.5682
+        ],
+        [
+          "aided detection methods engineering detect skin cancer;simple summary",
+          0.5594
+        ],
+        [
+          "detection discrimination skin tumors",
+          0.534
+        ],
+        [
+          "advancements skin cancer identification",
+          0.5324
+        ],
+        [
+          "method skin cancer detection",
+          0.5298
+        ],
+        [
+          "skin tumor diagnostics spectroscopy",
+          0.5284
+        ],
+        [
+          "pipeline skin cancer detection exploits",
+          0.5261
+        ],
+        [
+          "skin cancer detection",
+          0.5237
+        ],
+        [
+          "skin cancer diagnostics",
+          0.5225
+        ]
+      ],
+      "23": [
+        [
+          "fabrication optical characterization gelatin- phantoms tissue",
+          0.4829
+        ],
+        [
+          "materials photoacoustic",
+          0.4314
+        ],
+        [
+          "vascular phantoms reflectance",
+          0.4246
+        ],
+        [
+          "phantoms photoacoustic",
+          0.4206
+        ],
+        [
+          "tissue phantoms medical",
+          0.4125
+        ],
+        [
+          "effects phantom",
+          0.4029
+        ],
+        [
+          "applications targets",
+          0.3995
+        ],
+        [
+          "phantom approaches",
+          0.3986
+        ],
+        [
+          "hydrogel phantoms performance evaluation",
+          0.3909
+        ],
+        [
+          "usage phantoms",
+          0.3875
+        ]
+      ],
+      "24": [
+        [
+          "endoscopic technologies",
+          0.558
+        ],
+        [
+          "endoscopic prototype",
+          0.5424
+        ],
+        [
+          "endoscopic system",
+          0.5384
+        ],
+        [
+          "modality endoscopic system",
+          0.5234
+        ],
+        [
+          "endoscopic chip",
+          0.5227
+        ],
+        [
+          "progress molecular endoscopy endomicroscopy cancer",
+          0.517
+        ],
+        [
+          "fluorescence spectroscopy micro - endoscopy- point",
+          0.5085
+        ],
+        [
+          "endoscopic instruments",
+          0.5061
+        ],
+        [
+          "endoscopy systems",
+          0.5054
+        ],
+        [
+          "endoscope bio- applications",
+          0.5042
+        ]
+      ],
+      "25": [
+        [
+          "photonics devices",
+          0.5362
+        ],
+        [
+          "detector technologies",
+          0.5209
+        ],
+        [
+          "sensing applications",
+          0.5159
+        ],
+        [
+          "light field manipulation mechanisms technology metasurfaces",
+          0.5124
+        ],
+        [
+          "applications astronomy",
+          0.5084
+        ],
+        [
+          "cameras",
+          0.4977
+        ],
+        [
+          "development photonics nanophotonic devices",
+          0.4925
+        ],
+        [
+          "applications detection",
+          0.4899
+        ],
+        [
+          "sensor- cameras",
+          0.4851
+        ],
+        [
+          "component method array periscopes",
+          0.4724
+        ]
+      ],
+      "26": [
+        [
+          "method breast tumor characterization tissue classification",
+          0.4406
+        ],
+        [
+          "classification model tumor tissue detection lumpectomy resection surface",
+          0.4366
+        ],
+        [
+          "cancer detection margins breast specimens",
+          0.4263
+        ],
+        [
+          "detection cancer tissue",
+          0.419
+        ],
+        [
+          "methods breast tumor characterization ivim",
+          0.417
+        ],
+        [
+          "breast cancer margin assessment technique",
+          0.4147
+        ],
+        [
+          "characterization mammary tumors noninvasive tactile sensors",
+          0.4073
+        ],
+        [
+          "technology applications diagnosis cancer assistance",
+          0.4059
+        ],
+        [
+          "evaluation carcinoma margins",
+          0.3995
+        ],
+        [
+          "identification cancer tissue",
+          0.3963
+        ]
+      ],
+      "27": [
+        [
+          "learning network;segmentation",
+          0.5556
+        ],
+        [
+          "learning architecture classification label",
+          0.5417
+        ],
+        [
+          "learning architectures",
+          0.5366
+        ],
+        [
+          "diffusion model- framework transformer classification",
+          0.534
+        ],
+        [
+          "learning specific general realm feature representations fusion",
+          0.5268
+        ],
+        [
+          "segmentation;semantic segmentation machine learning task",
+          0.5214
+        ],
+        [
+          "ad hoc architecture deep learning methods classification;current",
+          0.518
+        ],
+        [
+          "network- segmentation multimodal medical",
+          0.514
+        ],
+        [
+          "analysis highlights superiority graph convolutional networks imagery tasks",
+          0.5107
+        ],
+        [
+          "machine learning- solutions nasa",
+          0.5106
+        ]
+      ],
+      "28": [
+        [
+          "optical",
+          0.4272
+        ],
+        [
+          "techniques applications animal man;optical brain",
+          0.425
+        ],
+        [
+          "light models approximation",
+          0.4187
+        ],
+        [
+          "application instrumentation",
+          0.417
+        ],
+        [
+          "camera properties",
+          0.41
+        ],
+        [
+          "applications",
+          0.4092
+        ],
+        [
+          "camera application",
+          0.4083
+        ],
+        [
+          "color reproduction properties estimation -situ reflectances",
+          0.4029
+        ],
+        [
+          "skin- applications",
+          0.4021
+        ],
+        [
+          "cameras pursue",
+          0.3925
+        ]
+      ],
+      "29": [
+        [
+          "handheld optoacoustic tomography;background",
+          0.6045
+        ],
+        [
+          "application optoacoustic tomography",
+          0.5715
+        ],
+        [
+          "optoacoustic tomography functional vascular research;microcirculatory impairment",
+          0.5701
+        ],
+        [
+          "optoacoustic tomography enables",
+          0.5658
+        ],
+        [
+          "optoacoustic tomography",
+          0.5276
+        ],
+        [
+          "performance optoacoustic tomography",
+          0.4892
+        ],
+        [
+          "optoacoustic human vasculature",
+          0.4751
+        ],
+        [
+          "technology ultrasound tomography",
+          0.4726
+        ],
+        [
+          "showcase application optoacoustic tomography",
+          0.4651
+        ],
+        [
+          "optoacoustic tomography diagnose vascular malformations;importance",
+          0.4609
+        ]
+      ],
+      "30": [
+        [
+          "evaluation flap perfusion",
+          0.574
+        ],
+        [
+          "evaluate efficacy hsi tissue perfusion assessment",
+          0.5729
+        ],
+        [
+          "assessment tissue perfusion patients",
+          0.5474
+        ],
+        [
+          "impact flap perfusion",
+          0.5388
+        ],
+        [
+          "perfusion assessment",
+          0.531
+        ],
+        [
+          "flap perfusion assessment",
+          0.5295
+        ],
+        [
+          "assessment tissue perfusion",
+          0.5252
+        ],
+        [
+          "skin perfusion measurement",
+          0.5212
+        ],
+        [
+          "method assessment skin flap perfusion",
+          0.5089
+        ],
+        [
+          "microvascular evaluation perfusion",
+          0.4928
+        ]
+      ],
+      "31": [
+        [
+          "fluorescence molecular tomography",
+          0.5963
+        ],
+        [
+          "view fluorescence molecular tomography nir",
+          0.5798
+        ],
+        [
+          "tomography absorption",
+          0.5776
+        ],
+        [
+          "tomography;bioluminescence tomography",
+          0.5672
+        ],
+        [
+          "gene fluorescence optoacoustic tomography",
+          0.5429
+        ],
+        [
+          "coherence tomography",
+          0.5311
+        ],
+        [
+          "bioluminescence tomography compressive sensing;photonics",
+          0.5277
+        ],
+        [
+          "projection tomography platform mouse gut;optical projection tomography",
+          0.5242
+        ],
+        [
+          "tomography platform",
+          0.5129
+        ],
+        [
+          "bioluminescence tomography",
+          0.5091
+        ]
+      ],
+      "32": [
+        [
+          "applications processing",
+          0.4779
+        ],
+        [
+          "representative processing applications",
+          0.4733
+        ],
+        [
+          "methods segmentation",
+          0.4707
+        ],
+        [
+          "reconstruction algorithms",
+          0.46
+        ],
+        [
+          "applications hsi feature extraction",
+          0.4532
+        ],
+        [
+          "superresolution method",
+          0.4428
+        ],
+        [
+          "parallel implementations assessment spatial- classifier applications",
+          0.4397
+        ],
+        [
+          "methods processing",
+          0.4375
+        ],
+        [
+          "detection algorithms",
+          0.4355
+        ],
+        [
+          "classification projection methods muse",
+          0.435
+        ]
+      ],
+      "33": [
+        [
+          "intraoperative perfusion assessment enhanced reality quantitative optical",
+          0.5132
+        ],
+        [
+          "perfusion quantification",
+          0.4837
+        ],
+        [
+          "colon perfusion assessment",
+          0.4747
+        ],
+        [
+          "time assessment tool tissue oxygenation micro - perfusion",
+          0.473
+        ],
+        [
+          "perfusion assessment",
+          0.4679
+        ],
+        [
+          "bowel perfusion quantification",
+          0.4664
+        ],
+        [
+          "liver perfusion assessment",
+          0.4493
+        ],
+        [
+          "infrared perfusion index",
+          0.4486
+        ],
+        [
+          "perfusion biomarkers",
+          0.4439
+        ],
+        [
+          "perfusion measurements",
+          0.435
+        ]
+      ],
+      "34": [
+        [
+          "sensor tongue diagnosis;purpose",
+          0.5605
+        ],
+        [
+          "use technology tongue diagnosis",
+          0.5558
+        ],
+        [
+          "tongue colour classification",
+          0.5534
+        ],
+        [
+          "tongue analysis",
+          0.55
+        ],
+        [
+          "data;tongue diagnosis",
+          0.5499
+        ],
+        [
+          "tongue tongue diagnosis;human tongue",
+          0.5483
+        ],
+        [
+          "information tongue diagnosis",
+          0.5458
+        ],
+        [
+          "tongue coating grading identification deep learning data;tongue diagnosis",
+          0.5425
+        ],
+        [
+          "tongue diagnosis",
+          0.542
+        ],
+        [
+          "tongue tumor detection medical",
+          0.5315
+        ]
+      ],
+      "35": [
+        [
+          "characterization thyroid nodules",
+          0.5548
+        ],
+        [
+          "model thyroid nodule classification",
+          0.5523
+        ],
+        [
+          "thyroid nodules technology",
+          0.5404
+        ],
+        [
+          "thyroid nodules raman microscopy",
+          0.537
+        ],
+        [
+          "thyroid malignancy stratification",
+          0.5294
+        ],
+        [
+          "features thyroid nodules",
+          0.5245
+        ],
+        [
+          "malignant thyroid nodules technology",
+          0.5205
+        ],
+        [
+          "test classification thyroid fna samples",
+          0.4995
+        ],
+        [
+          "thyroid nodules",
+          0.4909
+        ],
+        [
+          "cells thyroid nodules",
+          0.4891
+        ]
+      ],
+      "36": [
+        [
+          "advanced deep learning framework reconstruct cubes computed tomography",
+          0.4877
+        ],
+        [
+          "retinal deep learning",
+          0.4804
+        ],
+        [
+          "application deep learning advanced detection quantification drusen",
+          0.4734
+        ],
+        [
+          "deep learning framework",
+          0.4728
+        ],
+        [
+          "deep learning medical",
+          0.4572
+        ],
+        [
+          "machine learning",
+          0.4532
+        ],
+        [
+          "deep learning",
+          0.4481
+        ],
+        [
+          "trends deep learning medical analysis;deep",
+          0.4457
+        ],
+        [
+          "learning classification",
+          0.4404
+        ],
+        [
+          "learning data analysis visualisation",
+          0.4351
+        ]
+      ],
+      "37": [
+        [
+          "assessment liver ablation",
+          0.4793
+        ],
+        [
+          "detection analysis intestinal ischemia",
+          0.4361
+        ],
+        [
+          "biomarker assessment liver fat",
+          0.402
+        ],
+        [
+          "evaluation liver viability hao model artificial",
+          0.3846
+        ],
+        [
+          "radiofrequency ablation liver",
+          0.3815
+        ],
+        [
+          "high precision monitoring radiofrequency ablation liver",
+          0.3749
+        ],
+        [
+          "techniques detection quantification liver",
+          0.3667
+        ],
+        [
+          "liver injury",
+          0.3594
+        ],
+        [
+          "liver viability scoring deep learning",
+          0.3559
+        ],
+        [
+          "score liver viability",
+          0.352
+        ]
+      ]
+    },
+    "metadata": {
+      "interpreter": "bert_keybert_keyphrase",
+      "top_n_terms": 10,
+      "spacy_pipeline": "en_core_web_sm",
+      "pos_pattern": "<ADJ.*>*<N.*>+",
+      "use_mmr": false,
+      "nr_candidates": 20,
+      "labels_true_provided": false
+    }
+  },
+  "elapsed_seconds": 1657.4911187999999
+}
