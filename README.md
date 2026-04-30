@@ -14,10 +14,10 @@ Projekt zur Durchführung und Auswertung von Clustering-Experimenten auf Textdat
 	- Typischer Inhalt pro Ordner:
 		- `<experiment>.py` (ausführbares Skript)
 		- `<experiment>.yaml` (Konfiguration)
-		- `results_*/` (Run-JSON, Summary, Plot/HTML, spezifische md)
+		- `results_*/` (Run-JSON, Summary, Plot/HTML, spezifisches md)
 - `src/`
 	- `src/clustering/`: Algorithmus-Wrapper (k-means, DBSCAN, OPTICS, HDBSCAN, agglomerative, affinity propagation, spectral).
-	- `src/features/`: Feature-Extraktion (TF-IDF).
+	- `src/features/`: Feature-Extraktion (TF-IDF, fasttext, bert).
 	- `src/evaluation/`: Unsupervised-Metriken und Evaluator.
 	- `src/interpretation/`: Interpretationslogik für Cluster.
 	- `src/experiments/`: Gemeinsame Experiment-Hilfsfunktionen und Basisklassen (z. B. `BaseExperiment`, Plot-/IO-Helper).
@@ -44,8 +44,6 @@ Das kleine Hilfsprogramm listet alle Ordner unter `experiments/` auf und startet
 python cluster_cli.py
 ```
 
-Hinweis: Für die Auswahl per Pfeiltasten werden `questionary` und `colorama` verwendet.
-
 Fallback: Einzelnes Experiment per Skript
 
 Wenn du ein Experiment direkt starten möchtest (z. B. für Debugging oder automatisierte Skripte), kannst du das zugehörige Skript mit der YAML-Konfiguration aufrufen:
@@ -62,10 +60,13 @@ Weitere Beispiele:
 
 Ergebnisse werden im jeweiligen `experiments/<name>/results_*/`-Ordner gespeichert.
 
+**Weitere Hinweise für die Benutzung finden sich in [`USAGE_NOTES.md`](USAGE_NOTES.md)**
 
 ## Hinweise
 
-- Die  Dokumentation befindet sich in [`DOCUMENTATION.md`](DOCUMENTATION.md).
+- Die Methodische Dokumentation befindet sich in [`DOCUMENTATION.md`](DOCUMENTATION.md).
+- Eine Metrikaufstellung aller ähnlichen Experimente befindet sich in [`SUMMARY.md`](SUMMARY.md), diese Datei kann mit dem Skript [`generate_summary_tables.py`](generate_summary_tables.py) erzeugt werden
+- im `docs` Ordner befindet sich eine [Strukturerklärung](./docs/structure.md) (wie füge ich ein neues Experiment ein, wie einen neuen ConfigReader) und ein [Ablaufdiagramms](./docs/experimentflow.svg) eines beipeilhaften Experiments
 - Die folgende Recherche-Query wurde für `web_of_science_search.csv` verwendet:
 
 ```text
