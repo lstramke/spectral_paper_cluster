@@ -1,0 +1,106 @@
+@startuml experimentflow
+
+title Ablauf eines `kmeans_bert`-Experiments
+
+actor User
+participant "cluster_cli.py" as CLIEntry
+participant "BaseExperiment" as BaseExperiment
+participant "KMeansExperiment\n(experiments/kmeans_bert/kmeans_bert.py)" as Experiment
+participant "ConfigReaderBuilder\n(config_reader/config_reader_new.py)" as Builder
+participant "ConfigReader" as Reader
+participant "InputConfigReader" as InputReader
+participant "BertConfigReader" as BertReader
+participant "KMeansConfigReader" as KMeansReader
+participant "InterpretationBertConfigReader" as InterpBertReader
+participant "OutputsConfigReader" as OutputReader
+participant "KmeansBertPipeline\n(src/pipelines/kmeans_bert.py)" as Pipeline
+participant "BertFeatureExtractor\n(src/features/bert.py)" as BertExtractor
+participant "SklearnKMeansAdapter\n(src/clustering/kmeans.py)" as KMeansAdapter
+participant "BasicUnsupervisedEvaluator" as Evaluator
+participant "BertInterpreter" as Interpreter
+participant "PlotHelper" as PlotHelper
+participant "Dateisystem" as FS
+
+autoactivate on
+
+User -> CLIEntry : python cluster_cli.py
+CLIEntry -> Experiment : starte KMeansExperiment
+Experiment -> BaseExperiment : run_many()
+
+group Konfiguration laden
+	BaseExperiment -> Experiment : load_config()
+	Experiment -> Builder : add_input()
+	Builder --> Experiment
+	Experiment -> Builder : add_bert()
+	Builder --> Experiment
+	Experiment -> Builder : add_kmeans()
+	Builder --> Experiment
+	Experiment -> Builder : add_interpretation_bert()
+	Builder --> Experiment
+	Experiment -> Builder : add_outputs()
+	Builder --> Experiment
+	Experiment -> Builder : build()
+	Builder --> Experiment : ConfigReader
+	Experiment -> Reader : read(config_path)
+	Reader -> InputReader : read_section(raw)
+	InputReader --> Reader : InputConfig
+	Reader -> BertReader : read_section(raw)
+	BertReader --> Reader : BERTConfig
+	Reader -> KMeansReader : read_section(raw)
+	KMeansReader --> Reader : KMeansConfig
+	Reader -> InterpBertReader : read_section(raw)
+	InterpBertReader --> Reader : BertInterpreterConfig
+	Reader -> OutputReader : read_section(raw)
+	OutputReader --> Reader : OutputsConfig
+	Reader --> Experiment : ParsedExperimentConfig
+    Experiment --> BaseExperiment
+end
+
+group Dokumente laden
+	BaseExperiment -> BaseExperiment : load_documents(experiment_config)
+    deactivate BaseExperiment
+end
+
+group Pipeline bauen
+	BaseExperiment -> Experiment : build_pipeline()
+	Experiment -> Pipeline : KmeansBertPipeline(kmeans_config, bert_config, interpretation_config)
+	Pipeline -> BertExtractor : init(bert_config)
+    BertExtractor --> Pipeline: BertFeatureExtractor
+	Pipeline -> Evaluator : init()
+    Evaluator --> Pipeline : BasicUnsupervisedEvaluator
+	Pipeline -> Interpreter : init(interpretation_config)
+    Interpreter --> Pipeline : BertClusterInterpreter
+    Pipeline --> Experiment : KmeansBertPipeline
+    Experiment --> BaseExperiment
+end
+
+group Ausführung
+	BaseExperiment -> Pipeline : run_many(documents)
+	Pipeline -> BertExtractor : extract_features(documents)
+	BertExtractor --> Pipeline : FeatureExtractionResult
+	loop pro Optuna-Trial
+		Pipeline -> KMeansAdapter : create trial clusterer with seed und n_clusters
+        KMeansAdapter --> Pipeline : SklearnKMeansAdapter
+		Pipeline -> KMeansAdapter : fit_predict(features.features)
+		KMeansAdapter --> Pipeline : ClusteringResult
+		Pipeline -> Evaluator : evaluate(features, clustering)
+		Evaluator --> Pipeline : EvaluationResult
+	end
+	Pipeline -> Interpreter : interpret(best_features, best_clustering)
+	Interpreter --> Pipeline : Interpretation
+    Pipeline --> BaseExperiment
+end
+
+group Ergebnisse speichern
+	BaseExperiment -> PlotHelper : save_cluster_plot(...)
+    PlotHelper --> BaseExperiment
+	BaseExperiment -> FS : schreibe JSON/Summary/Plot in outputs.output_dir
+	FS --> BaseExperiment
+end
+
+BaseExperiment --> Experiment
+Experiment --> CLIEntry
+
+CLIEntry --> User : zeige Ergebnisse
+
+@enduml
