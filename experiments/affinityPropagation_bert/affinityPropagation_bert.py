@@ -15,6 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from src.types.document import Document
 from src.pipelines.affinityPropagation_bert import AffinityPropagationBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig
@@ -87,7 +88,7 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             interpretation_config=self.experiment_config.interpretation_bert,
         )
     
-    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         """Save experiment results to output files. Accepts either single or multi-run results."""
         assert self.experiment_config is not None
 

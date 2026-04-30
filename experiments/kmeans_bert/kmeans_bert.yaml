@@ -3,7 +3,7 @@ experiment_name: kmeans_bert_2086
 input:
   documents_path: data/raw/dataset_2086.csv
   format: csv
-  text_fields: [title, abstract]
+  text_fields: [title, abstract, doi]
   fuse_mode: join
   separator: ";"
 

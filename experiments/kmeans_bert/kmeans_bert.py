@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-
 # Allow imports from the src package tree when running from project root.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_PATH = PROJECT_ROOT / "src"
@@ -16,6 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from src.types.document import Document
 from src.pipelines.kmeans_bert import KmeansBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig
@@ -87,7 +87,7 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             interpretation_config=self.experiment_config.interpretation_bert,
         )
 
-    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
 
         # result is expected to be MultiRunPipelineResult for KMeans
