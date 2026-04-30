@@ -66,6 +66,7 @@ Ergebnisse werden im jeweiligen `experiments/<name>/results_*/`-Ordner gespeiche
 
 - Die Methodische Dokumentation befindet sich in [`DOCUMENTATION.md`](DOCUMENTATION.md).
 - Eine Metrikaufstellung aller ähnlichen Experimente befindet sich in [`SUMMARY.md`](SUMMARY.md), diese Datei kann mit dem Skript [`generate_summary_tables.py`](generate_summary_tables.py) erzeugt werden
+- im `docs` Ordner befindet sich eine [Strukturerklärung](./docs/structure.md) (wie füge ich ein neues Experiment ein, wie einen neuen ConfigReader) und ein [Ablaufdiagramms](./docs/experimentflow.svg) eines beipeilhaften Experiments
 - Die folgende Recherche-Query wurde für `web_of_science_search.csv` verwendet:
 
 ```text
