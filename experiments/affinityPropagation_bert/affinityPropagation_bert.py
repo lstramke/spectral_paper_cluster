@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.types.document import Document
+from src.doc_types.document import Document
 from src.pipelines.affinityPropagation_bert import AffinityPropagationBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig
@@ -115,6 +115,7 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             "cluster_sizes": pipeline_result.clustering.cluster_sizes,
             "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
             "elapsed_seconds": elapsed_seconds,
+            "document_cluster_mapping": pipeline_result.metadata.get("document_cluster_mapping") if isinstance(pipeline_result.metadata, dict) else None,
         }
 
         with run_path.open("w", encoding="utf-8") as fp:

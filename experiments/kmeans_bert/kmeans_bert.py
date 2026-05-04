@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.types.document import Document
+from src.doc_types.document import Document
 from src.pipelines.kmeans_bert import KmeansBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig
@@ -129,6 +129,7 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             "cluster_sizes": best_result.clustering.cluster_sizes,
             "selected_metric": multi_run.selected_metric if multi_run is not None else None,
             "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
+            "document_cluster_mapping": best_result.metadata.get("document_cluster_mapping") if isinstance(best_result.metadata, dict) else None,
         }
 
         all_runs_summary["elapsed_seconds"] = elapsed_seconds

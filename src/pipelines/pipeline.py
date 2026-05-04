@@ -10,7 +10,7 @@ from clustering.base import ClusteringResult
 from evaluation.evaluator import EvaluationResult
 from features.feature_extractor import FeatureExtractionResult
 from interpretation.interpreter import InterpretationResult
-from types.document import Document
+from doc_types.document import Document
 
 
 @dataclass(slots=True)
