@@ -13,7 +13,7 @@ Die Konfiguration für das hier dargestellte Ergebnis ist:
 experiment_name: kmeans_bert_2086
 
 input:
-  documents_path: data/raw/dataset_2086.csv
+  documents_path: data/raw/dataset_2086_withDOI.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join

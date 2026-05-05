@@ -11,7 +11,7 @@ Die Experimentkonfiguration muss in [affinityPropagation_bert.yaml](../affinityP
 Die Konfiguration für das hier dargestellte Ergebnis ist:
 
 ```yaml
-experiment_name: affinityPropagation_bert_2086
+documents_path: data/raw/dataset_2086_withDOI.csv
 
 input:
   documents_path: data/raw/dataset_2086.csv

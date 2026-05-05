@@ -31,10 +31,10 @@ Tabelle zum Vergleich der Experimente nach Cluster-Anzahl und Metriken. Jede Zei
 
 | Experiment | n_clusters | silhouette | davies_bouldin | calinski_harabasz | summary markdown |
 | --- | ---: | ---: | ---: | ---: | --- |
-| affinityPropagation_bert | 51 | 0.5981753468513489 | 0.8424029267128099 | 1105.4158109244113 | [summary](experiments/affinityPropagation_bert/results_2086/affinityPropagation_bert_2086.md) |
+| affinityPropagation_bert | 51 | 0.5862900018692017 | 0.8713315956243036 | 1062.634043995621 | [summary](experiments/affinityPropagation_bert/results_2086/affinityPropagation_bert_2086.md) |
 | agglomerative_bert | 38 | 0.569751501083374 | 0.7862829404617879 | 988.8531553139046 | [summary](experiments/agglomerative_bert/results_2086/agglomerative_bert_2086.md) |
 | hdbscan_bert | 48 | 0.37247234582901 | 1.1351390551385243 | 244.56703266872208 | [summary](experiments/hdbscan_bert/results_2086/hdbscan_bert_2086.md) |
-| kmeans_bert | 38 | 0.6127510666847229 | 0.8124082779279529 | 1089.5667690752662 | [summary](experiments/kmeans_bert/results_2086/kmeans_bert_2086.md) |
+| kmeans_bert | 36 | 0.6095030307769775 | 0.8074986684088494 | 1043.8520036439206 | [summary](experiments/kmeans_bert/results_2086/kmeans_bert_2086.md) |
 | spectral_bert | 40 | 0.5634604096412659 | 0.7942174123046718 | 1017.0879020479808 | [summary](experiments/spectral_bert/results_2086/spectral_bert_2086.md) |
 
 
