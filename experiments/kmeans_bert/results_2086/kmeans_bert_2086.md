@@ -82,26 +82,28 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_bert_2086_all_runs.json`]
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.6127510666847229 | |
-| Davies–Bouldin Index | 0.8124082779279529 | |
-| Calinski–Harabasz Index | 1089.5667690752662 | |
+| Silhouette Score | 0.6095030307769775 | |
+| Davies–Bouldin Index | 0.8074986684088494 | |
+| Calinski–Harabasz Index | 1043.8520036439206 | |
 
 ### Cluster-Interpretation
 
 Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen Interpretation. Die Wörter wurden mithilfe des [Bert Interpreters](../../../src/interpretation/bert_interpreter.py) ermittelt; die zugehörigen Gewichte stehen in der JSON-Zusammenfassung. Es wurde die Gruppierung des besten Seeds interpretiert.
 
+Die DOI-Cluster-Zuordnung ist in der [JSON-Zusammenfassung](best_kmeans_bert_2086_summary.json) im Abschnitt `document_cluster_mapping` enthalten.
+
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | probe;photoacoustic tomography, photoacoustic tomography opening new paradigms biomedical, photoacoustic tomography, handheld photoacoustic probe label, biomedical photoacoustics, photoacoustic, wavelength photoacoustic system;osteoporosis, photoacoustic whole, diode- photoacoustic computed tomography, photoacoustic sensing |
-| 1 | application algorithm sample mr brain scans, segmentation technique mri simulations brain, brain lesion detection segmentation;magnetic resonance, analysis methodology segmentation characterization brain tumors nmr, model brain mri segmentation, modalities mri, model adaptive segmentation brain pixel, mri modalities, application mri practice brain parenchyma classification segmentation, brain tissue classification magnetic resonance |
-| 2 | camera ophthalmology, retinal camera;purpose, reflectance evaluation eye fundus structures, bayer filter snapshot fundus camera human retinal, optical identification diabetic retinopathy, fiber optic intravitreal illuminator, information retina, color fundus cameras, ir color fundus camera system, tomographic spectroscopy vascular oxygen gradients rabbit retina vivo;diagnosis |
-| 3 | tissue segmentation liver head neck surgeries machine learning;aim, tumor identification deep -spatial approach, time classification human brain tumor, tumor identification technologies, approach segmentation classification glioblastoma brain tumors, learning 3d tumor modeling, developments field -vivo brain tumour detection delineation, spatio- classification brain cancer detection, cancer segmentation mri;methods, tool -vivo identification delineation brain tumours |
-| 4 | skin detection, time monitoring skin features, method skin assessment, skin assessment tool abilities, skin assessment, skin imagers, skin diagnostics;significance, analysis skin lesions polarization, skin processing, tools analysis skin characteristics |
-| 5 | microscope system biomedical applications, custom scanning system biomedical applications, technologies system, technology applications, modalities applications, approach instrument msi technology, micro- technology, analysis technology, bioimaging applications, application technology |
-| 6 | micro - raman spectroscopy, stimulated raman scattering microscopy;significance field, cell raman spectroscopy studies, light sheet raman micro - spectroscopy, applications chemical resolution visualization;raman spectroscopy, development microscopy spectroscopy techniques, cell raman spectroscopy, contrast raman spectroscopy, scanning techniques raman, scale raman micro - |
-| 7 | systems measurement perfusion oxygenation, technique blood oxygenation research, msi oximetry vivo applications, calibration validation scheme vivo spectroscopic tissue oxygenation, technique measurement blood oxygen saturation vivo, analysis tissue oxygenation perfusion, technique pulse oximetry, blood oxygenation mapping, practice measurement tissue oxygenation, application vivo microvascular tumor oxygen transport studies |
-| 8 | multiscale transform fusion methods terms, spatial- information fusion- downscaled region;information fusion, tensor data sound approach completing, tensor decompositions signal processing, learning denoising methods, denoising framework, replacement denoising framework, data fusion method, tensor- filtering, data fusion representation |
-| 9 | probe cancer biomarkers, profiling melanoma;multiplex immunofluorescence, colorectal cancer;advances multiplex immunohistochemistry, multiplexed immunofluorescence analysis quantification intratumoral pd-1, multiplex immunohistochemistry, biomarker information cancer research, assessment immune markers immunohistochemistry, cancer biomarkers, scoring expression immunohistochemistry, immunohistology |
+| 0 | applications automated vivo oral cancer diagnosis;deep learning, oral health diagnostics computer vision, vivo tissue classification broadband endoscopy artificial intelligence, oral cancer detection, diagnostic performance swir transillumination reflectance caries detection, detection oropharyngeal carcinoma, esophageal cancer diagnosis computer, esophageal cancer detection;objective, enamel detection quantification incipient caries, occlusal lesion detection.;.3390 |
+| 1 | fabrication optical characterization gelatin- phantoms tissue, vascular phantoms reflectance, tissue phantoms medical, materials photoacoustic, phantoms photoacoustic, polyacrylamide hydrogel phantoms performance evaluation, effects phantom, tissue phantoms, fabrication phantoms, autofluorescence properties polymers |
+| 2 | reconstruction algorithms, review reconstruction algorithms coded aperture snapshot, superresolution method, representative processing applications, methods segmentation, field processing, -system scene classification data fusion algorithms;battelle scientists, classification projection methods muse, learning- algorithms, tool multimodality registration applications.;.1007 |
+| 3 | detector technologies, advancement photodetector technology, sensing applications, development photonics nanophotonic devices, light field manipulation mechanisms technology metasurfaces, photodetector devices, sensor applications, applications astronomy, cameras, optics |
+| 4 | evaluation flap perfusion, evaluate efficacy hsi tissue perfusion assessment, impact flap perfusion, perfusion quantification, assessment tissue perfusion patients, intraoperative colon perfusion assessment, perfusion assessment, flap perfusion assessment, assessment tissue perfusion, time assessment tool tissue oxygenation micro - perfusion |
+| 5 | skin imagers, skin wavelength, skin spectrum, skin processing, model- skin pigment cartography high, skin spectra, instrument skin applications, skin light sources, point performance mapping vivo skin chromophores, generation instrument skin color measurement |
+| 6 | theranostic nanomedicines intrinsic fluorescence, delivery probe particles, nanoplatforms, distribution raman nanoparticles, luminescent nanoparticles, nanoplatform, set fluorescent nanomaterials, sensitivity tracking nanoparticles, nanoprobes, nanoparticle biodistribution |
+| 7 | immunohistochemistry pathology, immunohistochemistry techniques, immunohistochemistry protocols, multicolor immunohistochemistry methods, multiplex analysis;tissue sections, immunohistochemistry, scoring expression immunohistochemistry, pathology platform, solutions analysis software immunohistochemistry, biomarkers histopathology specimens;aims |
+| 8 | approach segmentation classification glioblastoma brain tumors, developments field -vivo brain tumour detection delineation, machine learning technique;stereotactic neuro, time classification human brain tumor, spatio- classification brain cancer detection, tool -vivo identification delineation brain tumours, deep multi - task learning framework brain tumor, tumor identification technologies, cancer segmentation mri;methods, segmentation methods brain tumor |
+| 9 | assessment burn wounds, light evaluating burn wounds, depth assessment hand burns, aid assessment burn wounds, classification burn injuries, research burn severity detection method, method burn severity assessment, estimation burn depth, research application burn severity detection, h. burn severity |
 
 ## Evaluation
 sehr gute Metriken, semantische Clusterevaluation steht aus

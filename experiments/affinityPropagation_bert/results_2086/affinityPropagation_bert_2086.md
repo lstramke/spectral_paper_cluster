@@ -83,27 +83,29 @@ Die Metriken werden in `best_affinityPropagation_bert_2086_summary.json` gespeic
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score |  0.5981753468513489 | |
-| Davies–Bouldin Index | 0.8424029267128099 |  |
-| Calinski–Harabasz Index | 1105.4158109244113 |  |
+| Silhouette Score |  0.5862900018692017 | |
+| Davies–Bouldin Index | 0.8713315956243036 |  |
+| Calinski–Harabasz Index | 1062.634043995621 |  |
 
 #### Cluster-Interpretation
 
 Die Wörter wurden mithilfe des [Bert Interpreters](../../../src/interpretation/bert_interpreter.py) ermittelt.
 
+Die DOI-Cluster-Zuordnung ist in der [JSON-Zusammenfassung](best_affinityPropagation_bert_2086_summary.json) im Abschnitt `document_cluster_mapping` enthalten.
+
 | Cluster | Top‑Wörter |
 | ---: | --- |
-| 0 | detector technologies, light field manipulation mechanisms technology metasurfaces, sensing applications, development photonics nanophotonic devices, cameras, sensor- cameras, applications detection, optics, detector systems, metasurfaces- devices |
-| 1 | diffusion model- framework transformer classification, learning architecture classification label, learning network;segmentation, learning specific general realm feature representations fusion, segmentation;semantic segmentation machine learning task, analysis highlights superiority graph convolutional networks imagery tasks, optimization transformer network super - resolution, shot classification multiscale spatial- attention, multiscale feature fusion transformer generation, feature perception framework |
-| 2 | esophageal cancer diagnosis computer, ex vivo tissue classification broadband endoscopy artificial intelligence, esophageal cancer detection yolo frameworks, esophageal cancer detection;objective, esophageal cancer detection;band selection, vision early accurate cancer identification;background, endoscopic cancer, endoscopic classification spectrum, endoscopic chip, endoscopic categorization |
-| 3 | microscope system biomedical applications, custom scanning system biomedical applications, camera design, cameras, micromirror device- system, optics research, technologies system, application technology, component method array periscopes, applications |
-| 4 | classification model tumor tissue detection lumpectomy resection surface, cancer detection margins breast specimens, breast cancer margin assessment technique, detection cancer tissue, evaluation carcinoma margins, characterization mammary tumors noninvasive tactile sensors, analysis resection margins breast cancer, identification cancer tissue, classification cancer, margin analysis breast |
-| 5 | technology applications, analysis technology, technologies, technology, micro- technology, paper reviews research status microscopic technology, use technologies, modalities applications, detection prospects, applications biomedicine |
-| 6 | rapid identification infectious pathogens, detection bacteria, setup situ detection bacteria, bacteria detection technology, rapid detection common infected bacteria fluorescence effect, identification microorganisms, infections, network pathogen identification, identification agaric infection, antibiotics biofilm |
-| 7 | classification diagnose tumors;deep learning, cancer;deep learning, deep learning liver cancer staging cirrhosis differentiation;liver malignancies, unsupervised spatial attention- generative adversarial network cholangiocarcinoma detection;cholangiocarcinoma, % machine learning method attention module, learning framework classification region interest pattern complex medical, convolutional neural network design brain tumor mri classification, diagnostic approach osteosarcoma bone callus deep learning;distinguishing, deep learning framework photoacoustic specimen, aware network kan robust classification |
-| 8 | probe;photoacoustic tomography, photoacoustic tomography opening new paradigms biomedical, photoacoustic tomography, biomedical photoacoustics, photoacoustic, photoacoustic whole, diode- photoacoustic computed tomography, handheld photoacoustic probe label, wavelength photoacoustic system;osteoporosis, tomography systems |
-| 9 | assessment liver ablation, detection analysis intestinal ischemia, biomarker assessment liver fat, evaluation liver viability hao model artificial, radiofrequency ablation liver, high precision monitoring radiofrequency ablation liver, techniques detection quantification liver, liver injury, liver viability scoring deep learning, score liver viability |
-| … | weitere 113 Cluster (siehe `best_affinityPropagation_fasttext_2086_summary.json`) |
+| 0 | sensor fusion techniques, multiscale transform fusion methods terms, spatial- information fusion-, feature fusion, compression network multi?scale multi?feature fusion;objective, data fusion method, data fusion representation, region;information fusion, sensor fusion, fusion technique vertex component analysis |
+| 1 | detector technologies, sensing applications, applications astronomy, light field manipulation mechanisms technology metasurfaces, development photonics nanophotonic devices, optics, sensor- cameras, cameras, applications detection, detector systems |
+| 2 | network skin cancer classification;introduction classification skin cancer, skin cancer classification machine learning;objective, aided detection methods engineering detect skin cancer;simple summary, detection discrimination skin tumors, advancements skin cancer identification, skin tumor diagnostics spectroscopy, method skin cancer detection, skin cancer diagnostics, pipeline skin cancer detection exploits, skin cancer detection |
+| 3 | detection analysis intestinal ischemia, prediction ex vivo kidney function, pancreatic islet viability assessment autofluorescence;islets, kidney fibrosis, bowel necrosis cellwise detection algorithm, medicine therapies models kidney disease, ideas research kidney pathology, kidney, bowel necrosis, ischemia |
+| 4 | sensor tongue diagnosis;purpose, use technology tongue diagnosis, tongue tongue diagnosis;human tongue, data;tongue diagnosis, tongue colour classification, information tongue diagnosis, tongue analysis, tongue diagnosis, tongue tumor detection medical, analysis tongue color |
+| 5 | pathology platform, spatial lasso applications unmixing biomedical, microscope setup methodology capturing rgb histopathological databases, techniques histology diagnosis, techniques methodologies, microscopes, technologies, resolution histology samples super - resolution, learning model use autofluorescence, diagnostics research |
+| 6 | optical technologies molecular cervical neoplasia, development multimodal colposcopy characterization cervical intraepithelial neoplasia, tissue classification algorithm screening cervical cancer, detection cervical intraepithelial neoplasia tissue, cancer screening techniques, vivo cervix dataset non - invasive detection precancerous, cancer screening, cancer screening diagnosis, cancer screening workflows, spectroscopy vivo diagnosis |
+| 7 | technology, analysis technology, technologies, use technologies, paper reviews research status microscopic technology, review technology advancements, applications biomedicine, technology technology, detection prospects, technology advancements |
+| 8 | rapid identification infectious pathogens, detection bacteria, setup situ detection bacteria, bacteria detection technology, rapid detection common infected bacteria fluorescence effect, identification microorganisms, infections, network pathogen identification, antibiotics biofilm, identification agaric infection |
+| 9 | learning denoising methods, art denoising methods, adaptive denoising, network denoising, replacement denoising framework, hsi denoising methods, denoising method, denoising methods, restoration denoising techniques, denoising framework |
+| … | weitere 41 Cluster (siehe `best_affinityPropagation_bert_2086_summary.json`) |
 
 ### Evaluation
 Metriken sind sehr gut, semantische Clusterevaluation steht noch aus
