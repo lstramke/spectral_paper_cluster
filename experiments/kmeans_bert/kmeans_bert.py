@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-
 # Allow imports from the src package tree when running from project root.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_PATH = PROJECT_ROOT / "src"
@@ -16,6 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from src.doc_types.document import Document
 from src.pipelines.kmeans_bert import KmeansBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig
@@ -87,7 +87,7 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             interpretation_config=self.experiment_config.interpretation_bert,
         )
 
-    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
 
         # result is expected to be MultiRunPipelineResult for KMeans
@@ -129,6 +129,7 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             "cluster_sizes": best_result.clustering.cluster_sizes,
             "selected_metric": multi_run.selected_metric if multi_run is not None else None,
             "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
+            "document_cluster_mapping": best_result.metadata.get("document_cluster_mapping") if isinstance(best_result.metadata, dict) else None,
         }
 
         all_runs_summary["elapsed_seconds"] = elapsed_seconds

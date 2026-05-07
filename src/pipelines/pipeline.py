@@ -10,6 +10,7 @@ from clustering.base import ClusteringResult
 from evaluation.evaluator import EvaluationResult
 from features.feature_extractor import FeatureExtractionResult
 from interpretation.interpreter import InterpretationResult
+from doc_types.document import Document
 
 
 @dataclass(slots=True)
@@ -51,14 +52,14 @@ class ExperimentPipeline(ABC):
     @abstractmethod
     def run(
         self,
-        documents: list[str]
+        documents: list[Document]
     ) -> PipelineResult:
         """Run full pipeline: feature extraction -> clustering -> evaluation."""
 
     @abstractmethod
     def run_many(
         self,
-        documents: list[str]
+        documents: list[Document]
     ) -> MultiRunPipelineResult:
         """Run the pipeline multiple times for a seed list."""
         raise NotImplementedError("run_many() is not implemented for this pipeline")
