@@ -15,6 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from doc_types.document import Document
 from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from src.clustering.affinityPropagation import AffinityPropagationConfig
@@ -80,7 +81,7 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             interpretation_config=self.experiment_config.interpretation,
         )
     
-    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         """Save experiment results to output files. Accepts either single or multi-run results."""
         assert self.experiment_config is not None
 
