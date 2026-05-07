@@ -25,6 +25,7 @@ from config_reader.config_reader_new import ConfigReaderBuilder
 from src.pipelines.pipeline import PipelineResult
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
+from doc_types.document import Document
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:
@@ -78,7 +79,7 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             interpretation_config=self.experiment_config.interpretation,
         )
 
-    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
 
         # result is expected to be MultiRunPipelineResult for KMeans

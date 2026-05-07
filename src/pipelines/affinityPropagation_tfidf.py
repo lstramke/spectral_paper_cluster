@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import replace
 
 import optuna
-import torch
 
 from clustering.affinityPropagation import AffinityPropagationConfig, SklearnAffinityPropagationAdapter
+from doc_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
@@ -60,14 +60,13 @@ class AffinityPropagationTfidfPipeline(ExperimentPipeline):
 
     def run(
         self,
-        documents: list[str],
-        labels_true: torch.Tensor | None = None,
+        documents: list[Document],
     ) -> PipelineResult:
         return self.run_many(documents).best_run
 
     def run_many(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> MultiRunPipelineResult:
         """Run AffinityPropagation optimization using Optuna over damping and random_state.
         
@@ -86,7 +85,8 @@ class AffinityPropagationTfidfPipeline(ExperimentPipeline):
         else:
             random_state_min = random_state_max = self.affinityPropagation_config.random_state
             
-        features = self.feature_extractor.extract_features(documents)
+        texts = documents_to_texts(documents)
+        features = self.feature_extractor.extract_features(texts)
         run_summaries: list[RunSummary] = []
         pipeline_results: list[PipelineResult] = []
 
