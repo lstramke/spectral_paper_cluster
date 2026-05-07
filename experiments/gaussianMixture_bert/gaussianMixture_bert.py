@@ -15,16 +15,15 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.doc_types.document import Document
-from src.pipelines.kmeans_bert import KmeansBertPipeline
-from src.interpretation.bert_interpreter import BertInterpreterConfig
+from doc_types.document import Document
+from src.pipelines.gaussianMixture_bert import GaussianMixtureBertPipeline
 from src.features.bert import BERTConfig
+from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.clustering.kmeans import KMeansConfig
+from src.clustering.gaussianMixture import GMMConfig
 from config_reader.input_config_reader import InputConfig
 from config_reader.output_config_reader import OutputsConfig
 from config_reader.config_reader_new import ConfigReaderBuilder
-from src.pipelines.pipeline import PipelineResult
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
 
@@ -32,24 +31,26 @@ from src.experiments.base import BaseExperiment
 class ParsedExperimentConfig:
     experiment_name: str
     input: InputConfig
-    kmeans: KMeansConfig
     bert: BERTConfig
+    gaussianMixture: GMMConfig
     interpretation_bert: BertInterpreterConfig
     outputs: OutputsConfig
 
 
-class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
-    """Encapsulates the KMeans + Bert multi-run experiment logic."""
+class GaussianMixtureExperiment(BaseExperiment[ParsedExperimentConfig]):
+    """Encapsulates the GaussianMixture + bert experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
         self.experiment_config: ParsedExperimentConfig | None = None
         
+
     def load_config(self) -> None:
-        config_reader = (ConfigReaderBuilder()
+        config_reader = (
+            ConfigReaderBuilder()
             .add_input()
             .add_bert()
-            .add_kmeans()
+            .add_gaussianMixture()
             .add_interpretation_bert()
             .add_outputs()
             .build()
@@ -60,8 +61,8 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
             raise ValueError("Missing required config: experiment_name")
         if parsed.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.kmeans is None:
-            raise ValueError("Missing required config: kmeans")
+        if parsed.gaussianMixture is None:
+            raise ValueError("Missing required config: gaussianMixture")
         if parsed.bert is None:
             raise ValueError("Missing required config: bert")
         if parsed.interpretation_bert is None:
@@ -72,76 +73,57 @@ class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
         self.experiment_config = ParsedExperimentConfig(
             experiment_name=parsed.experiment_name,
             input=parsed.input,
-            kmeans=parsed.kmeans,
             bert=parsed.bert,
+            gaussianMixture=parsed.gaussianMixture,
             interpretation_bert=parsed.interpretation_bert,
             outputs=parsed.outputs,
         )
 
     def build_pipeline(self) -> ExperimentPipeline:
         assert self.experiment_config is not None
-        return KmeansBertPipeline(
-            kmeans_config=self.experiment_config.kmeans,
+        return GaussianMixtureBertPipeline(
             bert_config=self.experiment_config.bert,
+            gaussianMixture_config=self.experiment_config.gaussianMixture,
             interpretation_config=self.experiment_config.interpretation_bert,
         )
 
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
 
-        # result is expected to be MultiRunPipelineResult for KMeans
         if isinstance(result, MultiRunPipelineResult):
-            multi_run = result
-            best_result = multi_run.best_run
+            pipeline_result = result.best_run
         else:
-            # fallback: single run
-            multi_run = None
-            best_result = result
+            pipeline_result = result
 
-        assert best_result is not None
-
-        PlotHelper.save_cluster_plot(self.experiment_config, best_result)
+        PlotHelper.save_cluster_plot(self.experiment_config, pipeline_result)
 
         output_dir = Path(self.experiment_config.outputs.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        all_runs_path = output_dir / f"{self.experiment_config.experiment_name}_all_runs.json"
-        best_summary_path = output_dir / self.experiment_config.outputs.summary_name
+        run_path = output_dir / f"{self.experiment_config.experiment_name}_run.json"
+        summary_path = output_dir / self.experiment_config.outputs.summary_name
 
-        all_runs_summary: dict[str, Any] = {
+        run_summary: dict[str, Any] = {
             "experiment_name": self.experiment_config.experiment_name,
-            "seed_range": list(self.experiment_config.kmeans.seed_range) if self.experiment_config.kmeans.seed_range is not None else [self.experiment_config.kmeans.seed],
-            "n_seeds": len(multi_run.runs) if multi_run is not None else 1,
-            "selected_metric": multi_run.selected_metric if multi_run is not None else None,
-            "best_seed": multi_run.best_seed if multi_run is not None else None,
-            "runs": [asdict(run) for run in multi_run.runs] if multi_run is not None else [],
-        }
-
-        best_summary: dict[str, Any] = {
-            "experiment_name": self.experiment_config.experiment_name,
-            "seed": multi_run.best_seed if multi_run is not None else None,
             "n_documents": len(documents),
-            "n_features": int(best_result.features.features.size(1)),
-            "n_clusters_found": best_result.clustering.n_clusters_found,
-            "metrics": best_result.evaluation.metrics,
-            "objective": best_result.clustering.objective,
-            "cluster_sizes": best_result.clustering.cluster_sizes,
-            "selected_metric": multi_run.selected_metric if multi_run is not None else None,
-            "interpretation": asdict(best_result.interpretation) if best_result.interpretation is not None else None,
-            "document_cluster_mapping": best_result.metadata.get("document_cluster_mapping") if isinstance(best_result.metadata, dict) else None,
+            "n_features": int(pipeline_result.features.features.size(1)),
+            "n_clusters_found": pipeline_result.clustering.n_clusters_found,
+            "metrics": pipeline_result.evaluation.metrics,
+            "objective": pipeline_result.clustering.objective,
+            "cluster_sizes": pipeline_result.clustering.cluster_sizes,
+            "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
+            "elapsed_seconds": elapsed_seconds,
+            "document_cluster_mapping": pipeline_result.metadata.get("document_cluster_mapping") if isinstance(pipeline_result.metadata, dict) else None,
         }
 
-        all_runs_summary["elapsed_seconds"] = elapsed_seconds
-        best_summary["elapsed_seconds"] = elapsed_seconds
-
-        with all_runs_path.open("w", encoding="utf-8") as fp:
-            json.dump(all_runs_summary, fp, indent=2)
-        with best_summary_path.open("w", encoding="utf-8") as fp:
-            json.dump(best_summary, fp, indent=2)
+        with run_path.open("w", encoding="utf-8") as fp:
+            json.dump(run_summary, fp, indent=2)
+        with summary_path.open("w", encoding="utf-8") as fp:
+            json.dump(run_summary, fp, indent=2)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run Bert + KMeans experiment")
+    parser = argparse.ArgumentParser(description="Run Fastext + GaussianMixture experiment")
     parser.add_argument(
         "--config",
         type=str,
@@ -152,7 +134,7 @@ def main() -> None:
 
     config_path = (PROJECT_ROOT / args.config).resolve()
 
-    experiment = KMeansExperiment(config_path)
+    experiment = GaussianMixtureExperiment(config_path)
     experiment.run_many()
 
 if __name__ == "__main__":
