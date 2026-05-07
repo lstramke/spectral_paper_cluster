@@ -6,6 +6,7 @@ import optuna
 import torch
 
 from clustering.gaussianMixture import GMMConfig, SklearnGMMAdapter
+from doc_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
@@ -65,14 +66,14 @@ class GaussianMixtureTfidfPipeline(ExperimentPipeline):
 
     def run(
         self,
-        documents: list[str],
+        documents: list[Document],
         labels_true: torch.Tensor | None = None,
     ) -> PipelineResult:
         return self.run_many(documents, labels_true=labels_true).best_run
     
     def run_many(
         self,
-        documents: list[str],
+        documents: list[Document],
         labels_true: torch.Tensor | None = None,
     ) -> MultiRunPipelineResult:
         """Run GaussianMixture optimization using Optuna over n_components and random_state.
@@ -92,7 +93,8 @@ class GaussianMixtureTfidfPipeline(ExperimentPipeline):
         else:
             rs_min = rs_max = self.gaussianMixture_config.random_state
             
-        features = self.feature_extractor.extract_features(documents)
+        texts = documents_to_texts(documents)
+        features = self.feature_extractor.extract_features(texts)
         run_summaries: list[RunSummary] = []
         pipeline_results: list[PipelineResult] = []
 

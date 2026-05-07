@@ -5,6 +5,7 @@ from dataclasses import replace
 import optuna
 
 from clustering.agglomerativeClustering import AgglomerativeConfig, SklearnAgglomerativeAdapter
+from doc_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.bert import BERTConfig, BertFeatureExtractor
 from interpretation.bert_interpreter import BertInterpreter, BertInterpreterConfig
@@ -70,13 +71,13 @@ class AgglomerativeBertPipeline(ExperimentPipeline):
 
     def run(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> PipelineResult:
         return self.run_many(documents).best_run
 
     def run_many(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> MultiRunPipelineResult:
         """Run Agglomerative optimization using Optuna over distance_threshold.
         
@@ -94,7 +95,8 @@ class AgglomerativeBertPipeline(ExperimentPipeline):
             else:
                 raise ValueError("agglomerative: either distance_threshold or distance_threshold_range must be set")
             
-        features = self.feature_extractor.extract_features(documents)
+        texts = documents_to_texts(documents)
+        features = self.feature_extractor.extract_features(texts)
         run_summaries: list[RunSummary] = []
         pipeline_results: list[PipelineResult] = []
 
