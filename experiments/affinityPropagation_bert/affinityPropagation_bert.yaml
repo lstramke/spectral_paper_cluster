@@ -1,9 +1,9 @@
 experiment_name: affinityPropagation_bert_2086
 
 input:
-  documents_path: data/raw/dataset_2086.csv
+  documents_path: data/raw/dataset_2086_withDOI.csv
   format: csv
-  text_fields: [title, abstract]
+  text_fields: [title, abstract, doi]
   fuse_mode: join
   separator: ";"
 

@@ -10,6 +10,7 @@ from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.bert import BERTConfig, BertFeatureExtractor
 from features.fasttext import FasttextFeatureExtractor
 from interpretation.bert_interpreter import BertInterpreter, BertInterpreterConfig
+from doc_types.document import Document, documents_to_texts
 
 from .pipeline import ExperimentPipeline, MultiRunPipelineResult, PipelineResult, RunSummary
 
@@ -61,13 +62,13 @@ class AffinityPropagationBertPipeline(ExperimentPipeline):
 
     def run(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> PipelineResult:
         return self.run_many(documents).best_run
 
     def run_many(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> MultiRunPipelineResult:
         """Run AffinityPropagation optimization using Optuna over damping and random_state.
         
@@ -85,8 +86,9 @@ class AffinityPropagationBertPipeline(ExperimentPipeline):
             random_state_min, random_state_max = self.affinityPropagation_config.random_state_range
         else:
             random_state_min = random_state_max = self.affinityPropagation_config.random_state
-            
-        features = self.feature_extractor.extract_features(documents)
+        
+        texts = documents_to_texts(documents)
+        features = self.feature_extractor.extract_features(texts)
         run_summaries: list[RunSummary] = []
         pipeline_results: list[PipelineResult] = []
 
@@ -115,6 +117,19 @@ class AffinityPropagationBertPipeline(ExperimentPipeline):
         if best_idx is not None:
             best_result = pipeline_results[best_idx]
             best_result.interpretation = self.interpreter.interpret(features, best_result.clustering)
+
+            document_cluster_mapping = [
+                {
+                    "doi": document.doi,
+                    "text": document.text,
+                    "cluster": int(label),
+                }
+                for document, label in zip(
+                    documents,
+                    best_result.clustering.labels.detach().cpu().tolist(),
+                )
+            ]
+            best_result.metadata["document_cluster_mapping"] = document_cluster_mapping
         else:
             raise RuntimeError("No trials were executed")
 

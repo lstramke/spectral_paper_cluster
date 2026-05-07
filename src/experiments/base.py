@@ -8,6 +8,7 @@ from time import perf_counter
 
 from config_reader.input_config_reader import InputConfig
 from src.pipelines.pipeline import ExperimentPipeline, PipelineResult, MultiRunPipelineResult
+from doc_types.document import Document
 
 class HasInput(Protocol):
     input: InputConfig
@@ -80,7 +81,7 @@ class BaseExperiment(ABC, Generic[T]):
     @abstractmethod
     def save_results(
         self,
-        documents: list[str],
+        documents: list[Document],
         result: PipelineResult | MultiRunPipelineResult,
         elapsed_seconds: float,
     ) -> None:
@@ -90,13 +91,18 @@ class BaseExperiment(ABC, Generic[T]):
         concrete experiments don't need to read instance attributes.
         """
 
-    def load_documents(self, parsed: T) -> List[str]:
+    def load_documents(self, parsed: T) -> List[Document]:
         inp = parsed.input
+
         if inp.format == "line":
             with inp.documents_path.open("r", encoding="utf-8") as f:
-                return [line.strip() for line in f if line.strip()]
+                return [
+                    Document(text=line.strip(), doi="")
+                    for line in f
+                    if line.strip()
+                ]
 
-        docs: List[str] = []
+        docs: List[Document] = []
         with inp.documents_path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f, delimiter=inp.separator)
             for row in reader:
@@ -104,11 +110,14 @@ class BaseExperiment(ABC, Generic[T]):
                 non_empty = [v for v in values if v]
                 if not non_empty:
                     continue
+
                 if getattr(inp, "fuse_mode", None) == "join":
-                    doc = inp.separator.join(non_empty)
+                    text = inp.separator.join(non_empty)
                 else:
-                    doc = non_empty[0]
-                docs.append(doc)
+                    text = non_empty[0]
+
+                doi = str(row.get("doi", "")).strip()
+                docs.append(Document(text=text, doi=doi))
 
         if not docs:
             raise ValueError("No documents found in input file")
