@@ -5,6 +5,7 @@ from dataclasses import replace
 import optuna
 
 from clustering.hdbscan import HDBSCANConfig, HDBSCANAdapter
+from doc_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.fasttext import FasttextFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig
@@ -62,13 +63,13 @@ class HDBSCANFasttextPipeline(ExperimentPipeline):
 
     def run(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> PipelineResult:
         return self.run_many(documents).best_run
 
     def run_many(
         self,
-        documents: list[str],
+        documents: list[Document],
     ) -> MultiRunPipelineResult:
         """Run HDBSCAN optimization using Optuna over min_cluster_size and min_samples.
         
@@ -88,7 +89,8 @@ class HDBSCANFasttextPipeline(ExperimentPipeline):
         else:
             ms_min = ms_max = self.hdbscan_config.min_samples if self.hdbscan_config.min_samples is not None else 1
             
-        features = self.feature_extractor.extract_features(documents)
+        texts = documents_to_texts(documents)
+        features = self.feature_extractor.extract_features(texts)
         run_summaries: list[RunSummary] = []
         pipeline_results: list[PipelineResult] = []
 

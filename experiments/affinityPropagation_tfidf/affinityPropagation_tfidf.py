@@ -25,6 +25,7 @@ from config_reader.config_reader_new import ConfigReaderBuilder
 from src.pipelines.affinityPropagation_tfidf import AffinityPropagationTfidfPipeline
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
+from doc_types.document import Document
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:
@@ -87,7 +88,7 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             interpretation_config=self.experiment_config.interpretation,
         )
     
-    def save_results(self, documents: list[str], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
+    def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         """Save experiment results to output files. Accepts either single or multi-run results."""
         assert self.experiment_config is not None
 
