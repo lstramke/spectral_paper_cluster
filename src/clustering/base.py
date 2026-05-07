@@ -12,6 +12,7 @@ class ClusteringResult:
 
     labels: torch.Tensor
     n_clusters_found: int
+    probabilities: torch.Tensor | None = None
     centroids: torch.Tensor | None = None
     objective: float | None = None
     cluster_sizes: dict[int, int] = field(default_factory=dict[int, int])

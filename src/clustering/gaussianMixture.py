@@ -119,6 +119,19 @@ class SklearnGMMAdapter(ClusteringAlgorithm):
         except Exception:
             pass
 
+        # per-sample per-cluster probabilities (responsibilities) if available
+        probabilities_t = None
+        if hasattr(self._sk, "predict_proba"):
+            try:
+                probs = self._sk.predict_proba(arr)
+                probabilities_t = torch.from_numpy(np.asarray(probs, dtype=np.float32))
+                try:
+                    probabilities_t = probabilities_t.to(x.device)
+                except Exception:
+                    pass
+            except Exception:
+                probabilities_t = None
+
         return ClusteringResult(
             labels=labels_t,
             n_clusters_found=n_clusters,
@@ -126,4 +139,5 @@ class SklearnGMMAdapter(ClusteringAlgorithm):
             objective=objective,
             cluster_sizes=cluster_sizes,
             metadata=metadata,
+            probabilities=probabilities_t,
         )

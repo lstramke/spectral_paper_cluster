@@ -418,7 +418,7 @@ Output: labels (hard or soft), component params (π, μ, Σ)
 - Verwendet in: 
 	- [experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py](experiments/gaussianMixture_tfidf/gaussianMixture_tfidf.py)
 	- [experiments/gaussianMixture_fasttext/dbscan_fasttext.py](experiments/gaussianMixture_fasttext/gaussianMixture_fasttext.py)
-
+    - [experiments/gaussianMixture_bert/gaussianMixture_bert.py](experiments/gaussianMixture_bert/gaussianMixture_bert.py)
 
 ## Feature‑Extractor
 
@@ -556,3 +556,4 @@ Die in diesem Projekt verwendete [NeuML/bioclinical-modernbert-base-embeddings](
 	- [experiments/agglomerative_bert/agglomerative_bert.py](experiments/agglomerative_bert/agglomerative_bert.py)
 	- [experiments/affinityPropagation_bert/affinityPropagation_bert.py](experiments/affinityPropagation_bert/affinityPropagation_bert.py)
 	- [experiments/spectral_bert/spectral_bert.py](experiments/spectral_bert/spectral_bert.py)
+	- [experiments/gaussianMixture_bert/gaussianMixture_bert.py](experiments/gaussianMixture_bert/gaussianMixture_bert.py)

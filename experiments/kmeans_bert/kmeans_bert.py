@@ -19,7 +19,6 @@ from src.doc_types.document import Document
 from src.pipelines.kmeans_bert import KmeansBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig
-from src.pipelines.kmeans_fasttext import KMeansFasttextPipeline
 from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
 from src.clustering.kmeans import KMeansConfig
 from config_reader.input_config_reader import InputConfig

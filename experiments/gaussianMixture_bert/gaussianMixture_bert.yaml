@@ -1,0 +1,50 @@
+experiment_name: gaussianMixture_bert_2086
+
+input:
+  documents_path: data/raw/dataset_2086_withDOI.csv
+  format: csv
+  text_fields: [title, abstract, doi]
+  fuse_mode: join
+  separator: ";"
+
+gaussianMixture:
+  n_components_range: [5, 20]
+  tol: 0.001
+  reg_covar: 1e-6
+  max_iter: 200
+  n_init: 10
+  init_params: kmeans
+  random_state_range: [1, 10000]
+  covariance_type: full
+  n_trials: 400
+
+bert:
+  model_name: NeuML/bioclinical-modernbert-base-embeddings
+  device: cpu
+  batch_size: 8
+  normalize: True
+  show_progress: False
+  umap_n_components: 100
+  umap_random_state: 42
+  preprocess_with_tfidf: true
+  tfidf_max_df: 0.4
+  tfidf_max_features: 5000
+  spacy_pipeline: en_core_web_sm
+
+interpretation_bert:
+  top_n_terms: 10
+  model_name: NeuML/bioclinical-modernbert-base-embeddings
+  spacy_pipeline: en_core_web_sm
+  pos_pattern: "<ADJ.*>*<N.*>+"
+  use_mmr: False
+  diversity: 0.5
+  nr_candidates: 20
+
+outputs:
+  output_dir: experiments/gaussianMixture_bert/results_2086
+  plot_name: gaussianMixture_bert_2086_pca.png
+  summary_name: best_gaussianMixture_bert_2086_summary.json
+  point_size: 42
+  alpha: 0.85
+  figsize_width: 10
+  figsize_height: 7
