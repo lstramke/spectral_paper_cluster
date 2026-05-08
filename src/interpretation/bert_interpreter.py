@@ -12,11 +12,11 @@ from pathlib import Path
 
 from clustering.base import ClusteringResult
 from features.feature_extractor import FeatureExtractionResult
-from .interpreter import ClusterInterpreter, InterpretationResult
+from .interpreter import ClusterInterpreter, InterpretationResult, InterpreterConfig
 
 
 @dataclass(slots=True)
-class BertInterpreterConfig:
+class BertInterpreterConfig(InterpreterConfig):
 	top_n_terms: int
 	model_name: Optional[str]
 	spacy_pipeline: str
