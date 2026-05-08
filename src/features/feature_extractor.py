@@ -24,3 +24,13 @@ class FeatureExtractor(ABC):
     @abstractmethod
     def extract_features(self, documents: list[str]) -> FeatureExtractionResult:
         """Convert raw text documents into a feature matrix."""
+
+
+@dataclass(slots=True)
+class FeatureConfig:
+    """Base marker class for feature extractor config dataclasses.
+
+    Concrete extractor configs (e.g. `BERTConfig`, `TfidfConfig`) should
+    subclass this to provide a common type for factories.
+    """
+    pass
