@@ -47,3 +47,12 @@ class ClusteringAlgorithm(ABC):
             cluster_sizes=cluster_sizes,
         )
 
+
+class ClusteringConfig:
+    """Marker base class for clustering config dataclasses.
+
+    All clustering config dataclasses in `src.clustering` should subclass
+    this to provide a consistent type for factory creation.
+    """
+    pass
+

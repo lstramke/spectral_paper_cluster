@@ -9,10 +9,10 @@ import torch
 from torch import Tensor
 from sklearn.cluster import KMeans as SKLearnKMeans
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 @dataclass(slots=True)
-class KMeansConfig:
+class KMeansConfig(ClusteringConfig):
     n_clusters: int
     cluster_range: tuple[int, int] | None
     max_iter: int
@@ -26,14 +26,13 @@ class SklearnKMeansAdapter(ClusteringAlgorithm):
     `ClusteringAlgorithm`/`ClusteringResult` interface.
     """
 
-    def __init__(self, config: KMeansConfig, **sk_kwargs) -> None:
+    def __init__(self, config: KMeansConfig) -> None:
         self.config = config
         self._sk = SKLearnKMeans(
             n_clusters=config.n_clusters,
             max_iter=config.max_iter,
             tol=config.tol,
             random_state=config.seed,
-            **sk_kwargs,
         )
         self.n_clusters = config.n_clusters
 

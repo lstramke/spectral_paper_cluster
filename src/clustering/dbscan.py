@@ -8,11 +8,11 @@ import torch
 from torch import Tensor
 from sklearn.cluster import DBSCAN as SKLearnDBSCAN
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class DBSCANConfig:
+class DBSCANConfig(ClusteringConfig):
     eps: float
     eps_range: tuple[float, float] | None
     min_samples: int
@@ -29,7 +29,7 @@ class SklearnDBSCANAdapter(ClusteringAlgorithm):
     `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: DBSCANConfig, **sk_kwargs) -> None:
+    def __init__(self, config: DBSCANConfig) -> None:
         self.config = config
         self._sk = SKLearnDBSCAN(
             eps=config.eps,
@@ -38,7 +38,6 @@ class SklearnDBSCANAdapter(ClusteringAlgorithm):
             leaf_size=config.leaf_size,
             p=config.p,
             n_jobs=config.n_jobs,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

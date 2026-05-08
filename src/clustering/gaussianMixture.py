@@ -8,11 +8,11 @@ import torch
 from torch import Tensor
 from sklearn.mixture import GaussianMixture as SKGaussianMixture
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class GMMConfig:
+class GMMConfig(ClusteringConfig):
     n_components: int
     n_components_range: tuple[int, int] | None
     tol: float
@@ -31,7 +31,7 @@ class SklearnGMMAdapter(ClusteringAlgorithm):
     project's `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: GMMConfig, **sk_kwargs) -> None:
+    def __init__(self, config: GMMConfig) -> None:
         self.config = config
         self._sk = SKGaussianMixture(
             n_components=config.n_components,
@@ -42,7 +42,6 @@ class SklearnGMMAdapter(ClusteringAlgorithm):
             init_params=config.init_params,
             random_state=config.random_state,
             covariance_type=config.covariance_type,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

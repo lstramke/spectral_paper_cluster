@@ -8,11 +8,11 @@ import torch
 from torch import Tensor
 from sklearn.cluster import AgglomerativeClustering as SKLearnAgglomerative
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class AgglomerativeConfig:
+class AgglomerativeConfig(ClusteringConfig):
     distance_threshold: float | None
     distance_threshold_range: tuple[float, float] | None
     n_clusters: int | None
@@ -27,7 +27,7 @@ class SklearnAgglomerativeAdapter(ClusteringAlgorithm):
     project's `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: AgglomerativeConfig, **sk_kwargs) -> None:
+    def __init__(self, config: AgglomerativeConfig) -> None:
         self.config = config
         self._sk = SKLearnAgglomerative(
             n_clusters=config.n_clusters,
@@ -35,7 +35,6 @@ class SklearnAgglomerativeAdapter(ClusteringAlgorithm):
             linkage=config.linkage,
             distance_threshold=config.distance_threshold,
             compute_full_tree=config.compute_full_tree,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

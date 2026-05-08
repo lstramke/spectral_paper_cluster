@@ -9,11 +9,11 @@ from torch import Tensor
 from sklearn.cluster import AffinityPropagation as SKLearnAffinityPropagation
 from sklearn.preprocessing import normalize as sk_normalize
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class AffinityPropagationConfig:
+class AffinityPropagationConfig(ClusteringConfig):
     damping: float
     damping_range: tuple[float, float] | None
     random_state: int
@@ -29,7 +29,7 @@ class SklearnAffinityPropagationAdapter(ClusteringAlgorithm):
     project's `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: AffinityPropagationConfig, **sk_kwargs) -> None:
+    def __init__(self, config: AffinityPropagationConfig) -> None:
         self.config = config
         self._sk = SKLearnAffinityPropagation(
             damping=config.damping,
@@ -37,7 +37,6 @@ class SklearnAffinityPropagationAdapter(ClusteringAlgorithm):
             convergence_iter=config.convergence_iter,
             affinity=config.affinity,
             random_state=config.random_state,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

@@ -9,11 +9,11 @@ from torch import Tensor
 
 import hdbscan
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class HDBSCANConfig:
+class HDBSCANConfig(ClusteringConfig):
     min_cluster_size: int
     min_cluster_size_range: tuple[int, int] | None
     min_samples: Optional[int]
@@ -28,7 +28,7 @@ class HDBSCANAdapter(ClusteringAlgorithm):
     `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: HDBSCANConfig, **hdbscan_kwargs) -> None:
+    def __init__(self, config: HDBSCANConfig) -> None:
         self.config = config
         
 
@@ -37,7 +37,6 @@ class HDBSCANAdapter(ClusteringAlgorithm):
             min_samples=self.config.min_samples,
             metric=self.config.metric,
             cluster_selection_method=self.config.cluster_selection_method,
-            **hdbscan_kwargs,
         )
 
     @staticmethod

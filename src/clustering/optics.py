@@ -8,11 +8,11 @@ import torch
 from torch import Tensor
 from sklearn.cluster import OPTICS as SKLearnOPTICS
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class OpticsConfig:
+class OpticsConfig(ClusteringConfig):
     min_samples: int
     min_samples_range: tuple[int, int] | None
     metric: str 
@@ -28,7 +28,7 @@ class SklearnOpticsAdapter(ClusteringAlgorithm):
     `ClusteringAlgorithm`/`ClusteringResult` interface.
     """
 
-    def __init__(self, config: OpticsConfig, **sk_kwargs) -> None:
+    def __init__(self, config: OpticsConfig) -> None:
         self.config = config
         self._sk = SKLearnOPTICS(
             min_samples=config.min_samples,
@@ -36,7 +36,6 @@ class SklearnOpticsAdapter(ClusteringAlgorithm):
             cluster_method=config.cluster_method,
             xi=config.xi,
             n_jobs=config.n_jobs,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Any
+from typing import Literal
 
 import numpy as np
 import torch
@@ -9,16 +9,16 @@ from torch import Tensor
 from sklearn.cluster import SpectralClustering as SKLearnSpectralClustering
 import warnings
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class SpectralClusteringConfig:
+class SpectralClusteringConfig(ClusteringConfig):
     n_clusters: int
     n_clusters_range: tuple[int, int] | None
     affinity: str  # 'rbf', 'nearest_neighbors', 'precomputed'
-    eigen_solver: str
-    assign_labels: str
+    eigen_solver: Literal["arpack", "lobpcg", "amg"]
+    assign_labels: Literal["kmeans", "discretize", "cluster_qr"]
     n_init: int
     gamma: float
     n_neighbors: int
@@ -39,26 +39,20 @@ class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):
     for example a cosine similarity matrix computed externally.
     """
 
-    def __init__(self, config: SpectralClusteringConfig, **sk_kwargs) -> None:
+    def __init__(self, config: SpectralClusteringConfig) -> None:
         self.config = config
-        params: dict[str, Any] = {
-            "n_clusters": config.n_clusters,
-            "affinity": config.affinity,
-            "assign_labels": config.assign_labels,
-            "n_init": config.n_init,
-            "random_state": config.random_state,
-        }
-        if config.eigen_solver is not None:
-            params["eigen_solver"] = config.eigen_solver
-        if config.gamma is not None:
-            params["gamma"] = config.gamma
-        if config.n_neighbors is not None:
-            params["n_neighbors"] = config.n_neighbors
-        if config.n_jobs is not None:
-            params["n_jobs"] = config.n_jobs
-
-        params.update(sk_kwargs)
-        self._sk = SKLearnSpectralClustering(**params)
+        # Pass parameters explicitly to avoid dict unpacking
+        self._sk = SKLearnSpectralClustering(
+            n_clusters=config.n_clusters,
+            affinity=config.affinity,
+            assign_labels=config.assign_labels,
+            n_init=config.n_init,
+            random_state=config.random_state,
+            eigen_solver=config.eigen_solver,
+            gamma=config.gamma,
+            n_neighbors=config.n_neighbors,
+            n_jobs=config.n_jobs,
+        )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:
         if x.ndim != 2:
