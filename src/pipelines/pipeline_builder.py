@@ -6,7 +6,7 @@ from features.feature_extractor import FeatureConfig
 from features.feature_extractor_factory import FeatureExtractorFactory
 from interpretation.interpreter import InterpreterConfig
 from interpretation.interpreter_factory import InterpreterFactory
-from pipelines.pipeline import ExperimentPipeline, PipelineConfig
+from src.pipelines.pipeline import ExperimentPipeline, PipelineConfig
 
 class PipelineBuilder:
     """Builder that creates a generalized ExperimentPipeline from CombinedConfig.

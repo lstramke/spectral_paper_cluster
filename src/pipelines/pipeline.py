@@ -5,12 +5,12 @@ from typing import Any
 
 import optuna
 
-from clustering.base import ClusteringConfig, ClusteringResult
-from clustering.clusterer_factory import ClustererFactory
-from evaluation.evaluator import ClusterEvaluator, EvaluationResult
-from features.feature_extractor import FeatureExtractionResult, FeatureExtractor
-from interpretation.interpreter import ClusterInterpreter, InterpretationResult
-from app_types.document import Document, documents_to_texts
+from src.clustering.base import ClusteringConfig, ClusteringResult
+from src.clustering.clusterer_factory import ClustererFactory
+from src.evaluation.evaluator import ClusterEvaluator, EvaluationResult
+from src.features.feature_extractor import FeatureExtractionResult, FeatureExtractor
+from src.interpretation.interpreter import ClusterInterpreter, InterpretationResult
+from src.app_types.document import Document, documents_to_texts
 
 
 @dataclass(slots=True)

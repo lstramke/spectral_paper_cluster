@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 import json
 import sys
 from pathlib import Path
@@ -15,78 +15,67 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+from src.evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
+from src.interpretation.interpreter_factory import InterpreterFactory
+from src.clustering.clusterer_factory import ClustererFactory
+from src.features.feature_extractor_factory import FeatureExtractorFactory
+from src.pipelines.pipeline_builder import PipelineBuilder
 from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
-from src.features.tfidf import TfidfConfig
-from src.clustering.kmeans import KMeansConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
-from src.pipelines.kmeans_tfidf import KMeansTfidfPipeline
-from src.pipelines.pipeline import PipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
-from app_types.document import Document
-
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    kmeans: KMeansConfig
-    tfidf: TfidfConfig
-    interpretation: TfidfInterpreterConfig
-    outputs: OutputsConfig
+from src.app_types.document import Document
 
 
-class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
+class KMeansExperiment(BaseExperiment):
     """Encapsulates the KMeans + TF-IDF multi-run experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig | None = None
         
     def load_config(self) -> None:
-        config_reader = ConfigReaderBuilder()\
-            .add_input()\
-            .add_tfidf()\
-            .add_kmeans()\
-            .add_interpretation()\
-            .add_outputs()\
+        config_reader = (ConfigReaderBuilder()
+            .add_input()
+            .add_tfidf()
+            .add_kmeans()
+            .add_interpretation()
+            .add_outputs()
             .build()
-        parsed = config_reader.read(self.config_path)
+        )
+        self.experiment_config = config_reader.read(self.config_path)
 
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.kmeans is None:
+        if self.experiment_config.kmeans is None:
             raise ValueError("Missing required config: kmeans")
-        if parsed.tfidf is None:
+        if self.experiment_config.tfidf is None:
             raise ValueError("Missing required config: tfidf")
-        if parsed.interpretation is None:
+        if self.experiment_config.interpretation is None:
             raise ValueError("Missing required config: interpretation")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
 
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            kmeans=parsed.kmeans,
-            tfidf=parsed.tfidf,
-            interpretation=parsed.interpretation,
-            outputs=parsed.outputs,
-        )
 
     def build_pipeline(self) -> ExperimentPipeline:
         assert self.experiment_config is not None
-        return KMeansTfidfPipeline(
-            kmeans_config=self.experiment_config.kmeans,
-            tfidf_config=self.experiment_config.tfidf,
-            interpretation_config=self.experiment_config.interpretation,
+       
+        builder = PipelineBuilder(
+           feature_factory=FeatureExtractorFactory(),
+           clusterer_factory=ClustererFactory(),
+           interpreter_factory=InterpreterFactory(),
+           evaluator=BasicUnsupervisedEvaluator()
         )
+
+        return builder.build(self.experiment_config)
 
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
+        assert self.experiment_config.kmeans is not None
 
         # result is expected to be MultiRunPipelineResult for KMeans
         if isinstance(result, MultiRunPipelineResult):

@@ -2,20 +2,16 @@ from __future__ import annotations
 
 import csv
 from abc import ABC, abstractmethod
-from typing import Protocol, TypeVar, Generic, List
+from typing import List
 from pathlib import Path
 from time import perf_counter
 
+from config_reader.config_reader_new import CombinedConfig
 from config_reader.input_config_reader import InputConfig
 from src.pipelines.pipeline import ExperimentPipeline, PipelineResult, MultiRunPipelineResult
 from app_types.document import Document
 
-class HasInput(Protocol):
-    input: InputConfig
-
-T = TypeVar("T", bound=HasInput)
-
-class BaseExperiment(ABC, Generic[T]):
+class BaseExperiment(ABC):
     """Abstract base for experiments.
 
     Concrete experiments must implement the lifecycle hooks below. A
@@ -23,7 +19,7 @@ class BaseExperiment(ABC, Generic[T]):
     """
 
     config_path: Path
-    experiment_config: T | None = None
+    experiment_config: CombinedConfig | None = None
 
     def run(self) -> None:
         """Default orchestration for an experiment run using lifecycle hooks.
@@ -40,7 +36,6 @@ class BaseExperiment(ABC, Generic[T]):
 
         pipeline = self.build_pipeline()
 
-        # execute pipeline and measure elapsed time (inline)
         start = perf_counter()
         result = pipeline.run(documents)
         elapsed = perf_counter() - start
@@ -91,9 +86,9 @@ class BaseExperiment(ABC, Generic[T]):
         concrete experiments don't need to read instance attributes.
         """
 
-    def load_documents(self, parsed: T) -> List[Document]:
+    def load_documents(self, parsed: CombinedConfig) -> List[Document]:
         inp = parsed.input
-
+        assert inp is not None
         if inp.format == "line":
             with inp.documents_path.open("r", encoding="utf-8") as f:
                 return [
