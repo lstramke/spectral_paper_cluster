@@ -24,7 +24,7 @@ from config_reader.config_reader_new import ConfigReaderBuilder
 from src.pipelines.dbscan_fasttext import DBSCANFasttextPipeline
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
-from doc_types.document import Document
+from app_types.document import Document
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:

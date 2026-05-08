@@ -8,7 +8,7 @@ from time import perf_counter
 
 from config_reader.input_config_reader import InputConfig
 from src.pipelines.pipeline import ExperimentPipeline, PipelineResult, MultiRunPipelineResult
-from doc_types.document import Document
+from app_types.document import Document
 
 class HasInput(Protocol):
     input: InputConfig

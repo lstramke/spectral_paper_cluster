@@ -5,7 +5,7 @@ from dataclasses import replace
 import optuna
 
 from clustering.affinityPropagation import AffinityPropagationConfig, SklearnAffinityPropagationAdapter
-from doc_types.document import Document, documents_to_texts
+from app_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.fasttext import FasttextFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig

@@ -26,7 +26,7 @@ from src.pipelines.hdbscan_tfidf import HDBSCANTfidfPipeline
 from src.pipelines.pipeline import PipelineResult
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
-from doc_types.document import Document
+from app_types.document import Document
 
 @dataclass(slots=True)
 class ParsedExperimentConfig:

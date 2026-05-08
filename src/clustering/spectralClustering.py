@@ -9,6 +9,8 @@ from torch import Tensor
 from sklearn.cluster import SpectralClustering as SKLearnSpectralClustering
 import warnings
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
@@ -27,6 +29,41 @@ class SpectralClusteringConfig(ClusteringConfig):
     random_state_range: tuple[int, int] | None
     n_jobs: int
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+    
+        min_clusters, max_clusters = self.n_clusters_range or (self.n_clusters, self.n_clusters)
+        fields.append(
+            OptimizationField[int](
+                name="n_clusters",
+                min_value=min_clusters,
+                max_value=max_clusters,
+                value_type=int,
+            )
+        )
+    
+        min_neighbors, max_neighbors = self.n_neighbors_range or (self.n_neighbors, self.n_neighbors)
+        fields.append(
+            OptimizationField[int](
+                name="n_neighbors",
+                min_value=min_neighbors,
+                max_value=max_neighbors,
+                value_type=int,
+            )
+        )
+    
+        random_start, random_end = self.random_state_range or (self.random_state, self.random_state)
+        fields.append(
+            OptimizationField[int](
+                name="random_state",
+                min_value=random_start,
+                max_value=random_end,
+                value_type=int
+            )
+        )
+    
+        return fields
 
 
 class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):

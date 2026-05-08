@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from doc_types.document import Document
+from app_types.document import Document
 from src.pipelines.gaussianMixture_bert import GaussianMixtureBertPipeline
 from src.features.bert import BERTConfig
 from src.interpretation.bert_interpreter import BertInterpreterConfig

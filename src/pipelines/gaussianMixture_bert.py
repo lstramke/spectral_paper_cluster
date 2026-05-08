@@ -6,7 +6,7 @@ import optuna
 import torch
 
 from clustering.gaussianMixture import GMMConfig, SklearnGMMAdapter
-from doc_types.document import Document, documents_to_texts
+from app_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.bert import BERTConfig, BertFeatureExtractor
 from interpretation.bert_interpreter import BertInterpreter, BertInterpreterConfig

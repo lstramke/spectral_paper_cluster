@@ -9,6 +9,8 @@ from torch import Tensor
 from sklearn.cluster import AffinityPropagation as SKLearnAffinityPropagation
 from sklearn.preprocessing import normalize as sk_normalize
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
@@ -23,6 +25,32 @@ class AffinityPropagationConfig(ClusteringConfig):
     affinity: Literal["euclidean", "precomputed"]
     normalize: bool
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        damping_min, damping_max = self.damping_range or (self.damping, self.damping)
+        fields.append(
+            OptimizationField[float](
+                name="damping",
+                min_value=damping_min,
+                max_value=damping_max,
+                value_type=float
+            )
+        )
+
+        random_start, random_end = self.random_state_range or (self.random_state, self.random_state)
+        fields.append(
+            OptimizationField[int](
+                name="random_state",
+                min_value=random_start,
+                max_value=random_end,
+                value_type=int
+            )
+        )
+
+        return fields
+        
 
 class SklearnAffinityPropagationAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.AffinityPropagation implementing the

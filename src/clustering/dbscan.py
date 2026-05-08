@@ -8,6 +8,8 @@ import torch
 from torch import Tensor
 from sklearn.cluster import DBSCAN as SKLearnDBSCAN
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
@@ -22,6 +24,31 @@ class DBSCANConfig(ClusteringConfig):
     p: Optional[int]
     n_jobs: Optional[int]
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+        
+        eps_min, eps_max = self.eps_range or (self.eps, self.eps)
+        fields.append(
+            OptimizationField[float](
+                name="eps",
+                min_value=eps_min,
+                max_value=eps_max,
+                value_type=float
+            )
+        )
+
+        min_samples_min, min_samples_max = self.min_samples_range or (self.min_samples, self.min_samples)
+        fields.append(
+            OptimizationField[int](
+                name="min_samples",
+                min_value=min_samples_min,
+                max_value=min_samples_max,
+                value_type=int
+            )
+        )
+        
+        return fields
 
 
 class SklearnDBSCANAdapter(ClusteringAlgorithm):

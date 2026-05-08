@@ -5,7 +5,7 @@ from dataclasses import replace
 import optuna
 
 from clustering.dbscan import DBSCANConfig, SklearnDBSCANAdapter
-from doc_types.document import Document, documents_to_texts
+from app_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.fasttext import FasttextFeatureExtractor
 from features.feature_extractor import FeatureExtractionResult

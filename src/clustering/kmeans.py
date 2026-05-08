@@ -9,6 +9,8 @@ import torch
 from torch import Tensor
 from sklearn.cluster import KMeans as SKLearnKMeans
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 @dataclass(slots=True)
@@ -20,6 +22,31 @@ class KMeansConfig(ClusteringConfig):
     seed: int
     seed_range: tuple[int, int] | None
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        min_cluster, max_cluster = self.cluster_range or (self.n_clusters, self.n_clusters)
+        fields.append(
+            OptimizationField[int](
+                name="n_clusters",
+                min_value=min_cluster,
+                max_value=max_cluster,
+                value_type=int
+            )
+        )
+
+        seed_start, seed_end = self.seed_range or (self.seed, self.seed)
+        fields.append(
+            OptimizationField[int](
+                name="seed",
+                min_value=seed_start,
+                max_value=seed_end,
+                value_type=int
+            )
+        )
+
+        return fields
 
 class SklearnKMeansAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.KMeans that implements the project's

@@ -8,6 +8,8 @@ import torch
 from torch import Tensor
 from sklearn.cluster import OPTICS as SKLearnOPTICS
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
@@ -21,6 +23,31 @@ class OpticsConfig(ClusteringConfig):
     xi_range: tuple[float, float] | None
     n_jobs: Optional[int]
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        min_samples_min, min_samples_max = self.min_samples_range or (self.min_samples, self.min_samples)
+        fields.append(
+            OptimizationField[int](
+                name="min_samples",
+                min_value=min_samples_min,
+                max_value=min_samples_max,
+                value_type=int
+            )
+        )
+
+        xi_min, xi_max = self.xi_range or (self.xi, self.xi)
+        fields.append(
+            OptimizationField(
+                name="xi",
+                min_value=xi_min,
+                max_value=xi_max,
+                value_type=float
+            )
+        )
+
+        return fields
 
 
 class SklearnOpticsAdapter(ClusteringAlgorithm):

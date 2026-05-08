@@ -9,6 +9,8 @@ from torch import Tensor
 
 import hdbscan
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
@@ -21,6 +23,33 @@ class HDBSCANConfig(ClusteringConfig):
     metric: str
     cluster_selection_method: str
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        min_cluster_size_start, min_cluster_size_end = self.min_cluster_size_range or (self.min_cluster_size, self.min_cluster_size)
+        fields.append(
+            OptimizationField[int](
+                name="min_cluster_size",
+                min_value=min_cluster_size_start,
+                max_value=min_cluster_size_end,
+                value_type=int
+            )
+        )
+
+        min_samples_start, min_samples_end = self.min_samples_range or (self.min_samples, self.min_samples)
+        assert min_samples_start is not None
+        assert min_samples_end is not None
+        fields.append(
+            OptimizationField[int](
+                name="min_samples",
+                min_value=min_samples_start,
+                max_value=min_samples_end,
+                value_type=int
+            )
+        )
+
+        return fields
 
 
 class HDBSCANAdapter(ClusteringAlgorithm):

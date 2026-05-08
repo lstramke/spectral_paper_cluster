@@ -5,7 +5,7 @@ from dataclasses import replace
 import optuna
 
 from clustering.spectralClustering import SpectralClusteringConfig, SklearnSpectralClusteringAdapter
-from doc_types.document import Document, documents_to_texts
+from app_types.document import Document, documents_to_texts
 from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.tfidf import TfidfConfig, TfidfFeatureExtractor
 from interpretation.tfidf_interpreter import TfidfInterpreter, TfidfInterpreterConfig

@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.doc_types.document import Document
+from src.app_types.document import Document
 from src.pipelines.affinityPropagation_bert import AffinityPropagationBertPipeline
 from src.interpretation.bert_interpreter import BertInterpreterConfig
 from src.features.bert import BERTConfig

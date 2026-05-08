@@ -10,7 +10,7 @@ from evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
 from features.bert import BERTConfig, BertFeatureExtractor
 from features.fasttext import FasttextFeatureExtractor
 from interpretation.bert_interpreter import BertInterpreter, BertInterpreterConfig
-from doc_types.document import Document, documents_to_texts
+from app_types.document import Document, documents_to_texts
 
 from .pipeline import ExperimentPipeline, MultiRunPipelineResult, PipelineResult, RunSummary
 

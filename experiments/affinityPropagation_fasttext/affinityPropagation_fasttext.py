@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from doc_types.document import Document
+from app_types.document import Document
 from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
 from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
 from src.clustering.affinityPropagation import AffinityPropagationConfig

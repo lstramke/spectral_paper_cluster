@@ -8,6 +8,8 @@ import torch
 from torch import Tensor
 from sklearn.mixture import GaussianMixture as SKGaussianMixture
 
+from app_types.optimization_field import OptimizationField
+
 from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
@@ -24,6 +26,32 @@ class GMMConfig(ClusteringConfig):
     random_state_range: tuple[int, int] | None
     covariance_type: Literal['full', 'tied', 'diag', 'spherical']
     n_trials: int
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+        
+        n_components_min, n_components_max = self.n_components_range or (self.n_components, self.n_components)
+        fields.append(
+            OptimizationField[int](
+                name="n_components",
+                min_value=n_components_min,
+                max_value=n_components_max,
+                value_type=int
+            )
+        )
+
+        random_start, random_end = self.random_state_range or (self.random_state, self.random_state)
+        fields.append(
+            OptimizationField[int](
+                name="random_state",
+                min_value=random_start,
+                max_value=random_end,
+                value_type=int
+            )
+        )
+
+        return fields
+    
 
 
 class SklearnGMMAdapter(ClusteringAlgorithm):
