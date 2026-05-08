@@ -65,3 +65,6 @@ class ClusteringConfig(ABC):
         """
         pass
 
+    @abstractmethod
+    def get_n_trials(self) -> int:
+        pass

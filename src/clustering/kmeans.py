@@ -23,6 +23,9 @@ class KMeansConfig(ClusteringConfig):
     seed_range: tuple[int, int] | None
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
     def get_optimization_fields(self) -> list[OptimizationField]:
         fields: list[OptimizationField] = []
 

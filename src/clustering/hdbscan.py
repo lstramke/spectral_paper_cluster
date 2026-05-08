@@ -24,6 +24,9 @@ class HDBSCANConfig(ClusteringConfig):
     cluster_selection_method: str
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
     def get_optimization_fields(self) -> list[OptimizationField]:
         fields: list[OptimizationField] = []
 
