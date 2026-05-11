@@ -6,8 +6,13 @@ from typing import List
 from pathlib import Path
 from time import perf_counter
 
+from src.clustering.clusterer_factory import ClustererFactory
 from config_reader.config_reader_new import CombinedConfig
 from config_reader.input_config_reader import InputConfig
+from src.evaluation.basic_unsupervised import BasicUnsupervisedEvaluator
+from src.features.feature_extractor_factory import FeatureExtractorFactory
+from src.interpretation.interpreter_factory import InterpreterFactory
+from src.pipelines.pipeline_builder import PipelineBuilder
 from src.pipelines.pipeline import ExperimentPipeline, PipelineResult, MultiRunPipelineResult
 from app_types.document import Document
 
@@ -69,9 +74,17 @@ class BaseExperiment(ABC):
     def load_config(self) -> None:
         """Read and validate config; set `self.experiment_config`."""
 
-    @abstractmethod
     def build_pipeline(self) -> ExperimentPipeline:
-        """Return an `ExperimentPipeline` instance for this experiment."""
+        assert self.experiment_config is not None
+        
+        builder = PipelineBuilder(
+           feature_factory=FeatureExtractorFactory(),
+           clusterer_factory=ClustererFactory(),
+           interpreter_factory=InterpreterFactory(),
+           evaluator=BasicUnsupervisedEvaluator()
+        )
+
+        return builder.build(self.experiment_config)
 
     @abstractmethod
     def save_results(
