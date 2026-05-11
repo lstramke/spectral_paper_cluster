@@ -58,19 +58,6 @@ class KMeansExperiment(BaseExperiment):
         if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
 
-
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-       
-        builder = PipelineBuilder(
-           feature_factory=FeatureExtractorFactory(),
-           clusterer_factory=ClustererFactory(),
-           interpreter_factory=InterpreterFactory(),
-           evaluator=BasicUnsupervisedEvaluator()
-        )
-
-        return builder.build(self.experiment_config)
-
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
         assert self.experiment_config.outputs is not None
