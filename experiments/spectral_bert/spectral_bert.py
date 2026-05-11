@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 import json
 import sys
 from pathlib import Path
@@ -16,34 +16,19 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.pipelines.spectral_bert import SpectralBertPipeline
-from src.interpretation.bert_interpreter import BertInterpreterConfig
-from src.features.bert import BERTConfig
-from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.clustering.spectralClustering import SpectralClusteringConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
 from app_types.document import Document
 
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    bert: BERTConfig
-    spectral: SpectralClusteringConfig
-    interpretation_bert: BertInterpreterConfig
-    outputs: OutputsConfig
 
-
-class SpectralExperiment(BaseExperiment[ParsedExperimentConfig]):
+class SpectralExperiment(BaseExperiment):
     """Encapsulates the SpectralClustering + bert experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig | None = None
 
     def load_config(self) -> None:
         config_reader = (
@@ -55,40 +40,25 @@ class SpectralExperiment(BaseExperiment[ParsedExperimentConfig]):
             .add_outputs()
             .build()
         )
-        parsed = config_reader.read(self.config_path)
+        self.experiment_config = config_reader.read(self.config_path)
 
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.spectral is None:
+        if self.experiment_config.spectral is None:
             raise ValueError("Missing required config: spectral")
-        if parsed.bert is None:
+        if self.experiment_config.bert is None:
             raise ValueError("Missing required config: bert")
-        if parsed.interpretation_bert is None:
+        if self.experiment_config.interpretation_bert is None:
             raise ValueError("Missing required config: interpretation_bert")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
-
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            bert=parsed.bert,
-            spectral=parsed.spectral,
-            interpretation_bert=parsed.interpretation_bert,
-            outputs=parsed.outputs,
-        )
-
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-        return SpectralBertPipeline(
-            bert_config=self.experiment_config.bert,
-            spectral_config=self.experiment_config.spectral,
-            interpretation_config=self.experiment_config.interpretation_bert,
-        )
 
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
 
         if isinstance(result, MultiRunPipelineResult):
             pipeline_result = result.best_run

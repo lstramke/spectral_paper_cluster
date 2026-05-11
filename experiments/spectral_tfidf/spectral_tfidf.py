@@ -58,7 +58,6 @@ class SpectralExperiment(BaseExperiment):
         assert self.experiment_config is not None
         assert self.experiment_config.outputs is not None
         assert self.experiment_config.experiment_name is not None
-        assert self.experiment_config.spectral is not None
 
         if isinstance(result, MultiRunPipelineResult):
             pipeline_result = result.best_run
