@@ -28,6 +28,13 @@ dbscan:
   p:
   n_jobs:
 
+fasttext:
+  model_name: fasttext-wiki-news-subwords-300
+  min_df: 0.001
+  max_df: 0.9
+  n_components: 300
+  extra_stop_words: []
+
 interpretation:
   top_n_terms: 10
 
@@ -63,9 +70,9 @@ Die Metriken werden in `best_dbscan_fasttext_2086_summary.json` gespeichert. Fü
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.892043948173523 | |
-| Davies–Bouldin Index | 0.3388814357842144 | |
-| Calinski–Harabasz Index | 16.66710516056775 | |
+| Silhouette Score | 0.7252406477928162 | |
+| Davies–Bouldin Index | 0.3881564533500855 | |
+| Calinski–Harabasz Index | 6.3451739456215845 | |
 
 ### Cluster-Interpretation
 
@@ -73,13 +80,13 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| -1 | 006, 007, 001, 005, 002, 0003, 000, 00, 0001, 003 |
-| 0 | segmentation, raman, photoacoustic, perfusion, brain, fusion, lesions, 3d, optoacoustic, nir |
+| -1 | infrared, biomedical, imaging, 006, 005, 0003, 000, 001, 007, 002 |
+| 0 | imaging, tissue, based, optical, method, clinical, analysis, high, classification, skin |
 
 ## Evaluation
 Metriken sehr gut, Ergebnis nicht nutzbar.
 
 "cluster_sizes": {
-  "-1": 2,
-  "0": 2084
+  "-1": 1,
+  "0": 2085
 }
