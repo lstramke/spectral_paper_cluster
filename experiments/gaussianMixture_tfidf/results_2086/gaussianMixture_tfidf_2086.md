@@ -77,7 +77,7 @@ Die Metriken werden in `best_gaussianMixture_tfidf_2086_summary.json` gespeicher
 | --- | ---: | --- |
 | Silhouette Score | 0.13955402374267578 | |
 | Davies–Bouldin Index | 3.0673331208113805 | |
-| Calinski–Harabasz Index | 33.24359931241326 | |
+| Calinski–Harabasz Index | 33.2435993124145 | |
 
 ### Cluster-Interpretation
 Für die Interpretation wurden die Top‑Wörter aus dem nicht reduzierten TF‑IDF‑Raum verwendet; die zugehörigen Gewichte finden sich in `best_gaussianMixture_tfidf_2086_summary.json`.
