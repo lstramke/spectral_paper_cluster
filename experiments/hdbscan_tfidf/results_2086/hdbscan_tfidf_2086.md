@@ -76,7 +76,7 @@ Die Metriken werden in `best_hdbscan_tfidf_2086_summary.json` gespeichert. Für 
 | --- | ---: | --- |
 | Silhouette Score | 0.08024097979068756 |  |
 | Davies–Bouldin Index | 2.1040121387844115 |  |
-| Calinski–Harabasz Index | 14.443256265588882 | |
+| Calinski–Harabasz Index | 14.443256265588818 | |
 
 ### Cluster-Interpretation
 
