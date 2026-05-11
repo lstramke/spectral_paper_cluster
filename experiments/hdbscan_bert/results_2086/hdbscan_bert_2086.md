@@ -13,7 +13,7 @@ Die Konfiguration für das hier dargestellte Ergebnis ist:
 experiment_name: hdbscan_bert_2086
 
 input:
-  documents_path: data/raw/dataset_2086.csv
+  documents_path: data/raw/dataset_2086_withDOI.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
@@ -81,9 +81,9 @@ Die Metriken werden in `best_hdbscan_bert_2086_summary.json` gespeichert. Für d
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.37247234582901 |  |
-| Davies–Bouldin Index | 1.1351390551385243 |  |
-| Calinski–Harabasz Index | 244.56703266872208 | |
+| Silhouette Score | 0.3839622437953949 |  |
+| Davies–Bouldin Index | 1.1438114481098556 |  |
+| Calinski–Harabasz Index | 288.1254083787132 | |
 
 ### Cluster-Interpretation
 
@@ -91,16 +91,16 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| -1 | development bioimaging technology, applications machine vision, applications computer vision, optical modalities, tomography systems, detector technologies, innovations ct processing, sensing applications, factor biomedical optics, skin feature detection technology |
+| -1 | applications computer vision, solutions machine vision, cancer segmentation mri;methods, development bioimaging technology, tomography systems, mri- histogram analysis approach, learning technology classify, machine learning- solutions nasa, tomographic systems, detection visualization |
 | 0 | rapid identification infectious pathogens, detection bacteria, setup situ detection bacteria, bacteria detection technology, rapid detection common infected bacteria fluorescence effect, identification microorganisms, infections, network pathogen identification, identification agaric infection, antibiotics biofilm |
 | 1 | optical technologies molecular cervical neoplasia, development multimodal colposcopy characterization cervical intraepithelial neoplasia, tissue classification algorithm screening cervical cancer, cancer screening techniques, detection cervical intraepithelial neoplasia tissue, cancer screening, vivo cervix dataset non - invasive detection precancerous, cancer screening diagnosis, cancer screening workflows, cancer screening programs |
 | 2 | assessment burn wounds, aid assessment burn wounds, light evaluating burn wounds, classification burn injuries, depth assessment hand burns, research burn severity detection method, method burn severity assessment, estimation burn depth, detection burn wounds, intelligence feasible detecting nonhealing burn tissue |
 | 3 | sensor tongue diagnosis;purpose, use technology tongue diagnosis, tongue colour classification, tongue analysis, data;tongue diagnosis, tongue tongue diagnosis;human tongue, information tongue diagnosis, tongue coating grading identification deep learning data;tongue diagnosis, tongue diagnosis, tongue tumor detection medical |
-| 4 | assessment liver ablation, detection analysis intestinal ischemia, biomarker assessment liver fat, evaluation liver viability hao model artificial, radiofrequency ablation liver, high precision monitoring radiofrequency ablation liver, techniques detection quantification liver, liver injury, liver viability scoring deep learning, score liver viability |
-| 5 | fabrication optical characterization gelatin- phantoms tissue, vascular phantoms reflectance, tissue phantoms medical, materials photoacoustic, hydrogel phantoms performance evaluation, phantoms photoacoustic, effects phantom, tissue phantoms, autofluorescence properties polymers, fabrication phantoms |
-| 6 | micro - raman spectroscopy, stimulated raman scattering microscopy;significance field, light sheet raman micro - spectroscopy, applications chemical resolution visualization;raman spectroscopy, development microscopy spectroscopy techniques, cell raman spectroscopy, contrast raman spectroscopy, scanning techniques raman, scale raman micro -, micro - spectroscopies |
-| 7 | breast tumor detection classification intravoxel incoherent motion, quantitative measurement breast tumors intravoxel incoherent motion, prostate cancer detection radiomics, cancer segmentation mri;methods, radiation mammogram biopsy marker localization, model predicts tumor presence voxel level, magnetic resonance tumor delineation prostate peripheral zone;purpose, margin classifiers prostate cancer segmentation, methods breast tumor characterization ivim, resolution prostate cancer detection |
-| 8 | retinal deep learning, domain discriminant analysis membranous nephropathy recognition microscopic, application deep learning advanced detection quantification drusen, transformation glaucoma diagnostics, glaucoma detection, non - invasive precise classification glomerular diseases urine, catboost machine learning models, glaucoma diagnosis, machine learning, medical feature selection framework functional data analysis |
+| 4 | assessment liver ablation, detection analysis intestinal ischemia, biomarker assessment liver fat, evaluation liver viability hao model artificial, techniques detection quantification liver, radiofrequency ablation liver, liver injury, liver viability scoring deep learning, approach detects lesions changes, pancreatic islet viability assessment autofluorescence;islets |
+| 5 | micro - raman spectroscopy, stimulated raman scattering microscopy;significance field, light sheet raman micro - spectroscopy, applications chemical resolution visualization;raman spectroscopy, development microscopy spectroscopy techniques, cell raman spectroscopy, contrast raman spectroscopy, scanning techniques raman, scale raman micro -, micro - spectroscopies |
+| 6 | fabrication optical characterization gelatin- phantoms tissue, tissue phantoms medical, hydrogel phantoms performance evaluation, materials photoacoustic, vascular phantoms reflectance, phantoms photoacoustic, fabrication phantoms, effects phantom, tissue phantoms, polyacrylamide hydrogel phantoms |
+| 7 | range applications crop plant sciences, characterisation crops plants, application precision agriculture, remote sensing monitoring crop disease, crop plant sciences, classification medicinal plant, analysis precision agriculture, hyperspectra used recognize black goji berry nitraria, assessment crop, discrimination vegetation areas |
+| 8 | camera ophthalmology, retinal camera;purpose, reflectance evaluation eye fundus structures, optical identification diabetic retinopathy, bayer filter snapshot fundus camera human retinal, noninvasive assessment retinal vascular oxygen content, fiber optic intravitreal illuminator, oximetry technique;retinal oximetry, tomographic spectroscopy vascular oxygen gradients rabbit retina vivo;diagnosis, analysis application diagnosis screening eye diseases |
 | … | weitere 38 Cluster (siehe `best_hdbscan_bert_2086_summary.json`) |
 
 ## Evaluation
