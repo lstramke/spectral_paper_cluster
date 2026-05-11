@@ -77,7 +77,7 @@ Die Metriken werden in `best_dbscan_tfidf_summary.json` gespeichert. Für das ak
 | --- | ---: | --- |
 | Silhouette Score | 0.06773672997951508 | |
 | Davies–Bouldin Index | 2.1881803095409063 | |
-| Calinski–Harabasz Index | 21.951147621359112 | |
+| Calinski–Harabasz Index | 21.951147621359116 | |
 
 ### Cluster-Interpretation
 
