@@ -62,19 +62,19 @@ outputs:
 
 #### Plot:
 
-![agglomerative + tfidf PCA](agglomerative_tfidf_pca.png)
+![agglomerative + tfidf PCA](agglomerative_tfidf_2086_pca.png)
 
-Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [agglomerative_tfidf_pca.html](agglomerative_tfidf_pca.html)
+Eine interaktive Version die im Browser geöffnet werden muss befinet sich hier: [agglomerative_tfidf_pca.html](agglomerative_tfidf_2086_pca.html)
 
 #### Metriken:
 
-Die Metriken werden in `best_agglomerative_tfidf_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
+Die Metriken werden in `best_agglomerative_tfidf_2086_summary.json` gespeichert. Für das aktuelle Experiment ergibt sich:
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
 | Silhouette Score | 0.2717430889606476  |  |
 | Davies–Bouldin Index | 1.6730642750088283 |  |
-| Calinski–Harabasz Index | 18.07832378325674 |  |
+| Calinski–Harabasz Index | 18.078323783256607 |  |
 
 #### Cluster-Interpretation
 
