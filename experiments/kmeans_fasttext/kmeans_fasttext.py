@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 import json
 import sys
 from pathlib import Path
@@ -15,72 +15,50 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.pipelines.kmeans_fasttext import KMeansFasttextPipeline
-from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
-from src.clustering.kmeans import KMeansConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.pipelines.pipeline import PipelineResult
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
 from app_types.document import Document
 
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    kmeans: KMeansConfig
-    interpretation: TfidfInterpreterConfig
-    outputs: OutputsConfig
 
-
-class KMeansExperiment(BaseExperiment[ParsedExperimentConfig]):
+class KMeansExperiment(BaseExperiment):
     """Encapsulates the KMeans + Fasttext multi-run experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig | None = None
         
     def load_config(self) -> None:
         config_reader = (ConfigReaderBuilder()
             .add_input()
+            .add_fasttext()
             .add_kmeans()
             .add_interpretation()
             .add_outputs()
             .build()
         )
-        parsed = config_reader.read(self.config_path)
+        self.experiment_config = config_reader.read(self.config_path)
 
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.kmeans is None:
+        if self.experiment_config.fasttext is None:
+            raise ValueError("Missing required config: fasttext")
+        if self.experiment_config.kmeans is None:
             raise ValueError("Missing required config: kmeans")
-        if parsed.interpretation is None:
+        if self.experiment_config.interpretation is None:
             raise ValueError("Missing required config: interpretation")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
-
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            kmeans=parsed.kmeans,
-            interpretation=parsed.interpretation,
-            outputs=parsed.outputs,
-        )
-
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-        return KMeansFasttextPipeline(
-            kmeans_config=self.experiment_config.kmeans,
-            interpretation_config=self.experiment_config.interpretation,
-        )
 
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
+        assert self.experiment_config.kmeans is not None
 
         # result is expected to be MultiRunPipelineResult for KMeans
         if isinstance(result, MultiRunPipelineResult):
