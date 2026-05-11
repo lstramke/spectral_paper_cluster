@@ -104,6 +104,6 @@ Die DOI-Cluster-Zuordnung ist in der [JSON-Zusammenfassung](best_kmeans_bert_208
 | 7 | evaluation flap perfusion, evaluate efficacy hsi tissue perfusion assessment, perfusion quantification, impact flap perfusion, assessment tissue perfusion patients, perfusion assessment, flap perfusion assessment, intraoperative colon perfusion assessment, assessment tissue perfusion, skin perfusion measurement |
 | 8 | applications cancer detection, classification model tumor tissue detection lumpectomy resection surface, cancer detection margins breast specimens, evaluation carcinoma margins.;.1007, detection cancer tissue, breast cancer margin assessment technique, system applications cancer detection, characterization mammary tumors noninvasive tactile sensors, analysis resection margins breast cancer, identification cancer tissue |
 | 9 | detector technologies, sensing applications, advancement photodetector technology, development photonics nanophotonic devices, photodetector devices, light field manipulation mechanisms technology metasurfaces, sensor applications, applications astronomy, silicon- sensors, applications detection |
-
+| … | weitere 28 Cluster (siehe `best_kmeans_bert_2086_summary.json`) |
 ## Evaluation
 sehr gute Metriken, semantische Clusterevaluation steht aus
