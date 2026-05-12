@@ -6,6 +6,8 @@ from dataclasses import dataclass, fields
 
 import yaml
 
+from .fasttext_config_reader import FasttextConfigReader
+from src.features.fasttext import FasttextConfig
 from clustering.agglomerativeClustering import AgglomerativeConfig
 from .agglomerative_config_reader import AgglomerativeConfigReader
 from .affinityPropagation_config_reader import AffinityPropagationConfigReader
@@ -48,6 +50,7 @@ class RegisteredReaders:
 	spectral: Optional[SpectralConfigReader] = None
 	gaussianMixture: Optional[GaussianMixtureConfigReader] = None
 	bert: Optional[BertConfigReader] = None
+	fasttext: Optional[FasttextConfigReader] = None
 	input: Optional[InputConfigReader] = None
 	outputs: Optional[OutputsConfigReader] = None
 
@@ -62,6 +65,7 @@ class CombinedConfig:
 	experiment_name: Optional[str]
 	input: Optional[InputConfig]
 	bert: Optional[BERTConfig]
+	fasttext: Optional[FasttextConfig]
 	kmeans: Optional[KMeansConfig]
 	dbscan: Optional[DBSCANConfig]
 	optics: Optional[OpticsConfig]
@@ -71,7 +75,6 @@ class CombinedConfig:
 	spectral: Optional[SpectralClusteringConfig]
 	gaussianMixture: Optional[GMMConfig]
 	tfidf: Optional[TfidfConfig]
-	# Can be either a TfidfInterpreterConfig or BertInterpreterConfig
 	interpretation: Optional[TfidfInterpreterConfig]
 	interpretation_bert: Optional[BertInterpreterConfig]
 	outputs: Optional[OutputsConfig]
@@ -99,6 +102,7 @@ class ConfigReader:
 			interpretation=builder._registered.interpretation,
 			interpretation_bert=builder._registered.interpretation_bert,
 			bert=builder._registered.bert,
+			fasttext=builder._registered.fasttext,
 			outputs=builder._registered.outputs,
 		)
 
@@ -135,6 +139,7 @@ class ConfigReader:
 			tfidf=results.get("tfidf"),
 			interpretation=results.get("interpretation"),
 			interpretation_bert=results.get("interpretation_bert"),
+			fasttext=results.get("fasttext"),
 			outputs=results.get("outputs"),
 		)
 
@@ -187,8 +192,13 @@ class ConfigReaderBuilder:
 	def add_interpretation_bert(self) -> ConfigReaderBuilder:
 		self._registered.interpretation_bert = InterpretationBertConfigReader()
 		return self
+	
 	def add_interpretation(self) -> ConfigReaderBuilder:
 		self._registered.interpretation = InterpretationConfigReader()
+		return self
+	
+	def add_fasttext(self) -> ConfigReaderBuilder:
+		self._registered.fasttext = FasttextConfigReader()
 		return self
 
 	def add_input(self) -> ConfigReaderBuilder:

@@ -8,11 +8,13 @@ import torch
 from torch import Tensor
 from sklearn.cluster import AgglomerativeClustering as SKLearnAgglomerative
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class AgglomerativeConfig:
+class AgglomerativeConfig(ClusteringConfig):
     distance_threshold: float | None
     distance_threshold_range: tuple[float, float] | None
     n_clusters: int | None
@@ -21,13 +23,32 @@ class AgglomerativeConfig:
     compute_full_tree: bool
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        distance_threshold_min, distance_threshold_max = self.distance_threshold_range or (self.distance_threshold, self.distance_threshold)
+        assert distance_threshold_min is not None
+        assert distance_threshold_max is not None
+        fields.append(
+            OptimizationField[float](
+                name="distance_threshold",
+                min_value=distance_threshold_min,
+                max_value=distance_threshold_max,
+                value_type=float
+            )
+        )
+        return fields
+
 
 class SklearnAgglomerativeAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.AgglomerativeClustering implementing the
     project's `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: AgglomerativeConfig, **sk_kwargs) -> None:
+    def __init__(self, config: AgglomerativeConfig) -> None:
         self.config = config
         self._sk = SKLearnAgglomerative(
             n_clusters=config.n_clusters,
@@ -35,7 +56,6 @@ class SklearnAgglomerativeAdapter(ClusteringAlgorithm):
             linkage=config.linkage,
             distance_threshold=config.distance_threshold,
             compute_full_tree=config.compute_full_tree,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

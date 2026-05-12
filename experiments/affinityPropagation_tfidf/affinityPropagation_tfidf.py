@@ -15,35 +15,20 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.interpretation.tfidf_interpreter import TfidfInterpreterConfig
-from src.features.tfidf import TfidfConfig
-from src.clustering.affinityPropagation import AffinityPropagationConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
-from src.pipelines.affinityPropagation_tfidf import AffinityPropagationTfidfPipeline
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
-from doc_types.document import Document
-
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    affinityPropagation: AffinityPropagationConfig
-    tfidf: TfidfConfig
-    interpretation: TfidfInterpreterConfig
-    outputs: OutputsConfig
+from app_types.document import Document
 
 
-class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
+class AffinityPropagationExperiment(BaseExperiment):
     """Encapsulates the AffinityPropagation + TF-IDF experiment logic."""
     
     def __init__(self, config_path: str | Path) -> None:
         """Initialize the experiment with a config file path."""
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig | None = None
     
     def load_config(self) -> None:
         """Load and parse the configuration file."""
@@ -56,41 +41,26 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             .add_outputs()
             .build()
         )
-        parsed = config_reader.read(self.config_path)
+        self.experiment_config = config_reader.read(self.config_path)
         
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.affinityPropagation is None:
+        if self.experiment_config.affinityPropagation is None:
             raise ValueError("Missing required config: affinityPropagation")
-        if parsed.tfidf is None:
+        if self.experiment_config.tfidf is None:
             raise ValueError("Missing required config: tfidf")
-        if parsed.interpretation is None:
+        if self.experiment_config.interpretation is None:
             raise ValueError("Missing required config: interpretation")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
-        
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            affinityPropagation=parsed.affinityPropagation,
-            tfidf=parsed.tfidf,
-            interpretation=parsed.interpretation,
-            outputs=parsed.outputs,
-        )
-    
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-        return AffinityPropagationTfidfPipeline(
-            affinityPropagation_config=self.experiment_config.affinityPropagation,
-            tfidf_config=self.experiment_config.tfidf,
-            interpretation_config=self.experiment_config.interpretation,
-        )
     
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         """Save experiment results to output files. Accepts either single or multi-run results."""
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
 
         if isinstance(result, MultiRunPipelineResult):
             pipeline_result = result.best_run

@@ -11,11 +11,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 from sklearn.preprocessing import Normalizer
 from scipy.sparse import csr_matrix
 
-from .feature_extractor import FeatureExtractionResult, FeatureExtractor
+from .feature_extractor import FeatureExtractionResult, FeatureExtractor, FeatureConfig
 
 
 @dataclass(slots=True)
-class TfidfConfig:
+class TfidfConfig(FeatureConfig):
     max_features: int | None
     ngram_range: tuple[int, int]
     min_df: int | float

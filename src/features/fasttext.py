@@ -11,7 +11,16 @@ from gensim.parsing.preprocessing import STOPWORDS as GENSIM_STOPWORDS
 from sklearn.feature_extraction.text import TfidfVectorizer
 import torch.nn.functional as F
 
-from .feature_extractor import FeatureExtractionResult, FeatureExtractor
+from .feature_extractor import FeatureExtractionResult, FeatureExtractor, FeatureConfig
+from dataclasses import dataclass
+
+
+@dataclass(slots=True)
+class FasttextConfig(FeatureConfig):
+    min_df: float | int = 0.001
+    max_df: float | int = 0.9
+    n_components: Optional[int] = 100
+    extra_stop_words: Optional[Iterable[str]] = None
 
 # Default gensim model name (cached by gensim.downloader)
 _DEFAULT_MODEL = "fasttext-wiki-news-subwords-300"
@@ -42,19 +51,13 @@ class FasttextFeatureExtractor(FeatureExtractor):
     - extra_stop_words: iterable of additional stop words
     """
 
-    def __init__(
-        self,
-        min_df: float | int = 0.001,
-        max_df: float | int = 0.9,
-        n_components: Optional[int] = 100,
-        extra_stop_words: Optional[Iterable[str]] = None,
-    ) -> None:
+    def __init__(self, config: FasttextConfig) -> None:
         self.wv = _get_wv()
         self.dim = self.wv.vector_size
-        self.min_df = min_df
-        self.max_df = max_df
-        self.n_components = n_components
-        self.extra_stop_words = set(extra_stop_words) if extra_stop_words else set()
+        self.min_df = config.min_df
+        self.max_df = config.max_df
+        self.n_components = config.n_components
+        self.extra_stop_words = set(config.extra_stop_words) if config.extra_stop_words else set()
 
     def extract_features(self, documents: list[str]) -> FeatureExtractionResult:
         if not documents:

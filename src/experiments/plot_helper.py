@@ -9,6 +9,8 @@ from sklearn.decomposition import PCA
 import numpy as np
 from matplotlib import cm, colors as mcolors
 
+from src.pipelines.pipeline import PipelineResult
+
 
 class PlotHelper:
     """Reusable plotting helper for experiments.
@@ -18,7 +20,7 @@ class PlotHelper:
     """
 
     @staticmethod
-    def save_cluster_plot(parsed: Any, result: Any) -> None:
+    def save_cluster_plot(parsed: Any, result: PipelineResult) -> None:
         output_dir = Path(parsed.outputs.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 

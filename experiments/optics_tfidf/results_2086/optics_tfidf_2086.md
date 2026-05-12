@@ -75,7 +75,7 @@ Die Metriken werden in `best_optics_tfidf_2086_summary.json` gespeichert. Für d
 | --- | ---: | --- |
 | Silhouette Score | 0.05994307994842529 | |
 | Davies–Bouldin Index | 1.2141481885763068 | |
-| Calinski–Harabasz Index | 15.62638434689137 | |
+| Calinski–Harabasz Index | 15.626384346892428 | |
 
 ### Cluster-Interpretation
 

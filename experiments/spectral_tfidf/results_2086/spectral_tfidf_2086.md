@@ -80,7 +80,7 @@ Die Metriken werden in `best_spectral_tfidf_2086_summary.json` gespeichert. Für
 | --- | ---: | --- |
 | Silhouette Score |0.1702127307653427 |  |
 | Davies–Bouldin Index | 2.521106186145267 |  |
-| Calinski–Harabasz Index | 23.460122799765603| |
+| Calinski–Harabasz Index | 23.46012279976617 | |
 
 ### Cluster-Interpretation
 

@@ -6,7 +6,7 @@
   "metrics": {
     "silhouette": 0.13955402374267578,
     "davies_bouldin": 3.0673331208113805,
-    "calinski_harabasz": 33.24359931241326
+    "calinski_harabasz": 33.2435993124145
   },
   "objective": 209.8233184814453,
   "cluster_sizes": {
@@ -882,5 +882,5 @@
       "labels_true_provided": false
     }
   },
-  "elapsed_seconds": 2738.2347063000007
+  "elapsed_seconds": 551.7934293000008
 }

@@ -6,12 +6,12 @@ import torch
 
 from clustering.base import ClusteringResult
 from features.feature_extractor import FeatureExtractionResult
-from .interpreter import ClusterInterpreter
+from .interpreter import ClusterInterpreter, InterpreterConfig
 from .interpreter import InterpretationResult
 
 
 @dataclass(slots=True)
-class TfidfInterpreterConfig:
+class TfidfInterpreterConfig(InterpreterConfig):
     top_n_terms: int
 
 

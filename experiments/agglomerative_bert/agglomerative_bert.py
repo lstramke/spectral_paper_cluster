@@ -16,35 +16,19 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from src.interpretation.bert_interpreter import BertInterpreterConfig
-from src.pipelines.agglomerative_bert import AgglomerativeBertPipeline
-from src.features.bert import BERTConfig
-from src.pipelines.agglomerative_fasttext import AgglomerativeFasttextPipeline
-from src.pipelines.pipeline import MultiRunPipelineResult, PipelineResult, ExperimentPipeline
-from src.clustering.agglomerativeClustering import AgglomerativeConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
+from src.pipelines.pipeline import MultiRunPipelineResult, PipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
-from doc_types.document import Document
-
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    bert: BERTConfig
-    agglomerative: AgglomerativeConfig
-    interpretation_bert: BertInterpreterConfig
-    outputs: OutputsConfig
+from app_types.document import Document
 
 
-class AgglomerativeExperiment(BaseExperiment[ParsedExperimentConfig]):
+class AgglomerativeExperiment(BaseExperiment):
     """Encapsulates the Agglomerative + Bert experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig | None = None
 
     def load_config(self) -> None:
         config_reader = (
@@ -56,40 +40,25 @@ class AgglomerativeExperiment(BaseExperiment[ParsedExperimentConfig]):
             .add_outputs()
             .build()
         )
-        parsed = config_reader.read(self.config_path)
+        self.experiment_config = config_reader.read(self.config_path)
 
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.agglomerative is None:
+        if self.experiment_config.agglomerative is None:
             raise ValueError("Missing required config: agglomerative")
-        if parsed.bert is None:
+        if self.experiment_config.bert is None:
             raise ValueError("Missing required config: bert")
-        if parsed.interpretation_bert is None:
+        if self.experiment_config.interpretation_bert is None:
             raise ValueError("Missing required config: interpretation_bert")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
-
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            bert=parsed.bert,
-            agglomerative=parsed.agglomerative,
-            interpretation_bert=parsed.interpretation_bert,
-            outputs=parsed.outputs,
-        )
-
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-        return AgglomerativeBertPipeline(
-            bert_config=self.experiment_config.bert,
-            agglomerative_config=self.experiment_config.agglomerative,
-            interpretation_config=self.experiment_config.interpretation_bert,
-        )
 
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
 
         if isinstance(result, MultiRunPipelineResult):
             pipeline_result = result.best_run
@@ -113,6 +82,7 @@ class AgglomerativeExperiment(BaseExperiment[ParsedExperimentConfig]):
             "objective": pipeline_result.clustering.objective,
             "cluster_sizes": pipeline_result.clustering.cluster_sizes,
             "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
+            "document_cluster_mapping": pipeline_result.metadata.get("document_cluster_mapping") if isinstance(pipeline_result.metadata, dict) else None,
             "elapsed_seconds": elapsed_seconds,
         }
 

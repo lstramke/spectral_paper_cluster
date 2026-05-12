@@ -74,9 +74,9 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_tfidf_2086_all_runs.json`
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.20143121480941772 | bis mäßig |
-| Davies–Bouldin Index | 2.620221613949932 | groß |
-| Calinski–Harabasz Index | 25.6402152886520 | in Ordnung |
+| Silhouette Score | 0.20120152831077576 | bis mäßig |
+| Davies–Bouldin Index | 2.650162590399797 | groß |
+| Calinski–Harabasz Index | 26.14920387719426 | in Ordnung |
 
 ### Cluster-Interpretation
 
@@ -84,26 +84,16 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top-Wörter |
 | --- | --- |
-| 0 | nir, nir ii, ii, vis, infrared nir, liver, nir imaging, photodetectors, vis nir, kidney |
-| 1 | pathology, prostate, staining, mif, immunohistochemistry, prostate cancer, ihc, expression, digital, automated |
-| 2 | melanoma, lesions, lesion, melanomas, skin lesions, pigmented, skin cancer, dermoscopy, malignant, benign |
-| 3 | polarization, metasurface, metasurfaces, sensing, filter, thz, terahertz, biomedical imaging, compressive, sensor |
-| 4 | segmentation, attention, net, microscopic, framework, deep learning, microscopic hyperspectral, transformer, hyperspectral image, module |
-| 5 | photoacoustic, pat, photoacoustic tomography, ultrasound, photoacoustic imaging, multispectral photoacoustic, acoustic, functional, absorption, tomography pat |
-| 6 | source, endoscopy, oct, light source, illumination, endoscopic, calibration, caries, 3d, sources |
-| 7 | perfusion, flap, oxygenation, index, sto, tissue oxygenation, nir, twi, flaps, oxygen |
-| 8 | mri, brain, segmentation, mr, magnetic, resonance, magnetic resonance, weighted, ms, matter |
-| 9 | optoacoustic, msot, optoacoustic tomography, multispectral optoacoustic, tomography msot, optoacoustic imaging, handheld, functional, volumetric, healthy |
-| 10 | ct, ray, material, detector, energy, photon counting, photon, counting, cdte, edge |
-| 11 | burn, burns, burn depth, depth, wounds, burn wounds, wound, thickness, partial thickness, severity |
-| 12 | cnn, band, convolutional, deep learning, autofluorescence, convolutional neural, neural network, oral, band selection, selection |
-| 13 | fusion, image fusion, fused, transform, multispectral image, fusion network, fused image, coefficients, end, neural network |
-| 14 | ai, artificial, intelligence, artificial intelligence, intelligence ai, ai based, healthcare, esophageal, mc, networks |
-| 15 | content, machine learning, origin, leaf, plant, prediction, stem, support, vegetation, forest |
-| 16 | msi, imaging msi, 3d msi, retinal, biopsy, 3d, mass spectrometry, mass, spectrometry, comb |
-| 17 | attribution, creative commons, commons attribution, commons, creative, license, spie creative, published spie, published, authors published |
-| 18 | registration, unmixing, nerve, image processing, image registration, veins, multichannel, algorithms, linear, parallel |
-| 19 | pa, pa imaging, photoacoustic, photoacoustic pa, ultrasound, multispectral pa, photoacoustic imaging, artery, fluence, breast |
-| … | weitere 20 Cluster (siehe `best_kmeans_tfidf_2086_summary.json`) |
+| 0 | nanoparticles, nps, gold, gold nanoparticles, nanoparticle, particle, np, particles, biomedical applications, msot |
+| 1 | perfusion, flap, oxygenation, index, tissue oxygenation, sto, nir, twi, thi, hemoglobin |
+| 2 | remote, remote sensing, sensing, review, deep learning, vision, technologies, image processing, unmixing, article |
+| 3 | brain, brain tumor, brain cancer, cerebral, segmentation, human brain, brain tumors, tumors, mapping, neurosurgical |
+| 4 | autofluorescence, fluorescent, mice, protein, excitation, fluorescence imaging, species, cellular, drug, stem |
+| 5 | mu, polarization, thz, scattering, terahertz, mid, photodetectors, broadband, oct, absorption |
+| 6 | melanoma, lesions, lesion, skin lesions, melanomas, skin cancer, pigmented, dermoscopy, malignant, benign |
+| 7 | snapshot, filter, spectral imaging, imager, reconstruction, array, tunable, biomedical imaging, microscopic, sensing |
+| 8 | photoacoustic, pai, photoacoustic imaging, pat, ultrasound, photoacoustic tomography, multispectral photoacoustic, acoustic, functional, imaging pai |
+| 9 | severity, psoriasis, erythema, ssc, age, healthy, thickness, controls, subjects, spots |
+| … | weitere 30 Cluster (siehe `best_kmeans_tfidf_2086_summary.json`) |
 
 ## Evaluation

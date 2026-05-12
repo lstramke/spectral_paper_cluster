@@ -9,11 +9,13 @@ from torch import Tensor
 
 import hdbscan
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class HDBSCANConfig:
+class HDBSCANConfig(ClusteringConfig):
     min_cluster_size: int
     min_cluster_size_range: tuple[int, int] | None
     min_samples: Optional[int]
@@ -22,13 +24,43 @@ class HDBSCANConfig:
     cluster_selection_method: str
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        min_cluster_size_start, min_cluster_size_end = self.min_cluster_size_range or (self.min_cluster_size, self.min_cluster_size)
+        fields.append(
+            OptimizationField[int](
+                name="min_cluster_size",
+                min_value=min_cluster_size_start,
+                max_value=min_cluster_size_end,
+                value_type=int
+            )
+        )
+
+        min_samples_start, min_samples_end = self.min_samples_range or (self.min_samples, self.min_samples)
+        assert min_samples_start is not None
+        assert min_samples_end is not None
+        fields.append(
+            OptimizationField[int](
+                name="min_samples",
+                min_value=min_samples_start,
+                max_value=min_samples_end,
+                value_type=int
+            )
+        )
+
+        return fields
+
 
 class HDBSCANAdapter(ClusteringAlgorithm):
     """Adapter around the `hdbscan` package implementing the project's
     `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: HDBSCANConfig, **hdbscan_kwargs) -> None:
+    def __init__(self, config: HDBSCANConfig) -> None:
         self.config = config
         
 
@@ -37,7 +69,6 @@ class HDBSCANAdapter(ClusteringAlgorithm):
             min_samples=self.config.min_samples,
             metric=self.config.metric,
             cluster_selection_method=self.config.cluster_selection_method,
-            **hdbscan_kwargs,
         )
 
     @staticmethod

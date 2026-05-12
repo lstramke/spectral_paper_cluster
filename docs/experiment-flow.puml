@@ -1,6 +1,6 @@
 @startuml experimentflow
 
-title Ablauf eines `kmeans_bert`-Experiments
+title Ablauf eines `kmeans_bert`-Experiments, IDEE
 
 actor User
 participant "cluster_cli.py" as CLIEntry
@@ -13,7 +13,11 @@ participant "BertConfigReader" as BertReader
 participant "KMeansConfigReader" as KMeansReader
 participant "InterpretationBertConfigReader" as InterpBertReader
 participant "OutputsConfigReader" as OutputReader
-participant "KmeansBertPipeline\n(src/pipelines/kmeans_bert.py)" as Pipeline
+participant "ExperimentPipeline\n(src/pipelines/pipeline.py)" as Pipeline
+participant "PipelineBuilder\n(src/pipelines/pipeline_builder.py)" as PipelineBuilder
+participant "FeatureExtractorFactory\n(src/features/feature_extractor_factory.py)" as FeatureFactory
+participant "ClustererFactory\n(src/clustering/clusterer_factory.py)" as ClustererFactory
+participant "InterpreterFactory\n(src/interpretation/interpreter_factory.py)" as InterpreterFactory
 participant "BertFeatureExtractor\n(src/features/bert.py)" as BertExtractor
 participant "SklearnKMeansAdapter\n(src/clustering/kmeans.py)" as KMeansAdapter
 participant "BasicUnsupervisedEvaluator" as Evaluator
@@ -62,16 +66,19 @@ group Dokumente laden
 end
 
 group Pipeline bauen
-	BaseExperiment -> Experiment : build_pipeline()
-	Experiment -> Pipeline : KmeansBertPipeline(kmeans_config, bert_config, interpretation_config)
-	Pipeline -> BertExtractor : init(bert_config)
-    BertExtractor --> Pipeline: BertFeatureExtractor
-	Pipeline -> Evaluator : init()
-    Evaluator --> Pipeline : BasicUnsupervisedEvaluator
-	Pipeline -> Interpreter : init(interpretation_config)
-    Interpreter --> Pipeline : BertClusterInterpreter
-    Pipeline --> Experiment : KmeansBertPipeline
-    Experiment --> BaseExperiment
+	BaseExperiment -> BaseExperiment : build_pipeline()
+	BaseExperiment -> PipelineBuilder : build(combined_config)
+	PipelineBuilder -> FeatureFactory : detect+create(feature_type, feature_config)
+	FeatureFactory --> PipelineBuilder : BertFeatureExtractor
+	PipelineBuilder -> ClustererFactory : detect clustering type/config
+	ClustererFactory --> PipelineBuilder : clusterer_factory (injected)
+	PipelineBuilder -> InterpreterFactory : detect+create(if present)
+	InterpreterFactory --> PipelineBuilder : BertInterpreter
+	PipelineBuilder -> Evaluator : provide evaluator instance
+	Evaluator --> PipelineBuilder : BasicUnsupervisedEvaluator
+	PipelineBuilder -> Pipeline : ExperimentPipeline(pipeline_config)
+	Pipeline --> PipelineBuilder : ExperimentPipeline
+	PipelineBuilder --> BaseExperiment : ExperimentPipeline
 end
 
 group Ausführung
