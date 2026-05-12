@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 import json
 import sys
 from pathlib import Path
@@ -16,34 +16,18 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from src.app_types.document import Document
-from src.pipelines.affinityPropagation_bert import AffinityPropagationBertPipeline
-from src.interpretation.bert_interpreter import BertInterpreterConfig
-from src.features.bert import BERTConfig
-from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.clustering.affinityPropagation import AffinityPropagationConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
 
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    bert: BERTConfig
-    affinityPropagation: AffinityPropagationConfig
-    interpretation_bert: BertInterpreterConfig
-    outputs: OutputsConfig
-
-
-class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
+class AffinityPropagationExperiment(BaseExperiment):
     """Encapsulates the AffinityPropagation + bert experiment logic."""
     
     def __init__(self, config_path: str | Path) -> None:
         """Initialize the experiment with a config file path."""
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig | None = None
     
     def load_config(self) -> None:
         """Load and parse the configuration file."""
@@ -56,41 +40,26 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             .add_outputs()
             .build()
         )
-        parsed = config_reader.read(self.config_path)
+        self.experiment_config = config_reader.read(self.config_path)
         
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.affinityPropagation is None:
+        if self.experiment_config.affinityPropagation is None:
             raise ValueError("Missing required config: affinityPropagation")
-        if parsed.bert is None:
+        if self.experiment_config.bert is None:
             raise ValueError("Missing required config: bert")
-        if parsed.interpretation_bert is None:
+        if self.experiment_config.interpretation_bert is None:
             raise ValueError("Missing required config: interpretation_bert")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
-        
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            bert=parsed.bert,
-            affinityPropagation=parsed.affinityPropagation,
-            interpretation_bert=parsed.interpretation_bert,
-            outputs=parsed.outputs,
-        )
-    
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-        return AffinityPropagationBertPipeline(
-            affinityPropagation_config=self.experiment_config.affinityPropagation,
-            bert_config=self.experiment_config.bert,
-            interpretation_config=self.experiment_config.interpretation_bert,
-        )
     
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         """Save experiment results to output files. Accepts either single or multi-run results."""
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
 
         if isinstance(result, MultiRunPipelineResult):
             pipeline_result = result.best_run
@@ -114,8 +83,8 @@ class AffinityPropagationExperiment(BaseExperiment[ParsedExperimentConfig]):
             "objective": pipeline_result.clustering.objective,
             "cluster_sizes": pipeline_result.clustering.cluster_sizes,
             "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
-            "elapsed_seconds": elapsed_seconds,
             "document_cluster_mapping": pipeline_result.metadata.get("document_cluster_mapping") if isinstance(pipeline_result.metadata, dict) else None,
+            "elapsed_seconds": elapsed_seconds,
         }
 
         with run_path.open("w", encoding="utf-8") as fp:
