@@ -82,9 +82,9 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_bert_2086_all_runs.json`]
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.6095030307769775 | |
-| Davies–Bouldin Index | 0.8074986684088494 | |
-| Calinski–Harabasz Index | 1043.8520036439206 | |
+| Silhouette Score | 0.6144372224807739 | |
+| Davies–Bouldin Index | 0.8212178842701547 | |
+| Calinski–Harabasz Index | 1047.2752308703832 | |
 
 ### Cluster-Interpretation
 
@@ -94,16 +94,16 @@ Die DOI-Cluster-Zuordnung ist in der [JSON-Zusammenfassung](best_kmeans_bert_208
 
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | applications automated vivo oral cancer diagnosis;deep learning, oral health diagnostics computer vision, vivo tissue classification broadband endoscopy artificial intelligence, oral cancer detection, diagnostic performance swir transillumination reflectance caries detection, detection oropharyngeal carcinoma, esophageal cancer diagnosis computer, esophageal cancer detection;objective, enamel detection quantification incipient caries, occlusal lesion detection.;.3390 |
-| 1 | fabrication optical characterization gelatin- phantoms tissue, vascular phantoms reflectance, tissue phantoms medical, materials photoacoustic, phantoms photoacoustic, polyacrylamide hydrogel phantoms performance evaluation, effects phantom, tissue phantoms, fabrication phantoms, autofluorescence properties polymers |
-| 2 | reconstruction algorithms, review reconstruction algorithms coded aperture snapshot, superresolution method, representative processing applications, methods segmentation, field processing, -system scene classification data fusion algorithms;battelle scientists, classification projection methods muse, learning- algorithms, tool multimodality registration applications.;.1007 |
-| 3 | detector technologies, advancement photodetector technology, sensing applications, development photonics nanophotonic devices, light field manipulation mechanisms technology metasurfaces, photodetector devices, sensor applications, applications astronomy, cameras, optics |
-| 4 | evaluation flap perfusion, evaluate efficacy hsi tissue perfusion assessment, impact flap perfusion, perfusion quantification, assessment tissue perfusion patients, intraoperative colon perfusion assessment, perfusion assessment, flap perfusion assessment, assessment tissue perfusion, time assessment tool tissue oxygenation micro - perfusion |
-| 5 | skin imagers, skin wavelength, skin spectrum, skin processing, model- skin pigment cartography high, skin spectra, instrument skin applications, skin light sources, point performance mapping vivo skin chromophores, generation instrument skin color measurement |
-| 6 | theranostic nanomedicines intrinsic fluorescence, delivery probe particles, nanoplatforms, distribution raman nanoparticles, luminescent nanoparticles, nanoplatform, set fluorescent nanomaterials, sensitivity tracking nanoparticles, nanoprobes, nanoparticle biodistribution |
-| 7 | immunohistochemistry pathology, immunohistochemistry techniques, immunohistochemistry protocols, multicolor immunohistochemistry methods, multiplex analysis;tissue sections, immunohistochemistry, scoring expression immunohistochemistry, pathology platform, solutions analysis software immunohistochemistry, biomarkers histopathology specimens;aims |
-| 8 | approach segmentation classification glioblastoma brain tumors, developments field -vivo brain tumour detection delineation, machine learning technique;stereotactic neuro, time classification human brain tumor, spatio- classification brain cancer detection, tool -vivo identification delineation brain tumours, deep multi - task learning framework brain tumor, tumor identification technologies, cancer segmentation mri;methods, segmentation methods brain tumor |
-| 9 | assessment burn wounds, light evaluating burn wounds, depth assessment hand burns, aid assessment burn wounds, classification burn injuries, research burn severity detection method, method burn severity assessment, estimation burn depth, research application burn severity detection, h. burn severity |
-
+| 0 | classification diagnose tumors;deep learning, cancer;deep learning, unsupervised spatial attention- generative adversarial network cholangiocarcinoma detection;cholangiocarcinoma, convolutional neural network design brain tumor mri classification, learning framework classification region interest pattern complex medical, % machine learning method attention module, deep learning framework photoacoustic specimen, deep learning, machine learning algorithms, aware network kan robust classification |
+| 1 | information field tissue characterization, approach analysis, techniques methodologies, applications method, applications, spectra tissue types, analysis color, spatial lasso applications unmixing biomedical, field tissue characterization, technologies |
+| 2 | handheld optoacoustic tomography;background, optoacoustic tomography enables, application optoacoustic tomography, optoacoustic tomography functional vascular research;microcirculatory impairment, applicability optoacoustic tomography, optoacoustic tomography, optoacoustic tomography functional assessment gastrointestinal, optoacoustic tomography muscle perfusion oxygenation, performance optoacoustic tomography, technology ultrasound tomography |
+| 3 | assessment burn wounds, light evaluating burn wounds, depth assessment hand burns, aid assessment burn wounds, classification burn injuries, research burn severity detection method, method burn severity assessment, estimation burn depth, research application burn severity detection, h. burn severity |
+| 4 | micro - raman spectroscopy, applications raman microscopy, stimulated raman scattering microscopy;significance field, use raman microscopy life sciences, light sheet raman micro - spectroscopy, cell raman spectroscopy, applications chemical resolution visualization;raman spectroscopy, development microscopy spectroscopy techniques, contrast raman spectroscopy, scale raman micro - |
+| 5 | learning denoising methods, art denoising methods, adaptive denoising, network denoising, replacement denoising framework, hsi denoising methods, denoising method, denoising methods, restoration denoising techniques, denoising framework |
+| 6 | fluorescence microscopy biological, fluorescent signals fluorescence microscopy studies, fluorescence microscopy, fluorescence applications, fluorescent microscopy, microscope system biomedical applications, fluorescence microscopes, speed fluorescence lifetime implementation vivo applications;fluorescence lifetime microscopy, fluorescence organoscopes, animal microscopy |
+| 7 | evaluation flap perfusion, evaluate efficacy hsi tissue perfusion assessment, perfusion quantification, impact flap perfusion, assessment tissue perfusion patients, perfusion assessment, flap perfusion assessment, intraoperative colon perfusion assessment, assessment tissue perfusion, skin perfusion measurement |
+| 8 | applications cancer detection, classification model tumor tissue detection lumpectomy resection surface, cancer detection margins breast specimens, evaluation carcinoma margins.;.1007, detection cancer tissue, breast cancer margin assessment technique, system applications cancer detection, characterization mammary tumors noninvasive tactile sensors, analysis resection margins breast cancer, identification cancer tissue |
+| 9 | detector technologies, sensing applications, advancement photodetector technology, development photonics nanophotonic devices, photodetector devices, light field manipulation mechanisms technology metasurfaces, sensor applications, applications astronomy, silicon- sensors, applications detection |
+| … | weitere 28 Cluster (siehe `best_kmeans_bert_2086_summary.json`) |
 ## Evaluation
 sehr gute Metriken, semantische Clusterevaluation steht aus

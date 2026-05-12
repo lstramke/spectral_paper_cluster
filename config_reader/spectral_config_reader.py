@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Sequence, cast
+from typing import Any, Sequence, cast, Literal
 
 from src.clustering.spectralClustering import SpectralClusteringConfig
 from .config_section_reader import ConfigSectionReader
@@ -32,10 +32,25 @@ class SpectralConfigReader(ConfigSectionReader[SpectralClusteringConfig]):
             n_clusters = nc_start
         else:
             n_clusters = int(self.require_value(spectral_cfg, "n_clusters"))
+            
+        affinity_raw = str(self.require_value(spectral_cfg, "affinity")).strip().lower()
+        allowed_affinities = {"rbf", "nearest_neighbors", "precomputed"}
+        if affinity_raw not in allowed_affinities:
+            raise ValueError(f"spectral.affinity must be one of {sorted(allowed_affinities)}, got '{affinity_raw}'")
+        affinity = cast(Literal["rbf", "nearest_neighbors", "precomputed"], affinity_raw)
 
-        affinity = str(self.require_value(spectral_cfg, "affinity"))
-        eigen_solver = str(self.require_value(spectral_cfg, "eigen_solver"))
-        assign_labels = str(self.require_value(spectral_cfg, "assign_labels"))
+        eigen_solver_raw = str(self.require_value(spectral_cfg, "eigen_solver")).strip().lower()
+        allowed_eigen_solvers = {"arpack", "lobpcg", "amg"}
+        if eigen_solver_raw not in allowed_eigen_solvers:
+            raise ValueError(f"spectral.eigen_solver must be one of {sorted(allowed_eigen_solvers)}, got '{eigen_solver_raw}'")
+        eigen_solver = cast(Literal["arpack", "lobpcg", "amg"], eigen_solver_raw)
+
+        assign_labels_raw = str(self.require_value(spectral_cfg, "assign_labels")).strip().lower()
+        allowed_assign_labels = {"kmeans", "discretize", "cluster_qr"}
+        if assign_labels_raw not in allowed_assign_labels:
+            raise ValueError(f"spectral.assign_labels must be one of {sorted(allowed_assign_labels)}, got '{assign_labels_raw}'")
+        assign_labels = cast(Literal["kmeans", "discretize", "cluster_qr"], assign_labels_raw)
+
         n_init = int(self.require_value(spectral_cfg, "n_init"))
         gamma = float(self.require_value(spectral_cfg, "gamma"))
 

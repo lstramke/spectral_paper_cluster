@@ -6,6 +6,8 @@ from typing import Any
 
 import torch
 
+from app_types.optimization_field import OptimizationField
+
 @dataclass(slots=True)
 class ClusteringResult:
     """Output contract for any clustering algorithm."""
@@ -47,3 +49,22 @@ class ClusteringAlgorithm(ABC):
             cluster_sizes=cluster_sizes,
         )
 
+@dataclass(slots=True)
+class ClusteringConfig(ABC):
+    """Marker base class for clustering config dataclasses.
+
+    All clustering config dataclasses in `src.clustering` should subclass
+    this to provide a consistent type for factory creation.
+    """
+    
+    @abstractmethod
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        """Return the optimization fields this config supports.
+        
+        Subclasses override to declare their own fields.
+        """
+        pass
+
+    @abstractmethod
+    def get_n_trials(self) -> int:
+        pass

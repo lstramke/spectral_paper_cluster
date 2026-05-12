@@ -9,10 +9,12 @@ import torch
 from torch import Tensor
 from sklearn.cluster import KMeans as SKLearnKMeans
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 @dataclass(slots=True)
-class KMeansConfig:
+class KMeansConfig(ClusteringConfig):
     n_clusters: int
     cluster_range: tuple[int, int] | None
     max_iter: int
@@ -21,19 +23,46 @@ class KMeansConfig:
     seed_range: tuple[int, int] | None
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        min_cluster, max_cluster = self.cluster_range or (self.n_clusters, self.n_clusters)
+        fields.append(
+            OptimizationField[int](
+                name="n_clusters",
+                min_value=min_cluster,
+                max_value=max_cluster,
+                value_type=int
+            )
+        )
+
+        seed_start, seed_end = self.seed_range or (self.seed, self.seed)
+        fields.append(
+            OptimizationField[int](
+                name="seed",
+                min_value=seed_start,
+                max_value=seed_end,
+                value_type=int
+            )
+        )
+
+        return fields
+
 class SklearnKMeansAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.KMeans that implements the project's
     `ClusteringAlgorithm`/`ClusteringResult` interface.
     """
 
-    def __init__(self, config: KMeansConfig, **sk_kwargs) -> None:
+    def __init__(self, config: KMeansConfig) -> None:
         self.config = config
         self._sk = SKLearnKMeans(
             n_clusters=config.n_clusters,
             max_iter=config.max_iter,
             tol=config.tol,
             random_state=config.seed,
-            **sk_kwargs,
         )
         self.n_clusters = config.n_clusters
 

@@ -8,11 +8,13 @@ import torch
 from torch import Tensor
 from sklearn.mixture import GaussianMixture as SKGaussianMixture
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class GMMConfig:
+class GMMConfig(ClusteringConfig):
     n_components: int
     n_components_range: tuple[int, int] | None
     tol: float
@@ -25,13 +27,42 @@ class GMMConfig:
     covariance_type: Literal['full', 'tied', 'diag', 'spherical']
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+        
+        n_components_min, n_components_max = self.n_components_range or (self.n_components, self.n_components)
+        fields.append(
+            OptimizationField[int](
+                name="n_components",
+                min_value=n_components_min,
+                max_value=n_components_max,
+                value_type=int
+            )
+        )
+
+        random_start, random_end = self.random_state_range or (self.random_state, self.random_state)
+        fields.append(
+            OptimizationField[int](
+                name="random_state",
+                min_value=random_start,
+                max_value=random_end,
+                value_type=int
+            )
+        )
+
+        return fields
+    
+
 
 class SklearnGMMAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.mixture.GaussianMixture implementing the
     project's `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: GMMConfig, **sk_kwargs) -> None:
+    def __init__(self, config: GMMConfig) -> None:
         self.config = config
         self._sk = SKGaussianMixture(
             n_components=config.n_components,
@@ -42,7 +73,6 @@ class SklearnGMMAdapter(ClusteringAlgorithm):
             init_params=config.init_params,
             random_state=config.random_state,
             covariance_type=config.covariance_type,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

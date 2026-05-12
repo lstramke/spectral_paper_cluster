@@ -1,6 +1,7 @@
 from __future__ import annotations
 import re
 from dataclasses import dataclass
+from typing import Optional
 
 import torch
 import torch.nn.functional as F
@@ -10,10 +11,10 @@ from sentence_transformers import SentenceTransformer
 from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from .feature_extractor import FeatureExtractionResult, FeatureExtractor
+from .feature_extractor import FeatureExtractionResult, FeatureExtractor, FeatureConfig
 
 @dataclass(slots=True)
-class BERTConfig:
+class BERTConfig(FeatureConfig):
 	model_name: str
 	device: str
 	batch_size: int

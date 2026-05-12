@@ -26,6 +26,13 @@ kmeans:
   seed_range: [1, 10000]
   n_trials: 1200
 
+fasttext:
+  model_name: fasttext-wiki-news-subwords-300
+  min_df: 0.001
+  max_df: 0.9
+  n_components: 100
+  extra_stop_words: []
+
 interpretation:
   top_n_terms: 10
 
@@ -63,9 +70,9 @@ Die Metriken für alle Zufallswerte werden in [`kmeans_fasttext_2086_all_runs.js
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.16747154295444489, | |
-| Davies–Bouldin Index | 2.0845118570592236 | |
-| Calinski–Harabasz Index | 143.1266675616661 | |
+| Silhouette Score | 0.1677328646183014 | |
+| Davies–Bouldin Index | 2.176001067728919 | |
+| Calinski–Harabasz Index | 146.91612881229736 | |
 
 ### Cluster-Interpretation
 
@@ -73,10 +80,10 @@ Die folgende Tabelle zeigt die wichtigsten Terme je Cluster aus der aktuellen In
 
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | smartphones, healthcare, complementing, mobile, turn, opportunity, represents, world, ai, tools |
-| 1 | imaging, nm, optical, resolution, high, fluorescence, light, microscopy, applications, infrared |
+| 0 | biomedical, fluorescence, infrared, imaging, paradigms, opening, medical, photoacoustic, tomography, new |
+| 1 | imaging, nm, optical, resolution, high, fluorescence, light, microscopy, applications, based |
 | 2 | imaging, tissue, tumor, cancer, skin, clinical, vivo, cell, cells, perfusion |
-| 3 | imaging, method, based, classification, medical, learning, information, segmentation, methods, proposed |
-| 4 | patients, imaging, tissue, study, clinical, perfusion, classification, skin, lesions, nm |
+| 3 | patients, imaging, tissue, study, clinical, perfusion, classification, skin, lesions, nm |
+| 4 | imaging, method, based, classification, medical, learning, segmentation, information, methods, proposed |
 
 ## Evaluation

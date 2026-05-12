@@ -77,7 +77,7 @@ Die Metriken werden in `best_affinityPropagation_tfidf_2086_summary.json` gespei
 | --- | ---: | --- |
 | Silhouette Score | 0.26424601674079895 | |
 | Davies–Bouldin Index | 1.7716755566247075 |  |
-| Calinski–Harabasz Index | 16.440219700130623 |  |
+| Calinski–Harabasz Index | 16.440219700130413 |  |
 
 #### Cluster-Interpretation
 

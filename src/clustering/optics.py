@@ -8,11 +8,13 @@ import torch
 from torch import Tensor
 from sklearn.cluster import OPTICS as SKLearnOPTICS
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class OpticsConfig:
+class OpticsConfig(ClusteringConfig):
     min_samples: int
     min_samples_range: tuple[int, int] | None
     metric: str 
@@ -22,13 +24,41 @@ class OpticsConfig:
     n_jobs: Optional[int]
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+
+        min_samples_min, min_samples_max = self.min_samples_range or (self.min_samples, self.min_samples)
+        fields.append(
+            OptimizationField[int](
+                name="min_samples",
+                min_value=min_samples_min,
+                max_value=min_samples_max,
+                value_type=int
+            )
+        )
+
+        xi_min, xi_max = self.xi_range or (self.xi, self.xi)
+        fields.append(
+            OptimizationField(
+                name="xi",
+                min_value=xi_min,
+                max_value=xi_max,
+                value_type=float
+            )
+        )
+
+        return fields
+
 
 class SklearnOpticsAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.OPTICS that implements the project's
     `ClusteringAlgorithm`/`ClusteringResult` interface.
     """
 
-    def __init__(self, config: OpticsConfig, **sk_kwargs) -> None:
+    def __init__(self, config: OpticsConfig) -> None:
         self.config = config
         self._sk = SKLearnOPTICS(
             min_samples=config.min_samples,
@@ -36,7 +66,6 @@ class SklearnOpticsAdapter(ClusteringAlgorithm):
             cluster_method=config.cluster_method,
             xi=config.xi,
             n_jobs=config.n_jobs,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

@@ -29,6 +29,13 @@ affinityPropagation:
   affinity: euclidean
   normalize: true
 
+fasttext:
+  model_name: fasttext-wiki-news-subwords-300
+  min_df: 0.001
+  max_df: 0.9
+  n_components: 100
+  extra_stop_words: []
+
 interpretation:
   top_n_terms: 10
 

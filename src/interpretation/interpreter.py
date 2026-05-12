@@ -17,6 +17,14 @@ class InterpretationResult:
 	cluster_terms: dict[int, list[tuple[str, float]]] = field(default_factory=dict[int, list[tuple[str, float]]])
 	metadata: dict[str, Any] = field(default_factory=dict[str, Any])
 
+class InterpreterConfig:
+    """Base marker class for interpreter config dataclasses.
+
+    Concrete interpreter configs (e.g. `BertInterpreterConfig`,
+    `TfidfInterpreterConfig`) should subclass this to provide a common
+    type for the factory.
+    """
+    pass
 
 class ClusterInterpreter(ABC):
 	"""Common interface for all cluster interpreters in this project."""

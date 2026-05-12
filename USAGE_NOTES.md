@@ -7,10 +7,12 @@ Im Folgenden sind Hinweise zur standardmäßigen Benutzung und Änderungen, die 
 Datensätze müssen als csv im data/raw Ordner abgelegt werden. Dabei muss folgendes Format eingehalten werden:
 
 ```
-title;abstract
-<Beispiel_Titel>;<Beispiel_Abstract>
+title;abstract;doi
+<Beispiel_Titel>;<Beispiel_Abstract>;<Beispiel_DOI>
 ...
 ```
+
+,die DOI ist dabei optional.
 
 Zur Umstellung der Experimente auf den Datensatz muss in dem zugehörigen Config File, die yaml Datei im spezifischen Experimentordner, der Input Pfad geändert werden.
 
@@ -24,7 +26,7 @@ experiment_name: affinityPropagation_bert_2086 -> affinityPropagation_bert_tolle
 input:
   documents_path: data/raw/dataset_2086.csv -> data/raw/toller_neuer_datensatz.csv
   format: csv
-  text_fields: [title, abstract]
+  text_fields: [title, abstract, doi]
   fuse_mode: join
   separator: ";"
 ```

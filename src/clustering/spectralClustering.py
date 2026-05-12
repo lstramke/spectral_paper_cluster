@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Any
+from typing import Literal
 
 import numpy as np
 import torch
@@ -9,16 +9,18 @@ from torch import Tensor
 from sklearn.cluster import SpectralClustering as SKLearnSpectralClustering
 import warnings
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class SpectralClusteringConfig:
+class SpectralClusteringConfig(ClusteringConfig):
     n_clusters: int
     n_clusters_range: tuple[int, int] | None
     affinity: str  # 'rbf', 'nearest_neighbors', 'precomputed'
-    eigen_solver: str
-    assign_labels: str
+    eigen_solver: Literal["arpack", "lobpcg", "amg"]
+    assign_labels: Literal["kmeans", "discretize", "cluster_qr"]
     n_init: int
     gamma: float
     n_neighbors: int
@@ -27,6 +29,44 @@ class SpectralClusteringConfig:
     random_state_range: tuple[int, int] | None
     n_jobs: int
     n_trials: int
+
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+    
+        min_clusters, max_clusters = self.n_clusters_range or (self.n_clusters, self.n_clusters)
+        fields.append(
+            OptimizationField[int](
+                name="n_clusters",
+                min_value=min_clusters,
+                max_value=max_clusters,
+                value_type=int,
+            )
+        )
+    
+        min_neighbors, max_neighbors = self.n_neighbors_range or (self.n_neighbors, self.n_neighbors)
+        fields.append(
+            OptimizationField[int](
+                name="n_neighbors",
+                min_value=min_neighbors,
+                max_value=max_neighbors,
+                value_type=int,
+            )
+        )
+    
+        random_start, random_end = self.random_state_range or (self.random_state, self.random_state)
+        fields.append(
+            OptimizationField[int](
+                name="random_state",
+                min_value=random_start,
+                max_value=random_end,
+                value_type=int
+            )
+        )
+    
+        return fields
 
 
 class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):
@@ -39,26 +79,20 @@ class SklearnSpectralClusteringAdapter(ClusteringAlgorithm):
     for example a cosine similarity matrix computed externally.
     """
 
-    def __init__(self, config: SpectralClusteringConfig, **sk_kwargs) -> None:
+    def __init__(self, config: SpectralClusteringConfig) -> None:
         self.config = config
-        params: dict[str, Any] = {
-            "n_clusters": config.n_clusters,
-            "affinity": config.affinity,
-            "assign_labels": config.assign_labels,
-            "n_init": config.n_init,
-            "random_state": config.random_state,
-        }
-        if config.eigen_solver is not None:
-            params["eigen_solver"] = config.eigen_solver
-        if config.gamma is not None:
-            params["gamma"] = config.gamma
-        if config.n_neighbors is not None:
-            params["n_neighbors"] = config.n_neighbors
-        if config.n_jobs is not None:
-            params["n_jobs"] = config.n_jobs
-
-        params.update(sk_kwargs)
-        self._sk = SKLearnSpectralClustering(**params)
+        # Pass parameters explicitly to avoid dict unpacking
+        self._sk = SKLearnSpectralClustering(
+            n_clusters=config.n_clusters,
+            affinity=config.affinity,
+            assign_labels=config.assign_labels,
+            n_init=config.n_init,
+            random_state=config.random_state,
+            eigen_solver=config.eigen_solver,
+            gamma=config.gamma,
+            n_neighbors=config.n_neighbors,
+            n_jobs=config.n_jobs,
+        )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:
         if x.ndim != 2:

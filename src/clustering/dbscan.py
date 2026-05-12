@@ -8,11 +8,13 @@ import torch
 from torch import Tensor
 from sklearn.cluster import DBSCAN as SKLearnDBSCAN
 
-from .base import ClusteringAlgorithm, ClusteringResult
+from app_types.optimization_field import OptimizationField
+
+from .base import ClusteringAlgorithm, ClusteringResult, ClusteringConfig
 
 
 @dataclass(slots=True)
-class DBSCANConfig:
+class DBSCANConfig(ClusteringConfig):
     eps: float
     eps_range: tuple[float, float] | None
     min_samples: int
@@ -23,13 +25,41 @@ class DBSCANConfig:
     n_jobs: Optional[int]
     n_trials: int
 
+    def get_n_trials(self) -> int:
+        return self.n_trials
+
+    def get_optimization_fields(self) -> list[OptimizationField]:
+        fields: list[OptimizationField] = []
+        
+        eps_min, eps_max = self.eps_range or (self.eps, self.eps)
+        fields.append(
+            OptimizationField[float](
+                name="eps",
+                min_value=eps_min,
+                max_value=eps_max,
+                value_type=float
+            )
+        )
+
+        min_samples_min, min_samples_max = self.min_samples_range or (self.min_samples, self.min_samples)
+        fields.append(
+            OptimizationField[int](
+                name="min_samples",
+                min_value=min_samples_min,
+                max_value=min_samples_max,
+                value_type=int
+            )
+        )
+
+        return fields
+
 
 class SklearnDBSCANAdapter(ClusteringAlgorithm):
     """Adapter around sklearn.cluster.DBSCAN implementing the project's
     `ClusteringAlgorithm`/`ClusteringResult` contract.
     """
 
-    def __init__(self, config: DBSCANConfig, **sk_kwargs) -> None:
+    def __init__(self, config: DBSCANConfig) -> None:
         self.config = config
         self._sk = SKLearnDBSCAN(
             eps=config.eps,
@@ -38,7 +68,6 @@ class SklearnDBSCANAdapter(ClusteringAlgorithm):
             leaf_size=config.leaf_size,
             p=config.p,
             n_jobs=config.n_jobs,
-            **sk_kwargs,
         )
 
     def fit(self, x: Tensor) -> ClusteringAlgorithm:

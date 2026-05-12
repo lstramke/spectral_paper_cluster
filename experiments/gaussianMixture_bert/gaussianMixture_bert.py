@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 import json
 import sys
 from pathlib import Path
@@ -15,34 +15,19 @@ if str(PROJECT_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from doc_types.document import Document
-from src.pipelines.gaussianMixture_bert import GaussianMixtureBertPipeline
-from src.features.bert import BERTConfig
-from src.interpretation.bert_interpreter import BertInterpreterConfig
-from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult, ExperimentPipeline
-from src.clustering.gaussianMixture import GMMConfig
-from config_reader.input_config_reader import InputConfig
-from config_reader.output_config_reader import OutputsConfig
-from config_reader.config_reader_new import ConfigReaderBuilder
+from app_types.document import Document
+from src.pipelines.pipeline import PipelineResult, MultiRunPipelineResult
+from config_reader.config_reader_new import CombinedConfig, ConfigReaderBuilder
 from src.experiments.plot_helper import PlotHelper
 from src.experiments.base import BaseExperiment
 
-@dataclass(slots=True)
-class ParsedExperimentConfig:
-    experiment_name: str
-    input: InputConfig
-    bert: BERTConfig
-    gaussianMixture: GMMConfig
-    interpretation_bert: BertInterpreterConfig
-    outputs: OutputsConfig
 
-
-class GaussianMixtureExperiment(BaseExperiment[ParsedExperimentConfig]):
+class GaussianMixtureExperiment(BaseExperiment):
     """Encapsulates the GaussianMixture + bert experiment logic."""
 
     def __init__(self, config_path: str | Path) -> None:
         self.config_path = Path(config_path) if isinstance(config_path, str) else config_path
-        self.experiment_config: ParsedExperimentConfig | None = None
+        self.experiment_config: CombinedConfig| None = None
         
 
     def load_config(self) -> None:
@@ -55,40 +40,25 @@ class GaussianMixtureExperiment(BaseExperiment[ParsedExperimentConfig]):
             .add_outputs()
             .build()
         )
-        parsed = config_reader.read(self.config_path)
+        self.experiment_config = config_reader.read(self.config_path)
 
-        if parsed.experiment_name is None:
+        if self.experiment_config.experiment_name is None:
             raise ValueError("Missing required config: experiment_name")
-        if parsed.input is None:
+        if self.experiment_config.input is None:
             raise ValueError("Missing required config: input")
-        if parsed.gaussianMixture is None:
+        if self.experiment_config.gaussianMixture is None:
             raise ValueError("Missing required config: gaussianMixture")
-        if parsed.bert is None:
+        if self.experiment_config.bert is None:
             raise ValueError("Missing required config: bert")
-        if parsed.interpretation_bert is None:
+        if self.experiment_config.interpretation_bert is None:
             raise ValueError("Missing required config: interpretation_bert")
-        if parsed.outputs is None:
+        if self.experiment_config.outputs is None:
             raise ValueError("Missing required config: outputs")
-
-        self.experiment_config = ParsedExperimentConfig(
-            experiment_name=parsed.experiment_name,
-            input=parsed.input,
-            bert=parsed.bert,
-            gaussianMixture=parsed.gaussianMixture,
-            interpretation_bert=parsed.interpretation_bert,
-            outputs=parsed.outputs,
-        )
-
-    def build_pipeline(self) -> ExperimentPipeline:
-        assert self.experiment_config is not None
-        return GaussianMixtureBertPipeline(
-            bert_config=self.experiment_config.bert,
-            gaussianMixture_config=self.experiment_config.gaussianMixture,
-            interpretation_config=self.experiment_config.interpretation_bert,
-        )
 
     def save_results(self, documents: list[Document], result: PipelineResult | MultiRunPipelineResult, elapsed_seconds: float) -> None:
         assert self.experiment_config is not None
+        assert self.experiment_config.outputs is not None
+        assert self.experiment_config.experiment_name is not None
 
         if isinstance(result, MultiRunPipelineResult):
             pipeline_result = result.best_run
@@ -113,8 +83,42 @@ class GaussianMixtureExperiment(BaseExperiment[ParsedExperimentConfig]):
             "cluster_sizes": pipeline_result.clustering.cluster_sizes,
             "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
             "elapsed_seconds": elapsed_seconds,
-            "document_cluster_mapping": pipeline_result.metadata.get("document_cluster_mapping") if isinstance(pipeline_result.metadata, dict) else None,
+            # Build GMM-specific document mapping including probabilities if provided by the clustering result
+            "document_cluster_mapping": None,
         }
+        # If the clustering result provides per-sample probabilities, construct mapping here
+        try:
+            labels_list = pipeline_result.clustering.labels.detach().cpu().tolist()
+        except Exception:
+            labels_list = [int(x) for x in pipeline_result.clustering.labels]
+
+        probs_tensor = getattr(pipeline_result.clustering, "probabilities", None)
+        probs_list = None
+        if probs_tensor is not None:
+            try:
+                probs_list = probs_tensor.detach().cpu().tolist()
+            except Exception:
+                probs_list = list(probs_tensor)
+
+        document_cluster_mapping: list[dict[str, Any]] = []
+        for i, (document, label) in enumerate(zip(documents, labels_list)):
+            entry: dict[str, Any] = {
+                "doi": document.doi,
+                "text": document.text,
+                "cluster": int(label),
+            }
+            if probs_list is not None:
+                entry["probabilities"] = probs_list[i]
+                lbl_idx = int(label)
+                entry["cluster_probability"] = (
+                    float(probs_list[i][lbl_idx]) if 0 <= lbl_idx < len(probs_list[i]) else None
+                )
+            else:
+                entry["probabilities"] = None
+                entry["cluster_probability"] = None
+            document_cluster_mapping.append(entry)
+
+        run_summary["document_cluster_mapping"] = document_cluster_mapping
 
         with run_path.open("w", encoding="utf-8") as fp:
             json.dump(run_summary, fp, indent=2)
