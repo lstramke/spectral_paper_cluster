@@ -13,14 +13,14 @@ Die Konfiguration für das hier dargestellte Ergebnis ist:
 experiment_name: agglomerative_bert_2086
 
 input:
-  documents_path: data/raw/dataset_2086.csv
+  documents_path: data/raw/dataset_2086_withDOI.csv
   format: csv
   text_fields: [title, abstract]
   fuse_mode: join
   separator: ";"
 
 agglomerative:
-  distance_threshold_range: [0.0001, 0.1]
+  distance_threshold_range: [0.000001, 0.001]
   n_trials: 1000
   metric: cosine
   linkage: average
@@ -79,9 +79,9 @@ Die Metriken werden in `best_agglomerative_bert_2086_summary.json` gespeichert. 
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score |  0.569751501083374  |  |
-| Davies–Bouldin Index | 0.7862829404617879 |  |
-| Calinski–Harabasz Index | 988.8531553139046 |  |
+| Silhouette Score |  0.5675085186958313  |  |
+| Davies–Bouldin Index | 0.7875113003138225 |  |
+| Calinski–Harabasz Index | 922.7672424203865 |  |
 
 #### Cluster-Interpretation
 
@@ -89,17 +89,17 @@ Die Wörter wurden mithilfe des [Bert Interpreters](../../../src/interpretation/
 
 | Cluster | Top‑Wörter |
 | --- | --- |
-| 0 | micro - raman spectroscopy, stimulated raman scattering microscopy;significance field, light sheet raman micro - spectroscopy, applications chemical resolution visualization;raman spectroscopy, development microscopy spectroscopy techniques, cell raman spectroscopy, contrast raman spectroscopy, scanning techniques raman, scale raman micro -, micro - spectroscopies |
-| 1 | tissue segmentation liver head neck surgeries machine learning;aim, deep multi - task learning framework brain tumor, learning 3d tumor modeling, tumor identification technologies, approach segmentation classification glioblastoma brain tumors, time classification human brain tumor, developments field -vivo brain tumour detection delineation, cancer segmentation mri;methods, spatio- classification brain cancer detection, tool -vivo identification delineation brain tumours |
-| 2 | fabrication optical characterization gelatin- phantoms tissue, materials photoacoustic, vascular phantoms reflectance, phantoms photoacoustic, applications targets, tissue phantoms medical, effects phantom, phantom approaches, applications, infrared photoplethysmography;objective |
-| 3 | solutions machine vision, methods segmentation, spatial lasso applications unmixing biomedical, representative processing applications, reconstruction algorithms, superresolution method, tool multimodality registration applications, datasets applications, exploration multivariate development segmentation methods, review reconstruction algorithms coded aperture snapshot |
-| 4 | range applications crop plant sciences, characterisation crops plants, application precision agriculture, detection identification methods, hyperspectra used recognize black goji berry nitraria, analysis precision agriculture, remote sensing monitoring crop disease, intelligence methods impurity detection pet recycling nir, identification methods, monitoring characterisation crops plants |
-| 5 | probe;photoacoustic tomography, photoacoustic tomography, photoacoustic tomography opening new paradigms biomedical, optoacoustic probes, optoacoustic tomography, tissue penetrable optoacoustic tomography, optoacoustic tomography functional assessment gastrointestinal, tomography systems, optoacoustic tomography functional vascular research;microcirculatory impairment, photoacoustic fluorescence platform preclinical murine |
-| 6 | profiling melanoma;multiplex immunofluorescence, colorectal cancer;advances multiplex immunohistochemistry, immunofluorescence panels, multiplex immunohistochemistry, immunohistochemistry assay amount, probe cancer biomarkers, immunohistochemistry techniques, multicolor immunohistochemistry methods, immunohistochemistry pathology, immunohistochemistry |
-| 7 | microscope system biomedical applications, bioimaging applications, modalities applications, application instrumentation, technology applications, research development microscopic biological detection;biological detection, technologies system, application technology, applications, camera application |
-| 8 | photonics devices, detector technologies, light field manipulation mechanisms technology metasurfaces, cameras, applications astronomy, sensing applications, sensor applications, sensing platforms, sensor- cameras, applications detection |
-| 9 | skin detection, skin assessment tool abilities, skin assessment, method skin assessment, time monitoring skin features, skin imagers, skin diagnostics;significance, skin processing, skin diagnostics, skin spectrum |
-| … | weitere 28 Cluster (siehe `best_agglomerative_bert_2086_summary.json`) |
+| 0 | optical modalities; techniques applications animal man;optical brain; optical; optical brain vivo; technologies; technology; optical instrumentation engineers; techniques; applications |
+| 1 | solutions machine vision; detection algorithms; detection field; -system scene classification data fusion algorithms;battelle scientists; spatial lasso applications unmixing biomedical; filtering technique model pixel; art super - resolution techniques; technology analysis tasks; reconstruction algorithms |
+| 2 | cameras; camera design; development snapshot imager microlens array; snapshot cameras; optics research; component method array periscopes; snapshot techniques; custom scanning system biomedical applications; bioimaging applications; time enhancement methods snapshot cameras |
+| 3 | multivariate chemometrics analysis; chemometrics analysis; chemometrics analyses; phasor analysis; denoising impact classification techniques; collection thousands absorption signals handful; spectra identification; analysis methods; tool deconvoluting chemical effects; models quantification cell parameters |
+| 4 | micro - raman spectroscopy; stimulated raman scattering microscopy; light sheet raman micro - spectroscopy; applications chemical resolution visualization; development microscopy spectroscopy techniques; cell raman spectroscopy; contrast raman spectroscopy; scanning techniques raman; scale raman micro -; micro - spectroscopies |
+| 5 | systems measurement perfusion oxygenation; technique blood oxygenation research; calibration validation scheme vivo spectroscopic tissue oxygenation; noninvasive assessment retinal vascular oxygen content; technique measurement blood oxygen saturation vivo; msi oximetry vivo applications; vascular oxygen measurements; measurement tissue oxygenation; practice measurement tissue oxygenation; mapping oxygen saturation tissue |
+| 6 | camera application; sensor; cameras; skin spectra; detection; sensors; camera; applications; camera target; evaluation framework sfa cameras |
+| 7 | probe;photoacoustic tomography; absorption vivo;photoacoustic tomography; photoacoustic tomography opening new paradigms biomedical; photoacoustic tomography; biomedical photoacoustics; photoacoustic whole; photoacoustic; diode- photoacoustic computed tomography; wavelength photoacoustic system; potential photoacoustic radiation |
+| 8 | evaluation laparoscopic system;background; laparoscopic system; guidance;intraoperative fluorescence; laparoscopic hsi system; tissue laparoscopic system; perspective surgery; new intraoperative tools; parameter laparoscopic system; photoacoustic irregular hepatectomy navigation; optical- instrument |
+| 9 | tissue segmentation liver head neck surgeries machine learning;aim; machine learning models; learning 3d tumor modeling; augmented reality computational surgical; tissue segmentation surgery; machine learning model; arthroscopic scene segmentation; machine learning; machine learning tools; machine learning algorithms |
+| … | weitere 68 Cluster (siehe `best_agglomerative_bert_2086_summary.json`) |
 
 ### Evaluation
 
