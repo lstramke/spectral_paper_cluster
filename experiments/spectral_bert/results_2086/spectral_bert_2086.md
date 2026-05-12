@@ -85,9 +85,9 @@ Die Metriken werden in `best_spectral_bert_2086_summary.json` gespeichert. Für 
 
 | Metrik | Wert | Einordnung |
 | --- | ---: | --- |
-| Silhouette Score | 0.5634604096412659 |  |
-| Davies–Bouldin Index | 0.7942174123046718 |  |
-| Calinski–Harabasz Index | 1017.0879020479808 | |
+| Silhouette Score | 0.5480008125305176 |  |
+| Davies–Bouldin Index | 0.8051023253876367 |  |
+| Calinski–Harabasz Index | 972.8247780991526 | |
 
 ### Cluster-Interpretation
 
@@ -95,17 +95,17 @@ Die Wörter wurden mithilfe des [Bert Interpreters](../../../src/interpretation/
 
 | Cluster | Top‑Wörter |
 | ---: | --- |
-| 0 | network skin cancer classification;introduction classification skin cancer, skin cancer classification machine learning;objective, aided detection methods engineering detect skin cancer;simple summary, advancements skin cancer identification, skin tumor diagnostics spectroscopy, detection discrimination skin tumors, method skin cancer detection, skin cancer detection, skin cancer diagnostics, skin feature detection technology |
-| 1 | probe;photoacoustic tomography, photoacoustic tomography opening new paradigms biomedical, photoacoustic tomography, biomedical photoacoustics, photoacoustic, photoacoustic whole, diode- photoacoustic computed tomography, handheld photoacoustic probe label, wavelength photoacoustic system;osteoporosis, tomography systems |
-| 2 | theranostic nanomedicines intrinsic fluorescence, delivery probe particles, fluorescent drug delivery system, nanoplatforms, nanoplatform, nanoparticle biodistribution, response- nanoplatforms, cancer;nanoparticles, luminescent nanoparticles, sensitivity tracking nanoparticles |
-| 3 | photonics devices, detector technologies, sensing applications, light field manipulation mechanisms technology metasurfaces, development photonics nanophotonic devices, sensing platforms, applications astronomy, cameras, applications detection, sensor technologies terms |
-| 4 | intraoperative perfusion assessment enhanced reality quantitative optical, perfusion quantification, colon perfusion assessment, time assessment tool tissue oxygenation micro - perfusion, perfusion assessment, technique intraoperative assessment tissue oxygenation, bowel perfusion quantification, liver perfusion assessment, perfusion measurements, perfusion biomarkers |
-| 5 | classification diagnose tumors;deep learning, cancer;deep learning, deep learning liver cancer staging cirrhosis differentiation;liver malignancies, unsupervised spatial attention- generative adversarial network cholangiocarcinoma detection;cholangiocarcinoma, % machine learning method attention module, learning framework classification region interest pattern complex medical, convolutional neural network design brain tumor mri classification, diagnostic approach osteosarcoma bone callus deep learning;distinguishing, deep learning framework photoacoustic specimen, deep learning |
-| 6 | microscope system biomedical applications, custom scanning system biomedical applications, bioimaging applications, modalities applications, technology applications, application instrumentation, optics research, applications, applications targets, application technology |
-| 7 | micro - raman spectroscopy, stimulated raman scattering microscopy;significance field, light sheet raman micro - spectroscopy, applications chemical resolution visualization;raman spectroscopy, development microscopy spectroscopy techniques, cell raman spectroscopy, contrast raman spectroscopy, scanning techniques raman, scale raman micro -, micro - spectroscopies |
-| 8 | fluorescence microscopy biological, fluorescent microscopy, fluorescence microscopy, fluorescence microscopes, fluorescence applications, animal microscopy, spr fluorescence detection techniques, mode microscopic imager sensing biological samples, fluorescence microscope, fluorescence organoscopes |
-| 9 | endoscopic technologies, endoscopic system, endoscopic prototype, endoscopic instruments, progress molecular endoscopy endomicroscopy cancer, endoscopy systems, endoscope bio- applications, endoscope technology, endoscopy system, modality endoscopic system |
-| … | weitere 30 Cluster (siehe `best_spectral_bert_2086_summary.json`) |
+| 0 | range applications crop plant sciences, characterisation crops plants, application precision agriculture, remote sensing monitoring crop disease, crop plant sciences, classification medicinal plant, analysis precision agriculture, hyperspectra used recognize black goji berry nitraria, assessment crop, discrimination vegetation areas |
+| 1 | photonics devices, detector technologies, light field manipulation mechanisms technology metasurfaces, sensing applications, applications astronomy, cameras, development photonics nanophotonic devices, sensing platforms, applications detection, sensor- cameras |
+| 2 | fluorescence microscopy biological, microscope system biomedical applications, spr fluorescence detection techniques, fluorescence applications, fluorescence microscopy, fluorescent microscopy, mode microscopic imager sensing biological samples, animal microscopy, microscopy biomedical, fluorescence microscopes |
+| 3 | skin detection, skin assessment, method skin assessment, skin assessment tool abilities, skin diagnostics;significance, skin diagnostics, time monitoring skin features, skin imagers, analysis skin, analysis skin lesions polarization |
+| 4 | classification diagnose tumors;deep learning, cancer;deep learning, deep learning liver cancer staging cirrhosis differentiation;liver malignancies, unsupervised spatial attention- generative adversarial network cholangiocarcinoma detection;cholangiocarcinoma, learning framework classification region interest pattern complex medical, % machine learning method attention module, diagnostic approach osteosarcoma bone callus deep learning;distinguishing, convolutional neural network design brain tumor mri classification, deep learning framework photoacoustic specimen |
+| 5 | tumor identification technologies, tissue segmentation liver head neck surgeries machine learning;aim, cancer segmentation mri;methods, learning 3d tumor modeling, time classification human brain tumor, hsi analysis machine learning, developments field -vivo brain tumour detection delineation, intraoperative tool -vivo identification delineation brain tumours, spatio- classification brain cancer detection, approach segmentation classification glioblastoma brain tumors |
+| 6 | tomography absorption, fluorescence molecular tomography, view fluorescence molecular tomography nir, tomography;bioluminescence tomography, tomography platform, tomography system, applications microscopy, single pixel bioluminescence tomography compressive sensing;photonics, applications microscopy, coherence tomography |
+| 7 | learning denoising methods, art denoising methods, data;kernel- dimensionality reduction, denoising framework, network denoising, replacement denoising framework, denoising model, denoising approach, tensor data sound approach completing, denoising methods |
+| 8 | applications automated vivo oral cancer diagnosis;deep learning, use technology tongue diagnosis, oral health diagnostics computer vision, sensor tongue diagnosis;purpose, information tongue diagnosis, sensor system tcm tongue diagnosis, tongue tumor detection medical, oral cancer detection, tongue coating grading identification deep learning data;tongue diagnosis, analysis tongue |
+| 9 | modalities applications, technology applications, application instrumentation, bioimaging applications, spectroscopic applications, applications, applications targets, applications;significance, camera application, technology assessment |
+| … | weitere 26 Cluster (siehe `best_spectral_bert_2086_summary.json`) |
 
 ## Evaluation
 Metriken sind sehr gut. semantische Clusterevaluation steht noch aus
