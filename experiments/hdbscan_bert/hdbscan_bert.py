@@ -82,6 +82,7 @@ class HDBSCANExperiment(BaseExperiment):
             "objective": pipeline_result.clustering.objective,
             "cluster_sizes": pipeline_result.clustering.cluster_sizes,
             "interpretation": asdict(pipeline_result.interpretation) if pipeline_result.interpretation is not None else None,
+            "document_cluster_mapping": pipeline_result.metadata.get("document_cluster_mapping") if isinstance(pipeline_result.metadata, dict) else None,
             "elapsed_seconds": elapsed_seconds,
         }
 
