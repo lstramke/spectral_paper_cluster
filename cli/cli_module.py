@@ -7,6 +7,7 @@ import questionary
 from questionary import Style
 import colorama
 import concurrent.futures
+from datetime import datetime
 
 """CLI wrapper and interactive runner for project experiments.
 
@@ -14,6 +15,7 @@ Contains `ClusterCLI` which provides a small TUI built on
 `questionary` to list and run experiments and to inspect output files.
 """
 
+from cli.label_repository import LabelCSVReader
 from cli.cli_outputs import CLIOutputs
 from cli.cli_config_editor import CLIConfigEditor
 
@@ -189,7 +191,7 @@ class ClusterCLI:
                 if not tokens:
                     print(colorama.Style.BRIGHT + colorama.Fore.RED + f"No experiments found in {self.experiments}" + colorama.Style.RESET_ALL, file=sys.stderr)
                     sys.exit(1)
-                main_choices = ["Edit config", "Experiments", "Close"]
+                main_choices = ["Edit config", "Experiments", "Propagate labels", "Close"]
                 action = questionary.select("Select action:", choices=main_choices, use_arrow_keys=True, style=self.style).ask()
                 if not action:
                     print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "No selection, exiting." + colorama.Style.RESET_ALL)
@@ -200,7 +202,12 @@ class ClusterCLI:
                 if action == "Edit config":
                     self.edit_config_menu(tokens)
                     continue
-                self.experiments_menu(tokens)
+                if action == "Propagate labels":
+                    self.propagate_labels_menu()
+                    continue
+                if action == "Experiments":
+                    self.experiments_menu(tokens)
+                    continue
         except KeyboardInterrupt:
             print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "\n⚠ Interrupted, exiting." + colorama.Style.RESET_ALL)
             sys.exit(0)
@@ -231,3 +238,34 @@ class ClusterCLI:
                 msg = f" {t}" if not status else f" {t}: {status}"
                 print(color + symbol + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + msg + colorama.Style.RESET_ALL, flush=True)
         return results
+
+    def propagate_labels_menu(self) -> None:
+        """Load an input label CSV, show a short preview and save a copy to outputs/propagation/<run_name>/"""
+        default_input = Path("data/labels/input/input_labels.csv")
+        inp_path = questionary.text(f"Label CSV path (default: {default_input}):", default=str(default_input), style=self.style).ask()
+        if not inp_path:
+            print(colorama.Fore.YELLOW + "No input provided, abort." + colorama.Style.RESET_ALL)
+            return
+        delimiter = questionary.text("CSV delimiter (default: ';'):", default=";", style=self.style).ask() or ";"
+        run_name = questionary.text("Run name (leave blank → timestamp):", default="", style=self.style).ask() or ""
+        if not run_name:
+            run_name = datetime.now().strftime("%Y%m%dT%H%M%S")
+        out_base = Path("data/labels") / "propagations" / run_name
+        try:
+            reader = LabelCSVReader(inp_path, delimiter=delimiter)
+            reader.load()
+        except FileNotFoundError as e:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED + f"✗ {e}" + colorama.Style.RESET_ALL)
+            return
+        except ValueError as e:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED + f"✗ Header error: {e}" + colorama.Style.RESET_ALL)
+            return
+        rows = len(reader.rows())
+        unique = reader.unique_count()
+        sample = reader.sample_dois(n=5)
+        print()
+        print(colorama.Style.BRIGHT + colorama.Fore.CYAN + f"Loaded {rows} rows, {unique} unique DOIs" + colorama.Style.RESET_ALL)
+        print(colorama.Fore.WHITE + "Sample DOIs: " + ", ".join(sample) + colorama.Style.RESET_ALL)
+        # save a copy of the input CSV for reproducibility
+        saved = reader.save_copy(out_dir=str(out_base), out_name="inputs_labels_used.csv")
+        print(colorama.Style.DIM + f"Input CSV copied to: {saved}" + colorama.Style.RESET_ALL)
