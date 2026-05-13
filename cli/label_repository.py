@@ -1,7 +1,8 @@
 from pathlib import Path
 import csv
-from typing import List, Dict, Optional, Set
-import shutil
+from typing import List, Dict, Optional
+from document import Document, DocumentBatch
+import shutil   
 
 DEFAULT_HEADERS = [
     "title","abstract","doi","application_area","clinical_procedure","multimodal_imaging",
@@ -13,57 +14,35 @@ class LabelCSVReader:
         self.path = Path(path)
         self.delimiter = delimiter
         self.expected_headers = expected_headers or DEFAULT_HEADERS
-        self._rows: List[Dict[str,str]] = []
-        self._loaded = False
 
-    def load(self) -> None:
+    def load(self) -> DocumentBatch:
         if not self.path.exists():
             raise FileNotFoundError(f"Label CSV not found: {self.path}")
-        with self.path.open(encoding="utf-8") as f:
-            reader = csv.DictReader(f, delimiter=self.delimiter)
-            headers = [h.strip() for h in (reader.fieldnames or [])]
-            missing = [h for h in self.expected_headers if h not in headers]
+        with self.path.open(encoding="utf-8") as file_obj:
+            reader = csv.DictReader(file_obj, delimiter=self.delimiter)
+            headers = [header.strip() for header in (reader.fieldnames or [])]
+            missing = [expected for expected in self.expected_headers if expected not in headers]
             if missing:
                 raise ValueError(f"Missing expected headers: {missing}")
-            self._rows = []
-            for r in reader:
+            rows: List[Dict[str, str]] = []
+            for raw_row in reader:
                 # normalize keys: strip whitespace from header names and values
-                norm = {k.strip(): (v.strip() if v is not None else "") for k,v in r.items()}
-                self._rows.append(norm)
-        self._loaded = True
+                normalized = {key.strip(): (value.strip() if value is not None else "") for key, value in raw_row.items()}
+                rows.append(normalized)
 
-    def rows(self) -> List[Dict[str,str]]:
-        if not self._loaded:
-            raise RuntimeError("Call load() before rows()")
-        return self._rows
+        documents: List[Document] = []
+        for row in rows:
+            title = row.get("title", "")
+            abstract = row.get("abstract", "")
+            doi = row.get("doi", "").strip()
+            labels: Dict[str, str] = {}
+            for header in headers:
+                if header in ("title", "abstract", "doi"):
+                    continue
+                labels[header] = row.get(header, "")
+            documents.append(Document(title=title, abstract=abstract, doi=doi, labels=labels))
 
-    def dois(self) -> Set[str]:
-        if not self._loaded:
-            raise RuntimeError("Call load() before dois()")
-        s = set()
-        for r in self._rows:
-            doi = r.get("doi","").strip()
-            if doi:
-                s.add(doi)
-        return s
-
-    def unique_count(self) -> int:
-        return len(self.dois())
-
-    def sample_dois(self, n: int = 5) -> List[str]:
-        s = list(self.dois())
-        return s[:n]
-
-    def lookup_by_doi(self) -> Dict[str, List[Dict[str,str]]]:
-        if not self._loaded:
-            raise RuntimeError("Call load() before lookup_by_doi()")
-        d: Dict[str, List[Dict[str,str]]] = {}
-        for r in self._rows:
-            doi = r.get("doi","").strip()
-            if not doi:
-                continue
-            d.setdefault(doi, []).append(r)
-        return d
+        return DocumentBatch(headers=headers or self.expected_headers, documents=documents)
 
     def save_copy(self, out_dir: str, out_name: Optional[str] = None) -> str:
         """Copy original CSV to out_dir. Returns path of copied file."""
@@ -73,3 +52,24 @@ class LabelCSVReader:
         dst = out_dirp / out_name
         shutil.copy2(self.path, dst)
         return str(dst)
+    
+    def _write_rows(self, out_path: str, rows: List[Dict[str, str]], headers: Optional[List[str]] = None, delimiter: str = ";") -> str:
+        """Write a list of dict rows to a CSV. Returns written file path."""
+        outp = Path(out_path)
+        outp.parent.mkdir(parents=True, exist_ok=True)
+        fieldnames = headers or self.expected_headers
+        with outp.open("w", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=delimiter)
+            writer.writeheader()
+            for r in rows:
+                # ensure all expected keys exist
+                row = {k: (r.get(k, "") if r.get(k, None) is not None else "") for k in fieldnames}
+                writer.writerow(row)
+        return str(outp)
+
+    def save_final_csv(self, out_dir: str, rows: List[Dict[str, str]], out_name: Optional[str] = None, headers: Optional[List[str]] = None, delimiter: str = ";") -> str:
+        """Convenience: write final labels CSV into out_dir and return path."""
+        out_dirp = Path(out_dir)
+        out_dirp.mkdir(parents=True, exist_ok=True)
+        out_name = out_name or "final_labels.csv"
+        return self._write_rows(str(out_dirp / out_name), rows, headers=headers, delimiter=delimiter)
