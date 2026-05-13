@@ -7,7 +7,6 @@ import questionary
 from questionary import Style
 import colorama
 import concurrent.futures
-from datetime import datetime
 
 """CLI wrapper and interactive runner for project experiments.
 
@@ -15,8 +14,7 @@ Contains `ClusterCLI` which provides a small TUI built on
 `questionary` to list and run experiments and to inspect output files.
 """
 
-from cli.label_repository import LabelCSVReader
-from cli.cli_outputs import CLIOutputs
+from cli.cli_experiment_outputs import CLIExperimentOutputs
 from cli.cli_config_editor import CLIConfigEditor
 
 colorama.init()
@@ -26,7 +24,7 @@ class ClusterCLI:
     def __init__(self, root: Path):
         self.root: Path = root
         self.experiments: Path = self.root / "experiments"
-        self.outputs = CLIOutputs(self.experiments)
+        self.outputs = CLIExperimentOutputs(self.experiments)
         self.style = Style([
             ("pointer", "fg:ansigreen bold"),
             ("selected", "fg:ansigreen bold"),

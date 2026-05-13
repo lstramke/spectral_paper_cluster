@@ -16,7 +16,7 @@ from ruamel.yaml import YAML
 import json
 
 
-class CLIOutputs:
+class CLIExperimentOutputs:
     """Helper to list and open experiment output files.
 
     Initialized with the `experiments` root Path.
