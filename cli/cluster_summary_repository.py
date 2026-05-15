@@ -3,10 +3,11 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
-from .model.cluster import Cluster, ExistingLabelEntry
+from .model.cluster import Cluster
 from .model.document import Document
+from .model.summary import ClusterSummaryExportEntry, ClusterSummarySourceJson, SummaryDocumentClusterMappingEntry
 
 
 class ClusterSummaryRepository:
@@ -32,7 +33,7 @@ class ClusterSummaryRepository:
 		"""
 		terms, mapping = self._load_summary(path)
 
-		groups: Dict[str, List[Dict[str, Any]]] = {}
+		groups: Dict[str, List[SummaryDocumentClusterMappingEntry]] = {}
 		for entry in mapping:
 			cluster_id = entry.get("cluster")
 			if cluster_id is None:
@@ -61,7 +62,7 @@ class ClusterSummaryRepository:
 		return clusters
 
 	def save_summary_json(self, clusters: List[Cluster], path: Path | str) -> Path:
-		summary_payload = [self._cluster_to_payload(cluster) for cluster in clusters]
+		summary_payload: List[ClusterSummaryExportEntry] = [self._cluster_to_payload(cluster) for cluster in clusters]
 
 		output_path = Path(path)
 		output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -69,14 +70,14 @@ class ClusterSummaryRepository:
 			json.dump(summary_payload, fh, indent=2, ensure_ascii=False)
 		return output_path
 
-	def _cluster_to_payload(self, cluster: Cluster) -> Dict[str, Any]:
+	def _cluster_to_payload(self, cluster: Cluster) -> ClusterSummaryExportEntry:
 		return {
 			"id": cluster.id,
 			"keywords": list(cluster.keywords),
 			"dois": [document.doi for document in cluster.documents if document.doi],
 		}
 
-	def _load_summary(self, path: Optional[Path | str] = None) -> Tuple[Dict[str, List[str]], List[Dict[str, Any]]]:
+	def _load_summary(self, path: Optional[Path | str] = None) -> Tuple[Dict[str, List[str]], List[SummaryDocumentClusterMappingEntry]]:
 		"""Private helper: read `path` (or the instance `summary_path`) and
 		return `(interpretation_cluster_terms, document_cluster_mapping)`.
 
@@ -87,7 +88,7 @@ class ClusterSummaryRepository:
 		if p is None:
 			raise ValueError("No summary path provided")
 		with p.open("r", encoding="utf-8") as fh:
-			summary = json.load(fh)
+			summary: ClusterSummarySourceJson = json.load(fh)
 
 		interp = summary.get("interpretation", {})
 		cluster_terms = interp.get("cluster_terms", {})

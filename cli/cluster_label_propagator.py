@@ -1,19 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Dict, Iterable, List, Optional, Set
 
 from .model.cluster import Cluster
 from .model.document import Document
-
-
-@dataclass
-class PropagationResult:
-    cluster_id: str | int
-    label_name: str
-    label_values: Set[str]
-    source_doi: str
-    updated_documents: int
+from .model.propagation import PropagationResult
 
 
 class ClusterLabelPropagator:
