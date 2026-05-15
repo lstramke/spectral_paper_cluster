@@ -46,6 +46,23 @@ class CLIExperimentOutputs:
         except Exception:
             return "outputs"
 
+    def summary_path_for(self, token: str) -> Path | None:
+        cfg_path = self.experiments_root / token / f"{token}.yaml"
+        if not cfg_path.exists():
+            return None
+
+        try:
+            with open(cfg_path, encoding="utf-8") as f:
+                data = self.yaml.load(f) or {}
+
+            output_dir = data.get("outputs", {}).get("output_dir") or "outputs"
+            summary_name = (data.get("outputs") or {}).get("summary_name")
+            if not summary_name:
+                return None
+            return self.experiments_root / token / Path(output_dir).name / summary_name
+        except Exception:
+            return None
+
     def outputs_for(self, token: str) -> List[Path]:
         output_dir_name = self._get_output_dir_name(token)
         outdir = self.experiments_root / token / output_dir_name

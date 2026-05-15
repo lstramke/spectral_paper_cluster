@@ -1,7 +1,7 @@
 from pathlib import Path
 import csv
-from typing import List, Dict, Optional
-from document import Document, DocumentBatch
+from typing import List, Dict, Optional, Set
+from cli.model.document import Document, DocumentBatch
 import shutil   
 
 DEFAULT_HEADERS = [
@@ -14,6 +14,17 @@ class LabelCSVReader:
         self.path = Path(path)
         self.delimiter = delimiter
         self.expected_headers = expected_headers or DEFAULT_HEADERS
+
+    def _parse_label_values(self, raw_value: str) -> Set[str]:
+        values: Set[str] = set()
+        for raw_part in raw_value.split(","):
+            part = raw_part.strip()
+            if not part:
+                continue
+            if part.lower() == "not-available":
+                continue
+            values.add(part)
+        return values
 
     def load(self) -> DocumentBatch:
         if not self.path.exists():
@@ -35,11 +46,13 @@ class LabelCSVReader:
             title = row.get("title", "")
             abstract = row.get("abstract", "")
             doi = row.get("doi", "").strip()
-            labels: Dict[str, str] = {}
+            labels: Dict[str, Set[str]] = {}
             for header in headers:
                 if header in ("title", "abstract", "doi"):
                     continue
-                labels[header] = row.get(header, "")
+                label_values = self._parse_label_values(row.get(header, ""))
+                if label_values:
+                    labels[header] = label_values
             documents.append(Document(title=title, abstract=abstract, doi=doi, labels=labels))
 
         return DocumentBatch(headers=headers or self.expected_headers, documents=documents)

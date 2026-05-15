@@ -16,6 +16,7 @@ Contains `ClusterCLI` which provides a small TUI built on
 
 from cli.cli_experiment_outputs import CLIExperimentOutputs
 from cli.cli_config_editor import CLIConfigEditor
+from cli.label_propagation_controller import LabelPropagationController
 
 colorama.init()
 
@@ -238,5 +239,26 @@ class ClusterCLI:
         return results
 
     def propagate_labels_menu(self) -> None:
-        print("Comming Soon")
+        token = questionary.select(
+            "Select experiment for label propagation:",
+            choices=self.list_experiments() + ["Back"],
+            use_arrow_keys=True,
+            style=self.style,
+        ).ask()
+        if not token or token == "Back":
+            return
+
+        summary_path = self.outputs.summary_path_for(token)
+        if summary_path is None:
+            print(colorama.Fore.RED + f"Could not locate summary for {token}" + colorama.Style.RESET_ALL)
+            return
+
+        csv_path = self.root / "data" / "labels" / "input" / "input_labels.csv"
+        if not csv_path.exists():
+            print(colorama.Fore.RED + f"Label CSV not found: {csv_path}" + colorama.Style.RESET_ALL)
+            return
+
+        output_path = self.root / "data" / "labels" / "processed" / f"{token}_propagated_labels.csv"
+        controller = LabelPropagationController(summary_path, csv_path, output_path)
+        controller.run()
       
