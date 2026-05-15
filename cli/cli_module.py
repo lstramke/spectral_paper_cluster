@@ -14,8 +14,9 @@ Contains `ClusterCLI` which provides a small TUI built on
 `questionary` to list and run experiments and to inspect output files.
 """
 
-from cli.cli_outputs import CLIOutputs
+from cli.cli_experiment_outputs import CLIExperimentOutputs
 from cli.cli_config_editor import CLIConfigEditor
+from cli.label_propagation_controller import LabelPropagationController
 
 colorama.init()
 
@@ -24,7 +25,7 @@ class ClusterCLI:
     def __init__(self, root: Path):
         self.root: Path = root
         self.experiments: Path = self.root / "experiments"
-        self.outputs = CLIOutputs(self.experiments)
+        self.outputs = CLIExperimentOutputs(self.experiments)
         self.style = Style([
             ("pointer", "fg:ansigreen bold"),
             ("selected", "fg:ansigreen bold"),
@@ -189,7 +190,7 @@ class ClusterCLI:
                 if not tokens:
                     print(colorama.Style.BRIGHT + colorama.Fore.RED + f"No experiments found in {self.experiments}" + colorama.Style.RESET_ALL, file=sys.stderr)
                     sys.exit(1)
-                main_choices = ["Edit config", "Experiments", "Close"]
+                main_choices = ["Edit config", "Experiments", "Propagate labels", "Close"]
                 action = questionary.select("Select action:", choices=main_choices, use_arrow_keys=True, style=self.style).ask()
                 if not action:
                     print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "No selection, exiting." + colorama.Style.RESET_ALL)
@@ -200,7 +201,12 @@ class ClusterCLI:
                 if action == "Edit config":
                     self.edit_config_menu(tokens)
                     continue
-                self.experiments_menu(tokens)
+                if action == "Propagate labels":
+                    self.propagate_labels_menu()
+                    continue
+                if action == "Experiments":
+                    self.experiments_menu(tokens)
+                    continue
         except KeyboardInterrupt:
             print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "\n⚠ Interrupted, exiting." + colorama.Style.RESET_ALL)
             sys.exit(0)
@@ -231,3 +237,28 @@ class ClusterCLI:
                 msg = f" {t}" if not status else f" {t}: {status}"
                 print(color + symbol + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + msg + colorama.Style.RESET_ALL, flush=True)
         return results
+
+    def propagate_labels_menu(self) -> None:
+        token = questionary.select(
+            "Select experiment for label propagation:",
+            choices=self.list_experiments() + ["Back"],
+            use_arrow_keys=True,
+            style=self.style,
+        ).ask()
+        if not token or token == "Back":
+            return
+
+        summary_path = self.outputs.summary_path_for(token)
+        if summary_path is None:
+            print(colorama.Fore.RED + f"Could not locate summary for {token}" + colorama.Style.RESET_ALL)
+            return
+
+        csv_path = self.root / "data" / "labels" / "input" / "input_labels.csv"
+        if not csv_path.exists():
+            print(colorama.Fore.RED + f"Label CSV not found: {csv_path}" + colorama.Style.RESET_ALL)
+            return
+
+        output_path = self.root / "data" / "labels" / "processed" / f"{token}_propagated_labels.csv"
+        controller = LabelPropagationController(summary_path, csv_path, output_path)
+        controller.run()
+      
