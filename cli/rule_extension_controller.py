@@ -41,8 +41,12 @@ class RuleExtensionController:
 		self.rule_repository = rule_repository
 		self.summary_repository = summary_repository
 		self.rule_regex_service = rule_regex_service
+		self._compiled_rule_cache: dict[str, re.Pattern | None] = {}
+		# staged modifications: category -> RuleCategory (to persist on exit)
+		self._modified_rule_categories: dict[str, RuleCategory] = {}
 
 	def run(self):
+		aborted = False
 		try:
 			clusters = self.summary_repository.load_clusters()
 			categories = self.rule_repository.list_categories()
@@ -60,7 +64,16 @@ class RuleExtensionController:
 			self._browse_clusters(clusters, categories)
 
 		except KeyboardInterrupt:
+			aborted = True
 			self._print_warning("Rule review aborted by Ctrl+C.")
+
+		if not aborted and self._modified_rule_categories:
+			for cat, rc in self._modified_rule_categories.items():
+				try:
+					self.rule_repository.save_rules(cat, rc, timestamp=True)
+					self._print_success(f"Saved changes for {cat}.")
+				except Exception as e:
+					self._print_warning(f"Failed to save {cat}: {e}")
 
 	def _browse_clusters(self, clusters: List[Cluster], categories: list[str]) -> None:
 		for index, cluster in enumerate(clusters, start=1):
@@ -110,7 +123,12 @@ class RuleExtensionController:
 
 	def _review_terms_for_subcategory(self, cluster: Cluster, rule_category: RuleCategory, subcategory: str) -> None:
 		current_rules = rule_category.rules.get(subcategory, [])
-		available_terms = self._available_cluster_terms(cluster, current_rules)
+		# include any staged rules for this category/subcategory so suggestions
+		# don't propose terms already covered by in-memory (staged) additions
+		staged = self._modified_rule_categories.get(rule_category.category)
+		staged_rules = staged.rules.get(subcategory, []) if staged else []
+		combined_rules = current_rules + [r for r in staged_rules if r not in current_rules]
+		available_terms = self._available_cluster_terms(cluster, combined_rules)
 		if not available_terms:
 			self._print_warning("No new cluster terms available for this subcategory.")
 			return
@@ -124,9 +142,6 @@ class RuleExtensionController:
 			).ask()
 			if not choice or choice == "Back":
 				break
-			if choice not in remaining_terms:
-				self._print_warning("Please choose one of the suggested terms.")
-				continue
 
 			regex = self.rule_regex_service.suggest_regex(choice)
 			self._print_success(f"Suggested regex: {regex}")
@@ -137,23 +152,59 @@ class RuleExtensionController:
 			).ask()
 			if confirm:
 				rule_category.add_rule(subcategory, regex)
-				self.rule_repository.save_rules(rule_category.category, rule_category, timestamp=True)
-				self._print_success(f"Added '{choice}' to {rule_category.category} / {subcategory}.")
+				self._modified_rule_categories[rule_category.category] = rule_category
+				# cache the newly added regex
+				try:
+					self._compiled_rule_cache[regex] = re.compile(regex)
+				except re.error:
+					self._print_warning(f"Stored regex is invalid and not cached: {regex}")
+				self._print_success(f"Staged '{choice}' for {rule_category.category} / {subcategory}.")
+				updated_rules = rule_category.rules.get(subcategory, [])
+				remaining_terms = [t for t in remaining_terms if not self._is_term_covered(t, updated_rules) and t != choice]
 			else:
 				self._print_warning("Skipped this term.")
 
 			remaining_terms = [term for term in remaining_terms if term != choice]
 
 	def _available_cluster_terms(self, cluster: Cluster, existing_rules: list[str]) -> list[str]:
-		existing_rule_set = self._expand_existing_rule_terms(existing_rules)
 		available_terms: list[str] = []
 		for keyword in cluster.keywords:
 			for term in self._split_cluster_terms(keyword):
-				if term in existing_rule_set:
+				if self._is_term_covered(term, existing_rules):
 					continue
 				if term not in available_terms:
 					available_terms.append(term)
 		return available_terms
+
+	def _is_term_covered(self, term: str, existing_rules: list[str]) -> bool:
+		"""Return True if any regex in `existing_rules` matches `term`.
+
+		For readability: for each pattern, ensure a compiled object exists in
+		the cache (compile & cache it if missing). Invalid stored patterns
+		are warned about and skipped. Then run a single match attempt.
+		"""
+		for pattern in existing_rules:
+			if pattern not in self._compiled_rule_cache:
+				try:
+					compiled = re.compile(pattern)
+				except re.error:
+					self._print_warning(f"Invalid stored regex ignored: {pattern}")
+					continue
+				self._compiled_rule_cache[pattern] = compiled
+			else:
+				compiled = self._compiled_rule_cache[pattern]
+
+			if not compiled:
+				continue
+
+			try:
+				if compiled.search(term):
+					return True
+			except re.error:
+				self._print_warning(f"Error running regex: {pattern}")
+				continue
+
+		return False
 
 	def _split_cluster_terms(self, keyword: str) -> list[str]:
 		parts = [part.strip() for part in re.split(r"[,;]+", keyword) if part and part.strip()]
