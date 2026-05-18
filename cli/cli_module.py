@@ -62,7 +62,12 @@ class ClusterCLI:
             os.system("cls" if os.name == "nt" else "clear")
         except Exception:
             pass
-        return questionary.select("Select experiment:", choices=tokens, use_arrow_keys=True, style=self.style).ask()
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        return questionary.autocomplete(
+            "Select experiment:",
+            choices=tokens,
+            style=self.style,
+        ).ask()
 
     def run_experiment(self, token: str, show_header: bool = True) -> int:
         folder = self.experiments / token
@@ -148,9 +153,15 @@ class ClusterCLI:
             print(colorama.Fore.GREEN + k_disp + colorama.Style.RESET_ALL + sep + colorama.Style.BRIGHT + colorama.Fore.WHITE + v_disp + colorama.Style.RESET_ALL)
         print()
         
+        
     def edit_config_menu(self, tokens: List[str]) -> None:
         """Show the edit-config submenu and open the config editor."""
-        pick = questionary.select("Select experiment to edit config:", choices=tokens + ["Back"], use_arrow_keys=True, style=self.style).ask()
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        pick = questionary.autocomplete(
+            "Select experiment to edit config:",
+            choices=tokens + ["Back"],
+            style=self.style,
+        ).ask()
         if not pick or pick == "Back":
             return
         cfg = self.experiments / pick / f"{pick}.yaml"
@@ -258,10 +269,10 @@ class ClusterCLI:
         return results
 
     def propagate_labels_menu(self) -> None:
-        token = questionary.select(
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        token = questionary.autocomplete(
             "Select experiment for label propagation:",
             choices=self.list_experiments() + ["Back"],
-            use_arrow_keys=True,
             style=self.style,
         ).ask()
         if not token or token == "Back":
@@ -281,10 +292,10 @@ class ClusterCLI:
         self.label_propagation_controller.run(output_path)
 
     def review_rules_menu(self) -> None:
-        token = questionary.select(
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        token = questionary.autocomplete(
             "Select experiment for rule review:",
             choices=self.list_experiments() + ["Back"],
-            use_arrow_keys=True,
             style=self.style,
         ).ask()
         if not token or token == "Back":
@@ -298,3 +309,5 @@ class ClusterCLI:
         self.summary_repository.set_summary_path(summary_path)
         self.rule_extension_controller.run()
       
+    def _print_instruction(self, text: str) -> None:
+        print(colorama.Style.DIM + colorama.Fore.WHITE + text + colorama.Style.RESET_ALL)
