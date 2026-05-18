@@ -16,7 +16,12 @@ Contains `ClusterCLI` which provides a small TUI built on
 
 from cli.cli_experiment_outputs import CLIExperimentOutputs
 from cli.cli_config_editor import CLIConfigEditor
+from cli.cluster_summary_repository import ClusterSummaryRepository
 from cli.label_propagation_controller import LabelPropagationController
+from cli.rule_extension_controller import RuleExtensionController
+from cli.rule_regex_service import RuleRegexService
+from cli.rule_repository import RuleRepository
+from cli.label_repository import LabelCSVReader
 
 colorama.init()
 
@@ -25,7 +30,18 @@ class ClusterCLI:
     def __init__(self, root: Path):
         self.root: Path = root
         self.experiments: Path = self.root / "experiments"
+        self.rules_root: Path = self.root / "data" / "rules"
+        self.summary_repository = ClusterSummaryRepository()
+        self.label_csv_reader = LabelCSVReader(str(self.root / "data" / "labels" / "input" / "input_labels.csv"))
         self.outputs = CLIExperimentOutputs(self.experiments)
+        self.rule_repository = RuleRepository(self.rules_root)
+        self.rule_regex_service = RuleRegexService()
+        self.label_propagation_controller = LabelPropagationController(self.summary_repository, self.label_csv_reader)
+        self.rule_extension_controller = RuleExtensionController(
+            self.rule_repository,
+            self.summary_repository,
+            self.rule_regex_service,
+        )
         self.style = Style([
             ("pointer", "fg:ansigreen bold"),
             ("selected", "fg:ansigreen bold"),
@@ -46,7 +62,12 @@ class ClusterCLI:
             os.system("cls" if os.name == "nt" else "clear")
         except Exception:
             pass
-        return questionary.select("Select experiment:", choices=tokens, use_arrow_keys=True, style=self.style).ask()
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        return questionary.autocomplete(
+            "Select experiment:",
+            choices=tokens,
+            style=self.style,
+        ).ask()
 
     def run_experiment(self, token: str, show_header: bool = True) -> int:
         folder = self.experiments / token
@@ -132,9 +153,15 @@ class ClusterCLI:
             print(colorama.Fore.GREEN + k_disp + colorama.Style.RESET_ALL + sep + colorama.Style.BRIGHT + colorama.Fore.WHITE + v_disp + colorama.Style.RESET_ALL)
         print()
         
+        
     def edit_config_menu(self, tokens: List[str]) -> None:
         """Show the edit-config submenu and open the config editor."""
-        pick = questionary.select("Select experiment to edit config:", choices=tokens + ["Back"], use_arrow_keys=True, style=self.style).ask()
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        pick = questionary.autocomplete(
+            "Select experiment to edit config:",
+            choices=tokens + ["Back"],
+            style=self.style,
+        ).ask()
         if not pick or pick == "Back":
             return
         cfg = self.experiments / pick / f"{pick}.yaml"
@@ -190,7 +217,7 @@ class ClusterCLI:
                 if not tokens:
                     print(colorama.Style.BRIGHT + colorama.Fore.RED + f"No experiments found in {self.experiments}" + colorama.Style.RESET_ALL, file=sys.stderr)
                     sys.exit(1)
-                main_choices = ["Edit config", "Experiments", "Propagate labels", "Close"]
+                main_choices = ["Edit config", "Experiments", "Propagate labels", "Review rules", "Close"]
                 action = questionary.select("Select action:", choices=main_choices, use_arrow_keys=True, style=self.style).ask()
                 if not action:
                     print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "No selection, exiting." + colorama.Style.RESET_ALL)
@@ -203,6 +230,9 @@ class ClusterCLI:
                     continue
                 if action == "Propagate labels":
                     self.propagate_labels_menu()
+                    continue
+                if action == "Review rules":
+                    self.review_rules_menu()
                     continue
                 if action == "Experiments":
                     self.experiments_menu(tokens)
@@ -239,10 +269,10 @@ class ClusterCLI:
         return results
 
     def propagate_labels_menu(self) -> None:
-        token = questionary.select(
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        token = questionary.autocomplete(
             "Select experiment for label propagation:",
             choices=self.list_experiments() + ["Back"],
-            use_arrow_keys=True,
             style=self.style,
         ).ask()
         if not token or token == "Back":
@@ -253,12 +283,31 @@ class ClusterCLI:
             print(colorama.Fore.RED + f"Could not locate summary for {token}" + colorama.Style.RESET_ALL)
             return
 
-        csv_path = self.root / "data" / "labels" / "input" / "input_labels.csv"
-        if not csv_path.exists():
-            print(colorama.Fore.RED + f"Label CSV not found: {csv_path}" + colorama.Style.RESET_ALL)
+        if not self.label_csv_reader.path.exists():
+            print(colorama.Fore.RED + f"Label CSV not found: {self.label_csv_reader.path}" + colorama.Style.RESET_ALL)
             return
 
+        self.summary_repository.set_summary_path(summary_path)
         output_path = self.root / "data" / "labels" / "processed" / f"{token}_propagated_labels.csv"
-        controller = LabelPropagationController(summary_path, csv_path, output_path)
-        controller.run()
+        self.label_propagation_controller.run(output_path)
+
+    def review_rules_menu(self) -> None:
+        self._print_instruction("Example: type part of the experiment name to filter, e.g. kmeans_bert")
+        token = questionary.autocomplete(
+            "Select experiment for rule review:",
+            choices=self.list_experiments() + ["Back"],
+            style=self.style,
+        ).ask()
+        if not token or token == "Back":
+            return
+
+        summary_path = self.outputs.summary_path_for(token)
+        if summary_path is None:
+            print(colorama.Fore.RED + f"Could not locate summary for {token}" + colorama.Style.RESET_ALL)
+            return
+
+        self.summary_repository.set_summary_path(summary_path)
+        self.rule_extension_controller.run()
       
+    def _print_instruction(self, text: str) -> None:
+        print(colorama.Style.DIM + colorama.Fore.WHITE + text + colorama.Style.RESET_ALL)

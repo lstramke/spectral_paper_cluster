@@ -38,15 +38,14 @@ class PropagationAborted(RuntimeError):
 class LabelPropagationController:
     def __init__(
         self,
-        summary_path: Path | str,
-        label_csv_path: Path | str,
-        output_path: Path | str,
+        summary_repository: ClusterSummaryRepository,
+        label_csv_reader: LabelCSVReader,
     ) -> None:
-        self.summary_repository = ClusterSummaryRepository(summary_path)
-        self.label_csv_reader = LabelCSVReader(str(label_csv_path))
-        self.output_path = Path(output_path)
+        self.summary_repository = summary_repository
+        self.label_csv_reader = label_csv_reader
 
-    def run(self) -> Path:
+    def run(self, output_path: Path | str) -> Path:
+        self.output_path = Path(output_path)
         try:
             clusters = self.summary_repository.load_clusters()
             summary_snapshot_path = self.output_path.parent / f"{self.output_path.stem}_cluster_summary.json"

@@ -1,0 +1,31 @@
+{
+  "UV": {
+    "patterns": [
+      "\\(?\\bUV\\b\\)?",
+      "ultra(-)?violet"
+    ],
+    "numeric_range": [10, 379]
+  },
+  "VIS": {
+    "patterns": [
+      "\\(?\\bVIS\\b\\)?",
+      "\\bvisible(?:[\\s-]+\\w+){0,5}?\\s+(spectrum\\b|light\\b|spectral\\s+range\\b|range\\b)"
+    ],
+    "numeric_range": [380, 750]
+  },
+  "NIR": {
+    "patterns": [
+      "(?i)(?<![-\\w])\\(?NIR\\)?(?![\\s\\w-]*perfusion\\s+index)",
+      "\\bnear[-\\s]?infrared(?:\\s+\\w+){0,5}?\\s+(spectrum|light|spectral range)\\b", 
+      "\\bnear[-\\s]?infrared\\b(?![-\\w\\s]*perfusion index)"
+    ],
+    "numeric_range": [751, 1700]
+  },
+  "SWIR": {
+    "patterns": [
+      "\\(?\\bSWIR\\b\\)?",
+      "\\bshortwave infrared\\b"
+    ],
+    "numeric_range": [1701, 2500]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "snapshot imaging": ["snapshot (hyperspectral)? imaging", "snapshot"],
+  "spatial scanning": ["spatial scanning", "pushbrooms?"],
+  "spectral scanning": ["spectral scanning", "switchable (LED|light-emitting diode|ligth emmitting diode)s?", "(LED|light-emitting diode|ligth emmitting diode)s? (were|was|is|has been|has|had been) (used|applied|utilized|employed|implemented)", "(use|usage) (of|with|via|through)? (an?|the)?( [a-zA-Z0-9\\-]+){0,5}? (LED|light[- ]?emitting diode)( (light|source|illumination))?", "images?(?:\\s+[a-zA-Z0-9\\-\\(\\)]+){0,8}\\s+wavelengths?", "sequentially\\s+exposed\\s+to\\s+\\d+\\s+(lighting|illumination|spectral)?\\s*conditions?", "(exposed|illuminated|captured)(?:\\s+under|\\s+with)?(?:\\s+[\\w\\-]+){0,5}\\s+(lighting|illumination|spectral)\\s+conditions?", "images?(?:\\s+under|\\s+at)?(?:\\s+[\\w\\-]+){0,5}\\s+(lighting|illumination|spectral)\\s+conditions?", "liquid\\s*crystal\\s*(tunable|tuneable)?\\s*filters?( |-)?based?", "filters?(?:\\s+[\\w\\-]+){0,5}\\s+camera", "\\bAOTF\\b", "acousto-optical (tunable|tuneable) filters?", "AOT-Filters?", "(polychromatic|multi[-\\s]?LEDs?|multiLEDs?|multiple[-\\s]?LEDs?) light\\s*source"],
+  "other": ["lightfield"]
+}

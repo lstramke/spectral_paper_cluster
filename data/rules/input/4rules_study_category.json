@@ -1,0 +1,8 @@
+{
+  "animal": ["animal (model)?", "\\bmurine\\b", "\\brat\\b", "\\bmice\\b", "\\bmouses?\\b", "\\bporcines?\\b", "\\bswines?\\b", "\\bchickens?\\b", "\\brabbits?\\b", "\\bsheeps?\\b", "\\bpigs?\\b"],
+  "human": ["\\bhumans?\\b", "\\b(clinical|case) study\\b", "\\bpatients?\\b", "\\bvolunteers?\\b", "in-human"],
+  "simulation": ["\\bsimulation\\b", "\\bsimulated\\b", "in[- ]silico", "based on (the )?(two[- ]flux )?kubelka[- ]munk model", "based on (an|a|the)? (analytical|mathematical|physical|theoretical) model"],
+  "technical evaluation": ["phantom study", "technical validation", "reference objects?", "\\bsignal[- ]to[- ]noise\\b", "\\bSNRs?\\b", "\\bS(\\/|\\\\)N\\b", "we present the development", "compare it to an established HSI system", "mean absolute error", "\\bMAE\\b", "root mean squared error", "\\bRMSE\\b", "validation of the set-up in a controlled experiment", "(comparison|evaluation|assessment) of (spatial|spectral|temporal) resolution", "(measured|analyzed|evaluated|quantified) (spatial|spectral|temporal) resolution", "(spatial|spectral|temporal) resolution of \\d+(\\.\\d+)?\\s?(µm|nm|ms|mm)", "(improved|enhanced|superior) (spatial|spectral|temporal) resolution", "(color|colour) fidelity", "technical validation", "image quality", "compared to conventional techniques?", "light source calibrations?", "spectral calibration measurements?", "field[- ]of[- ]view", "\\bFOV\\b"],
+  "tissue phantom": ["tissue phantoms?", "\\bphantoms?\\b"],
+  "other": ["correction (algorithm|method)", "artifact (removal|correction|compensation)", "image (artifact|artefact) correction",  "comb artifact"]
+}
