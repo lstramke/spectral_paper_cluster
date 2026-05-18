@@ -36,3 +36,15 @@ Diese Änderungen kannst du direkt an der Datei vornehmen oder über die cluster
 ## Automatische Auswertungsdateien
 
 Für jeden erfolgreichen Experimentdurchlauf werden ein png Plot, ein interaktiver html Plot und json Dateien für die Run Ergebnisse erzeugt. Das zusammenfassende Markdown Dokument wird nicht automatisch erzeugt.
+
+## Interaktive Werkzeuge
+
+-- **Propagate labels:** Aufruf über das interaktive CLI (`python cluster_cli.py`) → Menüpunkt `Propagate labels`. Du wählst ein Experiment und bestätigst Eingabedateien sowie Optionen interaktiv. Das Ergebnis wird in `data/labels/processed/<experiment>_propagated_labels.csv` abgelegt.
+
+-- **Review rules / Regelerweiterung:** Aufruf über das interaktive CLI (`python cluster_cli.py`) → Menüpunkt `Review rules`. Das Tool zeigt Regelvorschläge an, die Du interaktiv prüfen und annehmen oder verwerfen kannst. Neu erzeugte oder geänderte Regeln werden ggf. unter `data/rules/processed/` gespeichert.
+
+## Weiterverwendung der erzeugten Dateien
+
+- **Regeldateien (`data/rules/processed/`)**: Die neuen oder erweiterten Regeldateien können als neue Basisi für den Regelklassifizierer verwendet werden. So lassen sich Regeln versioniert testen oder selektiv in Auswertungs-/Produktionsläufe einbinden.
+
+- **Propagierte Labels (`data/labels/processed/<experiment>_propagated_labels.csv`)**: Die erzeugten Label-CSV-Dateien eignen sich als Trainings- oder Fine-Tuning-Datensatz für überwachte ML-Modelle (z. B. Textklassifikatoren) oder als zusätzliches Label-Set in semi-supervised Ansätzen. Sie können auch zur Evaluierung oder für Active-Learning-Workflows verwendet werden. Beachte: Die Qualität der propagierten Labels ist nicht gleichzusetzen mit vollständig manueller Labelung; überprüfe und ggf. korrigiere die Labels, bevor Du sie für Trainingszwecke verwendest.
