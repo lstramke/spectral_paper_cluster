@@ -1,0 +1,30 @@
+{
+  "cerebral": [
+    "\\bbrains?\\b", "cerebral", "cortex", "\\bneurosurg[a-z]*\\b", "EEG", "neuroimaging"
+  ],
+  "dermatological": [
+    "skins?", "dermal", "cutaneous", "epidermis", "\\bmelanom[a-z]*\\b"
+  ],
+  "gastrointestinal": [
+    "esophagus", "\\besophagogastr[a-z]*\\b", "\\bgastr[a-z]*\\b", "\\bgastric\\b", "stomach", "small bowel", "intestine", "gut", "\\bbowel\\b",
+    "jejunum", "ileum", "duodenum", "pancreas", "liver", "\\bhepat[a-z]*\\b", "gallbladder",
+    "\\bcholecyst[a-z]*\\b", "cystic duct", "bile duct", "\\bbiliar[a-z]*\\b", "large bowel", "\\bcolon\\b", "rectum", "rectal",
+    "\\bcolorect[a-z]*\\b", "sigmoid", "sigma", "ceacum", "cecum", "anus", "peritoneum", "visceral", "abdomen"
+  ],
+  "cardiothoracic": [
+    "\\bhearts?\\b", "\\bcardiac\\b", "\\bpericard[a-z]*\\b", "\\blungs?\\b", "\\bpleur[a-z]*\\b", "\\baort[a-z]*\\b",
+    "pulmonary( veins)?", "pulmonary arteries", "vena cava", "great vessels", "mediastinum", "thymus",
+    "diaphragm", "myocardial", "ventricle", "\\bECG\\b", "bronchial"
+  ],
+  "ENT": [
+    "\\botorhinolaryn[a-z]*\\b", "\\bORL\\b", "\\bhead\\b", "\\bneck\\b", "oral cavity", "\\boral\\b", "nasal cavity", "salivary gland",
+    "\\blaryn[a-z]*\\b", "\\bpharyn[a-z]*\\b", "sinus", "palate", "trachea", "thyroid"
+  ],
+  "urogenital": [
+    "kidney", "\\bnephr[a-z]*\\b", "ureter", "\\bbladder\\b", "urethra", "prostate", "testicle", "penis",
+    "spermatic duct", "ovary", "uterus", "oviduct", "vagina", "vulva", "\\bcervi[a-z]*\\b", "renal"
+  ],
+  "other": [
+    "\\blips?\\b", "\\bmouth\\b", "(extremities|extremity)", "eyes?", "fundus", "dental", "tongue", "gingival"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "endoscopic / laparoscopic": ["\\blaparoscopic\\b", "\\blaparoscopes?\\b", "\\bendoscopic\\b", "\\bendoscopes?\\b", "\\bendoscopy\\b", "(colonoscopy|colonoscopic|colonoscope|gastroscopy|gastroscopic|gastroscope)", "micro[-\\s]?laryngoscop(y|ic)"],
+  "microscopic": ["\\bmicroscopic\\b", "(performed|used|applied|conducted|employed)\\s+microscopy", "\\bmicroscopes?\\b", "\\b(h[&and]+e|hematoxylin\\s*(and)?\\s*eosin|eosin\\s*[-]?\\s*hematoxylin)\\b", "fundus camera"],
+  "open": ["\\bopen\\b(?!\\s+access)"],
+  "robotic": ["\\brobotic\\b"],
+  "other": []
+}

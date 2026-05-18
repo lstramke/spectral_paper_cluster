@@ -1,0 +1,4 @@
+{
+  "yes": ["dual-modality", "dual modality", "multimodal imaging", "multimodality", "multi-modality", "multimodal", "(combine|combined|combining|integration of) (different|various|multiple) imaging (modalities|techniques)", "image fusion", "combination of (optical coherence tomography|OCT|computed tomography|CT|magnetic resonance imaging|MRI|hyperspectral imaging|HSI|positron emission tomography|PET|ultrasound)[^\\.]{0,50}(and|&)[^\\.]{0,50}(optical coherence tomography|OCT|computed tomography|CT|magnetic resonance imaging|MRI|hyperspectral imaging|HSI|positron emission tomography|PET|ultrasound)", "hybrid (imaging|system)", "multimodal (approach|imaging|technique)"],
+  "no": [] 
+}
