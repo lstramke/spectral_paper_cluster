@@ -17,8 +17,11 @@ class ClusterSummaryRepository:
 	initialization.
 	"""
 
-	def __init__(self, summary_path: Path | str):
-		self.summary_path: Path = Path(summary_path)
+	def __init__(self, summary_path: Path | str | None = None):
+		self.summary_path: Path | None = Path(summary_path) if summary_path is not None else None
+
+	def set_summary_path(self, summary_path: Path | str) -> None:
+		self.summary_path = Path(summary_path)
 
 	def _cluster_sort_key(self, cluster_id: str) -> int:
 		return int(cluster_id)
