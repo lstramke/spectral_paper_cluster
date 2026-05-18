@@ -62,6 +62,12 @@ Ergebnisse werden im jeweiligen `experiments/<name>/results_*/`-Ordner gespeiche
 
 **Weitere Hinweise für die Benutzung finden sich in [`USAGE_NOTES.md`](USAGE_NOTES.md)**
 
+## Interaktive Features
+
+-- **Propagate labels:** Über die Option `Propagate labels` im interaktiven CLI (`python cluster_cli.py`) kannst Du ein Experiment wählen und vorhandene Labels auf weitere Dokumente propagieren. Der Prozess ist interaktiv — Du triffst die Entscheidungen während des Ablaufs. Ergebnisdateien werden in `data/labels/processed/` abgelegt (z. B. `<experiment>_propagated_labels.csv`).
+
+-- **Review rules / Regelerweiterung:** Über die Option `Review rules` im CLI kannst Du vorgeschlagene Regelergänzungen interaktiv prüfen und übernehmen. Der Ablauf ist interaktiv und erfordert Entscheidungen von Dir; neu erzeugte oder aktualisierte Regeln werden ggf. im Ordner `data/rules/processed/` gespeichert.
+
 ## Hinweise
 
 - Die Methodische Dokumentation befindet sich in [`DOCUMENTATION.md`](DOCUMENTATION.md).
