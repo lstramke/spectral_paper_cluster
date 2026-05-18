@@ -15,6 +15,7 @@ class RuleRepository:
 
     def __init__(self, rules_root: str | Path) -> None:
         self.rules_root = Path(rules_root)
+        # Read from `input/`, write snapshots to `processed/`.
         self.base_dir = self.rules_root / "input"
         self.processed_dir = self.rules_root / "processed"
 
@@ -53,22 +54,26 @@ class RuleRepository:
         return RuleCategory.from_dict(category, normalized_rules)
 
     def save_rules(self, category: str, data: RuleCategory, timestamp: bool = True) -> Path:
-        self.base_dir.mkdir(parents=True, exist_ok=True)
+        """Save a snapshot of `data` into the `processed/` directory.
+
+        The method writes only into `processed/` and does not modify files in
+        `input/`. A timestamp suffix is added when `timestamp=True`.
+        """
         self.processed_dir.mkdir(parents=True, exist_ok=True)
 
-        rule_file = self.base_dir / self._build_filename(category, timestamp=timestamp)
+        index = self._index_for_category(category)
+        base_name = f"{index}rules_{self._normalize_category_name(category)}"
+        if timestamp:
+            time_suffix = datetime.now().strftime("_%Y%m%d_%H%M%S")
+            filename = f"{base_name}{time_suffix}.json"
+        else:
+            filename = f"{base_name}.json"
+
+        rule_file = self.processed_dir / filename
 
         payload = data.to_dict()
         with rule_file.open("w", encoding="utf-8") as handle:
             json.dump(payload, handle, ensure_ascii=False, indent=2)
-
-        if timestamp:
-            processed_file = self.processed_dir / self._build_processed_filename(
-                rule_file.stem,
-                datetime.now().strftime("%Y%m%d_%H%M%S"),
-            )
-            with processed_file.open("w", encoding="utf-8") as handle:
-                json.dump(payload, handle, ensure_ascii=False, indent=2)
 
         return rule_file
 
@@ -106,17 +111,29 @@ class RuleRepository:
         matches.sort(key=lambda item: item[0])
         return matches[0][1]
 
-    def _build_filename(self, category: str, timestamp: bool = False) -> str:
-        base_name = f"{self._next_category_index()}rules_{self._normalize_category_name(category)}"
-        if timestamp:
-            return f"{base_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        return f"{base_name}.json"
+    def _index_for_category(self, category: str) -> int:
+        """Return the existing numeric index for a category if present in
+        `input/` or `processed/`; otherwise return the next available index.
+        """
+        normalized = self._normalize_category_name(category)
+        indices: list[int] = []
+        folder = self.base_dir
+        if folder.exists():
+            for rule_file in folder.glob("*.json"):
+                match = self._RULE_FILE_PATTERN.match(rule_file.name)
+                if not match:
+                    continue
+                name = match.group(2)
+                if self._normalize_category_name(name) == normalized:
+                    try:
+                        indices.append(int(match.group(1)))
+                    except Exception:
+                        continue
 
-    def _build_processed_filename(self, stem: str, timestamp: str) -> str:
-        safe_timestamp = re.sub(r"[^0-9A-Za-z_-]+", "_", timestamp.strip())
-        if not safe_timestamp:
-            safe_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        return f"{stem}_{safe_timestamp}.json"
+        if indices:
+            return min(indices)
+
+        return self._next_category_index()
 
     def _next_category_index(self) -> int:
         max_index = 0

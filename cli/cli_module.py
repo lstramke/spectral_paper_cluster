@@ -19,6 +19,7 @@ from cli.cli_config_editor import CLIConfigEditor
 from cli.cluster_summary_repository import ClusterSummaryRepository
 from cli.label_propagation_controller import LabelPropagationController
 from cli.rule_extension_controller import RuleExtensionController
+from cli.rule_regex_service import RuleRegexService
 from cli.rule_repository import RuleRepository
 from cli.label_repository import LabelCSVReader
 
@@ -34,8 +35,13 @@ class ClusterCLI:
         self.label_csv_reader = LabelCSVReader(str(self.root / "data" / "labels" / "input" / "input_labels.csv"))
         self.outputs = CLIExperimentOutputs(self.experiments)
         self.rule_repository = RuleRepository(self.rules_root)
+        self.rule_regex_service = RuleRegexService()
         self.label_propagation_controller = LabelPropagationController(self.summary_repository, self.label_csv_reader)
-        self.rule_extension_controller = RuleExtensionController(self.rule_repository, self.summary_repository)
+        self.rule_extension_controller = RuleExtensionController(
+            self.rule_repository,
+            self.summary_repository,
+            self.rule_regex_service,
+        )
         self.style = Style([
             ("pointer", "fg:ansigreen bold"),
             ("selected", "fg:ansigreen bold"),
